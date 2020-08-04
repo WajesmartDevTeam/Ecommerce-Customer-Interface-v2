@@ -12,7 +12,11 @@
       </div>
       <div class="content">
         <div class="container">
-          <div class="store">
+          <div
+            class="store"
+            v-for="(row, index) in stores"
+            v-bind:key="index"
+          >
             <div class="row">
               <div class="col-md-4 pl-lg-4 pl-md-3">
                 <div class="storename d-flex">
@@ -22,7 +26,7 @@
                     style="height:25px;"
                   >
                   <div class="ml-3">
-                    <span>Marketsquare Adageorge</span>
+                    <span>{{row.name}}</span>
                   </div>
                 </div>
                 <div class="store-address mt-3 d-flex">
@@ -30,19 +34,25 @@
                     location_on
                   </span>
                   <div class="ml-4">
-                    <span># 9 Ada George,Port Harcourt, Rivers.</span>
+                    <span>{{row.address}},{{row.city}}, {{row.state}}.</span>
                   </div>
                 </div>
                 <div class="mode mt-2">
                   <span class="badge">In-store</span>
-                  <span class="badge ml-2">Pickup</span>
-                  <span class="badge ml-2">Delivery</span>
+                  <span
+                    v-if="row.store_options.pickup ==1"
+                    class="badge ml-2"
+                  >Pickup</span>
+                  <span
+                    v-if="row.store_options.delivery ==1"
+                    class="badge ml-2"
+                  >Delivery</span>
                 </div>
                 <button class="btn text-white">Shop Here <i class="fa fa-long-arrow-right ml-2"></i></button>
               </div>
               <div class="col-md-8">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63610.55858801709!2d6.976910470652012!3d4.828328430478684!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cc5d0e61e05d%3A0x7cc06c2ec622c7dd!2sMarket%20Square!5e0!3m2!1sen!2sng!4v1594123492185!5m2!1sen!2sng"
+                  :src="row.iframe_src"
                   width="100%"
                   height="100%"
                   frameborder="0"
@@ -72,13 +82,30 @@ export default {
   data () {
     return {
       showSearch: false,
+      stores: []
     }
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', false)
   },
   mounted () {
-    // console.log(this.$store.getters.showSearch)
+    this.getAllStores()
+  },
+  methods: {
+    getAllStores () {
+      let req = {
+        what: "allstores"
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+          console.log(response.data)
+          this.stores = response.data.stores
+        })
+        .catch(error => {
+
+          console.log(error)
+        });
+    },
   }
 }
 

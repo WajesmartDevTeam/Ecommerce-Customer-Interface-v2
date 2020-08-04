@@ -7,25 +7,52 @@ export default new Vuex.Store({
     state: {
         storeSet: true,
         showSearch: false,
-        store: {}
+        store: {},
+        mode: "",
+        delivery_area: "",
     },
     mutations: {
-        selectedStore(state, data) {
-            this.state.store = data
-        },
+
         updateShowSearch(state, status) {
             this.state.showSearch = status
-        }
+        },
+        updateStoreStatus(state, status) {
+            this.state.storeSet = status
+        },
+        updateArea(state, area) {
+            state.delivery_area = area
+        },
+        updateStore(state, store) {
+            state.store = store
+        },
+        updateMode(state, mode) {
+            state.mode = mode
+        },
     },
     actions: {
         ToggleShowSearch({ commit }, status) {
             commit("updateShowSearch", status);
         },
+        setStoreStatus({ commit }, status) {
+            commit("updateStoreStatus", status);
+        },
+        area({ commit }, area) {
+            commit("updateArea", area);
+        },
+        setStore({ commit }, store) {
+            commit("updateStore", store)
+        },
+        setMode({ commit }, data) {
+            commit("updateMode", data)
+        },
     },
     modules: {},
     getters: {
         isStoreSet: state => state.storeSet,
-        showSearch: state => state.showSearch
+        showSearch: state => state.showSearch,
+        area: state => state.delivery_area,
+        store: state => state.store,
+        mode: state => state.mode,
     },
 
 })

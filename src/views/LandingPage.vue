@@ -6,7 +6,11 @@
           <div class="banner-text">
             <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
             <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
-            <button class="start-button">Get Started
+            <button
+              data-toggle="modal"
+              data-target="#store"
+              class="start-button"
+            >Get Started
               <i class="fa fa-long-arrow-right ml-2"></i></button>
           </div>
         </div>
@@ -129,7 +133,11 @@
         <div class="sub-banner container my-3">
           <div class="banner-text">
             <h3 class="title">Find Products from the <br> Stores you already shop at</h3>
-            <button class="start-button">Get Started
+            <button
+              data-toggle="modal"
+              data-target="#store"
+              class="start-button"
+            >Get Started
               <i class="fa fa-long-arrow-right ml-2"></i></button>
           </div>
         </div>
@@ -201,7 +209,11 @@
           >
             <h3 class="title">Get Started</h3>
             <p>Select your store, browse categories and get it delivered quick</p>
-            <button class="start-button">Get Started
+            <button
+              data-toggle="modal"
+              data-target="#store"
+              class="start-button"
+            >Get Started
               <i class="fa fa-long-arrow-right ml-2"></i></button>
           </div>
           <div class="col-3 mt-4">
@@ -214,7 +226,7 @@
         </div>
       </div>
     </div>
-    <storeSelector></storeSelector>
+    <storeSelector ref="store"></storeSelector>
   </div>
 </template>
 
@@ -227,8 +239,18 @@ export default {
     StoreSelector
   },
   beforeMount () {
+    this.$store.dispatch("setStoreStatus", false);
     this.$store.dispatch('ToggleShowSearch', false)
   },
+  mounted () {
+
+    // this.$refs.store.fetchStores();
+
+    // this.$refs.store.fetchAreas();
+
+
+
+  }
 }
 
 </script>

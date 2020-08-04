@@ -682,7 +682,7 @@ import StoreSelector from '@/components/StoreSelector.vue'
 import Cart from '@/components/CartComponent.vue'
 
 export default {
-  name: 'LandingPage',
+  name: 'Home',
   components: {
     StoreSelector, Cart
   },
@@ -695,7 +695,7 @@ export default {
     this.$store.dispatch('ToggleShowSearch', true)
   },
   mounted () {
-    // console.log(this.$store.getters.showSearch)
+
   }
 }
 

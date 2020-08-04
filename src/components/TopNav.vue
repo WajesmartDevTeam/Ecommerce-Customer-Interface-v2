@@ -41,14 +41,17 @@
                 <img
                   src="../assets/img/store-icon-sm.png"
                   alt=""
+                  class="mr-1"
                 >
-                Marketsquare Ada George
+                <span v-if="this.$store.getters.store.mode =='Delivery'">Delivering to <b>{{this.$store.getters.area}}</b> from <b>{{this.$store.getters.store.name}}</b> Store</span>
+                <span v-else>Pickup from <b>{{this.$store.getters.store.name}}</b> Store</span>
+
                 <a
                   href=""
                   class="badge badge-pill badge-light"
                   data-toggle="modal"
                   data-target="#store"
-                >Change Store</a>
+                >Change</a>
               </a>
             </li>
 
@@ -199,6 +202,7 @@
       </div>
     </div>
     <div
+      v-if="$route.name !== 'LandingPage'"
       id="menu-bar"
       class="d-none  d-md-block"
     >
@@ -428,6 +432,12 @@ export default {
   name: 'TopNav',
   props: {
     msg: String
+  },
+  data () {
+    return {
+    }
+  },
+  mounted () {
   },
   methods: {
     openNav () {
