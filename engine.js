@@ -26,7 +26,7 @@ server.listen(3300, function() {
 //Instantiate socket.io
 var io = require("socket.io").listen(server);
 
-const URL = "http://localhost:8080/";
+const URL = "http://localhost:8080/api/";
 
 //Configuration
 const script_config = {
@@ -59,6 +59,11 @@ io.on("connection", function(socket) {
             stores: 'getstores',
             allstores: 'getallstores',
             areas: 'listdeliverystoresareas',
+            products: 'productsinstore',
+            categories: 'productsincategory',
+            search: 'productsearch',
+            giftcards: 'listgiftcards',
+            listorder: 'listorderitems'
 
         };
         if (request.params !== undefined) {
@@ -68,7 +73,7 @@ io.on("connection", function(socket) {
                     return key + "=" + obj[key];
                 })
                 .join("&");
-            var request_url = URL + request_urls[request.what] + "/?" + str;
+            var request_url = URL + request_urls[request.what] + "?" + str;
         } else if (request.id) {
             var request_url = URL + request_urls[request.what] + "" + request.id;
         } else {
@@ -110,19 +115,22 @@ io.on("connection", function(socket) {
 
     socket.on("makePostRequest", function(request) {
         var request_urls = {
-            signup: "customerregistration/",
-            logout: "auth/logout/",
-            reset: "passwordreset/",
-            confirmPassword: "confirmpassword/",
-            verify: "emailverification/",
-            membership: "membership/",
-            transfer: "transferpoints/",
-            redeem: "redeempoints/",
-            giftcard: "giftcard/"
+            contact: 'sendMessage',
+            register: 'customerregister',
+            login: 'customerlogin',
+            forgotpassword: 'reset_password_without_token',
+            purchasegiftcard: 'purchasegiftcard/',
+            resetpassword: 'reset_password_with_token',
+            createcart: 'createcart'
+
         };
 
-        var request_url = URL + request_urls[request.what];
 
+        if (request.key) {
+            var request_url = URL + request_urls[request.what] + request.key;
+        } else {
+            var request_url = URL + request_urls[request.what];
+        }
         var config = {};
 
         if (request.headers !== undefined) {
@@ -136,7 +144,7 @@ io.on("connection", function(socket) {
             .then(response => {
                 logger(response.data);
                 console.log(response.data);
-                if (response.data.status == "true" || response.data.status) {
+                if (response.data.status == "true" || response.data.status || response.success == "true") {
                     response = {
                         data: response.data,
                         type: request.what,

@@ -12,6 +12,7 @@ import GiftCard from '../views/GiftCard.vue'
 import Contact from '../views/Contact.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
+import ResetPassword from '../views/Reset.vue'
 import Terms from '../views/Terms.vue'
 import Privacy from '../views/Privacy.vue'
 import About from '../views/About.vue'
@@ -33,12 +34,12 @@ const routes = [{
         component: Home
     },
     {
-        path: '/category',
+        path: '/category/:cat',
         name: 'Category',
         component: Category
     },
     {
-        path: '/search',
+        path: '/search/:search',
         name: 'Search',
         component: Search
     },
@@ -81,6 +82,11 @@ const routes = [{
         path: '/register',
         name: 'Register',
         component: Register
+    },
+    {
+        path: '/password/reset/:key',
+        name: 'ResetPassword',
+        component: ResetPassword
     },
     {
         path: '/terms',

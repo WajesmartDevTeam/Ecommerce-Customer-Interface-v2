@@ -1,83 +1,89 @@
 <template>
-  <div class="storelocator page">
-    <div class="">
-      <div class="banner store-banner ">
-        <div
-          class="banner-text"
-          style="width:100%"
-        >
-          <h3 class="title text-center">Stores List</h3>
-          <p class="subtitle text-center text-capitalize">Select where to shop</p>
-        </div>
-      </div>
-      <div class="content">
-        <div class="container">
+  <div>
+    <TopNav></TopNav>
+    <div class="storelocator page">
+      <div class="">
+        <div class="banner store-banner ">
           <div
-            class="store"
-            v-for="(row, index) in stores"
-            v-bind:key="index"
+            class="banner-text"
+            style="width:100%"
           >
-            <div class="row">
-              <div class="col-md-4 pl-lg-4 pl-md-3">
-                <div class="storename d-flex">
-                  <img
-                    src="../assets/img/store-icon.png"
-                    alt=""
-                    style="height:25px;"
-                  >
-                  <div class="ml-3">
-                    <span>{{row.name}}</span>
+            <h3 class="title text-center">Stores List</h3>
+            <p class="subtitle text-center text-capitalize">Select where to shop</p>
+          </div>
+        </div>
+        <div class="content">
+          <div class="container">
+            <div
+              class="store"
+              v-for="(row, index) in stores"
+              v-bind:key="index"
+            >
+              <div class="row">
+                <div class="col-md-4 pl-lg-4 pl-md-3">
+                  <div class="storename d-flex">
+                    <img
+                      src="../assets/img/store-icon.png"
+                      alt=""
+                      style="height:25px;"
+                    >
+                    <div class="ml-3">
+                      <span>{{row.name}}</span>
+                    </div>
                   </div>
-                </div>
-                <div class="store-address mt-3 d-flex">
-                  <span class="material-icons">
-                    location_on
-                  </span>
-                  <div class="ml-4">
-                    <span>{{row.address}},{{row.city}}, {{row.state}}.</span>
+                  <div class="store-address mt-3 d-flex">
+                    <span class="material-icons">
+                      location_on
+                    </span>
+                    <div class="ml-4">
+                      <span>{{row.address}},{{row.city}}, {{row.state}}.</span>
+                    </div>
                   </div>
+                  <div class="mode mt-2">
+                    <span class="badge">In-store</span>
+                    <span
+                      v-if="row.store_options.pickup ==1"
+                      class="badge ml-2"
+                    >Pickup</span>
+                    <span
+                      v-if="row.store_options.delivery ==1"
+                      class="badge ml-2"
+                    >Delivery</span>
+                  </div>
+                  <button class="btn text-white">Shop Here <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
-                <div class="mode mt-2">
-                  <span class="badge">In-store</span>
-                  <span
-                    v-if="row.store_options.pickup ==1"
-                    class="badge ml-2"
-                  >Pickup</span>
-                  <span
-                    v-if="row.store_options.delivery ==1"
-                    class="badge ml-2"
-                  >Delivery</span>
+                <div class="col-md-8">
+                  <iframe
+                    :src="row.iframe_src"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    style="border:0;"
+                    allowfullscreen=""
+                    aria-hidden="false"
+                    tabindex="0"
+                  ></iframe>
                 </div>
-                <button class="btn text-white">Shop Here <i class="fa fa-long-arrow-right ml-2"></i></button>
-              </div>
-              <div class="col-md-8">
-                <iframe
-                  :src="row.iframe_src"
-                  width="100%"
-                  height="100%"
-                  frameborder="0"
-                  style="border:0;"
-                  allowfullscreen=""
-                  aria-hidden="false"
-                  tabindex="0"
-                ></iframe>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
+    <Footer></Footer>
   </div>
 </template>
 
 
 <script>
-
+import TopNav from '@/components/TopNav.vue'
+import Footer from '@/components/Footer.vue'
 export default {
   name: 'StoreLocator',
   components: {
+    TopNav, Footer
   },
   data () {
     return {

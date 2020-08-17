@@ -109,10 +109,16 @@
           class="d-none d-md-block"
         >
           <input
+            @keyup.enter="search()"
             type="text"
+            v-model="searchQuery"
             placeholder="Search your products from here"
           >
-          <i class="material-icons">search</i>
+          <i
+            @click="search()"
+            style="cursor:pointer"
+            class="material-icons"
+          >search</i>
         </div>
         <div
           id="cart-icon"
@@ -211,7 +217,7 @@
           id="menu"
           class="d-flex justify-content-between"
         >
-          <li class="menu-link"><a href="/category">Bakery</a></li>
+          <li class="menu-link"><a href="/category/bakery">Bakery</a></li>
           <li class="menu-link dropdown">
             <a
               href=""
@@ -219,94 +225,89 @@
               data-toggle="dropdown"
             >Groceries</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="/category/groceries">Groceries</a></li>
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="/category/confectioneries">Confectioneries</a></li>
               <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <li><a href="/category/beverages">Beverages</a></li>
+              <li class="divider"></li>
+              <li><a href="/category/breakfast cereal">Breakfast Cereal</a></li>
+
             </ul>
           </li>
 
           <li class="menu-link dropdown">
             <a
-              href="/category"
+              href="/category/food"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Food</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="/category/fresh produce">Fresh Produce</a></li>
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="/category/commodities">Commodities</a></li>
               <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <li><a href="/category/perishables">Perishables</a></li>
+              <li class="divider"></li>
+              <li><a href="/category/butchery">Butchery</a></li>
             </ul>
           </li>
           <li class="menu-link dropdown">
             <a
-              href="/category"
+              href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Drinks</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="/category/spirits">Spirits</a></li>
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-              <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <li><a href="/category/water">Water</a></li>
             </ul>
           </li>
           <li class="menu-link dropdown">
             <a
-              href="/category"
+              href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Health & Beauty</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="/category/medicare">Medicare</a></li>
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="/category/toiletries">Toiletries</a></li>
               <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+
             </ul>
           </li>
           <li class="menu-link dropdown">
             <a
-              href="/category"
+              href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Appliances & Accessories</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="/category/household">Household Items</a></li>
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="/category/accessories">Accessories</a></li>
               <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <li><a href="/category/sda">SmallDomestiic Appliances</a></li>
             </ul>
           </li>
           <li class="menu-link dropdown">
             <a
-              href="/category"
+              href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Others</a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="/category/automobile">Automobile</a></li>
               <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+              <li><a href="/category/baby products">Baby Products</a></li>
               <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <li><a href="/category/pet products">Pet Products</a></li>
+              <li class="divider"></li>
+              <li><a href="/category/bms">BMS</a></li>
+              <li class="divider"></li>
+              <li><a href="/category/general">General</a></li>
             </ul>
           </li>
         </ul>
@@ -334,20 +335,21 @@
         class="sidemenu"
       >Home</a>
       <a
-        href="#"
+        href="/category/bakery"
         class="sidemenu"
       >Bakery </a>
 
       <a
-        href="#"
+        href="/category/groceries"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Groceries </a>
       <div class="dropdown-container">
-        <a href="#">Groceries</a>
-        <a href="#">Confectioneries</a>
-        <a href="#">Beverages</a>
-        <a href="#">Breakfast Cereal</a>
+        <a href="/category/groceries">Groceries</a>
+        <a href="/category/confectioneries">Confectioneries</a>
+        <a href="/category/beverages">Beverages</a>
+        <a href="/category/breakfast cereals">Breakfast Cereal</a>
+
       </div>
       <a
         href="#"
@@ -355,11 +357,12 @@
         class="dropdown-btn sidemenu"
       >Food</a>
       <div class="dropdown-container">
-        <a href="#">Fresh Produce</a>
-        <a href="#">Commodities</a>
-        <a href="#">Perishables</a>
-        <a href="#">Butchery</a>
-        <a href="#">Condiments</a>
+        <a href="/category/fresh produce">Fresh Produce</a>
+        <a href="/category/commodities">Commodities</a>
+        <a href="/category/perishables">Perishables</a>
+        <a href="/category/butchery">Butchery</a>
+        <a href="/category/condiments">Condiments</a>
+
       </div>
       <a
         href="#"
@@ -367,8 +370,9 @@
         class="dropdown-btn sidemenu"
       >Drinks</a>
       <div class="dropdown-container">
-        <a href="#">Spirits</a>
-        <a href="#">Water</a>
+        <a href="/category/spirits">Spirits</a>
+        <a href="/category/water">Water</a>
+
       </div>
       <a
         href="#"
@@ -376,8 +380,9 @@
         class="dropdown-btn sidemenu"
       >Health & Beauty </a>
       <div class="dropdown-container">
-        <a href="#">Medicare</a>
-        <a href="#">Toiletries</a>
+        <a href="/category/medicare">Medicare</a>
+        <a href="/category/toiletries">Toiletries</a>
+
       </div>
       <a
         href="#"
@@ -385,9 +390,10 @@
         class="dropdown-btn sidemenu"
       >Appliances & Accessories </a>
       <div class="dropdown-container">
-        <a href="#">Household Items</a>
-        <a href="#">Accessories</a>
-        <a href="#">Small Doestic Appliances</a>
+        <a href="/category/household">Household Items</a>
+        <a href="/category/accessories">Accessories</a>
+        <a href="/category/sda">Small Doestic Appliances</a>
+
       </div>
       <a
         href="#"
@@ -395,11 +401,12 @@
         class="dropdown-btn sidemenu"
       >Others </a>
       <div class="dropdown-container">
-        <a href="#">Automobile</a>
-        <a href="#">Baby Products</a>
-        <a href="#">Pet Products</a>
-        <a href="#">BMS</a>
-        <a href="#">General</a>
+        <a href="/category/automobile">Automobile</a>
+        <a href="/category/baby products">Baby Products</a>
+        <a href="/category/pet products">Pet Products</a>
+        <a href="/category/bms">BMS</a>
+        <a href="/category/general">General</a>
+
       </div>
       <a
         href="/storelocator"
@@ -416,7 +423,7 @@
       <a
         href="/login"
         class="sidemenu"
-      >Login </a>
+      >Sign in </a>
       <a
         href="/Register"
         class="register sidemenu"
@@ -435,9 +442,14 @@ export default {
   },
   data () {
     return {
+      searchQuery: ''
     }
   },
   mounted () {
+
+    if (this.$route.name == 'Search') {
+      this.searchQuery = this.$route.params.search
+    }
   },
   methods: {
     openNav () {
@@ -461,6 +473,16 @@ export default {
       } else {
         dropdownContent.style.display = "block";
       }
+    },
+    search () {
+      if (this.$route.name !== 'Search') {
+        this.$router.push(`/search/${this.searchQuery}`)
+      }
+      else {
+        this.$parent.fetchProducts()
+      }
+
+
     }
   }
 }

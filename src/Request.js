@@ -86,13 +86,13 @@ export default {
         );
 
         return new Promise((resolve, reject) => {
-            if (request.useToken || request.useToken == undefined) {
-                var token = store.getters.token;
+            // if (request.useToken || request.useToken == undefined) {
+            //     var token = store.getters.token;
 
-                request.headers = {
-                    Authorization: "Token " + token
-                };
-            }
+            //     request.headers = {
+            //         Authorization: "Token " + token
+            //     };
+            // }
             console.log(request);
             Vue.prototype.$socket.emit("makePostRequest", request);
             Vue.prototype.$socket.once("makePostRequestResponse", response => {
@@ -116,12 +116,12 @@ export default {
         console.log(request)
 
         return new Promise((resolve, reject) => {
-            if (request.useToken || request.useToken == undefined) {
-                var token = store.getters.token;
-                request.headers = {
-                    Authorization: "Token " + token
-                };
-            }
+            // if (request.useToken || request.useToken == undefined) {
+            //     var token = store.getters.token;
+            //     request.headers = {
+            //         Authorization: "Token " + token
+            //     };
+            // }
 
             Vue.prototype.$socket.emit("editItem", request);
             Vue.prototype.$socket.once("editItemResponse", response => {

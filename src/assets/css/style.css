@@ -28,6 +28,10 @@
     color: #fff;
 }
 
+.addquantity {
+    display: flex;
+}
+
 
 /* landing page */
 
@@ -81,6 +85,10 @@
 
 .start-button:hover {
     box-shadow: 1px 2px 4px #dad2d2;
+}
+
+.hideqty {
+    display: none!important;
 }
 
 .landingpage #how {
@@ -302,9 +310,18 @@ figure {
 }
 
 .product-group .product .product-image {
-    width: 152px;
-    height: 152px;
+    width: auto;
+    height: 140px;
     margin: auto;
+    text-align: center;
+}
+
+.product-group .product .product-image img {
+    height: 100%;
+}
+
+.product-group .product .product-text {
+    height: 50px
 }
 
 .product-group .product .product-text .description {
@@ -348,6 +365,7 @@ figure {
     text-transform: uppercase;
     text-align: center;
     font-size: 13px;
+    display: flex;
 }
 
 button.addtocart {}
@@ -436,6 +454,7 @@ button.addtocart {}
     text-transform: uppercase;
     text-align: center;
     font-size: 13px;
+    display: flex;
 }
 
 #product .product-footer button.addtocart:hover,
@@ -1316,9 +1335,9 @@ button.addtocart span {
 
 #giftcard input {
     color: #879388;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     font-size: 12px;
-    padding: 25px;
+    padding: 20px;
     border: 1px solid #1045FF21;
 }
 
@@ -1391,7 +1410,7 @@ button.addtocart span {
     border: 1px solid #1045FF21;
     font-size: 12px;
     color: #879388;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     margin-bottom: 20px;
 }
 
@@ -1439,7 +1458,7 @@ button.addtocart span {
 
 .auth .field .auth-form {
     color: #879388;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     padding: 20%;
 }
 
@@ -1455,7 +1474,8 @@ button.addtocart span {
     font-size: 11px;
 }
 
-.auth .field .auth-form input {
+.auth .field .auth-form input,
+.auth .field .auth-form select {
     height: 45px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #1045FF21;

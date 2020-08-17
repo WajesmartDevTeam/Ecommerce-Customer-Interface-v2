@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <TopNav v-bind:class="$route.name=='Login' || $route.name=='Register' ?'d-none': ''"></TopNav>
+    <!-- <TopNav v-bind:class="$route.name=='Login' || $route.name=='Register' ?'d-none': ''"></TopNav> -->
     <router-view />
-    <Footer v-bind:class="$route.name=='Login' || $route.name=='Register' ?'d-none': ''"></Footer>
+    <!-- <Footer v-bind:class="$route.name=='Login' || $route.name=='Register' ?'d-none': ''"></Footer> -->
   </div>
 </template>
 

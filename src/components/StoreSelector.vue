@@ -158,7 +158,14 @@ export default {
     }
   },
   mounted () {
-    this.fetchStores();
+    console.log(this.$store.getters.isStoreSet)
+    if (this.$store.getters.stat_stores == false) {
+      this.fetchStores();
+    }
+    else {
+      this.all_stores = this.$store.getters.allstores
+    }
+
     $('#store').on("show.bs.modal", this.doSomething)
 
 
@@ -189,6 +196,7 @@ export default {
 
 
     method: function (val) {
+
       let vm = this;
       vm.city = '';
       vm.cities = [];
@@ -217,12 +225,15 @@ export default {
         }
       }
       else if (val == 'Delivery') {
+
         vm.all_stores.forEach(i => {
           if (i.store_options.delivery == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
+
                   if (i.id == k) {
+
                     if (!vm.cities.includes(x.city)) {
                       vm.cities.push(x.city);
                     }
@@ -369,7 +380,13 @@ export default {
       }
       this.$request.makeGetRequest(req)
         .then(response => {
-          this.all_stores = response.data.stores;
+
+          this.$store.dispatch('setAllStores', response.data.stores)
+            .then(re => {
+              this.$store.dispatch('setStatStore', true)
+              this.all_stores = response.data.stores;
+            })
+
         })
         .catch(error => {
 
