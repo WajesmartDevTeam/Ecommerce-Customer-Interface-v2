@@ -19,10 +19,17 @@
               <h5 class="col-sm-12 title text-left mt-3">Top Product</h5>
             </div>
 
-            <div class="row  mt-4 pb-4 px-4">
-              <div
+            <carousel
+              class="row  mt-4 pb-4 px-4"
+              :interval="8000"
+              :autoplay="true"
+              :rewind='true'
+              :paginationEnabled='false'
+              :perPageCustom="[[320, 1],[375, 1],[425, 2],[768, 3], [1024, 4]]"
+            >
+              <slide
                 v-for="(product, index) in products.top"
-                v-bind:key=index
+                v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
                 <div
@@ -74,62 +81,67 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addtp'+index"
-                    class="addquantity hideqty my-3"
-                  >
-                    <div
-                      @click="decreaseQuantity('tp'+index, product.id)"
-                      class="value-button decrease"
-                    >-</div>
-
-                    <input
-                      v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      :id="'tp'+index"
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp'+index, product.id)"
+                    <button
+                      :id="'addtp'+index"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('tp'+index, product.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="'tp'+index"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp'+index, product.id)"
+                      >
 
-                    <input
-                      v-else
-                      :id="'tp'+index"
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp'+index, product.id)"
-                    />
+                      <input
+                        v-else
+                        :id="'tp'+index"
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp'+index, product.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('tp'+index, product.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('tp'+index, product.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
                   </div>
-                </div>
-              </div>
 
-            </div>
+                </div>
+              </slide>
+            </carousel>
           </div>
 
           <div class="product-group container bg-white my-5">
             <div class="row">
               <h5 class="col-sm-12 title text-left mt-3">Beverages</h5>
             </div>
-            <div class="row  mt-4 pb-4 px-4">
-              <div
+
+            <carousel
+              class="row  mt-4 pb-4 px-4"
+              :interval="8000"
+              :autoplay="true"
+              :rewind='true'
+              :paginationEnabled='false'
+              :perPageCustom="[[320, 1],[375, 1],[425, 2],[768, 3], [1024, 4]]"
+            >
+              <slide
                 v-for="(product, index) in products.beverages"
-                v-bind:key=index
+                v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
                 <div
@@ -181,51 +193,50 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addb'+index"
-                    class="addquantity hideqty my-3"
-                  >
-                    <div
-                      @click="decreaseQuantity('b'+index, product.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      :id="'b'+index"
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('b'+index, product.id)"
+                    <button
+                      :id="'addb'+index"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('b'+index, product.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="'b'+index"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('b'+index, product.id)"
+                      >
 
-                    <input
-                      v-else
-                      :id="'b'+index"
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('b'+index, product.id)"
-                    />
+                      <input
+                        v-else
+                        :id="'b'+index"
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('b'+index, product.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('b'+index, product.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('b'+index, product.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
                   </div>
-                </div>
-              </div>
 
-            </div>
+                </div>
+              </slide>
+            </carousel>
+
           </div>
           <!-- sub banner -->
           <div class="sub-banner container my-3">
@@ -240,10 +251,18 @@
             <div class="row">
               <h5 class="col-sm-12 title text-left mt-3">Water</h5>
             </div>
-            <div class="row  mt-4 pb-4 px-4">
-              <div
-                v-for="(product, index) in products.water"
-                v-bind:key=index
+
+            <carousel
+              class="row  mt-4 pb-4 px-4"
+              :interval="8000"
+              :autoplay="true"
+              :rewind='true'
+              :paginationEnabled='false'
+              :perPageCustom="[[320, 1],[375, 1],[425, 2],[768, 3], [1024, 4]]"
+            >
+              <slide
+                v-for="(product, index) in products.beverages"
+                v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
                 <div
@@ -295,60 +314,67 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addw'+index"
-                    class="addquantity hideqty my-3"
-                  >
-                    <div
-                      @click="decreaseQuantity('w'+index, product.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      :id="'w'+index"
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('w'+index, product.id)"
+                    <button
+                      :id="'addw'+index"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('w'+index, product.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="'w'+index"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('w'+index, product.id)"
+                      >
 
-                    <input
-                      v-else
-                      :id="'w'+index"
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('w'+index, product.id)"
-                    />
+                      <input
+                        v-else
+                        :id="'w'+index"
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('w'+index, product.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('w'+index, product.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('w'+index, product.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
+
                   </div>
-                </div>
-              </div>
 
-            </div>
+                </div>
+              </slide>
+            </carousel>
+
           </div>
           <div class="product-group container bg-white my-5">
             <div class="row">
               <h5 class="col-sm-12 title text-left mt-3">Commodities</h5>
             </div>
-            <div class="row  mt-4 pb-4 px-4">
-              <div
+            <carousel
+              class="row  mt-4 pb-4 px-4"
+              :interval="8000"
+              :autoplay="true"
+              :rewind='true'
+              :paginationEnabled='false'
+              :perPageCustom="[[320, 1],[375, 1],[425, 2],[768, 3], [1024, 4]]"
+            >
+              <slide
                 v-for="(product, index) in products.commodities"
-                v-bind:key=index
+                v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
                 <div
@@ -400,51 +426,50 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addc'+index"
-                    class="addquantity hideqty my-3"
-                  >
-                    <div
-                      @click="decreaseQuantity('c'+index, product.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      :id="'c'+index"
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('c'+index, product.id)"
+                    <button
+                      :id="'addc'+index"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('c'+index, product.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="'c'+index"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('c'+index, product.id)"
+                      >
 
-                    <input
-                      v-else
-                      :id="'c'+index"
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('c'+index, product.id)"
-                    />
+                      <input
+                        v-else
+                        :id="'c'+index"
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('c'+index, product.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('c+'+index, product.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('c+'+index, product.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
                   </div>
-                </div>
-              </div>
 
-            </div>
+                </div>
+              </slide>
+            </carousel>
+
           </div>
         </div>
       </div>
@@ -517,48 +542,46 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addtp_modal'"
-                    class="addquantity hideqty"
-                    style="margin: 3px 26px;"
-                  >
-                    <div
-                      @click="decreaseQuantity('tp_modal', pro.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="pro.description.includes('/KG') || pro.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      id='tp_modal'
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp_modal', pro.id)"
+                    <button
+                      :id="'addtp_modal'"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('tp_modal', pro.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="pro.description.includes('/KG') || pro.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        id='tp_modal'
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp_modal', pro.id)"
+                      >
 
-                    <input
-                      v-else
-                      id='tp_modal'
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp_modal', pro.id)"
-                    />
+                      <input
+                        v-else
+                        id='tp_modal'
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp_modal', pro.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('tp_modal', pro.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('tp_modal', pro.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -614,13 +637,6 @@ export default {
 
             if (res.data.data.top.length > 0) {
               this.products = res.data.data;
-              // this.$toasted.success({
-              //   title: "Hi, you are now shopping at",
-              //   message: ` ${res.data.data.store}.`
-              // });
-              // this.$toasted.show(
-              //   "Hi, you are now shopping at " + res.data.data.store
-              // );
             } else {
               this.$swal(
                 "Empty store",
@@ -674,7 +690,6 @@ export default {
         })
         // console.log(check)
         if (!check.includes(1)) {
-          console.log('no')
           cart_array.push(cart)
         }
       }

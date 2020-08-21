@@ -14,9 +14,11 @@ import io from "socket.io-client";
 import swal from "sweetalert2";
 import VueLazyload from 'vue-lazyload'
 import InfiniteLoading from "vue-infinite-loading";
-import VeeValidate from "vee-validate";
+// import VeeValidate from "vee-validate";
+import { ValidationProvider, extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
 import Toasted from "vue-toasted";
-import carousel from 'vue-owl-carousel'
+import VueCarousel from 'vue-carousel';
 
 Vue.config.productionTip = false;
 
@@ -46,13 +48,15 @@ Vue.use(VueLazyload, {
 Vue.use(VueTelInput) // Define default global options here (optional)
 Vue.use(VueAxios, axios);
 Vue.use(InfiniteLoading);
+Vue.use(VueCarousel);
 // Vue.use(VeeValidate, {
 //     events: 'change|blur|custom'
 // });
 
 Vue.use(Toasted, {
-    duration: 9000,
     theme: "bubble",
+    position: "top-right",
+    duration: 5000,
     type: "danger",
     iconPack: "fontawesome",
     action: {
@@ -65,7 +69,7 @@ Vue.use(Toasted, {
 });
 
 Vue.component('v-select', vSelect)
-Vue.component('carousel', carousel)
+Vue.component('validation-provider', ValidationProvider)
     // var socket = io("http://199.192.22.132:3300");
 var socket = io("localhost:3300");
 Vue.prototype.$socket = socket;
@@ -94,6 +98,9 @@ router.beforeEach((to, from, next) => {
     else next();
     if (to.name !== 'Register' && from.name == 'Login') next({ name: 'Home' })
     else next();
+    if (to.name !== 'OrderConfirmation' && from.name == 'Login') next({ name: 'Home' })
+    else next();
+
 })
 
 new Vue({

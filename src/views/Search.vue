@@ -59,47 +59,46 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addtp'+index"
-                    class="addquantity hideqty my-3 mx-4"
-                  >
-                    <div
-                      @click="decreaseQuantity('tp'+index, product.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      :id="'tp'+index"
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp'+index, product.id)"
+                    <button
+                      :id="'addtp'+index"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('tp'+index, product.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="'tp'+index"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp'+index, product.id)"
+                      >
 
-                    <input
-                      v-else
-                      :id="'tp'+index"
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp'+index, product.id)"
-                    />
+                      <input
+                        v-else
+                        :id="'tp'+index"
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp'+index, product.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('tp'+index, product.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('tp'+index, product.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
                   </div>
+
                 </div>
               </div>
 
@@ -112,8 +111,8 @@
                   <!-- <i>No more items</i> -->
                 </div>
                 <div slot="no-results">
-                  <i class="material-icons text-center">not_interested</i>
-                  <i>No item</i>
+                  <!-- <i class="material-icons text-center">not_interested</i>
+                  <i>No item</i> -->
                 </div>
               </infinite-loading>
             </div>
@@ -190,48 +189,46 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addtp_modal'"
-                    class="addquantity hideqty"
-                    style="margin: 3px 26px;"
-                  >
-                    <div
-                      @click="decreaseQuantity('tp_modal', pro.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="pro.description.includes('/KG') || pro.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      id='tp_modal'
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp_modal', pro.id)"
+                    <button
+                      :id="'addtp_modal'"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('tp_modal', pro.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="pro.description.includes('/KG') || pro.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        id='tp_modal'
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp_modal', pro.id)"
+                      >
 
-                    <input
-                      v-else
-                      id='tp_modal'
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp_modal', pro.id)"
-                    />
+                      <input
+                        v-else
+                        id='tp_modal'
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp_modal', pro.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('tp_modal', pro.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('tp_modal', pro.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
                   </div>
+
                 </div>
               </div>
             </div>

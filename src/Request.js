@@ -109,6 +109,17 @@ export default {
 
     editItem: request => {
 
+        if (request.showLoader || request.showLoader == undefined) {
+            var loading_html =
+                '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://thumbs.gfycat.com/AchingSpeedyArmyworm-size_restricted.gif" /></div>';
+
+            Vue.prototype.$swal.fire({
+                title: "",
+                html: loading_html,
+                showConfirmButton: false,
+                showCancelButton: false
+            });
+        }
         console.log(
             "%cSending put request: ",
             "color:#fff;font-size:14px;background:#00ff00;"
@@ -133,5 +144,44 @@ export default {
                 }
             });
         });
+    },
+    deleteItem: (request) => {
+
+        if (request.showLoader || request.showLoader == undefined) {
+            if (!Vue.prototype.$swal.isVisible()) {
+                var loading_html = '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://i.ya-webdesign.com/images/minimalist-transparent-loading-gif-6.gif" /></div>'
+
+                Vue.prototype.$swal.fire({
+                    title: "",
+                    html: loading_html,
+                    showConfirmButton: false,
+                    showCancelButton: false
+                })
+            }
+        }
+
+        console.log('%cDeleting: ', 'color:#fff;font-size:14px;background:#00ff00;')
+
+        return new Promise((resolve, reject) => {
+
+            if (request.useToken || request.useToken == undefined) {
+                var token = store.getters.token
+                request.headers = {
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+
+            Vue.prototype.$socket.emit('deleteItem', request)
+            Vue.prototype.$socket.once('deleteItemResponse', (response) => {
+
+                if (response.status == 'true') {
+                    resolve(response)
+
+                } else {
+                    reject(response)
+                }
+            })
+        })
     }
+
 };

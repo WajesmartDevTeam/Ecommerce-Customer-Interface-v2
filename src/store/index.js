@@ -13,7 +13,12 @@ export default new Vuex.Store({
         delivery_area: "",
         allstores: [],
         stat_stores: false,
-        cart: []
+        cart: [],
+        user: {},
+        loggedIn: false,
+        orders: [],
+        storesCart: [],
+        order: {}
     },
     mutations: {
 
@@ -22,6 +27,9 @@ export default new Vuex.Store({
         },
         updateStoreStatus(state, status) {
             this.state.storeSet = status
+        },
+        updateLogin(state, status) {
+            this.state.loggedIn = status
         },
         updateArea(state, area) {
             state.delivery_area = area
@@ -40,6 +48,18 @@ export default new Vuex.Store({
         },
         updateCart(state, data) {
             state.cart = data
+        },
+        updateUser(state, data) {
+            state.user = data
+        },
+        updateOrders(state, data) {
+            state.orders = data
+        },
+        updateStoresCart(state, data) {
+            state.storesCart = data
+        },
+        updateOrder(state, data) {
+            state.order = data
         }
     },
     actions: {
@@ -48,6 +68,9 @@ export default new Vuex.Store({
         },
         setStoreStatus({ commit }, status) {
             commit("updateStoreStatus", status);
+        },
+        setLoggedIn({ commit }, status) {
+            commit("updateLogin", status);
         },
         area({ commit }, area) {
             commit("updateArea", area);
@@ -66,7 +89,19 @@ export default new Vuex.Store({
         },
         addToCart({ commit }, data) {
             commit("updateCart", data)
-        }
+        },
+        user({ commit }, data) {
+            commit("updateUser", data)
+        },
+        orders({ commit }, data) {
+            commit("updateOrders", data)
+        },
+        storesCart({ commit }, data) {
+            commit("updateStoresCart", data)
+        },
+        orderinfo({ commit }, data) {
+            commit("updateOrder", data)
+        },
     },
     modules: {},
     getters: {
@@ -78,6 +113,11 @@ export default new Vuex.Store({
         allstores: state => state.allstores,
         stat_stores: state => state.stat_stores,
         cart: state => state.cart,
+        user: state => state.user,
+        orders: state => state.orders,
+        isLoggedIn: state => state.loggedIn,
+        storesCart: state => state.storesCart,
+        order: state => state.order
     },
     plugins: [createPersistedState()]
 })

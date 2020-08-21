@@ -63,7 +63,10 @@ io.on("connection", function(socket) {
             categories: 'productsincategory',
             search: 'productsearch',
             giftcards: 'listgiftcards',
-            listorder: 'listorderitems'
+            listorder: 'listorderitems',
+            getcart: 'getcartinfo',
+            windows: 'recentdeliverywindow',
+            listaddress: 'addresses'
 
         };
         if (request.params !== undefined) {
@@ -121,7 +124,11 @@ io.on("connection", function(socket) {
             forgotpassword: 'reset_password_without_token',
             purchasegiftcard: 'purchasegiftcard/',
             resetpassword: 'reset_password_with_token',
-            createcart: 'createcart'
+            createcart: 'createcart',
+            verifycard: 'verifygiftcard',
+            placeorder: 'placeorder',
+            verifypayment: 'makepayment',
+            createaddress: 'addresses'
 
         };
 
@@ -166,8 +173,7 @@ io.on("connection", function(socket) {
         console.log(request);
 
         var request_urls = {
-            updateUser: "user/",
-            pin: "user/",
+            editaddress: 'addresses/'
         };
 
         var request_url = URL + request_urls[request.what];
@@ -206,4 +212,47 @@ io.on("connection", function(socket) {
                 socket.emit("editItemResponse", "error");
             });
     });
+    socket.on('deleteItem', function(request) {
+
+        var request_urls = {
+            deleteaddress: 'addresses',
+        }
+
+        var request_url = URL + request_urls[request.what]
+
+        request_url += (request.id == undefined) ? "" : "/" + request.id
+
+        var config = {
+            headers: {
+
+            },
+            data: request.data
+        }
+
+        logger("Delete: " + request_url, 0)
+
+        axios.delete(request_url, config)
+            .then((response) => {
+
+                logger(response, 2)
+
+                if (response.data.status == 'true' || response.data.status) {
+
+                    response = {
+                        data: response.data,
+                        type: request.what,
+                        status: 'true'
+                    }
+
+                    socket.emit('deleteItemResponse', response)
+                } else {
+
+                    socket.emit('deleteItemResponse', 'error')
+                }
+            })
+            .catch((err) => {
+                socket.emit('deleteItemResponse', err)
+                logger(err, 1)
+            })
+    })
 });

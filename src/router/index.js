@@ -119,7 +119,7 @@ const routes = [{
         component: MyOrders
     },
     {
-        path: '/orderview',
+        path: '/orderview/:id',
         name: 'MyOrder',
         component: OrderView
     },

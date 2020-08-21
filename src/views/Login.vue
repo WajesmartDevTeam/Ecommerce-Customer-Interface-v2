@@ -30,6 +30,7 @@
             class="form-group"
             style="position:relative"
           >
+
             <input
               class="form-control"
               placeholder="Password"
@@ -141,15 +142,45 @@ export default {
       this.$request
         .makePostRequest(req)
         .then(response => {
-          console.log(response)
-          this.$swal.fire("Success", `Hi, Welcome to Marketsquare`, "success");
-          this.user = {};
-          // this.$store.dispatch('user', resp)
-          // this.$router.go(-1);
+          this.$store.dispatch('setLoggedIn', true)
+          this.$store.dispatch('user', response.data.data[0])
+            .then(() => {
+              this.fetchCart();
+              this.$swal.fire("Success", `Hi ${response.data.data[0].firstname}, Welcome to Marketsquare`, "success");
+              this.user = {};
+
+            })
+
+
         })
         .catch(error => {
           console.log(error)
           this.$swal.fire("Error", error.message, "error");
+        });
+    },
+    fetchCart () {
+      let req = {
+        what: "getcart",
+        showLoader: true,
+        params: {
+          userid: this.$store.getters.user.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+        .then(res => {
+          if (res.type == 'getcart') {
+            console.log(res.data.data)
+            this.$store.dispatch('storesCart', res.data.data)
+              .then(() => {
+                this.$router.go(-1);
+              })
+
+          }
+
+        })
+        .catch(error => {
+          this.$swal.fire("Error", error, "error");
+          console.log(error)
         });
     },
     handleForgotPassword () {

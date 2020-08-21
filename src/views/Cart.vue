@@ -29,6 +29,8 @@
                     v-bind:key="i"
                   >
                     <td> <img
+                        @click="removeItem(row)"
+                        style="cursor:pointer;"
                         src="../assets/img/cancel.png"
                         alt=""
                         title="Remove item"
@@ -45,10 +47,30 @@
                     <td class="productname">{{row.product.name}}</td>
                     <td>
                       <input
+                        v-if="row.product.name.includes('/KG') || row.product.name.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="i"
                         type="number"
-                        class="qty"
-                        :value="row.quantity"
+                        min="0.001"
+                        step="any"
+                        class="number qty"
+                        v-model=row.quantity
+                        @keypress="restrictChars($event)"
+                        @change="inputChange(i, row.product.id)"
                       >
+
+                      <input
+                        v-else
+                        :id="i"
+                        type="number"
+                        min="1"
+                        step="1"
+                        class="number qty"
+                        v-model=row.quantity
+                        oninput="validity.valid||(value='');"
+                        @keypress="restrictChars($event)"
+                        @change="inputChange(i, row.product.id)"
+                      />
                     </td>
                     <td>₦{{formatPrice(row.unit_price)}} </td>
                     <td>₦{{formatPrice(row.price)}} </td>
@@ -76,7 +98,11 @@
                     <p>Total</p>
                     <h5>₦{{formatPrice(cart_total)}}</h5>
                   </div>
-                  <button @click="$router.push('checkout')">Proceed to checkout</button>
+                  <button
+                    v-bind:disabled="cart_total < 3000"
+                    v-bind:class="cart_total < 3000? 'disabled': ''"
+                    @click="handleCheckout"
+                  >Proceed to checkout</button>
                 </div>
               </div>
             </div>
@@ -101,7 +127,6 @@ export default {
   data () {
     return {
       cart: [],
-      cart_subtotal: 0,
       cart_total: 0,
     }
   },
@@ -109,15 +134,110 @@ export default {
     this.$store.dispatch('ToggleShowSearch', true)
   },
   mounted () {
-    console.log(this.$store.getters.cart)
-    this.cart = this.$store.getters.cart;
+    // this.cart = this.$store.getters.cart;
 
-    this.cart.forEach(i => {
-      this.cart_subtotal += i.price;
-    })
-    this.cart_total = this.cart_subtotal
+    // this.cart.forEach(i => {
+    //   this.cart_subtotal += Number(i.price);
+    // })
+    // this.cart_total = this.cart_subtotal
+  },
+  computed: {
+    cart_subtotal () {
+      this.cart = this.$store.getters.cart;
+      let total = 0;
+      this.cart.forEach(i => {
+        total += Number(i.price);
+      })
+      this.cart_total = total;
+      return total;
+    }
   },
   methods: {
+    removeItem (row) {
+      console.log(row)
+      let cart = this.$store.getters.cart
+    },
+    inputChange (id, product_id) {
+
+      var value = document.getElementById(id).value;
+      if (value == '') {
+        document.getElementById(id).value = 1;
+        value = 1;
+      }
+      this.updateCartQuantity(value, product_id, "input");
+    },
+    updateCartQuantity (value, product_id, action) {
+      let cart_array = this.$store.getters.cart;
+      cart_array.forEach(i => {
+        if (product_id == i.product.id) {
+          if (action == '+') {
+            i.quantity = parseInt(i.quantity) + 1;
+            i.price += parseInt(i.unit_price);
+          }
+          else if (action == '-') {
+            i.quantity = parseInt(i.quantity) - 1;
+            i.price -= parseInt(i.unit_price);
+          }
+          else {
+            i.quantity = value;
+            i.price = parseInt(i.unit_price) * value;
+
+          }
+        }
+      })
+      this.$store.dispatch('addToCart', cart_array)
+    },
+    handleCheckout () {
+      if (this.$store.getters.isLoggedIn) {
+        let cart = this.$store.getters.cart;
+        let cartitems = [];
+        cart.forEach(i => {
+          let x = {
+            product_id: i.product.id,
+            quantity: i.quantity,
+            unit_price: i.unit_price,
+            price: i.price
+          }
+          cartitems.push(x)
+        })
+
+        let data = {
+          user_id: this.$store.getters.user.id,
+          totalquantity: cart.length,
+          total_price: this.cart_total,
+          checkout: "0",
+          storeid: this.$store.getters.store.id,
+          checkoutitems: cartitems
+        }
+        console.log(data);
+        var req = {
+          what: "createcart",
+          data: data,
+          showLoader: true
+        };
+        this.$request
+          .makePostRequest(req)
+          .then(response => {
+            this.$router.push({ name: 'Checkout' })
+
+          })
+          .catch(error => {
+            console.log(error)
+            this.$swal.fire("Error", error.message, "error");
+          });
+      }
+      else {
+        this.$router.push({ name: 'Checkout' })
+      }
+    },
+    restrictChars: function ($event) {
+      if ($event.key !== '-') {
+        return true
+      }
+      else {
+        $event.preventDefault();
+      }
+    },
     formatPrice (price) {
       var str = price.toString().split(".");
       if (str[0].length >= 3) {

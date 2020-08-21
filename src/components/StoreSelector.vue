@@ -158,7 +158,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$store.getters.isStoreSet)
+    // console.log(this.$store.getters.isStoreSet)
     if (this.$store.getters.stat_stores == false) {
       this.fetchStores();
     }
@@ -416,16 +416,13 @@ export default {
 
     },
     saveStore (store) {
-
-
       let oldstore = this.$store.getters.store.name;
       store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
       this.$store.dispatch("setStore", store).then(res => {
         if (oldstore !== store.name) {
-
-          // this.clearCart();
+          this.$store.dispatch('addToCart', [])
         }
         if (window.location.pathname == "/" || window.location.pathname == "/storeslist") {
           $(".modal").modal("hide")

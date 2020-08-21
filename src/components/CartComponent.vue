@@ -44,46 +44,102 @@
             </button>
           </div>
           <div class="modal-body pt-0">
-            <div>
+            <div v-if="getCart.length >0">
               <div
                 v-for="(row, index) in getCart"
                 class="cart-item row"
                 v-bind:key="index"
               >
-                <div class="col-4 p-0">
+                <div class="col-3 p-0">
                   <img
                     :src="'http://localhost:8080'+row.product.img_url"
                     alt=""
                     class="img-fluid"
                   >
                 </div>
-                <div class="col-8">
+                <div class="col-7">
                   <p class="name">{{row.product.name}}</p>
                   <p class="price">₦ {{formatPrice(row.product.price)}}</p>
-                  <div class="addquantity">
-                    <div class="value-button decrease">-</div>
+                  <div class="addq">
+                    <div
+                      style="cursor:pointer;"
+                      class="value-button decrease"
+                      @click="decreaseQuantity(index, row.product.id)"
+                    >-</div>
                     <input
+                      v-if="row.product.name.includes('/KG') || row.product.name.includes('/ KG')"
                       oninput="validity.valid||(value='');"
-                      id="0"
+                      :id="index"
+                      type="number"
+                      min="0.001"
+                      step="any"
+                      class="number"
+                      v-model=row.quantity
+                      @keypress="restrictChars($event)"
+                      @change="inputChange(index, row.product.id)"
+                    >
+
+                    <input
+                      v-else
+                      :id="index"
                       type="number"
                       min="1"
-                      :value="row.quantity"
+                      step="1"
                       class="number"
-                    >
-                    <div class="value-button increase">+</div>
+                      v-model=row.quantity
+                      oninput="validity.valid||(value='');"
+                      @keypress="restrictChars($event)"
+                      @change="inputChange(index, row.product.id)"
+                    />
+
+                    <div
+                      @click="increaseQuantity(index, row.product.id)"
+                      class="value-button increase"
+                      style="cursor:pointer;"
+                    >+</div>
+
                   </div>
+
+                </div>
+                <div class="col-2">
+                  <span
+                    @click="removeItem(row.product.id)"
+                    style="color: #F44336;cursor:pointer;"
+                    class="material-icons"
+                  >
+                    clear
+                  </span>
                 </div>
               </div>
+              <p
+                v-if="cart_total < 3000"
+                class="minimum text-bold"
+              >₦3,000 Minimum</p>
+              <div class="checkout">
+                <button
+                  v-bind:disabled="cart_total < 3000"
+                  v-bind:class="cart_total < 3000? 'disabled': ''"
+                  @click="handleCheckout"
+                >
+                  <span>Checkout</span>
+                  <span class="total">₦ {{formatPrice(cart_total)}}</span>
+                </button>
+              </div>
             </div>
-            <p
-              v-if="cart_total < 3000"
-              class="minimum text-bold"
-            >₦3,000 Minimum</p>
-            <div class="checkout">
-              <button @click="handleCheckout">
-                <span>Checkout</span>
-                <span class="total">₦ {{formatPrice(cart_total)}}</span>
-              </button>
+
+            <div
+              v-else
+              class="my-3 text-center"
+            >
+              <img
+                src="../assets/img/shop-icon.png"
+                alt=""
+              >
+              <h5 class="title">Your cart is empty</h5>
+              <button
+                class="btn empty_btn"
+                data-dismiss='modal'
+              >Shop Now</button>
             </div>
           </div>
 
@@ -108,7 +164,7 @@ export default {
   },
   mounted () {
     // this.cart = this.$store.getters.cart;
-    $(this.$refs.cartm).on("show.bs.modal", (e) => {
+    $(this.$refs.cartm).on("hidden.bs.modal", (e) => {
       var add = document.querySelectorAll('.addquantity');
       [].forEach.call(add, function (el) {
         el.classList.add("hideqty");
@@ -125,23 +181,85 @@ export default {
       this.cart = c;
       let total = 0
       c.forEach(i => {
-        total += i.price;
+        total += Number(i.price);
       });
       this.cart_total = total;
       return c;
     }
   },
-  // watch: {
-  //   cart () {
-  //     this.cart.forEach(i => {
-  //       this.cart_total += i.price
-  //     })
-  //   }
-  // },
   methods: {
+    removeItem (id) {
+      let index;
+      let cart = this.$store.getters.cart;
+      cart.forEach((i, ind) => {
+        if (i.product.id == id) {
+          index = ind
+        }
+      })
+      cart.splice(index, 1);
+      this.$store.dispatch('addToCart', cart)
+    },
+    inputChange (id, product_id) {
+      var value = document.getElementById(id).value;
+      if (value == '') {
+        document.getElementById(id).value = 1;
+        value = 1;
+      }
+      this.updateCartQuantity(value, product_id, "input");
+    },
+    increaseQuantity (id, product_id) {
+      var value = document.getElementById(id).value
+      var v = Number(value) + 1;
+      document.getElementById(id).value = v;
+      this.updateCartQuantity(v, product_id, "+");
+    },
+    decreaseQuantity (id, product_id) {
+      var value = document.getElementById(id).value;
+      if (Number(value) > 1) {
+        this.updateCartQuantity(value, product_id, "-");
+      }
+
+
+    },
+    updateCartQuantity (value, product_id, action) {
+      let cart_array = this.$store.getters.cart;
+      cart_array.forEach(i => {
+        if (product_id == i.product.id) {
+          if (action == '+') {
+            i.quantity = parseInt(i.quantity) + 1;
+            i.price += parseInt(i.unit_price);
+          }
+          else if (action == '-') {
+            i.quantity = parseInt(i.quantity) - 1;
+            i.price -= parseInt(i.unit_price);
+          }
+          else {
+            i.quantity = value;
+            i.price = parseInt(i.unit_price) * value;
+
+          }
+        }
+      })
+      this.$store.dispatch('addToCart', cart_array)
+    },
+    restrictChars: function ($event) {
+      if ($event.key !== '-') {
+        return true
+      }
+      else {
+        $event.preventDefault();
+      }
+    },
     handleCheckout () {
-      $(".modal").modal("hide");
-      this.$router.push({ name: 'Cart' })
+      if (this.cart_total > 3000) {
+
+        $(".modal").modal("hide");
+        this.$router.push({ name: 'Cart' })
+      }
+      else {
+        this.$toasted.show('The minimum order amount is N3000.')
+
+      }
     },
     formatPrice (price) {
       var str = price.toString().split(".");
@@ -159,4 +277,21 @@ export default {
 
 
 <style scoped>
+.empty_btn {
+  height: 40px;
+  background: #000066 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  border: 0;
+  color: #fff;
+  font-size: 12px;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.empty_btn:hover {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  color: #000066;
+  border: 1px solid #000066;
+}
 </style>

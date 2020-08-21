@@ -3,7 +3,10 @@
     <TopNav></TopNav>
     <div class="category page">
       <div class="container">
-        <div class="banner category-banner mt-5">
+        <div
+          class="banner category-banner mt-5"
+          v-bind:class='category.replace(/\s+/g, "")'
+        >
           <div
             class="banner-text"
             style="width:100%"
@@ -67,47 +70,47 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addtp'+index"
-                    class="addquantity hideqty my-3 mx-4"
-                  >
-                    <div
-                      @click="decreaseQuantity('tp'+index, product.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      :id="'tp'+index"
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp'+index, product.id)"
+                    <button
+                      :id="'addtp'+index"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('tp'+index, product.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="'tp'+index"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp'+index, product.id)"
+                      >
 
-                    <input
-                      v-else
-                      :id="'tp'+index"
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp'+index, product.id)"
-                    />
+                      <input
+                        v-else
+                        :id="'tp'+index"
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp'+index, product.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('tp'+index, product.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('tp'+index, product.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
+
                   </div>
+
                 </div>
               </div>
 
@@ -134,12 +137,14 @@
       <Cart />
       <!-- Product Modal -->
       <div
-        ref='vuemodal'
+        ref='pro'
         v-if='viewproduct'
         class="modal fade"
         id="product"
         tabindex="-1"
         role="dialog"
+        data-keyboard="false"
+        data-backdrop="static"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -149,6 +154,7 @@
 
               <button
                 type="button"
+                @click.prevent='doSomethingOnHidden($event)'
                 class="close"
                 data-dismiss="modal"
                 aria-label="Close"
@@ -200,48 +206,47 @@
 
                       <span>cart</span>
                     </button>
-
-                  </div>
-                  <!-- addquantity -->
-                  <div
-                    :id="'addtp_modal'"
-                    class="addquantity hideqty"
-                    style="margin: 3px 26px;"
-                  >
-                    <div
-                      @click="decreaseQuantity('tp_modal', pro.id)"
-                      class="value-button decrease"
-                    >-</div>
-                    <input
-                      v-if="pro.description.includes('/KG') || pro.description.includes('/ KG')"
-                      oninput="validity.valid||(value='');"
-                      id='tp_modal'
-                      type="number"
-                      min="0.001"
-                      step="any"
-                      class="number"
-                      value=1.0
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp_modal', pro.id)"
+                    <button
+                      :id="'addtp_modal'"
+                      class="addquantity hideqty"
                     >
+                      <div
+                        @click="decreaseQuantity('tp_modal', pro.id)"
+                        class=" decrease"
+                      >-</div>
+                      <input
+                        v-if="pro.description.includes('/KG') || pro.description.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        id='tp_modal'
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number"
+                        value=1.0
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp_modal', pro.id)"
+                      >
 
-                    <input
-                      v-else
-                      id='tp_modal'
-                      type="number"
-                      min="0"
-                      step="1"
-                      class="number"
-                      value=1
-                      @keypress="restrictChars($event)"
-                      @change="inputChange('tp_modal', pro.id)"
-                    />
+                      <input
+                        v-else
+                        id='tp_modal'
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="number"
+                        value=1
+                        @keypress="restrictChars($event)"
+                        @change="inputChange('tp_modal', pro.id)"
+                      />
 
-                    <div
-                      @click="increaseQuantity('tp_modal', pro.id)"
-                      class="value-button increase"
-                    >+</div>
+                      <div
+                        @click="increaseQuantity('tp_modal', pro.id)"
+                        class=" increase"
+                      >+</div>
+                    </button>
+
                   </div>
+
                 </div>
               </div>
             </div>
@@ -292,7 +297,17 @@ export default {
     this.$store.dispatch('ToggleShowSearch', true)
   },
   mounted () {
-    $(this.$refs.vuemodal).on("hidden.bs.modal", this.doSomethingOnHidden)
+    $(this.$refs.pro).on("show.modal", (e) => {
+      console.log(e)
+      // var add = document.querySelectorAll('.addquantity');
+      // [].forEach.call(add, function (el) {
+      //   el.classList.add("hideqty");
+      // });
+      // var btn = document.querySelectorAll('.addtocart');
+      // [].forEach.call(btn, function (el) {
+      //   el.classList.remove("hideqty");
+      // });
+    })
     this.category = this.$route.params.cat
     this.fetchProducts()
   },

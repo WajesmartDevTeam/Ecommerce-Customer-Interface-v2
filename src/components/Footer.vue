@@ -10,7 +10,7 @@
                 <li class="footer-link">
                   <a href="/about">About Marketsquare</a>
                 </li>
-                <li class="footer-link"><a href="">Press & Media</a></li>
+                <!-- <li class="footer-link"><a href="">Press & Media</a></li> -->
               </ul>
             </div>
             <div class="col-sm-4">

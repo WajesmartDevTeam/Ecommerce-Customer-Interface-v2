@@ -50,7 +50,12 @@
                       class="badge ml-2"
                     >Delivery</span>
                   </div>
-                  <button class="btn text-white">Shop Here <i class="fa fa-long-arrow-right ml-2"></i></button>
+                  <button
+                    @click.prevent='store=row'
+                    data-toggle='modal'
+                    data-target="#mode"
+                    class="btn text-white"
+                  >Shop Here <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
                 <div class="col-md-8">
                   <iframe
@@ -72,12 +77,64 @@
       </div>
 
     </div>
+    <!-- Product Modal -->
+    <div
+      ref='vuemodal'
+      class="modal fade"
+      id="mode"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5>Fulfillment Mode</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="saveStore()">
+
+              <v-select
+                required
+                :options="['Pickup', 'Delivery']"
+                v-model="method"
+                placeholder="Select fulfillment mode"
+                class="form-group"
+              >
+              </v-select>
+              <v-select
+                v-if="method== 'Delivery'"
+                required
+                :options="areas"
+                v-model="area"
+                placeholder="Select Delivery Area"
+                class="form-group"
+              >
+              </v-select>
+
+              <button class="btn mx-auto text-center">Submit</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
     <Footer></Footer>
   </div>
 </template>
 
 
 <script>
+import * as $ from "jquery";
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
 export default {
@@ -88,14 +145,36 @@ export default {
   data () {
     return {
       showSearch: false,
-      stores: []
+      stores: [],
+      store: {},
+      method: '',
+      zones: [],
+      areas: [],
+      area: ''
     }
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', false)
   },
   mounted () {
-    this.getAllStores()
+    this.getAllStores();
+
+  },
+  watch: {
+    method (val) {
+      if (val == 'Delivery') {
+        let vm = this;
+        this.zones.forEach(i => {
+          i.areas.forEach(j => {
+            j.store.forEach(k => {
+              if (k == vm.store.id) {
+                vm.areas.push(j.area)
+              }
+            })
+          })
+        })
+      }
+    }
   },
   methods: {
     getAllStores () {
@@ -104,14 +183,55 @@ export default {
       }
       this.$request.makeGetRequest(req)
         .then(response => {
-          console.log(response.data)
-          this.stores = response.data.stores
+          this.fetchAreas()
+          if (response.type == 'allstores') {
+            this.stores = response.data.stores
+          }
+
         })
         .catch(error => {
 
           console.log(error)
         });
     },
+    fetchAreas () {
+
+      let req = {
+        what: "areas",
+        showLoader: true
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+          if (response.type == 'areas') {
+            this.zones = response.data.data
+          }
+        })
+        .catch(error => {
+
+          console.log(error)
+        });
+
+    },
+    saveStore () {
+      if (this.method == 'Delivery') {
+        this.$store.dispatch("area", this.area);
+      }
+
+      let oldstore = this.$store.getters.store.name;
+      this.store.mode = this.method;
+
+      this.$store.dispatch("setStoreStatus", true);
+      this.$store.dispatch("setStore", this.store).then(res => {
+        if (oldstore !== this.store.name) {
+          this.$store.dispatch('addToCart', [])
+        }
+        $(".modal").modal("hide")
+        this.$router.push('home')
+      })
+
+
+
+    }
   }
 }
 
