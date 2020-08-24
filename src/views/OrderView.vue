@@ -28,7 +28,7 @@
               <div class="card order-details mt-2">
                 <div class="card-body">
 
-                  <div>
+                  <div v-if="Object.keys(order).length >0">
                     <div class="d-flex mb-3">
                       <h5>Total Item</h5>
                       <div class="info"><span>{{order.itemdetails.length}} items</span></div>
@@ -94,7 +94,7 @@
                       >
                       </rect>
                     </svg>
-                    <div id="Group_7638">
+                    <div class="check_1">
                       <svg class="complete">
                         <ellipse
                           id="Ellipse_237"
@@ -113,7 +113,77 @@
                         >
                       </div>
                     </div>
-                    <svg class="Ellipse_237_ed active">
+                    <div
+                      class="check_2"
+                      v-if="(order.completion_status!=='address_verified' && order.completion_status!=='processing') || order.completion_status=='Ready For Dispatch' "
+                    >
+                      <svg class="complete">
+                        <ellipse
+                          id="Ellipse_237"
+                          rx="18"
+                          ry="18"
+                          cx="18"
+                          cy="18"
+                        >
+                        </ellipse>
+                      </svg>
+                      <div id="check">
+
+                        <img
+                          src="../assets/img/check.png"
+                          alt=""
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="check_3"
+                      v-if="(order.completion_status!=='address_verified' && order.completion_status!=='processing' && order.completion_status!=='Ready For Dispatch') || order.completion_status=='Dispatched'"
+                    >
+                      <svg class="complete">
+                        <ellipse
+                          id="Ellipse_237"
+                          rx="18"
+                          ry="18"
+                          cx="18"
+                          cy="18"
+                        >
+                        </ellipse>
+                      </svg>
+                      <div id="check">
+
+                        <img
+                          src="../assets/img/check.png"
+                          alt=""
+                        >
+                      </div>
+                    </div>
+                    <div
+                      class="check_4"
+                      v-if="order.completion_status=='Delivered' || order.completion_status=='PickedUp'"
+                    >
+                      <svg class="complete">
+                        <ellipse
+                          id="Ellipse_237"
+                          rx="18"
+                          ry="18"
+                          cx="18"
+                          cy="18"
+                        >
+                        </ellipse>
+                      </svg>
+                      <div id="check">
+
+                        <img
+                          src="../assets/img/check.png"
+                          alt=""
+                        >
+                      </div>
+                    </div>
+                    <svg
+                      class="Ellipse_1 "
+                      v-if="order.completion_status !=='Ready For Dispatch'&& order.completion_status !=='Dispatched'&&order.completion_status !=='Delivered'&&order.completion_status !=='PickedUp'"
+                      v-bind:class="order.completion_status=='processing'? 'active':'disabled'"
+                    >
                       <ellipse
                         id="Ellipse_237_ed"
                         rx="6"
@@ -123,9 +193,13 @@
                       >
                       </ellipse>
                     </svg>
-                    <svg class="Ellipse_238  disabled">
+                    <svg
+                      v-if="order.completion_status !=='Dispatched'&&order.completion_status !=='Delivered'&&order.completion_status !=='PickedUp'"
+                      class="Ellipse_2 "
+                      v-bind:class="order.completion_status=='Ready For Dispatch'? 'active':'disabled'"
+                    >
                       <ellipse
-                        id="Ellipse_238"
+                        id="Ellipse_237_ed"
                         rx="6"
                         ry="6"
                         cx="6"
@@ -133,9 +207,13 @@
                       >
                       </ellipse>
                     </svg>
-                    <svg class=" Ellipse_239 disabled">
+                    <svg
+                      v-if="order.completion_status !=='Delivered'&&order.completion_status !=='PickedUp'"
+                      class="Ellipse_3 "
+                      v-bind:class="order.completion_status=='Delivered'|| order.completion_status=='PickedUp'? 'active':'disabled'"
+                    >
                       <ellipse
-                        id="Ellipse_239"
+                        id="Ellipse_237_ed"
                         rx="6"
                         ry="6"
                         cx="6"
@@ -143,17 +221,15 @@
                       >
                       </ellipse>
                     </svg>
+
                   </div>
                   <div class="stat ">
-                    <div
-                      v-bind:class="order.completion_status !=='address_verified' ? 'complete' :'active'"
-                      class="status "
-                    >
+                    <div class="status ">
                       <h5>Order confirmed</h5>
                       <span class="subtext">Your order has been confirmed</span>
                     </div>
                     <div
-                      v-bind:class="order.completion_status =='processing' ? 'active' :'complete'"
+                      v-bind:class="order.completion_status =='processing' ? 'complete' :''"
                       class="status  mt-5"
                     >
                       <h5>Processing</h5>
@@ -165,7 +241,7 @@
                       </div>
                     </div>
                     <div
-                      v-bind:class="order.completion_status =='Dispatched' ? 'active' :''"
+                      v-bind:class="order.completion_status =='Dispatched' ? 'complete' :''"
                       class="status mt-5"
                     >
                       <h5>Dispatched</h5>
@@ -263,13 +339,12 @@ export default {
       }
       this.$request.makeGetRequest(req)
         .then(res => {
-
           if (res.type == 'listorder') {
-            console.log(res.data.data)
             this.$store.dispatch('orders', res.data.data)
             res.data.data.forEach(i => {
               if (i.id == this.order_id) {
                 this.order = i;
+                console.log(i.completion_status)
               }
             })
           }
@@ -384,12 +459,36 @@ export default {
   fill: rgba(229, 229, 229, 1);
 }
 
-#Group_7638 {
+.check_1 {
   position: absolute;
   width: 36px;
   height: 36px;
   left: 8px;
   top: 65px;
+  overflow: visible;
+}
+.check_2 {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  left: 8px;
+  top: 160px;
+  overflow: visible;
+}
+.check_3 {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  left: 8px;
+  top: 293px;
+  overflow: visible;
+}
+.check_4 {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  left: 8px;
+  top: 361px;
   overflow: visible;
 }
 .track .complete {
@@ -398,13 +497,29 @@ export default {
 .track .active {
   fill: rgba(53, 49, 144, 1);
 }
-.Ellipse_237_ed {
+.Ellipse_1 {
   position: absolute;
   overflow: visible;
   width: 12px;
   height: 12px;
   left: 19px;
-  top: 167px;
+  top: 173px;
+}
+.Ellipse_2 {
+  position: absolute;
+  overflow: visible;
+  width: 12px;
+  height: 12px;
+  left: 19px;
+  top: 300px;
+}
+.Ellipse_3 {
+  position: absolute;
+  overflow: visible;
+  width: 12px;
+  height: 12px;
+  left: 19px;
+  top: 368px;
 }
 .disabled {
   fill: rgba(229, 229, 229, 1);

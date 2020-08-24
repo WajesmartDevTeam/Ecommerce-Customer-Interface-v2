@@ -17,7 +17,53 @@
                   @click.prevent="openNav()"
                 >☰</a>
               </li>
-              <li class=" navlink text-capitalize">
+              <li
+                v-if="$store.getters.isLoggedIn"
+                id="user"
+                class="menu-link dropdown d-sm-block d-md-none"
+                style="position: relative;left: 36%;"
+              >
+                <a
+                  id="username"
+                  href=""
+                  class="dropdown-toggle"
+                  data-toggle="dropdown"
+                >
+                  <span class="text-uppercase">{{user.fullname}}</span>
+                  <span id="userpoint">0 points</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="/account">
+                      <span class="material-icons mr-2 ml-1">
+                        person
+                      </span>
+                      <span class="text ml-4">My Account</span>
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li>
+                    <a href="/orders">
+                      <span class="material-icons mr-2 ml-1">
+                        shopping_basket
+                      </span>
+                      <span class="text ml-4">My Orders</span>
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li @click.prevent='logOut()'>
+                    <a
+                      href=""
+                      class="text-danger"
+                    >
+                      <span class="material-icons mr-2 ml-1">
+                        exit_to_app
+                      </span><span class="text ml-4">Logout</span></a></li>
+                  <li class="divider"></li>
+
+                </ul>
+              </li>
+              <li class=" navlink text-capitalize ">
                 <!-- store not selected -->
                 <a
                   v-if='$store.getters.isStoreSet==false'
@@ -48,9 +94,9 @@
                   <span v-else>Pickup from <b>{{this.$store.getters.store.name}}</b> Store</span>
 
                   <a
-                    v-if="$route.name !==('Checkout')"
+                    v-if="$route.name !==('Checkout') && $route.name !==('StoreLocator')"
                     href=""
-                    class="badge badge-pill badge-light"
+                    class="badge badge-pill badge-light ml-1"
                     data-toggle="modal"
                     data-target="#store"
                   >Change</a>
@@ -90,6 +136,7 @@
               </li>
             </ul>
             <ul
+              class="d-md-flex d-none "
               v-else
               id="user"
             >
@@ -100,7 +147,7 @@
                   class="dropdown-toggle"
                   data-toggle="dropdown"
                 >
-                  <span>{{user.fullname}}</span>
+                  <span class="text-uppercase">{{user.fullname}}</span>
                   <span id="userpoint">0 points</span>
                 </a>
                 <ul class="dropdown-menu">
@@ -212,7 +259,7 @@
                 <button
                   @click.prevent='store=row;closeModal()'
                   data-toggle='modal'
-                  data-target="#mode"
+                  data-target="#fulfillmentmode"
                   id="placeorder-btn"
                 >Place Order</button>
                 <!-- <button id="view-btn">View Store</button> -->
@@ -438,10 +485,12 @@
           class="sidemenu"
         >Contact Us</a>
         <a
+          v-if="!$store.getters.isLoggedIn"
           href="/login"
           class="sidemenu"
         >Sign in </a>
         <a
+          v-if="!$store.getters.isLoggedIn"
           href="/Register"
           class="register sidemenu"
         ><button>Register</button></a>
@@ -471,7 +520,7 @@
     <!-- Product Modal -->
     <div
       class="modal fade"
-      id="mode"
+      id="fulfillmentmode"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -540,7 +589,7 @@ export default {
     }
   },
   mounted () {
-
+    window.scrollTo(0, 0)
     if (this.$route.name == 'Search') {
       this.searchQuery = this.$route.params.search
     }
@@ -620,7 +669,9 @@ export default {
         this.$router.push(`/search/${this.searchQuery}`)
       }
       else {
-        this.$parent.fetchProducts()
+        this.$router.push({ name: 'Search', params: { search: this.searchQuery } })
+        // this.$parent.fetchProducts()
+        this.$router.go();
       }
 
 
@@ -688,7 +739,7 @@ export default {
       if (!str[1]) {
         str[1] = "00";
       }
-      return str.join(".");
+      return str[0];
     },
   }
 }
@@ -696,22 +747,27 @@ export default {
 
 
 <style scoped>
-#user li {
+#user li,
+li#user {
   list-style: none;
   position: relative;
 }
-#user .dropdown-menu li a {
+#user .dropdown-menu li a,
+li#user .dropdown-menu li a {
   color: #000066;
   font-size: 12px;
   font-weight: bold;
   position: relative;
 }
 #user .dropdown-menu li:hover,
-#user .dropdown-menu li:hover a {
+#user .dropdown-menu li:hover a,
+li#user .dropdown-menu li:hover,
+li#user .dropdown-menu li:hover a {
   background: #000066;
   color: #fff;
 }
-#user .dropdown-menu li a .material-icons {
+#user .dropdown-menu li a .material-icons,
+li#user .dropdown-menu li a .material-icons {
   font-size: 15px;
   position: absolute;
   top: -2px;

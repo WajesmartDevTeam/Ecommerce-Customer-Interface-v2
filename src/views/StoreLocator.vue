@@ -79,7 +79,6 @@
     </div>
     <!-- Product Modal -->
     <div
-      ref='vuemodal'
       class="modal fade"
       id="mode"
       tabindex="-1"
@@ -101,28 +100,40 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="saveStore()">
+            <ValidationObserver v-slot="{ handleSubmit }">
+              <form @submit.prevent='handleSubmit(saveStore)'>
 
-              <v-select
-                required
-                :options="['Pickup', 'Delivery']"
-                v-model="method"
-                placeholder="Select fulfillment mode"
-                class="form-group"
-              >
-              </v-select>
-              <v-select
-                v-if="method== 'Delivery'"
-                required
-                :options="areas"
-                v-model="area"
-                placeholder="Select Delivery Area"
-                class="form-group"
-              >
-              </v-select>
+                <v-select
+                  required
+                  :options="['Pickup', 'Delivery']"
+                  v-model="method"
+                  placeholder="Select fulfillment mode"
+                  class="form-group"
+                >
+                </v-select>
+                <validation-provider
+                  rules="required"
+                  v-if="method== 'Delivery'"
+                  v-slot="{ errors }"
+                >
+                  <v-select
+                    v-if="method== 'Delivery'"
+                    required
+                    :options="areas"
+                    v-model="area"
+                    placeholder="Select Delivery Area"
+                    class="form-group"
+                  >
+                  </v-select>
+                  <span class="err_msg">{{ errors[0] }}</span>
+                </validation-provider>
+                <button
+                  type="submit"
+                  class="btn mx-auto text-center"
+                >Submit</button>
+              </form>
+            </ValidationObserver>
 
-              <button class="btn mx-auto text-center">Submit</button>
-            </form>
           </div>
 
         </div>
@@ -150,11 +161,13 @@ export default {
       method: '',
       zones: [],
       areas: [],
-      area: ''
+      area: '',
+      loader: ''
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', false)
+    this.$store.dispatch('ToggleShowSearch', false);
+    this.loader = this.$loading.show();
   },
   mounted () {
     this.getAllStores();
@@ -179,7 +192,8 @@ export default {
   methods: {
     getAllStores () {
       let req = {
-        what: "allstores"
+        what: "allstores",
+        showLoader: false
       }
       this.$request.makeGetRequest(req)
         .then(response => {
@@ -187,7 +201,7 @@ export default {
           if (response.type == 'allstores') {
             this.stores = response.data.stores
           }
-
+          this.loader.hide()
         })
         .catch(error => {
 

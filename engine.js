@@ -128,7 +128,9 @@ io.on("connection", function(socket) {
             verifycard: 'verifygiftcard',
             placeorder: 'placeorder',
             verifypayment: 'makepayment',
-            createaddress: 'addresses'
+            createaddress: 'addresses',
+            updatecustomer: 'updatecustomer'
+
 
         };
 

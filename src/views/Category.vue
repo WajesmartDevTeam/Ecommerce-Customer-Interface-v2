@@ -273,6 +273,7 @@ export default {
   },
   data () {
     return {
+      loader: '',
       showSearch: false,
       viewproduct: false,
       category: '',
@@ -294,7 +295,8 @@ export default {
   },
 
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', true)
+    this.$store.dispatch('ToggleShowSearch', true);
+    this.loader = this.$loading.show();
   },
   mounted () {
     $(this.$refs.pro).on("show.modal", (e) => {
@@ -333,11 +335,13 @@ export default {
               pro.forEach($product => this.products.push($product));
               if ($state) $state.loaded();
             } else {
+              this.loader.hide()
               $state.complete();
             }
 
             // let path = '..'
             // i.img_url = path.concat(i.img_url)
+            this.loader.hide()
           }
 
         })

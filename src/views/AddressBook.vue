@@ -133,126 +133,168 @@
               </button>
             </div>
             <div class="modal-body">
-              <form @submit.prevent='createAddress()'>
-                <div class="form-row">
-                  <div class="form-group col-sm-6">
+              <ValidationObserver v-slot="{ handleSubmit }">
+                <form @submit.prevent='handleSubmit(createAddress)'>
+                  <div class="form-row">
+                    <div class="form-group col-sm-6">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          type="text"
+                          class="form-control"
+                          required
+                          placeholder="Label e.g Home, Office"
+                          v-model="address.label"
+                        >
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Street Address"
+                          v-model="address.address"
+                        >
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-6">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Area"
+                          v-model="address.area"
+                        >
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Closest Landmark"
+                          v-model="address.landmark"
+                        >
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                  </div>
+                  <div class="form-row ">
+                    <div class="form-group col-sm-6">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          v-if="edit"
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Closest Landmark"
+                          v-model="address.state"
+                        >
+                        <select
+                          v-else
+                          name=""
+                          id=""
+                          required
+                          class="form-control "
+                          v-model="selected"
+                        >
+                          <option
+                            value=""
+                            selected
+                            hidden
+                          >Select State</option>
+                          <option
+                            v-for="(row, index) in states"
+                            v-bind:key='index'
+                            :value="row.state.name"
+                          >{{row.state.name}}</option>
+                        </select>
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          v-if="edit"
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder="Closest Landmark"
+                          v-model="address.city"
+                        >
 
-                    <input
-                      type="text"
-                      class="form-control"
-                      required
-                      placeholder="Label e.g Home, Office"
-                      v-model="address.label"
-                    >
+                        <select
+                          v-else
+                          name=""
+                          id=""
+                          required
+                          class="form-control "
+                          v-model="address.city"
+                        >
+                          <option
+                            value=""
+                            selected
+                            hidden
+                          >Select City</option>
+                          <option
+                            v-for="(row, index) in cities"
+                            v-bind:key='index'
+                            :value="row.name"
+                          >{{row.name}}</option>
+                        </select>
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                    <div class="form-group form-check">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          v-model="address.default"
+                        >
+                        <label
+                          class="form-check-label"
+                          for="exampleCheck1"
+                        >Set as default</label>
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
                   </div>
-                  <div class="form-group col-sm-6">
-
-                    <input
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Street Address"
-                      v-model="address.address"
-                    >
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-sm-6">
-
-                    <input
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Area"
-                      v-model="address.area"
-                    >
-                  </div>
-                  <div class="form-group col-sm-6">
-
-                    <input
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Closest Landmark"
-                      v-model="address.landmark"
-                    >
-                  </div>
-                </div>
-                <div class="form-row ">
-                  <div class="form-group col-sm-6">
-                    <input
-                      v-if="edit"
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Closest Landmark"
-                      v-model="address.state"
-                    >
-                    <select
-                      v-else
-                      name=""
-                      id=""
-                      required
-                      class="form-control "
-                      v-model="selected"
-                    >
-                      <option
-                        value=""
-                        selected
-                        hidden
-                      >Select State</option>
-                      <option
-                        v-for="(row, index) in states"
-                        v-bind:key='index'
-                        :value="row.state.name"
-                      >{{row.state.name}}</option>
-                    </select>
-
-                  </div>
-                  <div class="form-group col-sm-6">
-                    <input
-                      v-if="edit"
-                      type="text"
-                      required
-                      class="form-control"
-                      placeholder="Closest Landmark"
-                      v-model="address.city"
-                    >
-
-                    <select
-                      v-else
-                      name=""
-                      id=""
-                      required
-                      class="form-control "
-                      v-model="address.city"
-                    >
-                      <option
-                        value=""
-                        selected
-                        hidden
-                      >Select City</option>
-                      <option
-                        v-for="(row, index) in cities"
-                        v-bind:key='index'
-                        :value="row.name"
-                      >{{row.name}}</option>
-                    </select>
-                  </div>
-                  <div class="form-group form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      v-model="address.default"
-                    >
-                    <label
-                      class="form-check-label"
-                      for="exampleCheck1"
-                    >Set as default</label>
-                  </div>
-                </div>
-                <button class="msq-button mt-4">{{edit? 'Update':'Add'}} Address</button>
-              </form>
+                  <button
+                    type="submit"
+                    class="msq-button mt-4"
+                  >{{edit? 'Update':'Add'}} Address</button>
+                </form>
+              </ValidationObserver>
             </div>
 
           </div>

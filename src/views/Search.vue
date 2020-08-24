@@ -138,6 +138,7 @@
 
               <button
                 type="button"
+                @click.prevent='doSomethingOnHidden($event)'
                 class="close"
                 data-dismiss="modal"
                 aria-label="Close"
@@ -261,11 +262,13 @@ export default {
       storeid: '',
       page: 0,
       products: [],
-      pro: ''
+      pro: '',
+      loader: ''
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', true)
+    this.$store.dispatch('ToggleShowSearch', true);
+    this.loader = this.$loading.show();
   },
   mounted () {
 
@@ -297,6 +300,7 @@ export default {
             } else {
               $state.complete();
             }
+            this.loader.hide()
           }
 
         })
@@ -437,6 +441,18 @@ export default {
         str[1] = "00";
       }
       return str.join(".");
+    },
+    doSomethingOnHidden ($event) {
+      //  addtocart
+      console.log($event)
+      var add = document.querySelectorAll('.addquantity');
+      [].forEach.call(add, function (el) {
+        el.classList.add("hideqty");
+      });
+      var btn = document.querySelectorAll('.addtocart');
+      [].forEach.call(btn, function (el) {
+        el.classList.remove("hideqty");
+      });
     },
   }
 }

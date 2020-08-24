@@ -1,5 +1,16 @@
 <template>
   <div>
+    <!-- <loader
+      object="#ea1a1a"
+      color1="#ffffff"
+      color2="#17fd3d"
+      size="5"
+      speed="2"
+      bg="#343a40"
+      objectbg="#999793"
+      opacity="80"
+      name="dots"
+    ></loader> -->
     <TopNav></TopNav>
     <div class="landingpage">
       <div class="">
@@ -245,18 +256,24 @@ export default {
   components: {
     StoreSelector, TopNav, Footer
   },
+  data () {
+    return {
+      loader: ''
+    }
+  },
+
   beforeMount () {
     this.$store.dispatch("setStoreStatus", false);
-    this.$store.dispatch('ToggleShowSearch', false)
+    this.$store.dispatch('ToggleShowSearch', false);
+    this.loader = this.$loading.show();
   },
   mounted () {
+    setTimeout(() => {
+      this.loader.hide()
+    }, 5000)
 
-    // this.$refs.store.fetchStores();
-
-    // this.$refs.store.fetchAreas();
-
-
-
+  },
+  methods: {
   }
 }
 

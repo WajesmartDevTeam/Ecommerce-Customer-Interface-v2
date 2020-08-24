@@ -14,44 +14,56 @@ import io from "socket.io-client";
 import swal from "sweetalert2";
 import VueLazyload from 'vue-lazyload'
 import InfiniteLoading from "vue-infinite-loading";
-// import VeeValidate from "vee-validate";
-import { ValidationProvider, extend } from 'vee-validate';
-import { required } from 'vee-validate/dist/rules';
+import { ValidationProvider, extend, ValidationObserver } from 'vee-validate';
+import { required, email, max, numeric, length } from 'vee-validate/dist/rules';
+import Loading from 'vue-loading-overlay';
+// Import stylesheet
+import 'vue-loading-overlay/dist/vue-loading.css';
 import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 
 Vue.config.productionTip = false;
 
+// No message specified.
+extend('email', {
+    ...email,
+    message: 'The {_field_} field must be an email'
+});
 
-// VeeValidate.Validator.extend("verify_password", {
-//     getMessage: field => ``,
-//     validate: value => {
-//         var strongRegex = new RegExp("^(.{6,})$");
-//         return strongRegex.test(value);
-//     }
+// Override the default message.
+extend('required', {
+    ...required,
+    message: 'This field is required'
+});
+extend('numeric', {
+    ...numeric,
+    message: 'This field must include numbers only'
+});
+// extend('length', {
+//     ...length,
+//     message: 'The {_field_} field must have maximum length of 11'
 // });
-// VeeValidate.Validator.extend("verify_number", {
-//     getMessage: field => ``,
-//     validate: value => {
-//         var numRegex = new RegExp('^\\d+$');
-//         return numRegex.test(value);
-//     }
-// });
-Vue.use(VueLazyload, {
-    preLoad: 1.3,
-    error: 'dist/error.png',
-    loading: 'dist/loading.gif',
-    attempt: 1,
-    listenEvents: ['scroll'],
-    imgUrl: 'http://xx.com/logo.png'
-})
+extend('confirmedBy', {
+    params: ['target'],
+    // Target here is the value of the target field
+    validate(value, { target }) {
+        return value === target;
+    },
+    // here it is its name, because we are generating a message
+    message: 'The {_field_} does not match the {target}'
+});
+// Vue.use(VueLazyload, {
+//     preLoad: 1.3,
+//     error: 'dist/error.png',
+//     loading: 'dist/loading.gif',
+//     attempt: 1,
+//     listenEvents: ['scroll'],
+//     imgUrl: 'http://xx.com/logo.png'
+// })
 Vue.use(VueTelInput) // Define default global options here (optional)
 Vue.use(VueAxios, axios);
 Vue.use(InfiniteLoading);
 Vue.use(VueCarousel);
-// Vue.use(VeeValidate, {
-//     events: 'change|blur|custom'
-// });
 
 Vue.use(Toasted, {
     theme: "bubble",
@@ -68,13 +80,25 @@ Vue.use(Toasted, {
     router
 });
 
+Vue.use(Loading, {
+    canCancel: false,
+    color: 'red',
+    height: 65,
+    width: 65,
+    loader: 'Dots',
+    opacity: 0.8,
+    backgroundColor: '#ffffff',
+});
+
 Vue.component('v-select', vSelect)
-Vue.component('validation-provider', ValidationProvider)
-    // var socket = io("http://199.192.22.132:3300");
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+// var socket = io("http://199.192.22.132:3300");
 var socket = io("localhost:3300");
 Vue.prototype.$socket = socket;
 Vue.prototype.$request = Request;
 Vue.prototype.$swal = swal;
+Vue.prototype.$loader = Loading;
 
 
 
@@ -86,21 +110,21 @@ import "../src/assets/css/responsive.css"
 //javascript
 import "bootstrap";
 import "jquery";
-
 import Popper from "popper.js";
 global.Popper = Popper;
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
 router.beforeEach((to, from, next) => {
-    if (to.name !== 'LandingPage' && !store.getters.isStoreSet) next({ name: 'LandingPage' })
+    if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About') next()
+    else if (to.name !== 'LandingPage' && !store.getters.isStoreSet) next({ name: 'LandingPage' })
     else if (to.name == 'LandingPage' && store.getters.isStoreSet) next({ name: 'Home' })
     else next();
     if (to.name !== 'Register' && from.name == 'Login') next({ name: 'Home' })
     else next();
     if (to.name !== 'OrderConfirmation' && from.name == 'Login') next({ name: 'Home' })
     else next();
-
+    if (to.name == 'MyOrder' && !store.getters.isLoggedIn) next({ name: 'Login' })
 })
 
 new Vue({

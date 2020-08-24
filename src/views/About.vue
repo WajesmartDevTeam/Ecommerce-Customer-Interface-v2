@@ -175,13 +175,17 @@ export default {
   data () {
     return {
       showSearch: false,
+      loader: ''
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', false)
+    this.$store.dispatch('ToggleShowSearch', false);
+    this.loader = this.$loading.show();
   },
   mounted () {
-    // console.log(this.$store.getters.showSearch)
+    setTimeout(() => {
+      this.loader.hide()
+    }, 3000)
   }
 }
 

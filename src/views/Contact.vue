@@ -19,66 +19,92 @@
       <div class="content bg-white">
         <div class="container py-5">
           <div class="form-box py-5">
-            <form @submit.prevent="sendMessage">
-              <div class="form-row">
-                <div class="form-group col-md-6">
+            <ValidationObserver v-slot="{ handleSubmit }">
+              <form @submit.prevent="handleSubmit(sendMessage)">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <validation-provider
+                      rules="required"
+                      v-slot="{ errors }"
+                    >
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="contact.firstname"
+                        placeholder="First Name"
+                        required
+                      >
+                      <span class="err_msg">{{ errors[0] }}</span>
+                    </validation-provider>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <validation-provider
+                      rules="required"
+                      v-slot="{ errors }"
+                    >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Last Name"
+                        required
+                        v-model="contact.lastname"
+                      >
+                      <span class="err_msg">{{ errors[0] }}</span>
+                    </validation-provider>
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <validation-provider
+                    rules="required|email"
+                    v-slot="{ errors }"
+                  >
+                    <input
+                      type="email"
+                      class="form-control"
+                      placeholder="Email Address"
+                      v-model="contact.email"
+                    >
+                    <span class="err_msg">{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+                <div class="form-group">
+                  <validation-provider
+                    rules="required:length:11"
+                    v-slot="{ errors }"
+                  >
+                    <vue-tel-input v-model="contact.phone"></vue-tel-input>
+                    <span class="err_msg">{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+                <div class="form-group">
                   <input
                     type="text"
                     class="form-control"
-                    v-model="contact.firstname"
-                    placeholder="First Name"
-                    required
+                    placeholder="Subject"
+                    v-model="contact.subject"
                   >
                 </div>
-                <div class="form-group col-md-6">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Last Name"
-                    required
-                    v-model="contact.lastname"
+                <div class="form-group">
+                  <validation-provider
+                    rules="required"
+                    v-slot="{ errors }"
                   >
+                    <textarea
+                      name=""
+                      rows="10"
+                      v-model="contact.message"
+                      placeholder="Message body"
+                    ></textarea>
+                    <span class="err_msg">{{ errors[0] }}</span>
+                  </validation-provider>
                 </div>
-              </div>
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="Email Address"
-                  v-model="contact.email"
-                >
-              </div>
-              <div class="form-group">
-
-                <!-- <input
-                type="text"
-                class="form-control"
-                placeholder="Phone Number"
-              > -->
-                <vue-tel-input v-model="contact.phone"></vue-tel-input>
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Subject"
-                  v-model="contact.subject"
-                >
-              </div>
-              <div class="form-group">
-
-                <textarea
-                  name=""
-                  rows="10"
-                  v-model="contact.message"
-                  placeholder="Message body"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                class=" msq-button"
-              >Send</button>
-            </form>
+                <button
+                  type="submit"
+                  class=" msq-button"
+                >Send</button>
+              </form>
+            </ValidationObserver>
           </div>
         </div>
       </div>

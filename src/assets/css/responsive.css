@@ -29,7 +29,7 @@
         margin: 0 10px 0 0;
     }
     li.navlink a {
-        font-size: 9px;
+        font-size: 8px;
     }
     #username[data-v-23c8a2be] {
         font-size: 9px;
@@ -55,11 +55,16 @@
 }
 
 @media screen and (max-width:425px) {
+    .auth .field .auth-form {
+        color: #879388;
+        /* text-transform: capitalize; */
+        padding: 10%;
+    }
     figure {
         width: 300px!important;
     }
     li.navlink a {
-        font-size: 7px;
+        font-size: 11px;
     }
     .landingpage .banner-text {
         position: absolute;
@@ -147,7 +152,7 @@
 
 @media screen and (max-width:375px) and (min-width:321px) {
     li.navlink a {
-        font-size: 7px;
+        font-size: 9px;
     }
     .contact #contact-banner .banner-image {
         position: absolute;
@@ -176,8 +181,11 @@
 /* iphone */
 
 @media screen and (max-width:320px) {
+    li.navlink {
+        margin: 0;
+    }
     li.navlink a {
-        font-size: 7px;
+        font-size: 8px;
     }
     .contact #contact-banner .banner-image {
         position: absolute;

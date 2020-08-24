@@ -90,62 +90,98 @@
                   </div>
                 </div>
                 <div class="col-8">
-                  <form @submit.prevent="paygiftcard">
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="inputEmail4"
-                          v-model="gifter.firstname"
-                          placeholder="Gifter's First Name"
-                        >
+                  <ValidationObserver v-slot="{ handleSubmit }">
+                    <form @submit.prevent='handleSubmit(paygiftcard)'>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <validation-provider
+                            rules="required"
+                            v-slot="{ errors }"
+                          >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputEmail4"
+                              v-model="gifter.firstname"
+                              placeholder="Gifter's First Name"
+                            >
+                            <span class="err_msg">{{ errors[0] }}</span>
+                          </validation-provider>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <validation-provider
+                            rules="required"
+                            v-slot="{ errors }"
+                          >
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model="gifter.lastname"
+                              placeholder="Gifter's Last Name"
+                              id="inputPassword4"
+                            >
+                            <span class="err_msg">{{ errors[0] }}</span>
+                          </validation-provider>
+                        </div>
                       </div>
-                      <div class="form-group col-md-6">
-                        <input
-                          type="text"
-                          class="form-control"
-                          v-model="gifter.lastname"
-                          placeholder="Gifter's Last Name"
-                          id="inputPassword4"
+                      <div class="form-group">
+                        <validation-provider
+                          rules="required|email"
+                          v-slot="{ errors }"
                         >
+                          <input
+                            v-model="gifter.email"
+                            type="email"
+                            class="form-control"
+                            placeholder="Gifter's Email Address"
+                          >
+                          <span class="err_msg">{{ errors[0] }}</span>
+                        </validation-provider>
                       </div>
-                    </div>
-                    <div class="form-group">
-                      <input
-                        v-model="gifter.email"
-                        type="email"
-                        class="form-control"
-                        placeholder="Gifter's Email Address"
-                      >
-                    </div>
-                    <div class="form-group">
-
-                      <vue-tel-input
-                        v-model="gifter.phone"
-                        placeholder="Gifter's Phone Number"
-                      ></vue-tel-input>
-                    </div>
-                    <div class="form-group">
-                      <input
-                        type="email"
-                        v-model="recipient.customeremail"
-                        class="form-control"
-                        placeholder="Recipient's Email Address"
-                      >
-                    </div>
-                    <div class="form-group">
-
-                      <vue-tel-input
-                        v-model="recipient.customerphone"
-                        placeholder="Recipient's Phone Number"
-                      ></vue-tel-input>
-                    </div>
-                    <button
-                      type="submit"
-                      class=" msq-button"
-                    >Buy</button>
-                  </form>
+                      <div class="form-group">
+                        <validation-provider
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <vue-tel-input
+                            v-model="gifter.phone"
+                            placeholder="Gifter's Phone Number"
+                          ></vue-tel-input>
+                          <span class="err_msg">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
+                      <div class="form-group">
+                        <validation-provider
+                          rules="required|email"
+                          v-slot="{ errors }"
+                        >
+                          <input
+                            type="email"
+                            v-model="recipient.customeremail"
+                            class="form-control"
+                            placeholder="Recipient's Email Address"
+                          >
+                          <span class="err_msg">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
+                      <div class="form-group">
+                        <validation-provider
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <vue-tel-input
+                            v-model="recipient.customerphone"
+                            placeholder="Recipient's Phone Number"
+                          ></vue-tel-input>
+                          <span class="err_msg">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
+                      <button
+                        type="submit"
+                        class=" msq-button"
+                      >Buy</button>
+                    </form>
+                  </ValidationObserver>
                 </div>
               </div>
             </div>
@@ -170,6 +206,7 @@ export default {
   },
   data () {
     return {
+      loader: '',
       showSearch: false,
       buycard: false,
       cards: [],
@@ -192,7 +229,8 @@ export default {
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', false)
+    this.$store.dispatch('ToggleShowSearch', false);
+    this.loader = this.$loading.show();
   },
   mounted () {
     let rave = document.createElement("script");
@@ -208,7 +246,7 @@ export default {
     fetchCards () {
       let req = {
         what: "giftcards",
-        showLoader: true,
+        showLoader: false,
         params: {
           serviceid: 351817683
         }
@@ -217,6 +255,7 @@ export default {
         .then(response => {
           console.log(response.data.data);
           this.cards = response.data.data;
+          this.loader.hide()
         })
         .catch(error => {
 

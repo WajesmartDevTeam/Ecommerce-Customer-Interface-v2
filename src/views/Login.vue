@@ -14,51 +14,60 @@
       </div>
       <div class="auth-form">
         <h5 class="title mb-5">Sign in to continue to your account.</h5>
-        <form @submit.prevent='handleLogin()'>
-          <div class="form-group">
-            <!-- <input
-              type="text"
-              class="form-control"
-              placeholder="Phone Number"
-            > -->
-            <vue-tel-input
-              v-model="user.phone"
-              placeholder="Loyalty/Phone Number"
-            ></vue-tel-input>
-          </div>
-          <div
-            class="form-group"
-            style="position:relative"
-          >
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent='handleSubmit(handleLogin)'>
 
-            <input
-              class="form-control"
-              placeholder="Password"
-              v-model="user.password"
-              :type="passwordFieldType"
+            <div class="form-group">
+              <validation-provider
+                rules="required"
+                v-slot="{ errors }"
+              >
+                <vue-tel-input
+                  v-model="user.phone"
+                  placeholder="Loyalty/Phone Number"
+                ></vue-tel-input>
+                <span class="err_msg">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
+            <div
+              class="form-group"
+              style="position:relative"
             >
-            <span
-              id="show_hide"
-              @click="switchVisibility"
-            >
-              <i
-                v-if="passwordFieldType == 'password'"
-                class="fa fa-eye"
-              ></i>
-              <i
-                v-if="passwordFieldType == 'text'"
-                class="fa fa-eye-slash"
-              ></i>
-            </span>
-          </div>
-          <a
-            class="forgot "
-            style="cursor:pointer"
-            data-toggle='modal'
-            data-target="#forgot"
-          >Forgot Password?</a>
-          <button class="msq-button mt-3">sign in</button>
-        </form>
+              <validation-provider
+                rules="required"
+                v-slot="{ errors }"
+              >
+                <input
+                  class="form-control"
+                  placeholder="Password"
+                  v-model="user.password"
+                  :type="passwordFieldType"
+                >
+                <span class="err_msg">{{ errors[0] }}</span>
+              </validation-provider>
+              <span
+                id="show_hide"
+                @click="switchVisibility"
+              >
+                <i
+                  v-if="passwordFieldType == 'password'"
+                  class="fa fa-eye"
+                ></i>
+                <i
+                  v-if="passwordFieldType == 'text'"
+                  class="fa fa-eye-slash"
+                ></i>
+              </span>
+            </div>
+            <a
+              class="forgot "
+              style="cursor:pointer"
+              data-toggle='modal'
+              data-target="#forgot"
+            >Forgot Password?</a>
+            <button class="msq-button mt-3">sign in</button>
+          </form>
+        </ValidationObserver>
       </div>
     </div>
 
@@ -85,23 +94,30 @@
             </button>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="handleForgotPassword">
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control"
-                  v-model="forgot_email"
-                  placeholder="Enter email address"
-                />
-
-              </div>
-              <div class="form-group">
-                <button
-                  type="submit"
-                  class="msq-button mt-3"
-                >Submit</button>
-              </div>
-            </form>
+            <ValidationObserver v-slot="{ handleSubmit }">
+              <form @submit.prevent='handleSubmit(handleForgotPassword)'>
+                <div class="form-group">
+                  <validation-provider
+                    rules="required|email"
+                    v-slot="{ errors }"
+                  >
+                    <input
+                      type="email"
+                      class="form-control"
+                      v-model="forgot_email"
+                      placeholder="Enter email address"
+                    />
+                    <span class="err_msg">{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+                <div class="form-group">
+                  <button
+                    type="submit"
+                    class="msq-button mt-3"
+                  >Submit</button>
+                </div>
+              </form>
+            </ValidationObserver>
           </div>
 
         </div>
@@ -113,6 +129,7 @@
 
 <script>
 import * as $ from "jquery";
+
 export default {
   name: 'Login',
   components: {
@@ -143,10 +160,11 @@ export default {
         .makePostRequest(req)
         .then(response => {
           this.$store.dispatch('setLoggedIn', true)
-          this.$store.dispatch('user', response.data.data[0])
+          console.log(response.data)
+          this.$store.dispatch('user', response.data.message[0])
             .then(() => {
               this.fetchCart();
-              this.$swal.fire("Success", `Hi ${response.data.data[0].firstname}, Welcome to Marketsquare`, "success");
+              this.$swal.fire("Success", `Hi ${response.data.message[0].firstname}, Welcome to Marketsquare`, "success");
               this.user = {};
 
             })
@@ -155,7 +173,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.$swal.fire("Error", error.message, "error");
+          this.$swal.fire("Error", error, "error");
         });
     },
     fetchCart () {

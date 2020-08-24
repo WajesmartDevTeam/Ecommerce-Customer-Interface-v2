@@ -21,62 +21,86 @@
             <div class="content">
               <h4 class="title text-left">My Account Settings</h4>
               <div class="col-sm-9 mt-3 p-0">
-                <form>
-                  <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="First Name"
-                        v-model="user.firstname"
-                      >
+                <ValidationObserver v-slot="{ handleSubmit }">
+                  <form @submit.prevent='handleSubmit(updateUser)'>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <validation-provider
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="First Name"
+                            v-model="user.firstname"
+                          >
+                          <span class="err_msg">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <validation-provider
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Last Name"
+                            v-model="user.lastname"
+                          >
+                          <span class="err_msg">{{ errors[0] }}</span>
+                        </validation-provider>
+                      </div>
                     </div>
-                    <div class="form-group col-md-6">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Last Name"
-                        v-model="user.lastname"
+                    <div class="form-group">
+                      <validation-provider
+                        rules="required|email"
+                        v-slot="{ errors }"
                       >
+                        <input
+                          disabled
+                          type="email"
+                          class="form-control"
+                          placeholder="Email Address"
+                          v-model="user.email"
+                        >
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
                     </div>
-                  </div>
-                  <div class="form-group">
+                    <div class="form-group">
+                      <validation-provider
+                        rules="required"
+                        v-slot="{ errors }"
+                      >
+                        <vue-tel-input
+                          disabled
+                          v-model="user.phone"
+                        ></vue-tel-input>
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                    <button class="msq-button mt-4">Update Profile</button>
+                    <!-- <div
+                      id="changepsw"
+                      data-toggle="modal"
+                      data-target="#change"
+                      class="text-center my-4"
+                    > Change Password</div> -->
 
-                    <input
-                      type="email"
-                      class="form-control"
-                      placeholder="Email Address"
-                      v-model="user.email"
-                    >
-                  </div>
-                  <div class="form-group">
-                    <!-- <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Phone Number"
-                      > -->
-                    <vue-tel-input v-model="user.phone"></vue-tel-input>
-                  </div>
-                  <button class="msq-button mt-4">Update Profile</button>
-                  <div
-                    id="changepsw"
-                    data-toggle="modal"
-                    data-target="#change"
-                    class="text-center my-4"
-                  > Change Password</div>
-
-                  <div class="form-group form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      v-model="user.subscription"
-                    >
-                    <label
-                      class="form-check-label"
-                      for="exampleCheck1"
-                    >Receive Marketsquare promotional notification</label>
-                  </div>
-                </form>
+                    <div class="form-group form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        v-model="user.subscription"
+                      >
+                      <label
+                        class="form-check-label"
+                        for="exampleCheck1"
+                      >Receive Marketsquare promotional notification</label>
+                    </div>
+                  </form>
+                </ValidationObserver>
               </div>
               <div class="avatar col-3"></div>
             </div>
@@ -170,6 +194,31 @@ export default {
   mounted () {
     this.user = this.$store.getters.user
     console.log(this.user)
+  },
+  methods: {
+    updateUser () {
+      let req = {
+        what: "updatecustomer",
+        showLoader: true,
+        data: {
+          firstname: this.user.firstname,
+          id: this.user.id,
+          lastname: this.user.lastname
+        }
+      }
+      this.$request
+        .makePostRequest(req)
+        .then(res => {
+          this.$swal.fire("Success", res.data.message, "success");
+          this.user.fullname = this.user.title + ' ' + this.user.firstname + ' ' + this.user.lastname
+          this.$store.dispatch('user', this.user)
+        })
+        .catch(error => {
+          console.log(error);
+          this.$swal.fire("Error", error.message, "error");
+        });
+    },
+
   }
 }
 

@@ -261,7 +261,7 @@
               :perPageCustom="[[320, 1],[375, 1],[425, 2],[768, 3], [1024, 4]]"
             >
               <slide
-                v-for="(product, index) in products.beverages"
+                v-for="(product, index) in products.water"
                 v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
@@ -492,6 +492,7 @@
               <button
                 type="button"
                 class="close"
+                @click.prevent='doSomethingOnHidden($event)'
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -612,11 +613,13 @@ export default {
       showSearch: false,
       products: {},
       pro: '',
-      viewproduct: false
+      viewproduct: false,
+      loader: ''
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', true)
+    this.$store.dispatch('ToggleShowSearch', true);
+    this.loader = this.$loading.show();
   },
   mounted () {
     this.fetchProducts()
@@ -625,6 +628,7 @@ export default {
     fetchProducts () {
       let req = {
         what: "products",
+        showLoader: false,
         params: {
           storeid: this.$store.getters.store.id
         }
@@ -633,8 +637,7 @@ export default {
         .then(res => {
           if (res.type == 'products') {
             console.log(res)
-            console.log(res.data.data.top)
-
+            this.loader.hide()
             if (res.data.data.top.length > 0) {
               this.products = res.data.data;
             } else {
@@ -783,6 +786,18 @@ export default {
         str[1] = "00";
       }
       return str.join(".");
+    },
+    doSomethingOnHidden ($event) {
+      //  addtocart
+      console.log($event)
+      var add = document.querySelectorAll('.addquantity');
+      [].forEach.call(add, function (el) {
+        el.classList.add("hideqty");
+      });
+      var btn = document.querySelectorAll('.addtocart');
+      [].forEach.call(btn, function (el) {
+        el.classList.remove("hideqty");
+      });
     },
   }
 }
