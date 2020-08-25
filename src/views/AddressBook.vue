@@ -326,6 +326,7 @@ export default {
       selected: '',
       cities: [],
       areas: [],
+      loader: '',
       addresses: [],
       address: {
         user_id: this.$store.getters.user.id,
@@ -340,7 +341,8 @@ export default {
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', true)
+    this.$store.dispatch('ToggleShowSearch', true);
+    this.loader = this.$loading.show();
   },
   mounted () {
     this.fetchAddress()
@@ -360,7 +362,7 @@ export default {
     fetchAddress () {
       let req = {
         what: "listaddress",
-        showLoader: true,
+        showLoader: false,
         params: {
           user_id: this.$store.getters.user.id
         }
@@ -369,6 +371,7 @@ export default {
         .then(response => {
           console.log(response.data.data);
           this.addresses = response.data.data;
+          this.loader.hide()
         })
         .catch(error => {
 

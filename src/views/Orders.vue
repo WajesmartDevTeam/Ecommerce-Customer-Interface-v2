@@ -74,11 +74,13 @@ export default {
   data () {
     return {
       showSearch: false,
-      orders: []
+      orders: [],
+      loader: ''
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', true)
+    this.$store.dispatch('ToggleShowSearch', true);
+    this.loader = this.$loading.show();
   },
   mounted () {
     // console.log(this.$store.getters.showSearch)
@@ -88,7 +90,7 @@ export default {
     fetchOrders () {
       let req = {
         what: "listorder",
-        showLoader: true,
+        showLoader: false,
         params: {
           user_id: this.$store.getters.user.id
         }
@@ -100,6 +102,7 @@ export default {
             console.log(res.data.data)
             this.$store.dispatch('orders', res.data.data)
             this.orders = res.data.data;
+            this.loader.hide()
           }
 
         })

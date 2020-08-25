@@ -276,6 +276,11 @@ figure {
 
 /* home */
 
+#product img {
+    max-height: 250px;
+    text-align: center;
+}
+
 .banner.home-banner {
     background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/home-banner.png);
     height: 400px;
@@ -513,81 +518,147 @@ button.addtocart span {
 }
 
 .banner.category-banner.bakery {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/bakery.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/bakery.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.banner.category-banner.groceries,
-.banner.category-banner.beverages,
-.banner.category-banner.confectioneries,
+.banner.category-banner.groceries {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/Groceries.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banner.category-banner.beverages {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/beverages.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banner.category-banner.confectioneries {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/confectioneries.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .banner.category-banner.breakfastcereal {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/groceries.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/breakfast\ cereals.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.banner.category-banner.freshproduce,
-.banner.category-banner.commodities,
-.banner.category-banner.perishables,
+.banner.category-banner.freshproduce {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/fresh\ produce.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banner.category-banner.commodities {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/commodities.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banner.category-banner.perishables {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/perishables.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .banner.category-banner.butchery {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/food.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/butchery.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .banner.category-banner.spirits {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/spirits.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/spirits.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.banner.category-banner.medicare,
+.banner.category-banner.medicare {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/medicare.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .banner.category-banner.toiletries {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/cosmetics.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/toileteries.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.banner.category-banner.household,
+.banner.category-banner.household {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/household.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .banner.category-banner.sda {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/homeware.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/sda.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.banner.category-banner.accessories,
+.banner.category-banner.accessories {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/accessories.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .banner.category-banner.bms {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/appliance.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/bms.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .banner.category-banner.general {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/general.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/general.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .banner.category-banner.water {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/water.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/water.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.banner.category-banner.automobile,
-.banner.category-banner.babyproducts,
+.banner.category-banner.automobile {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/automobile.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.banner.category-banner.babyproducts {
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/baby%20products.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .banner.category-banner.petproducts {
-    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/others.png);
+    background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/banners/pet\ products.jpg);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

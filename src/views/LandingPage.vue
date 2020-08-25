@@ -84,28 +84,28 @@
             <div class=" row hover01 column">
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div class="inner">
-                  <figure><img src="../assets/img/fruits.png" /></figure>
+                  <figure><img src="../assets/img/homepage/fruitsvegie.jpg" /></figure>
                   <span class="text">Fruits & Vegetables</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div class="inner">
-                  <figure><img src="../assets/img/meals.png" /></figure>
+                  <figure><img src="../assets/img/homepage/meals.jpg" /></figure>
                   <span class="text">Meals</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div class="inner">
-                  <figure><img src="../assets/img/groceries.png" /></figure>
+                  <figure><img src="../assets/img/homepage/groceries.jpg" /></figure>
                   <span class="text">Groceries</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 ">
                 <div class="inner">
-                  <figure><img src="../assets/img/wine.png" /></figure>
+                  <figure><img src="../assets/img/homepage/winesand-spirits.jpg" /></figure>
                   <span class="text">Wines & Spirits</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
@@ -114,28 +114,28 @@
             <div class=" row hover01 column">
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div class="inner">
-                  <figure><img src="../assets/img/homeware.png" /></figure>
+                  <figure><img src="../assets/img/homepage/homewares-1.jpg" /></figure>
                   <span class="text">Homewares</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div class="inner">
-                  <figure><img src="../assets/img/pasteries.png" /></figure>
+                  <figure><img src="../assets/img/homepage/pastries.jpg" /></figure>
                   <span class="text">Pastries</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div class="inner">
-                  <figure><img src="../assets/img/cosmetics.png" /></figure>
+                  <figure><img src="../assets/img/homepage/cosmetics.jpg" /></figure>
                   <span class="text">Cosmetics</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 ">
                 <div class="inner">
-                  <figure><img src="../assets/img/appliance.png" /></figure>
+                  <figure><img src="../assets/img/homepage/homeapps1.jpg" /></figure>
                   <span class="text">Home Appliances</span>
                   <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
                 </div>
@@ -270,7 +270,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.loader.hide()
-    }, 5000)
+    }, 2000)
 
   },
   methods: {

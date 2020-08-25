@@ -185,7 +185,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.loader.hide()
-    }, 3000)
+    }, 2000)
   }
 }
 

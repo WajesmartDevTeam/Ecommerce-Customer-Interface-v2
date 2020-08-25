@@ -11,7 +11,7 @@
             class="banner-text"
             style="width:100%"
           >
-            <h3 class="title text-center text-capitalize">{{category}}</h3>
+            <!-- <h3 class="title text-center text-capitalize">{{category}}</h3> -->
 
           </div>
         </div>
@@ -123,8 +123,12 @@
                   <!-- <i>No more items</i> -->
                 </div>
                 <div slot="no-results">
-                  <!-- <i class="material-icons text-center">not_interested</i>
-                  <i>No item</i> -->
+                  <i class="material-icons text-center">not_interested</i>
+                  <i>No item</i>
+                  <img
+                    src="../assets/img/app/nodata.png"
+                    alt=""
+                  >
                 </div>
               </infinite-loading>
 
@@ -329,14 +333,13 @@ export default {
         .then(res => {
 
           if (res.type == 'categories') {
-            // console.log(res.data.data.data)
+            // console.log(res)
             let pro = res.data.data.data;
             if (pro.length > 0) {
               pro.forEach($product => this.products.push($product));
               if ($state) $state.loaded();
             } else {
-              this.loader.hide()
-              $state.complete();
+              if ($state) $state.complete();
             }
 
             // let path = '..'

@@ -111,8 +111,11 @@
                   <!-- <i>No more items</i> -->
                 </div>
                 <div slot="no-results">
-                  <!-- <i class="material-icons text-center">not_interested</i>
-                  <i>No item</i> -->
+                  <i>No item</i>
+                  <img
+                    src="../assets/img/app/nodata.png"
+                    alt=""
+                  >
                 </div>
               </infinite-loading>
             </div>
@@ -298,7 +301,7 @@ export default {
               pro.forEach($product => this.products.push($product));
               if ($state) $state.loaded();
             } else {
-              $state.complete();
+              if ($state) $state.complete();
             }
             this.loader.hide()
           }

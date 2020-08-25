@@ -165,7 +165,7 @@ export default {
             .then(() => {
               this.fetchCart();
               this.$swal.fire("Success", `Hi ${response.data.message[0].firstname}, Welcome to Marketsquare`, "success");
-              this.user = {};
+              // this.user = {};
 
             })
 

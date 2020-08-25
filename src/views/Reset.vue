@@ -14,46 +14,65 @@
       </div> -->
       <div class="auth-form">
         <h5 class="title mb-5">Reset Your Password.</h5>
-        <form @submit.prevent='handleReset()'>
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent='handleSubmit(handleReset)'>
 
-          <div
-            class="form-group"
-            style="position:relative"
-          >
-            <input
-              class="form-control"
-              placeholder="Enter new Password"
-              v-model="reset.password"
-              :type="passwordFieldType"
+            <div
+              class="form-group"
+              style="position:relative"
             >
-            <span
-              id="show_hide"
-              @click="switchVisibility"
-            >
-              <i
-                v-if="passwordFieldType == 'password'"
-                class="fa fa-eye"
-              ></i>
-              <i
-                v-if="passwordFieldType == 'text'"
-                class="fa fa-eye-slash"
-              ></i>
-            </span>
-          </div>
-          <div
-            class="form-group"
-            style="position:relative"
-          >
-            <input
-              class="form-control"
-              placeholder="Confirm Password"
-              type="password"
-            >
+              <validation-provider
+                rules="required"
+                name="password"
+                v-slot="{ errors }"
+              >
+                <input
+                  class="form-control"
+                  placeholder="Enter new Password"
+                  v-model="reset.password"
+                  :type="passwordFieldType"
+                >
+                <span class="err_msg">{{ errors[0] }}</span>
+              </validation-provider>
+              <span
+                id="show_hide"
+                @click="switchVisibility"
+              >
+                <i
+                  v-if="passwordFieldType == 'password'"
+                  class="fa fa-eye"
+                ></i>
+                <i
+                  v-if="passwordFieldType == 'text'"
+                  class="fa fa-eye-slash"
+                ></i>
+              </span>
 
-          </div>
+            </div>
+            <div
+              class="form-group"
+              style="position:relative"
+            >
+              <validation-provider
+                name="confirm"
+                rules="required|confirmedBy:@password"
+                v-slot="
+                {
+                errors
+                }"
+              >
+                <input
+                  class="form-control"
+                  placeholder="Confirm Password"
+                  type="password"
+                >
+                <span class="err_msg">{{ errors[0] }}</span>
+              </validation-provider>
+            </div>
 
-          <button class="msq-button mt-3">Reset Password</button>
-        </form>
+            <button class="msq-button mt-3">Reset Password</button>
+          </form>
+        </ValidationObserver>
       </div>
     </div>
 

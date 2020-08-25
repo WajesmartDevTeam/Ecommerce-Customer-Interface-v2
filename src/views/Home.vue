@@ -32,11 +32,7 @@
                 v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
-                <div
-                  class="product p-3"
-                  data-target="#product"
-                  data-toggle="modal"
-                >
+                <div class="product p-3">
                   <div
                     @click="pro=product; viewproduct=true"
                     class="product-image"
@@ -144,11 +140,7 @@
                 v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
-                <div
-                  class="product p-3"
-                  data-target="#product"
-                  data-toggle="modal"
-                >
+                <div class="product p-3">
                   <div
                     @click="pro=product; viewproduct=true"
                     class="product-image"
@@ -265,11 +257,7 @@
                 v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
-                <div
-                  class="product p-3"
-                  data-target="#product"
-                  data-toggle="modal"
-                >
+                <div class="product p-3">
                   <div
                     @click="pro=product; viewproduct=true"
                     class="product-image"
@@ -377,11 +365,7 @@
                 v-bind:key="index"
                 class="col-sm-6 col-md-4 col-lg-3 p-1"
               >
-                <div
-                  class="product p-3"
-                  data-target="#product"
-                  data-toggle="modal"
-                >
+                <div class="product p-3">
                   <div
                     @click="pro=product; viewproduct=true"
                     class="product-image"
@@ -460,7 +444,7 @@
                       />
 
                       <div
-                        @click="increaseQuantity('c+'+index, product.id)"
+                        @click="increaseQuantity('c'+index, product.id)"
                         class=" increase"
                       >+</div>
                     </button>

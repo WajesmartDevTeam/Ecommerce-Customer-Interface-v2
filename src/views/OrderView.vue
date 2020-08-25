@@ -318,11 +318,13 @@ export default {
     return {
       showSearch: false,
       order_id: '',
-      order: {}
+      order: {},
+      loader: ''
     }
   },
   beforeMount () {
-    this.$store.dispatch('ToggleShowSearch', true)
+    this.$store.dispatch('ToggleShowSearch', true);
+    this.loader = this.$loading.show();
   },
   created () {
     this.order_id = this.$route.params.id;
@@ -332,7 +334,7 @@ export default {
     fetchOrders () {
       let req = {
         what: "listorder",
-        showLoader: true,
+        showLoader: false,
         params: {
           user_id: this.$store.getters.user.id
         }
@@ -347,11 +349,12 @@ export default {
                 console.log(i.completion_status)
               }
             })
+            this.loader.hide()
           }
 
         })
         .catch(error => {
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire("Error", error.message, "error");
           console.log(error)
         });
     },
