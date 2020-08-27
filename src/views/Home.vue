@@ -1,16 +1,36 @@
 <template>
   <div>
+    <Disclaimer />
     <TopNav></TopNav>
     <div class="home page">
       <div class="">
         <div class="banner home-banner">
-          <div class="container">
+          <!-- <div class="container">
             <div class="banner-text">
               <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
               <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
 
             </div>
-          </div>
+          </div> -->
+          <slider
+            animation="fade"
+            height="400px"
+            :duration="8000"
+            :speed="5000"
+            :control-btn="false"
+            :indicators="false"
+          >
+            <slider-item
+              v-for="(i, index) in banners"
+              :key="index"
+              :style="i"
+            >
+              <img
+                :src="'https://marketsquareng.com'+i.img_url"
+                alt=""
+              >
+            </slider-item>
+          </slider>
         </div>
         <div class="content container">
 
@@ -40,7 +60,7 @@
                     data-toggle="modal"
                   >
                     <img
-                      :src="'http://localhost:8080'+product.img_url"
+                      :src="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -148,7 +168,7 @@
                     data-toggle="modal"
                   >
                     <img
-                      :src="'http://localhost:8080'+product.img_url"
+                      :src="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -265,7 +285,7 @@
                     data-toggle="modal"
                   >
                     <img
-                      :src="'http://localhost:8080'+product.img_url"
+                      :src="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -373,7 +393,7 @@
                     data-toggle="modal"
                   >
                     <img
-                      :src="'http://localhost:8080'+product.img_url"
+                      :src="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -487,7 +507,7 @@
               <div class="row">
                 <div class="col-5">
                   <img
-                    :src="'http://localhost:8080'+pro.img_url"
+                    :src="'https://marketsquareng.com'+pro.img_url"
                     alt=""
                     class="img-fluid"
                   >
@@ -587,10 +607,11 @@ import StoreSelector from '@/components/StoreSelector.vue'
 import Cart from '@/components/CartComponent.vue'
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import Disclaimer from '@/components/Disclaimer.vue'
 export default {
   name: 'Home',
   components: {
-    StoreSelector, Cart, TopNav, Footer
+    StoreSelector, Cart, TopNav, Footer, Disclaimer
   },
   data () {
     return {
@@ -598,12 +619,18 @@ export default {
       products: {},
       pro: '',
       viewproduct: false,
-      loader: ''
+      loader: '',
+      banners: [],
+
     }
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true);
     this.loader = this.$loading.show();
+  },
+  created () {
+    this.banners = this.$store.getters.banners
+    console.log(this.banners)
   },
   mounted () {
     this.fetchProducts()

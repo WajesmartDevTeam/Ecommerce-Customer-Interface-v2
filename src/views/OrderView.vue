@@ -115,7 +115,7 @@
                     </div>
                     <div
                       class="check_2"
-                      v-if="(order.completion_status!=='address_verified' && order.completion_status!=='processing') || order.completion_status=='Ready For Dispatch' "
+                      v-if="(order.completion_status!=='address_verification_pending' &&order.completion_status!=='address_verified' && order.completion_status!=='processing') || order.completion_status=='Ready For Dispatch' "
                     >
                       <svg class="complete">
                         <ellipse
@@ -137,7 +137,7 @@
                     </div>
                     <div
                       class="check_3"
-                      v-if="(order.completion_status!=='address_verified' && order.completion_status!=='processing' && order.completion_status!=='Ready For Dispatch') || order.completion_status=='Dispatched'"
+                      v-if="(order.completion_status!=='address_verification_pending' &&order.completion_status!=='address_verified' && order.completion_status!=='processing' && order.completion_status!=='Ready For Dispatch') || order.completion_status=='Dispatched'"
                     >
                       <svg class="complete">
                         <ellipse
@@ -274,7 +274,7 @@
                       <td class="">
 
                         <img
-                          :src="'http://localhost:8080'+row.old_productinfo.img_url"
+                          :src="'https://marketsquareng.com'+row.old_productinfo.img_url"
                           alt=""
                           class="img"
                         >

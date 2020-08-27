@@ -212,7 +212,7 @@ export default {
 
       let req = {
         what: "areas",
-        showLoader: true
+        showLoader: false
       }
       this.$request.makeGetRequest(req)
         .then(response => {

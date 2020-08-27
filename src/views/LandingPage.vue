@@ -83,61 +83,93 @@
 
             <div class=" row hover01 column">
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/fruitsvegie.jpg" /></figure>
                   <span class="text">Fruits & Vegetables</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/meals.jpg" /></figure>
                   <span class="text">Meals</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/groceries.jpg" /></figure>
                   <span class="text">Groceries</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 ">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/winesand-spirits.jpg" /></figure>
                   <span class="text">Wines & Spirits</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
             </div>
             <div class=" row hover01 column">
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/homewares-1.jpg" /></figure>
                   <span class="text">Homewares</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/pastries.jpg" /></figure>
                   <span class="text">Pastries</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/cosmetics.jpg" /></figure>
                   <span class="text">Cosmetics</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
               <div class=" col-md-3 col-sm-6 p-0 ">
-                <div class="inner">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
                   <figure><img src="../assets/img/homepage/homeapps1.jpg" /></figure>
                   <span class="text">Home Appliances</span>
-                  <p class="view"> View Items <i class="fa fa-arrow-right"></i></p>
+
                 </div>
               </div>
             </div>
@@ -270,10 +302,29 @@ export default {
   mounted () {
     setTimeout(() => {
       this.loader.hide()
-    }, 2000)
+    }, 2000);
+    this.fetchBanners()
 
   },
   methods: {
+    fetchBanners () {
+      let req = {
+        what: "banners",
+        showLoader: false,
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+
+          if (response.type == 'banners') {
+            this.$store.dispatch('banners', response.data.data)
+
+          }
+        })
+        .catch(error => {
+
+          console.log(error)
+        });
+    }
   }
 }
 

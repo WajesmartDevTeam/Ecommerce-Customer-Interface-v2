@@ -66,7 +66,8 @@ io.on("connection", function(socket) {
             listorder: 'listorderitems',
             getcart: 'getcartinfo',
             windows: 'recentdeliverywindow',
-            listaddress: 'addresses'
+            listaddress: 'addresses',
+            banners: 'thumbnail'
 
         };
         if (request.params !== undefined) {
@@ -129,7 +130,8 @@ io.on("connection", function(socket) {
             placeorder: 'placeorder',
             verifypayment: 'makepayment',
             createaddress: 'addresses',
-            updatecustomer: 'updatecustomer'
+            updatecustomer: 'updatecustomer',
+            redeemgift: 'redeemgiftcard'
 
 
         };

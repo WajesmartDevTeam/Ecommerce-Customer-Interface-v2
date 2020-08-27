@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Disclaimer />
     <TopNav></TopNav>
     <div class="orderconfirmation page">
       <div class="confirm-banner">
@@ -91,10 +92,11 @@
 <script>
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import Disclaimer from '@/components/Disclaimer.vue'
 export default {
   name: 'OrderConfirmation',
   components: {
-    TopNav, Footer
+    TopNav, Footer, Disclaimer
   },
   data () {
     return {
@@ -107,7 +109,7 @@ export default {
   created () {
     console.log(this.$store.getters.order);
     this.order = this.$store.getters.order;
-    if (Object.keys(this.$store.getters.order.user)) {
+    if (this.order.user && Object.keys(this.order.user)) {
       this.order.customer = this.order.user;
     }
     this.$store.getters.allstores.forEach(i => {

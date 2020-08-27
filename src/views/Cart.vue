@@ -38,7 +38,7 @@
                     <td class="">
 
                       <img
-                        :src="'http://localhost:8080'+row.product.img_url"
+                        :src="'https://marketsquareng.com'+row.product.img_url"
                         alt=""
                         class="img"
                       >

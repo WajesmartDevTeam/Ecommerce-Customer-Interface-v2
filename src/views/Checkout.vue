@@ -628,6 +628,11 @@
                           @change="paymethod($event, 'card')"
                         />
                         <label class="form-check-label">Pay with Flutterwave
+                          <small
+                            class="ml-2"
+                            id="balance"
+                            style="color:red;font-size:11px"
+                          ></small>
                           <br>
                           <span>Pay with Flutterwave (Card, Bank Transfer or USSD)</span>
                         </label>
@@ -653,7 +658,11 @@
                           <span class="err_msg">{{ errors[0] }}</span>
                         </validation-provider>
                       </div>
-                      <button type="submit">Proceed to Payment</button>
+                      <button
+                        v-bind:disabled="(balance ==order.order_total || balance >0) && payment.card==false"
+                        v-bind:class="(balance ==order.order_total || balance >0) && payment.card==false? 'disabled': ''"
+                        type="submit"
+                      >Proceed to Payment</button>
                     </div>
                   </div>
                 </div>
@@ -841,6 +850,8 @@ export default {
       clearance: '',
       selected_window: '',
       user: {},
+      balance: "",
+      giftcard_amount: '',
       store: {},
       cart: [],
       serialnumber: "",
@@ -1044,7 +1055,8 @@ export default {
         what: "verifycard",
         showLoader: false,
         data: {
-          serviceid: "351817683",
+          // serviceid: "351817683",
+          serviceid: "9368095324",
           serialnumber: this.serialnumber
         }
       }
@@ -1055,7 +1067,10 @@ export default {
 
           if (method == 'voucher') {
             this.payment.voucher = true;
-            document.getElementById('statusvoucher').textContent = '₦' + res.data.data;
+            this.giftcard_amount = res.data.data
+            document.getElementById('statusvoucher').textContent = '₦' + this.giftcard_amount;
+            this.balance = Number(this.order.order_total) - Number(res.data.data)
+            document.getElementById('balance').textContent = 'Balance= ₦' + this.balance;
           }
         })
         .catch(error => {
@@ -1097,9 +1112,15 @@ export default {
       else {
         if (meth == 'voucher') {
           this.payment.voucher = false;
+          this.balance = ""
+          document.getElementById('statusvoucher').textContent = ''
+          document.getElementById('balance').textContent = '';
+          this.serialnumber = ''
+          console.log(this.balance)
         }
         if (meth == 'loyalty') {
           this.payment.loyalty = false;
+          this.balance = ""
         }
         if (meth == 'card') {
           this.payment.card = false;
@@ -1204,7 +1225,7 @@ export default {
           this.$request
             .makePostRequest(req)
             .then(res => {
-              console.log(res.data.data.order);
+              // console.log(res.data.data.order);
               if (this.order.payment.method.includes("gift")) {
                 this.payGift(res.data.data.order)
               }
@@ -1227,12 +1248,19 @@ export default {
 
 
     },
-    payCard (order) {
+    payCard (order, giftref) {
 
       let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
-      let transid = `${order.id}${Math.floor(Date.now())}`;
+      let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
+      let cardamount;
+      if (Number(this.balance) !== "" && this.balance > 0) {
+        cardamount = this.balance
 
+      }
+      else {
+        cardamount = order.balance
+      }
       getpaidSetup({
 
         PBFPubKey: PBFKey,
@@ -1242,7 +1270,7 @@ export default {
         custom_description: "Payment for order made",
         custom_logo: "http://localhost:8081/assets/img/logo_mobile.png",
         custom_title: "Market Square",
-        amount: order.order_total,
+        amount: cardamount,
         customer_phone: this.order.customer.phone,
         country: "NG",
         currency: "NGN",
@@ -1320,7 +1348,7 @@ export default {
               })
               .catch(error => {
                 console.log(error);
-                vm.$swal.fire("Error", error.message, "error");
+                vm.$swal.fire("Error", error, "error");
               });
 
           } else {
@@ -1335,8 +1363,42 @@ export default {
         }
       });
     },
-    payGift (res) {
-      console.log(res)
+    payGift (order) {
+      let vm = this;
+      let req = {
+        what: "redeemgift",
+        showLoader: true,
+        data: {
+          serviceid: "9368095324",
+          serialnumber: this.serialnumber,
+          phonenumber: this.order.customer.phone.replace(/\s/g, ''),
+          amount: this.giftcard_amount,
+          order_id: order.id
+        }
+      }
+      this.$request
+        .makePostRequest(req)
+        .then(res => {
+          console.log(res)
+          if (res.type == "redeemgift") {
+            this.$swal.fire("Success", "Giftcard Redeemed Successfully", "success");
+            if (this.balance !== "" && this.balance > 0) {
+              this.payCard(order, res.data)
+            }
+            else {
+              vm.$store.dispatch('addToCart', [])
+              vm.$store.dispatch('orderinfo', order).then(() => {
+                vm.$router.push('/confirm')
+              })
+
+
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.$swal.fire("Error", error, "error");
+        });
     },
     fetchAddress () {
       let req = {

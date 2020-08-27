@@ -18,7 +18,8 @@ export default new Vuex.Store({
         loggedIn: false,
         orders: [],
         storesCart: [],
-        order: {}
+        order: {},
+        banners: []
     },
     mutations: {
 
@@ -60,6 +61,9 @@ export default new Vuex.Store({
         },
         updateOrder(state, data) {
             state.order = data
+        },
+        loadBanners(state, data) {
+            state.banners = data
         }
     },
     actions: {
@@ -102,6 +106,9 @@ export default new Vuex.Store({
         orderinfo({ commit }, data) {
             commit("updateOrder", data)
         },
+        banners({ commit }, data) {
+            commit("loadBanners", data)
+        }
     },
     modules: {},
     getters: {
@@ -117,7 +124,8 @@ export default new Vuex.Store({
         orders: state => state.orders,
         isLoggedIn: state => state.loggedIn,
         storesCart: state => state.storesCart,
-        order: state => state.order
+        order: state => state.order,
+        banners: state => state.banners
     },
     plugins: [createPersistedState()]
 })

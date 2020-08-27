@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Disclaimer />
     <TopNav></TopNav>
     <div class="search page">
       <div class="container">
@@ -22,7 +23,7 @@
                     data-toggle="modal"
                   >
                     <img
-                      :src="'http://localhost:8080'+product.img_url"
+                      :src="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -111,11 +112,11 @@
                   <!-- <i>No more items</i> -->
                 </div>
                 <div slot="no-results">
-                  <i>No item</i>
-                  <img
+                  <!-- <i>No item</i> -->
+                  <!-- <img
                     src="../assets/img/app/nodata.png"
                     alt=""
-                  >
+                  > -->
                 </div>
               </infinite-loading>
             </div>
@@ -153,7 +154,7 @@
               <div class="row">
                 <div class="col-5">
                   <img
-                    :src="'http://localhost:8080'+pro.img_url"
+                    :src="'https://marketsquareng.com'+pro.img_url"
                     alt=""
                     class="img-fluid"
                   >
@@ -252,10 +253,11 @@ import StoreSelector from '@/components/StoreSelector.vue'
 import Cart from '@/components/CartComponent.vue'
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import Disclaimer from '@/components/Disclaimer.vue'
 export default {
   name: 'Search',
   components: {
-    StoreSelector, Cart, TopNav, Footer
+    StoreSelector, Cart, TopNav, Footer, Disclaimer
   },
   data () {
     return {
