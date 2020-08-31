@@ -95,9 +95,9 @@ Vue.use(Loading, {
 Vue.component('v-select', vSelect)
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
-var socket = io("http://marketsquareng.website:3300");
+// var socket = io("http://marketsquareng.website:3300");
 
-// var socket = io("localhost:3300");
+var socket = io("localhost:3300");
 Vue.prototype.$socket = socket;
 Vue.prototype.$request = Request;
 Vue.prototype.$swal = swal;
