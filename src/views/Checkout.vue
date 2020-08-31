@@ -1055,8 +1055,7 @@ export default {
         what: "verifycard",
         showLoader: false,
         data: {
-          // serviceid: "351817683",
-          serviceid: "9368095324",
+          serviceid: "351817683",
           serialnumber: this.serialnumber
         }
       }
@@ -1369,7 +1368,7 @@ export default {
         what: "redeemgift",
         showLoader: true,
         data: {
-          serviceid: "9368095324",
+          serviceid: "351817683",
           serialnumber: this.serialnumber,
           phonenumber: this.order.customer.phone.replace(/\s/g, ''),
           amount: this.giftcard_amount,

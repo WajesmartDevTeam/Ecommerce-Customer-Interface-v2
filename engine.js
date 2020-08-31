@@ -26,9 +26,9 @@ server.listen(3300, function() {
 //Instantiate socket.io
 var io = require("socket.io").listen(server);
 
-const URL = "http://localhost:8080/api/";
-
-//Configuration
+// const URL = "http://localhost:8080/api/";
+const URL = "http://marketsquareng.website/api/"
+    //Configuration
 const script_config = {
     debug: true,
     log_level: 1
