@@ -38,11 +38,12 @@
                               v-slot="{ errors }"
                             >
                               <input
+                                placeholder=" "
                                 type="text"
                                 class="form-control"
-                                placeholder="First Name"
                                 v-model="order.customer.firstname"
                               >
+                              <label class="anim">First Name</label>
                               <span class="err_msg">{{ errors[0] }}</span>
                             </validation-provider>
                           </div>
@@ -52,11 +53,12 @@
                               v-slot="{ errors }"
                             >
                               <input
+                                placeholder=" "
                                 type="text"
                                 class="form-control"
-                                placeholder="Last Name"
                                 v-model="order.customer.lastname"
                               >
+                              <label class="anim">Last Name</label>
                               <span class="err_msg">{{ errors[0] }}</span>
                             </validation-provider>
                           </div>
@@ -67,12 +69,13 @@
                             v-slot="{ errors }"
                           >
                             <input
+                              placeholder=" "
                               type="email"
                               name="email"
                               class="form-control"
-                              placeholder="Email Address"
                               v-model="order.customer.email"
                             >
+                            <label class="anim">Email Address</label>
                             <span class="err_msg">{{ errors[0] }}</span>
                           </validation-provider>
                         </div>
@@ -180,11 +183,12 @@
                                 v-slot="{ errors }"
                               >
                                 <input
+                                  placeholder=" "
                                   type="text"
                                   class="form-control"
-                                  placeholder="Label( Office, Home)"
                                   v-model="order.delivery.label"
                                 >
+                                <label class="anim">Label( Office, Home)</label>
                                 <span class="err_msg">{{ errors[0] }}</span>
                               </validation-provider>
                             </div>
@@ -194,11 +198,12 @@
                                 v-slot="{ errors }"
                               >
                                 <input
+                                  placeholder=" "
                                   type="text"
                                   class="form-control"
-                                  placeholder="Street Address"
                                   v-model="order.delivery.address"
                                 >
+                                <label class="anim">Street Address</label>
                                 <span class="err_msg">{{ errors[0] }}</span>
                               </validation-provider>
                             </div>
@@ -210,58 +215,67 @@
                                 v-slot="{ errors }"
                               >
                                 <input
+                                  placeholder=" "
                                   type="text"
                                   class="form-control"
-                                  placeholder="State"
-                                  v-model="order.delivery.state"
-                                >
-                                <span class="err_msg">{{ errors[0] }}</span>
-                              </validation-provider>
-                            </div>
-                            <div class="form-group col-md-6">
-                              <validation-provider
-                                rules="required"
-                                v-slot="{ errors }"
-                              >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="City"
-                                  v-model="order.delivery.city"
-                                >
-                                <span class="err_msg">{{ errors[0] }}</span>
-                              </validation-provider>
-                            </div>
-                          </div>
-                          <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <validation-provider
-                                rules="required"
-                                v-slot="{ errors }"
-                              >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Area"
-                                  v-model="order.delivery.area"
-                                >
-                                <span class="err_msg">{{ errors[0] }}</span>
-                              </validation-provider>
-                            </div>
-                            <div class="form-group col-md-6">
-                              <validation-provider
-                                rules="required"
-                                v-slot="{ errors }"
-                              >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  placeholder="Closest Landmark"
                                   v-model="order.delivery.landmark"
                                 >
+                                <label class="anim">Closest Landmark</label>
                                 <span class="err_msg">{{ errors[0] }}</span>
                               </validation-provider>
                             </div>
+                            <div class="form-group col-md-6">
+                              <validation-provider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <input
+                                  placeholder=" "
+                                  type="text"
+                                  class="form-control"
+                                  disabled
+                                  v-model="order.delivery.state"
+                                >
+                                <label class="anim">State</label>
+                                <span class="err_msg">{{ errors[0] }}</span>
+                              </validation-provider>
+                            </div>
+
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <validation-provider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <input
+                                  placeholder=" "
+                                  type="text"
+                                  class="form-control"
+                                  disabled
+                                  v-model="order.delivery.city"
+                                >
+                                <label class="anim">City</label>
+                                <span class="err_msg">{{ errors[0] }}</span>
+                              </validation-provider>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <validation-provider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <input
+                                  placeholder=" "
+                                  type="text"
+                                  class="form-control"
+                                  disabled
+                                  v-model="order.delivery.area"
+                                >
+                                <label class="anim">Area</label>
+                                <span class="err_msg">{{ errors[0] }}</span>
+                              </validation-provider>
+                            </div>
+
                           </div>
 
                         </div>
@@ -282,7 +296,7 @@
                       <div class="card-text my-3 mx-md-5">
                         <p class="mode ml-5">
                           <span v-if="store.mode=='Pickup'">Pickup At:</span>
-                          <span v-else>Delivering To:</span>
+                          <span v-else>We are picking your order from:</span>
                         </p>
                         <div class="d-flex fulfillment-address">
                           <img
@@ -340,7 +354,7 @@
                               v-bind:class="selected_window ==row.id+''+index?'active':''"
                               class="window"
                             >
-                              <div style="height:30px">
+                              <div style="height:25px">
                                 <img
                                   src="../assets/img/checked.png"
                                   alt=""
@@ -378,7 +392,7 @@
                         </div>
                         <h5 class="title">3rd Party Contacts</h5>
                       </div>
-                      <h6 class="card-subtitle subtitle mb-2 ml-5">Who should we contact to follow up on this order</h6>
+                      <h6 class="card-subtitle subtitle mb-2 ml-5">Who should we contact to follow up on this order?</h6>
                       <div class="card-text mt-3 mx-md-5">
 
                         <fieldset>
@@ -391,11 +405,12 @@
                                 v-slot="{ errors }"
                               >
                                 <input
+                                  placeholder=" "
                                   type="text"
                                   class="form-control"
-                                  placeholder="Full Name"
                                   v-model="order.order_enquiry_contactname"
                                 >
+                                <label class="anim">Name</label>
                                 <span class="err_msg">{{ errors[0] }}</span>
                               </validation-provider>
                             </div>
@@ -438,9 +453,10 @@
                                 <input
                                   type="text"
                                   class="form-control"
-                                  placeholder="Full Name"
+                                  placeholder=" "
                                   v-model="order.contact_upon_delivery_name"
                                 >
+                                <label class="anim">Name</label>
                                 <span class="err_msg">{{ errors[0] }}</span>
                               </validation-provider>
                             </div>
@@ -527,7 +543,7 @@
                           <span v-if="order.delivery.method !=='delivery'">5</span>
                           <span v-else>6</span>
                         </div>
-                        <h5 class="title">Extra</h5>
+                        <h5 class="title">Add note/instruction</h5>
                       </div>
                       <div class="card-text mt-3 mx-md-5">
 
@@ -535,7 +551,7 @@
                           <textarea
                             v-model="order.comment"
                             name=""
-                            placeholder="Add a note/instruction"
+                            placeholder="e.g. an item you want but didn't find OR special instructions about your order."
                           ></textarea>
                         </div>
 
@@ -549,7 +565,7 @@
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title title ">Your Order</h5>
-                        <table class="table">
+                        <table class="table table-responsive">
                           <tbody class="body1">
                             <tr v-for="row in cart">
                               <td> {{row.quantity}}x {{row.product.name}}</td>
@@ -557,6 +573,11 @@
                             </tr>
 
                           </tbody>
+
+                        </table>
+
+                        <table class="table">
+
                           <tbody class="body2">
                             <tr>
                               <td>Subtotal</td>
@@ -721,9 +742,13 @@
                         type="text"
                         class="form-control"
                         required
-                        placeholder="Label e.g Home, Office"
+                        placeholder=" "
                         v-model="address.label"
                       >
+                      <label
+                        for=""
+                        class="anim"
+                      >Label e.g Home, Office</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -736,9 +761,10 @@
                         type="text"
                         required
                         class="form-control"
-                        placeholder="Street Address"
+                        placeholder=" "
                         v-model="address.address"
                       >
+                      <label class="anim">Street Address</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -753,9 +779,11 @@
                         type="text"
                         required
                         class="form-control"
-                        placeholder="Area"
+                        placeholder=" "
+                        disabled
                         v-model="address.area"
                       >
+                      <label class="anim">Area</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -768,9 +796,10 @@
                         type="text"
                         required
                         class="form-control"
-                        placeholder="Closest Landmark"
+                        placeholder=" "
                         v-model="address.landmark"
                       >
+                      <label class="anim">Closest Landmark</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -784,10 +813,12 @@
                       <input
                         type="text"
                         required
+                        disabled
                         class="form-control"
-                        placeholder="State"
+                        placeholder=" "
                         v-model="address.state"
                       >
+                      <label class="anim">State</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -800,9 +831,11 @@
                         type="text"
                         required
                         class="form-control"
-                        placeholder="City"
+                        disabled
+                        placeholder=" "
                         v-model="address.city"
                       >
+                      <label class="anim">City</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -810,7 +843,7 @@
                     <input
                       type="checkbox"
                       class="form-check-input"
-                      v-model="address.default"
+                      v-model="address.address_default"
                     >
 
                     <label
@@ -962,7 +995,7 @@ export default {
         this.address.state = this.store.state
         this.address.city = this.store.city
         this.address.area = this.$store.getters.area
-        this.address.default = 1
+        this.address.address_default = 1
       }
     }
   },
@@ -1170,28 +1203,50 @@ export default {
 
     },
     placeOrder () {
+
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
       this.order.contact_upon_delivery_number = this.order.contact_upon_delivery_number.replace(/\s/g, '');
       this.order.order_enquiry_contactnumber = this.order.order_enquiry_contactnumber.replace(/\s/g, '');
       this.order.customer.phone = this.order.customer.phone.replace(/\s/g, '');
       let isValidate = [];
       let field = []
+
       if (this.payment.loyalty) {
         if (this.order.payment.method.toLowerCase().includes("loyalty") == false) {
 
           this.order.payment.method += " loyalty"
         }
       }
+      else {
+        if (this.order.payment.method.toLowerCase().includes("loyalty")) {
+
+          this.order.payment.method = this.order.payment.method.replace(' loyalty', '')
+        }
+
+      }
       if (this.payment.voucher) {
         if (this.order.payment.method.toLowerCase().includes("gift") == false) {
           this.order.payment.method += " gift"
         }
+      }
+      else {
+        if (this.order.payment.method.toLowerCase().includes("gift")) {
+          this.order.payment.method = this.order.payment.method.replace(' gift', '')
+        }
+
       }
       if (this.payment.card) {
         if (this.order.payment.method.toLowerCase().includes("card") == false) {
           this.order.payment.method += " card"
         }
       }
+      else {
+        if (this.order.payment.method.toLowerCase().includes("card")) {
+
+          this.order.payment.method = this.order.payment.method.replace(' card', '')
+        }
+      }
+
       if (this.order.delivery.contact_method !== '' && this.order.delivery.hour !== '' && this.order.delivery.deliverydate !== '') {
         isValidate.push(true)
 
@@ -1267,7 +1322,7 @@ export default {
         customer_firstname: this.order.customer.firstname,
         customer_lastname: this.order.customer.lastname,
         custom_description: "Payment for order made",
-        custom_logo: "http://localhost:8081/assets/img/logo_mobile.png",
+        custom_logo: "https:marketsquareng.com/assets/img/logo_mobile.png",
         custom_title: "Market Square",
         amount: cardamount,
         customer_phone: this.order.customer.phone,
@@ -1415,7 +1470,7 @@ export default {
 
             this.addresslist = response.data.data
             response.data.data.forEach(i => {
-              if (i.default == 1) {
+              if (i.address_default == 1) {
                 this.default_address = i;
                 this.order.delivery.id = i.id;
                 this.order.delivery.label = i.label;
@@ -1434,6 +1489,10 @@ export default {
         });
     },
     createAddress () {
+      this.address.user_id = this.$store.getters.user.id
+      if (!this.address.hasOwnProperty("default")) {
+        this.address.address_default = 0
+      }
       if (this.edit) {
         let req = {
           what: "editaddress",
@@ -1442,7 +1501,7 @@ export default {
           data: this.address
         }
         this.$request
-          .editItem(req)
+          .makePostRequest(req)
           .then(res => {
             this.$swal.fire("Success", res.data.message, "success");
             this.address = {}
@@ -1480,13 +1539,14 @@ export default {
       this.edit = true;
       this.addressid = row.id;
       this.address = {
+        user_id: this.$store.getters.user.id,
         label: row.label,
         area: row.area,
         state: row.state,
         address: row.address,
         city: row.city,
         landmark: row.landmark,
-        default: row.default
+        default: Number(row.address_default)
       }
 
     },

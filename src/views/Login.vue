@@ -24,7 +24,7 @@
               >
                 <vue-tel-input
                   v-model="user.phone"
-                  placeholder="Loyalty/Phone Number"
+                  placeholder="Phone Number"
                 ></vue-tel-input>
                 <span class="err_msg">{{ errors[0] }}</span>
               </validation-provider>

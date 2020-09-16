@@ -20,6 +20,7 @@ import Account from '../views/Account.vue'
 import Address from '../views/AddressBook.vue'
 import MyOrders from '../views/Orders.vue'
 import OrderView from '../views/OrderView.vue'
+import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
 Vue.use(VueRouter)
 
@@ -123,7 +124,13 @@ const routes = [{
         name: 'MyOrder',
         component: OrderView
     },
-    { path: '*', component: NotFound }
+    {
+        path: '/product/:store/:category/:name',
+        name: 'Product',
+        component: Product
+    },
+    { path: '*', component: NotFound },
+
 ]
 
 const router = new VueRouter({

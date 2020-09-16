@@ -14,13 +14,13 @@
               <table class="table table-responsive">
                 <thead>
                   <tr>
-                    <th scope="col"></th>
 
                     <th scope="col">Product</th>
                     <th scope="col"></th>
                     <th scope="col">Qty</th>
                     <th scope="col">Unit Price</th>
                     <th scope="col">Total</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -28,13 +28,7 @@
                     v-for="(row, i) in cart"
                     v-bind:key="i"
                   >
-                    <td> <img
-                        @click="removeItem(row)"
-                        style="cursor:pointer;"
-                        src="../assets/img/cancel.png"
-                        alt=""
-                        title="Remove item"
-                      ></td>
+
                     <td class="">
 
                       <img
@@ -74,6 +68,13 @@
                     </td>
                     <td>₦{{formatPrice(row.unit_price)}} </td>
                     <td>₦{{formatPrice(row.price)}} </td>
+                    <td> <img
+                        @click="removeItem(row)"
+                        style="cursor:pointer;"
+                        src="../assets/img/cancel.png"
+                        alt=""
+                        title="Remove item"
+                      ></td>
                   </tr>
 
                 </tbody>
@@ -98,6 +99,10 @@
                     <p>Total</p>
                     <h5>₦{{formatPrice(cart_total)}}</h5>
                   </div>
+                  <button
+                    id="continue"
+                    @click="$router.push('home')"
+                  >Continue Shopping</button>
                   <button
                     v-bind:disabled="cart_total < 3000"
                     v-bind:class="cart_total < 3000? 'disabled': ''"
@@ -154,8 +159,15 @@ export default {
   },
   methods: {
     removeItem (row) {
-      console.log(row)
-      let cart = this.$store.getters.cart
+      let index;
+      let cart = this.$store.getters.cart;
+      cart.forEach((i, ind) => {
+        if (i.product.id == row.product.id) {
+          index = ind
+        }
+      })
+      cart.splice(index, 1);
+      this.$store.dispatch('addToCart', cart)
     },
     inputChange (id, product_id) {
 
@@ -253,3 +265,13 @@ export default {
 
 </script>
 
+<style scoped>
+#continue {
+  background: #e8e8e8;
+  color: #000066;
+}
+.cart .card {
+  position: sticky;
+  top: 25%;
+}
+</style>

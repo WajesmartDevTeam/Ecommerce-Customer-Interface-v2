@@ -10,7 +10,7 @@ import VueTelInput from 'vue-tel-input';
 import axios from "axios";
 import VueAxios from "vue-axios";
 import Request from "./Request";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import swal from "sweetalert2";
 import VueLazyload from 'vue-lazyload'
 import InfiniteLoading from "vue-infinite-loading";
@@ -22,6 +22,8 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
+// import VueAnalytics from 'vue-analytics';
+import VueGtag from "vue-gtag";
 
 Vue.config.productionTip = false;
 
@@ -53,14 +55,13 @@ extend('confirmedBy', {
     // here it is its name, because we are generating a message
     message: 'The {_field_} does not match the {target}'
 });
-// Vue.use(VueLazyload, {
-//     preLoad: 1.3,
-//     error: 'dist/error.png',
-//     loading: 'dist/loading.gif',
-//     attempt: 1,
-//     listenEvents: ['scroll'],
-//     imgUrl: 'http://xx.com/logo.png'
-// })
+import loader from '../src/assets/img/lazyLoader.gif'
+Vue.use(VueLazyload, {
+    preLoad: 1.3,
+    loading: loader,
+    attempt: 1,
+    listenEvents: ['scroll'],
+})
 Vue.use(VueTelInput) // Define default global options here (optional)
 Vue.use(VueAxios, axios);
 Vue.use(InfiniteLoading);
@@ -91,14 +92,21 @@ Vue.use(Loading, {
     opacity: 0.8,
     backgroundColor: '#ffffff',
 });
-
+// Vue.use(VueAnalytics, {
+//     id: 'UA-157722413-2',
+//     router
+// })
+Vue.use(VueGtag, {
+        config: { id: 'UA-157722413-2' }
+    },
+    router);
 Vue.component('v-select', vSelect)
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
-// var socket = io("http://marketsquareng.website:3300");
 
-var socket = io("localhost:3300");
-Vue.prototype.$socket = socket;
+// var socket = io("https://marketsquare.azurewebsites.net:3000");
+// var socket = io("localhost:3300");
+// Vue.prototype.$socket = socket;
 Vue.prototype.$request = Request;
 Vue.prototype.$swal = swal;
 Vue.prototype.$loader = Loading;
@@ -119,15 +127,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 router.beforeEach((to, from, next) => {
-    // if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About') next()
-    // else if (to.name !== 'LandingPage' && !store.getters.isStoreSet) next({ name: 'LandingPage' })
-    // else if (to.name == 'LandingPage' && store.getters.isStoreSet) next({ name: 'Home' })
-    // else next();
+    if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About' || to.name == 'MyOrders' || to.name == 'MyAccount' || to.name == 'AddressBook' || to.name == 'Product') next()
+    else if (to.name !== 'LandingPage' && !store.getters.isStoreSet) next({ name: 'LandingPage' })
+    else if (to.name == 'LandingPage' && store.getters.isStoreSet) next({ name: 'Home' })
+    else next();
     if (to.name !== 'Register' && from.name == 'Login') next({ name: 'Home' })
     else next();
     if (to.name !== 'OrderConfirmation' && from.name == 'Login') next({ name: 'Home' })
     else next();
-    if (to.name == 'MyOrder' && !store.getters.isLoggedIn) next({ name: 'Login' })
+
 })
 
 new Vue({

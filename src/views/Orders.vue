@@ -6,13 +6,22 @@
         <div class="row">
           <div class="col-sm-3">
             <div id="options">
-              <div class="opt active">
+              <div
+                class="opt active"
+                @click="$router.push('/orders')"
+              >
                 <a href="/orders">My Orders</a>
               </div>
-              <div class="opt">
+              <div
+                class="opt"
+                @click="$router.push('/account')"
+              >
                 <a href="/account">My Account</a>
               </div>
-              <div class="opt ">
+              <div
+                class="opt "
+                @click="$router.push('/addressbook')"
+              >
                 <a href="/addressbook">Address Book</a>
               </div>
             </div>

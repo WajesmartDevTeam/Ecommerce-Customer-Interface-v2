@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="disclaimer">
     <div
       class="msg"
       v-if="showA"
@@ -41,6 +41,10 @@ export default {
 }
 </script>
 <style scoped>
+#disclaimer {
+  position: sticky;
+  top: 0;
+}
 div.msg {
   display: inline !important;
   text-align: center;

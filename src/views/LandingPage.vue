@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- <loader
-      object="#ea1a1a"
-      color1="#ffffff"
-      color2="#17fd3d"
-      size="5"
-      speed="2"
-      bg="#343a40"
-      objectbg="#999793"
-      opacity="80"
-      name="dots"
-    ></loader> -->
     <TopNav></TopNav>
     <div class="landingpage">
       <div class="">
@@ -182,12 +171,12 @@
                 data-toggle="modal"
                 data-target="#store"
                 class="start-button"
-              >Get Started
+              >Start Shopping
                 <i class="fa fa-long-arrow-right ml-2"></i></button>
             </div>
           </div>
 
-          <div
+          <!-- <div
             id="featured"
             class="container mt-5 px-4"
           >
@@ -233,7 +222,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
         <div
@@ -258,7 +247,7 @@
                 data-toggle="modal"
                 data-target="#store"
                 class="start-button"
-              >Get Started
+              >Shop Now
                 <i class="fa fa-long-arrow-right ml-2"></i></button>
             </div>
             <div class="col-3 mt-4">

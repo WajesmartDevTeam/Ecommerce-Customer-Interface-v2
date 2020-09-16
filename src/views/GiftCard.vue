@@ -103,8 +103,9 @@
                               class="form-control"
                               id="inputEmail4"
                               v-model="gifter.firstname"
-                              placeholder="Gifter's First Name"
+                              placeholder=" "
                             >
+                            <label class="anim">Gifter's First Name</label>
                             <span class="err_msg">{{ errors[0] }}</span>
                           </validation-provider>
                         </div>
@@ -117,9 +118,10 @@
                               type="text"
                               class="form-control"
                               v-model="gifter.lastname"
-                              placeholder="Gifter's Last Name"
+                              placeholder=" "
                               id="inputPassword4"
                             >
+                            <label class="anim">Gifter's Last Name</label>
                             <span class="err_msg">{{ errors[0] }}</span>
                           </validation-provider>
                         </div>
@@ -133,8 +135,9 @@
                             v-model="gifter.email"
                             type="email"
                             class="form-control"
-                            placeholder="Gifter's Email Address"
+                            placeholder=" "
                           >
+                          <label class="anim">Gifter's Email Address</label>
                           <span class="err_msg">{{ errors[0] }}</span>
                         </validation-provider>
                       </div>
@@ -159,8 +162,9 @@
                             type="email"
                             v-model="recipient.customeremail"
                             class="form-control"
-                            placeholder="Recipient's Email Address"
+                            placeholder=" "
                           >
+                          <label class="anim">Recipient's Email Address</label>
                           <span class="err_msg">{{ errors[0] }}</span>
                         </validation-provider>
                       </div>

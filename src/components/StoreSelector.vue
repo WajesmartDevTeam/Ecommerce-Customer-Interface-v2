@@ -14,7 +14,7 @@
         role="document"
       >
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header d-flex">
             <div
               class=""
               style=""

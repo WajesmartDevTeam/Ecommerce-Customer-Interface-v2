@@ -6,18 +6,12 @@
 
 import Vue from "vue";
 import store from "./store";
+import axios from 'axios'
 
-/*
-
-	Additional flags:
-
-	- useToken (BOOL) - If the request should use token. Token is gotten from VueX store (store.getters.token).
-	Default value is true.
-	
-	showLoader (BOOL) - If a loader should be shown when sending a request. Default value is true.
+// const URL = "http://localhost:8080/api/";
+const URL = "https://marketsquareng.website/api/"
 
 
-*/
 export default {
     name: "Request",
 
@@ -41,27 +35,63 @@ export default {
             "color:#fff;font-size:14px;background:#00ff00;"
         );
 
+
+
+        var request_urls = {
+            stores: 'getstores',
+            allstores: 'getallstores',
+            areas: 'listdeliverystoresareas',
+            products: 'productsinstore',
+            categories: 'productsincategory',
+            search: 'productsearch',
+            giftcards: 'listgiftcards',
+            listorder: 'listorderitems',
+            getcart: 'getcartinfo',
+            windows: 'recentdeliverywindow',
+            listaddress: 'addresses',
+            banners: 'thumbnail',
+            getproduct: 'getproduct'
+
+        };
+        if (request.params !== undefined) {
+            var obj = request.params;
+            var str = Object.keys(obj)
+                .map(key => {
+                    return key + "=" + obj[key];
+                })
+                .join("&");
+            var request_url = URL + request_urls[request.what] + "?" + str;
+        } else if (request.id) {
+            var request_url = URL + request_urls[request.what] + "" + request.id;
+        } else {
+            var request_url = URL + request_urls[request.what];
+        }
+        var config = {};
+
+        if (request.headers !== undefined) {
+            config.headers = request.headers;
+        }
         return new Promise((resolve, reject) => {
-            // if (request.useToken || request.useToken == undefined) {
-            //     var token = store.getters.token;
-            //     request.headers = {
-            //         Authorization: "Token " + token
-            //     };
-            // }
+            axios
+                .get(request_url, config)
+                .then(response => {
+                    // console.log(response)
+                    Vue.prototype.$swal.close();
+                    if (response.status == "true" || response.status) {
+                        var response = {
+                            data: response.data,
+                            type: request.what,
+                            status: "true"
+                        };
+                        resolve(response);
+                    } else {
+                        reject(response.data.message);
+                    }
+                })
+                .catch(err => {
+                    reject(err);
+                });
 
-            console.log(request);
-
-            Vue.prototype.$socket.emit("makeGetRequest", request);
-            Vue.prototype.$socket.once("makeGetRequestResponse", response => {
-                Vue.prototype.$swal.close();
-                // console.log(response);
-                if (response.status == "true") {
-                    // console.log(response);
-                    resolve(response);
-                } else {
-                    reject(response);
-                }
-            });
         });
     },
 
@@ -79,31 +109,62 @@ export default {
                 showCancelButton: false
             });
         }
+        var request_urls = {
+            contact: 'sendMessage',
+            register: 'customerregister',
+            login: 'customerlogin',
+            forgotpassword: 'reset_password_without_token',
+            purchasegiftcard: 'purchasegiftcard/',
+            resetpassword: 'reset_password_with_token',
+            createcart: 'createcart',
+            verifycard: 'verifygiftcard',
+            placeorder: 'placeorder',
+            verifypayment: 'makepayment',
+            createaddress: 'addresses',
+            editaddress: 'editaddresses/',
+            updatecustomer: 'updatecustomer',
+            redeemgift: 'redeemgiftcard'
 
+
+        };
         console.log(
             "%cSending post request: ",
             "color:#fff;font-size:14px;background:#00ff00;"
         );
+        if (request.key) {
+            var request_url = URL + request_urls[request.what] + request.key;
+        } else {
+            var request_url = URL + request_urls[request.what];
+            request_url += request.id == undefined ? "" : "" + request.id;
+        }
 
+        var config = {};
+
+        if (request.headers !== undefined) {
+            config.headers = request.headers;
+        }
         return new Promise((resolve, reject) => {
-            // if (request.useToken || request.useToken == undefined) {
-            //     var token = store.getters.token;
 
-            //     request.headers = {
-            //         Authorization: "Token " + token
-            //     };
-            // }
             console.log(request);
-            Vue.prototype.$socket.emit("makePostRequest", request);
-            Vue.prototype.$socket.once("makePostRequestResponse", response => {
-                Vue.prototype.$swal.close();
-                // console.log(response);
-                if (response.status !== undefined && response.status == "true") {
-                    resolve(response);
-                } else {
-                    reject(response);
-                }
-            });
+            axios
+                .post(request_url, request.data, config)
+                .then(response => {
+                    Vue.prototype.$swal.close();
+                    if (response.data.status == "true" || response.data.status || response.success == "true") {
+                        response = {
+                            data: response.data,
+                            type: request.what,
+                            status: "true"
+                        };
+                        resolve(response);
+                    } else {
+                        reject(response.data.message);
+                    }
+                })
+                .catch(err => {
+                    reject(err);
+                });
+
         });
     },
 
@@ -124,25 +185,42 @@ export default {
             "%cSending put request: ",
             "color:#fff;font-size:14px;background:#00ff00;"
         );
-        console.log(request)
+        // console.log(request)
+        var request_urls = {
+            editaddress: 'addresses/'
+        };
+        var request_url = URL + request_urls[request.what];
+        // console.log(request_url)
+        request_url += request.id == undefined ? "" : "" + request.id + "/";
+
+        var config = {
+            headers: request.headers
+        };
+
+        delete request.data.id;
+        delete request.data.type;
+        delete request.data.append_to_url;
 
         return new Promise((resolve, reject) => {
-            // if (request.useToken || request.useToken == undefined) {
-            //     var token = store.getters.token;
-            //     request.headers = {
-            //         Authorization: "Token " + token
-            //     };
-            // }
+            axios
+                .put(request_url, request.data, config)
+                .then(response => {
+                    if (response.data.status == "true" || response.data.status) {
+                        response = {
+                            data: response.data,
+                            type: request.what,
+                            status: "true"
+                        };
 
-            Vue.prototype.$socket.emit("editItem", request);
-            Vue.prototype.$socket.once("editItemResponse", response => {
-                if (response.status == "true") {
-                    resolve(response);
-                } else {
-                    console.log(response);
-                    reject(response);
-                }
-            });
+                        resolve(response)
+                    } else {
+                        reject('error')
+                    }
+                })
+                .catch(err => {
+                    resolve(err)
+                });
+
         });
     },
     deleteItem: (request) => {
@@ -161,26 +239,44 @@ export default {
         }
 
         console.log('%cDeleting: ', 'color:#fff;font-size:14px;background:#00ff00;')
+        var request_urls = {
+            deleteaddress: 'addresses',
+        }
+
+        var request_url = URL + request_urls[request.what]
+
+        request_url += (request.id == undefined) ? "" : "/" + request.id
+
+        var config = {
+            headers: {
+
+            },
+            data: request.data
+        }
 
         return new Promise((resolve, reject) => {
+            axios.delete(request_url, config)
+                .then((response) => {
 
-            if (request.useToken || request.useToken == undefined) {
-                var token = store.getters.token
-                request.headers = {
-                    'Authorization': 'Bearer ' + token
-                }
-            }
 
-            Vue.prototype.$socket.emit('deleteItem', request)
-            Vue.prototype.$socket.once('deleteItemResponse', (response) => {
+                    if (response.data.status == 'true' || response.data.status) {
 
-                if (response.status == 'true') {
-                    resolve(response)
+                        response = {
+                            data: response.data,
+                            type: request.what,
+                            status: 'true'
+                        }
 
-                } else {
-                    reject(response)
-                }
-            })
+                        resolve(response)
+                    } else {
+
+                        reject(response)
+                    }
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+
         })
     }
 

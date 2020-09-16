@@ -34,15 +34,16 @@
                     v-model="user.title"
                   >
                     <option
-                      value=""
                       selected
                       hidden
+                      value=""
                     >Title</option>
                     <option>Miss</option>
                     <option>Mr</option>
                     <option>Mrs</option>
                     <option>Ms</option>
                   </select>
+
                   <span class="err_msg">{{ errors[0] }}</span>
                 </validation-provider>
               </div>
@@ -54,9 +55,13 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="First Name"
+                    placeholder=" "
                     v-model="user.firstname"
                   >
+                  <label
+                    class="anim"
+                    for=""
+                  >First Name</label>
                   <span class="err_msg">{{ errors[0] }}</span>
                 </validation-provider>
               </div>
@@ -66,11 +71,15 @@
                   v-slot="{ errors }"
                 >
                   <input
+                    placeholder=" "
                     type="text"
                     class="form-control"
-                    placeholder="Last Name"
                     v-model="user.lastname"
                   >
+                  <label
+                    class="anim"
+                    for=""
+                  >Last Name</label>
                   <span class="err_msg">{{ errors[0] }}</span>
                 </validation-provider>
               </div>
@@ -81,11 +90,15 @@
                 v-slot="{ errors }"
               >
                 <input
+                  placeholder=" "
                   type="email"
                   class="form-control"
-                  placeholder="Email Address"
                   v-model="user.email"
                 >
+                <label
+                  class="anim"
+                  for=""
+                >Email Address</label>
                 <span class="err_msg">{{ errors[0] }}</span>
               </validation-provider>
             </div>
@@ -95,6 +108,7 @@
                 v-slot="{ errors }"
               >
                 <vue-tel-input v-model="user.phone"></vue-tel-input>
+
                 <span class="err_msg">{{ errors[0] }}</span>
               </validation-provider>
             </div>
@@ -110,14 +124,15 @@
                     v-model="user.gender"
                   >
                     <option
-                      value=""
                       selected
                       hidden
+                      value=""
                     >Gender</option>
                     <option value="m">Male</option>
                     <option value="f">Female</option>
 
                   </select>
+
                   <span class="err_msg">{{ errors[0] }}</span>
                 </validation-provider>
               </div>
@@ -132,9 +147,9 @@
                     v-model="month"
                   >
                     <option
-                      value
                       selected
                       hidden
+                      value=""
                     >Birth Month</option>
                     <option value="01">January</option>
                     <option value="02">February</option>
@@ -149,6 +164,7 @@
                     <option value="11">November</option>
                     <option value="12">December</option>
                   </select>
+
                   <span class="err_msg">{{ errors[0] }}</span>
                 </validation-provider>
               </div>
@@ -163,9 +179,9 @@
                     v-model="day"
                   >
                     <option
-                      value
                       selected
                       hidden
+                      value=""
                     >Birth Day</option>
                     <option value="01">1</option>
                     <option value="02">2</option>
@@ -199,6 +215,7 @@
                     <option value="30">30</option>
                     <option value="31">31</option>
                   </select>
+
                   <span class="err_msg">{{ errors[0] }}</span>
                 </validation-provider>
               </div>
@@ -213,11 +230,15 @@
                 v-slot="{ errors }"
               >
                 <input
+                  placeholder=" "
                   class="form-control"
-                  placeholder="Password"
                   v-model="user.password"
                   :type="passwordFieldType"
                 >
+                <label
+                  class="anim"
+                  for=""
+                >Password</label>
                 <span class="err_msg">{{ errors[0] }}</span>
               </validation-provider>
               <span
@@ -244,11 +265,15 @@
                 }"
               >
                 <input
+                  placeholder=" "
                   type="password"
                   v-model="confirmpassword"
                   class="form-control"
-                  placeholder="Confirm Password"
                 >
+                <label
+                  class="anim"
+                  for=""
+                >Confirm Password</label>
                 <span class="err_msg">{{ errors[0] }}</span>
               </validation-provider>
             </div>

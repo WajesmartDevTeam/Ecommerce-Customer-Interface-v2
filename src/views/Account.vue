@@ -6,13 +6,22 @@
         <div class="row">
           <div class="col-sm-3">
             <div id="options">
-              <div class="opt">
+              <div
+                class="opt"
+                @click="$router.push('/orders')"
+              >
                 <a href="/orders">My Orders</a>
               </div>
-              <div class="opt active">
+              <div
+                class="opt active"
+                @click="$router.push('/account')"
+              >
                 <a href="/account">My Account</a>
               </div>
-              <div class="opt ">
+              <div
+                class="opt "
+                @click="$router.push('/addressbook')"
+              >
                 <a href="/addressbook">Address Book</a>
               </div>
             </div>
@@ -32,9 +41,10 @@
                           <input
                             type="text"
                             class="form-control"
-                            placeholder="First Name"
+                            placeholder=" "
                             v-model="user.firstname"
                           >
+                          <label class="anim">First Name</label>
                           <span class="err_msg">{{ errors[0] }}</span>
                         </validation-provider>
                       </div>
@@ -46,9 +56,10 @@
                           <input
                             type="text"
                             class="form-control"
-                            placeholder="Last Name"
+                            placeholder=" "
                             v-model="user.lastname"
                           >
+                          <label class="anim">Last Name</label>
                           <span class="err_msg">{{ errors[0] }}</span>
                         </validation-provider>
                       </div>
@@ -62,9 +73,10 @@
                           disabled
                           type="email"
                           class="form-control"
-                          placeholder="Email Address"
+                          placeholder=" "
                           v-model="user.email"
                         >
+                        <label class="anim">Email Address</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -143,22 +155,25 @@
                   <input
                     type="password"
                     class="form-control"
-                    placeholder="Current Password"
+                    placeholder=" "
                   >
+                  <label class="anim">Current Password</label>
                 </div>
                 <div class="form-group">
                   <input
                     type="password"
                     class="form-control"
-                    placeholder="New Password"
+                    placeholder=" "
                   >
+                  <label class="anim">New Password</label>
                 </div>
                 <div class="form-group">
                   <input
                     type="password"
                     class="form-control"
-                    placeholder="Confirm New Password"
+                    placeholder=" "
                   >
+                  <label class="anim">Confirm New Password</label>
                 </div>
                 <button class="msq-button mt-4">Update Password</button>
               </form>

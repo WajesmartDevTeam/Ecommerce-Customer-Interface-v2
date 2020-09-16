@@ -5,7 +5,7 @@
         <div class="col-sm-12 mt-5">
           <div class="row container">
             <div class="col-sm-4">
-              <h5 class="footer-heading mb-4">Company</h5>
+              <h5 class="footer-heading my-2">Company</h5>
               <ul class="">
                 <li class="footer-link">
                   <a href="/about">About Marketsquare</a>
@@ -14,7 +14,7 @@
               </ul>
             </div>
             <div class="col-sm-4">
-              <h5 class="footer-heading mb-4">Product</h5>
+              <h5 class="footer-heading my-2">Product</h5>
               <ul class="">
                 <li class="footer-link">
                   <a href="/giftcard">
@@ -25,7 +25,7 @@
               </ul>
             </div>
             <div class="col-sm-4">
-              <h5 class="footer-heading mb-4">Get in touch</h5>
+              <h5 class="footer-heading my-2">Get in touch</h5>
               <ul class="">
                 <li class="footer-link d-flex justify-content-start">
                   <a

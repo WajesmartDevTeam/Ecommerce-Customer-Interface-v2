@@ -39,6 +39,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
+              title="Continue shopping"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -111,20 +112,7 @@
                   </span>
                 </div>
               </div>
-              <p
-                v-if="cart_total < 3000"
-                class="minimum text-bold"
-              >₦3,000 Minimum</p>
-              <div class="checkout">
-                <button
-                  v-bind:disabled="cart_total < 3000"
-                  v-bind:class="cart_total < 3000? 'disabled': ''"
-                  @click="handleCheckout"
-                >
-                  <span>Checkout</span>
-                  <span class="total">₦ {{formatPrice(cart_total)}}</span>
-                </button>
-              </div>
+
             </div>
 
             <div
@@ -142,6 +130,25 @@
               >Shop Now</button>
             </div>
           </div>
+          <div
+            v-if="getCart.length >0"
+            class="modal-footer"
+          >
+            <p
+              v-if="cart_total < 3000"
+              class="minimum text-bold"
+            >₦3,000 Minimum</p>
+            <div class="checkout">
+              <button
+                v-bind:disabled="cart_total < 3000"
+                v-bind:class="cart_total < 3000? 'disabled': ''"
+                @click="handleCheckout"
+              >
+                <span>Checkout</span>
+                <span class="total">₦ {{formatPrice(cart_total)}}</span>
+              </button>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -154,7 +161,8 @@ import * as $ from "jquery";
 export default {
   name: 'Cart',
   props: {
-    msg: String
+    products: Array,
+    home_products: Object
   },
   data () {
     return {
@@ -163,16 +171,86 @@ export default {
     }
   },
   mounted () {
-    // this.cart = this.$store.getters.cart;
     $(this.$refs.cartm).on("hidden.bs.modal", (e) => {
-      var add = document.querySelectorAll('.addquantity');
-      [].forEach.call(add, function (el) {
-        el.classList.add("hideqty");
-      });
-      var btn = document.querySelectorAll('.addtocart');
-      [].forEach.call(btn, function (el) {
-        el.classList.remove("hideqty");
-      });
+      let cart = this.$store.getters.cart;
+      if (this.$props.products) {
+        this.$props.products.forEach(i => {
+          i.hidebtn = false;
+          i.hideqty = true;
+          i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+          cart.forEach(j => {
+            if (i.id == j.product.id) {
+              i.hidebtn = true;
+              i.hideqty = false;
+              i.cart_qty = j.quantity;
+            }
+
+          })
+        })
+      }
+      else {
+        this.$props.home_products.top.forEach(i => {
+          i.hidebtn = false;
+          i.hideqty = true;
+          i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+          cart.forEach(j => {
+            if (i.id == j.product.id) {
+              i.hidebtn = true;
+              i.hideqty = false;
+              i.cart_qty = j.quantity;
+            }
+
+          })
+        })
+        this.$props.home_products.beverages.forEach(i => {
+          i.hidebtn = false;
+          i.hideqty = true;
+          i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+          cart.forEach(j => {
+            if (i.id == j.product.id) {
+              i.hidebtn = true;
+              i.hideqty = false;
+              i.cart_qty = j.quantity;
+            }
+
+          })
+        })
+        this.$props.home_products.water.forEach(i => {
+          i.hidebtn = false;
+          i.hideqty = true;
+          i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+          cart.forEach(j => {
+            if (i.id == j.product.id) {
+              i.hidebtn = true;
+              i.hideqty = false;
+              i.cart_qty = j.quantity;
+            }
+
+          })
+        })
+        this.$props.home_products.commodities.forEach(i => {
+          i.hidebtn = false;
+          i.hideqty = true;
+          i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+          cart.forEach(j => {
+            if (i.id == j.product.id) {
+              i.hidebtn = true;
+              i.hideqty = false;
+              i.cart_qty = j.quantity;
+            }
+
+          })
+        })
+      }
+
+      // var add = document.querySelectorAll('.addquantity');
+      // [].forEach.call(add, function (el) {
+      //   el.classList.add("hideqty");
+      // });
+      // var btn = document.querySelectorAll('.addtocart');
+      // [].forEach.call(btn, function (el) {
+      //   el.classList.remove("hideqty");
+      // });
     })
   },
   computed: {

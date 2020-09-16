@@ -7,29 +7,29 @@
 
         <div class="content">
 
-          <div class="product-group container bg-white my-5">
+          <div class="product-group container bg-white my-5 py-2">
 
-            <div class="row  mt-4 py-4 px-4">
+            <div class="row  mt-4 pb-2  px-md-2 pb-sm-2">
               <div
                 v-for="(product, index) in products"
                 v-bind:key="product.sku"
-                class="col-sm-6 col-md-4 col-lg-3 p-1"
+                class="col-6 col-md-3 col-lg-2 p-1"
               >
-                <div class="product p-3">
+                <div class="product p-md-2 p-sm-1">
                   <div
-                    @click="pro=product; viewproduct=true"
+                    @click="viewProduct(product)"
                     class="product-image"
                     data-target="#product"
                     data-toggle="modal"
                   >
                     <img
-                      :src="'https://marketsquareng.com'+product.img_url"
+                      v-lazy="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
                   </div>
                   <div
-                    @click="pro=product"
+                    @click="viewProduct(product)"
                     class="product-text"
                     data-target="#product"
                     data-toggle="modal"
@@ -40,11 +40,23 @@
                       class="weight"
                     >(Per Kg)</p>
                   </div>
-                  <div class="product-footer d-flex">
-                    <p class="price">₦{{ formatPrice(product.sellingprice) }}</p>
+                  <div class="product-footer">
+                    <p class="price">
+                      <span v-if="product.promo">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
+                        <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+                      </span>
+                      <span
+                        v-else
+                        class="price"
+                      > ₦{{ formatPrice(product.sellingprice) }}</span>
+
+                    </p>
+
                     <button
                       :id="'btntp'+index"
                       class="addtocart"
+                      v-bind:class="product.hidebtn? 'hideqty':''"
                       @click="addToCart(product, 'addtp'+index ,'btntp'+index ,'tp'+index)"
                     >
                       <img
@@ -58,11 +70,12 @@
                         alt=""
                       >
 
-                      <span>cart</span>
+                      <span>Add to cart</span>
                     </button>
                     <button
                       :id="'addtp'+index"
-                      class="addquantity hideqty"
+                      class="addquantity"
+                      v-bind:class="product.hideqty? 'hideqty':''"
                     >
                       <div
                         @click="decreaseQuantity('tp'+index, product.id)"
@@ -76,19 +89,20 @@
                         min="0.001"
                         step="any"
                         class="number"
-                        value=1.0
+                        :value=product.cart_qty
                         @keypress="restrictChars($event)"
                         @change="inputChange('tp'+index, product.id)"
                       >
 
                       <input
+                        oninput="validity.valid||(value='');"
                         v-else
                         :id="'tp'+index"
                         type="number"
                         min="0"
                         step="1"
                         class="number"
-                        value=1
+                        :value=product.cart_qty
                         @keypress="restrictChars($event)"
                         @change="inputChange('tp'+index, product.id)"
                       />
@@ -125,7 +139,7 @@
         </div>
       </div>
       <storeSelector></storeSelector>
-      <Cart />
+      <Cart :products="products" />
       <!-- Product Modal -->
       <div
         v-if='viewproduct'
@@ -141,8 +155,8 @@
             <div class="modal-header">
 
               <button
-                type="button"
                 @click.prevent='doSomethingOnHidden($event)'
+                type="button"
                 class="close"
                 data-dismiss="modal"
                 aria-label="Close"
@@ -166,7 +180,6 @@
                       v-if="pro.description && (pro.description.includes('/KG') || pro.description.includes('/ KG'))"
                       class="weight"
                     >(Per Kg)</p>
-                    <p class="price">₦{{formatPrice(pro.sellingprice)}}</p>
                   </div>
                   <div class="product-cat d-flex">
                     <span class="badge text-lowercase">{{pro.category}}</span>
@@ -175,10 +188,21 @@
                     {{pro.description}}
                   </div>
                   <div class="product-footer">
-                    <p class="price">₦{{ formatPrice(pro.sellingprice) }}</p>
+                    <p class="price">
+                      <span v-if="pro.promo">
+                        <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(pro.sellingprice) }}</s></span> <br>
+                        <span>₦{{ formatPrice(Math.round((pro.promo.value_percent/100)*pro.sellingprice)) }}</span>
+                      </span>
+                      <span
+                        v-else
+                        class="price"
+                      > ₦{{ formatPrice(pro.sellingprice) }}</span>
+
+                    </p>
                     <button
                       :id="'btntp_modal'"
                       class="addtocart"
+                      v-bind:class="pro.hidebtn? 'hideqty':''"
                       @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
                       <img
@@ -192,11 +216,12 @@
                         alt=""
                       >
 
-                      <span>cart</span>
+                      <span>Add to cart</span>
                     </button>
                     <button
                       :id="'addtp_modal'"
-                      class="addquantity hideqty"
+                      class="addquantity"
+                      v-bind:class="pro.hideqty? 'hideqty':''"
                     >
                       <div
                         @click="decreaseQuantity('tp_modal', pro.id)"
@@ -210,7 +235,7 @@
                         min="0.001"
                         step="any"
                         class="number"
-                        value=1.0
+                        :value=pro.cart_qty
                         @keypress="restrictChars($event)"
                         @change="inputChange('tp_modal', pro.id)"
                       >
@@ -222,7 +247,7 @@
                         min="0"
                         step="1"
                         class="number"
-                        value=1
+                        :value=pro.cart_qty
                         @keypress="restrictChars($event)"
                         @change="inputChange('tp_modal', pro.id)"
                       />
@@ -299,6 +324,20 @@ export default {
           if (res.type == 'search') {
             // console.log(res.data.data.data)
             let pro = res.data.data.data;
+            let cart = this.$store.getters.cart;
+            pro.forEach(i => {
+              i.hidebtn = false;
+              i.hideqty = true;
+              i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+              cart.forEach(j => {
+                if (i.id == j.product.id) {
+                  i.hidebtn = true;
+                  i.hideqty = false;
+                  i.cart_qty = j.quantity;
+                }
+
+              })
+            })
             if (pro.length > 0) {
               pro.forEach($product => this.products.push($product));
               if ($state) $state.loaded();
@@ -313,6 +352,20 @@ export default {
 
           console.log(error)
         });
+    },
+    viewProduct (product) {
+      history.pushState({}, null, `/product/${product.store_id}/${product.category}/${product.name}`);
+      let cart = this.$store.getters.cart;
+      cart.forEach(j => {
+        if (product.id == j.product.id) {
+          product.hidebtn = true;
+          product.hideqty = false;
+          product.cart_qty = j.quantity;
+        }
+
+      })
+      this.pro = product;
+      this.viewproduct = true
     },
     addToCart (product, addid, addbtn, id) {
       document.getElementById(addid).classList.remove('hideqty');
@@ -361,7 +414,17 @@ export default {
       }
       this.$store.dispatch('addToCart', cart_array)
     },
-
+    removeFromCart (id) {
+      let index;
+      let cart = this.$store.getters.cart;
+      cart.forEach((i, ind) => {
+        if (i.product.id == id) {
+          index = ind
+        }
+      })
+      cart.splice(index, 1);
+      this.$store.dispatch('addToCart', cart)
+    },
     inputChange (id, product_id) {
       var value = document.getElementById(id).value;
       if (value == 0) {
@@ -394,7 +457,8 @@ export default {
         if (value == 0) {
           document.getElementById('add' + id).classList.add('hideqty');
           document.getElementById('btn' + id).classList.remove('hideqty')
-          document.getElementById(id).value = 1;
+          // document.getElementById(id).value = 1;
+          this.removeFromCart(product_id)
         }
         else {
           document.getElementById(id).value = value;
@@ -448,16 +512,31 @@ export default {
       return str.join(".");
     },
     doSomethingOnHidden ($event) {
+      history.back()
+      let cart = this.$store.getters.cart;
+      this.products.forEach(i => {
+        i.hidebtn = false;
+        i.hideqty = true;
+        i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+        cart.forEach(j => {
+          if (i.id == j.product.id) {
+            i.hidebtn = true;
+            i.hideqty = false;
+            i.cart_qty = j.quantity;
+          }
+
+        })
+      })
       //  addtocart
-      console.log($event)
-      var add = document.querySelectorAll('.addquantity');
-      [].forEach.call(add, function (el) {
-        el.classList.add("hideqty");
-      });
-      var btn = document.querySelectorAll('.addtocart');
-      [].forEach.call(btn, function (el) {
-        el.classList.remove("hideqty");
-      });
+      // console.log($event)
+      // var add = document.querySelectorAll('.addquantity');
+      // [].forEach.call(add, function (el) {
+      //   el.classList.add("hideqty");
+      // });
+      // var btn = document.querySelectorAll('.addtocart');
+      // [].forEach.call(btn, function (el) {
+      //   el.classList.remove("hideqty");
+      // });
     },
   }
 }

@@ -17,6 +17,27 @@
             box-shadow: 0 0 0 rgb(255, 255, 255)!important;
         }
         
+        input~label.anim {
+            color: #879388;
+            font-size: 12px;
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            transition: ease 0.2s;
+        }
+        
+        input:focus~label.anim,
+        input:not(:placeholder-shown)~label.anim {
+            display: block;
+            position: absolute;
+            top: -7px;
+            font-size: 10px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
         #app {
             background: #F7F7F7 0% 0% no-repeat padding-box;
         }
@@ -322,7 +343,7 @@
         }
         
         .mobile #search {
-            margin: 10px auto;
+            margin: auto;
             width: 300px;
             height: 35px;
             background: #ffffff 0% 0% no-repeat padding-box;
@@ -397,7 +418,7 @@
         #menu-bar {
             background: #fff;
             border-top: 1px solid #f1f1f1;
-            border-bottom: 1px solid #fcfcfc;
+            border-bottom: 1px solid #fcfcfc
         }
         
         #menu-bar #menu {
@@ -464,9 +485,8 @@
         
         .footer .footer-link {
             list-style: none;
-            font-size: 13px;
-            margin-top: 15px;
-            margin-top: 15px;
+            font-size: 12px;
+            margin-top: 1px;
             margin-right: 20px;
         }
         

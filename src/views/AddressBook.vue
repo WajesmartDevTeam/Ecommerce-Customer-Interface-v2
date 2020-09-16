@@ -6,13 +6,22 @@
         <div class="row">
           <div class="col-sm-3">
             <div id="options">
-              <div class="opt">
+              <div
+                class="opt"
+                @click="$router.push('/orders')"
+              >
                 <a href="/orders">My Orders</a>
               </div>
-              <div class="opt">
+              <div
+                class="opt"
+                @click="$router.push('/account')"
+              >
                 <a href="/account">My Account</a>
               </div>
-              <div class="opt active">
+              <div
+                class="opt active"
+                @click="$router.push('/addressbook')"
+              >
                 <a href="/addressbook">Address Book</a>
               </div>
             </div>
@@ -24,10 +33,12 @@
                 <div class="col-md-4 col-sm-6">
                   <div
                     id="addnew"
+                    @click="edit=false;address={}"
                     data-toggle="modal"
                     data-target="#addressform"
                   >
                     <a
+                      @click.prevent="edit=false; address={}"
                       data-toggle="modal"
                       data-target="#addressform"
                     >
@@ -40,14 +51,14 @@
                   </div>
                 </div>
                 <div
-                  v-for="row in addresses"
+                  v-for="(row, index) in addresses"
+                  v-bind:key="index"
                   class="col-md-4 col-sm-6"
                 >
-
                   <div
-                    class="address-box "
+                    class="address-box"
                     style="cursor:pointer;"
-                    v-bind:class="row.default==1? 'active':''"
+                    v-bind:class="row.address_default==1? 'active':''"
                   >
                     <div style="height:23px">
                       <span
@@ -145,9 +156,10 @@
                           type="text"
                           class="form-control"
                           required
-                          placeholder="Label e.g Home, Office"
+                          placeholder=" "
                           v-model="address.label"
                         >
+                        <label class="anim">Label e.g Home, Office</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -160,9 +172,10 @@
                           type="text"
                           required
                           class="form-control"
-                          placeholder="Street Address"
+                          placeholder=" "
                           v-model="address.address"
                         >
+                        <label class="anim">Street Address</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -177,9 +190,10 @@
                           type="text"
                           required
                           class="form-control"
-                          placeholder="Area"
+                          placeholder=" "
                           v-model="address.area"
                         >
+                        <label class="anim">Area</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -192,9 +206,9 @@
                           type="text"
                           required
                           class="form-control"
-                          placeholder="Closest Landmark"
+                          placeholder=" "
                           v-model="address.landmark"
-                        >
+                        > <label class="anim">Closest landmark</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -205,16 +219,9 @@
                         rules="required"
                         v-slot="{ errors }"
                       >
-                        <input
-                          v-if="edit"
-                          type="text"
-                          required
-                          class="form-control"
-                          placeholder="Closest Landmark"
-                          v-model="address.state"
-                        >
+
                         <select
-                          v-else
+                          v-if="edit==false"
                           name=""
                           id=""
                           required
@@ -232,6 +239,19 @@
                             :value="row.state.name"
                           >{{row.state.name}}</option>
                         </select>
+                        <input
+                          v-else
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder=" "
+                          v-model="address.state"
+                        >
+
+                        <label
+                          v-if="edit"
+                          class="anim"
+                        >Enter State</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -240,17 +260,9 @@
                         rules="required"
                         v-slot="{ errors }"
                       >
-                        <input
-                          v-if="edit"
-                          type="text"
-                          required
-                          class="form-control"
-                          placeholder="Closest Landmark"
-                          v-model="address.city"
-                        >
 
                         <select
-                          v-else
+                          v-if="edit==false"
                           name=""
                           id=""
                           required
@@ -265,28 +277,34 @@
                           <option
                             v-for="(row, index) in cities"
                             v-bind:key='index'
-                            :value="row.name"
-                          >{{row.name}}</option>
+                            :value="row"
+                          >{{row}}</option>
                         </select>
+                        <input
+                          v-else
+                          type="text"
+                          required
+                          class="form-control"
+                          placeholder=" "
+                          v-model="address.city"
+                        >
+                        <label
+                          v-if="edit"
+                          class="anim"
+                        >Enter City</label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
                     <div class="form-group form-check">
-                      <validation-provider
-                        rules="required"
-                        v-slot="{ errors }"
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        v-model="address.address_default"
                       >
-                        <input
-                          type="checkbox"
-                          class="form-check-input"
-                          v-model="address.default"
-                        >
-                        <label
-                          class="form-check-label"
-                          for="exampleCheck1"
-                        >Set as default</label>
-                        <span class="err_msg">{{ errors[0] }}</span>
-                      </validation-provider>
+                      <label
+                        class="form-check-label"
+                        for="exampleCheck1"
+                      >Set as default</label>
                     </div>
                   </div>
                   <button
@@ -336,7 +354,7 @@ export default {
         address: '',
         city: '',
         landmark: '',
-        default: ''
+        default: 0
       }
     }
   },
@@ -345,7 +363,8 @@ export default {
     this.loader = this.$loading.show();
   },
   mounted () {
-    this.fetchAddress()
+    this.fetchAddress();
+
   },
   watch: {
     selected: function (val) {
@@ -353,7 +372,8 @@ export default {
       vm.address.state = val
       this.states.forEach(i => {
         if (i.state.name == val) {
-          vm.cities = i.state.locals
+          // vm.cities = i.state.locals
+          vm.cities = i.state.cities;
         }
       })
     },
@@ -379,6 +399,11 @@ export default {
         });
     },
     createAddress () {
+
+      this.address.user_id = this.$store.getters.user.id
+      if (!this.address.hasOwnProperty("default")) {
+        this.address.address_default = 0
+      }
       if (this.edit) {
         let req = {
           what: "editaddress",
@@ -386,20 +411,28 @@ export default {
           id: this.addressid,
           data: this.address
         }
+
         this.$request
-          .editItem(req)
+          .makePostRequest(req)
           .then(res => {
+            console.log(res)
             this.$swal.fire("Success", res.data.message, "success");
             this.address = {}
             $(".modal").modal("hide")
             this.fetchAddress();
+            this.edit = false;
           })
           .catch(error => {
             console.log(error);
             this.$swal.fire("Error", error.message, "error");
+            this.address = {}
+            $(".modal").modal("hide")
+            this.edit = false;
           });
       }
       else {
+
+        this.address.state = this.selected;
         let req = {
           what: "createaddress",
           showLoader: true,
@@ -431,7 +464,7 @@ export default {
         address: row.address,
         city: row.city,
         landmark: row.landmark,
-        default: row.default
+        address_default: Number(row.address_default)
       }
 
     },
@@ -444,7 +477,7 @@ export default {
         address: row.address,
         city: row.city,
         landmark: row.landmark,
-        default: 1
+        address_default: true
       }
       let req = {
         what: "editaddress",
@@ -453,7 +486,7 @@ export default {
         data: this.address
       }
       this.$request
-        .editItem(req)
+        .makePostRequest(req)
         .then(res => {
           this.address = {}
           this.fetchAddress();

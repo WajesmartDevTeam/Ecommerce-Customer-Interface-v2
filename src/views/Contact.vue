@@ -31,9 +31,10 @@
                         type="text"
                         class="form-control"
                         v-model="contact.firstname"
-                        placeholder="First Name"
+                        placeholder=" "
                         required
                       >
+                      <label class="anim">First Name</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -45,10 +46,11 @@
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Last Name"
+                        placeholder=" "
                         required
                         v-model="contact.lastname"
                       >
+                      <label class="anim">Last Name</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
 
@@ -62,9 +64,10 @@
                     <input
                       type="email"
                       class="form-control"
-                      placeholder="Email Address"
+                      placeholder=" "
                       v-model="contact.email"
                     >
+                    <label class="anim">Email Address</label>
                     <span class="err_msg">{{ errors[0] }}</span>
                   </validation-provider>
                 </div>
@@ -81,9 +84,10 @@
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Subject"
+                    placeholder=" "
                     v-model="contact.subject"
                   >
+                  <label class="anim">Subject</label>
                 </div>
                 <div class="form-group">
                   <validation-provider
@@ -157,7 +161,7 @@ export default {
         })
         .catch(error => {
           console.log(error)
-          this.$swal.fire("Error", error.message, "error");
+          this.$swal.fire("Error", error, "error");
         });
     }
   }
