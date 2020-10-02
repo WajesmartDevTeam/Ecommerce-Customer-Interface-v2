@@ -422,7 +422,8 @@ export default {
       this.$store.dispatch("setStoreStatus", true);
       this.$store.dispatch("setStore", store).then(res => {
         if (oldstore !== store.name) {
-          this.$store.dispatch('addToCart', [])
+          this.$store.dispatch('addToCart', []);
+          location.reload()
         }
         if (window.location.pathname == "/" || window.location.pathname == "/storeslist") {
           $(".modal").modal("hide")
