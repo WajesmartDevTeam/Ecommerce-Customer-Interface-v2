@@ -239,10 +239,7 @@
           >₦{{formatPrice(cart_total)}}</span>
         </div> -->
         <div class="dropdown-menu cart-dropdown">
-          <div
-            v-for="row in cart"
-            class="dropdown-item"
-          >
+          <div v-for="row in cart" class="dropdown-item">
             <div class="row">
               <div class="col-3 icon">
                 <img

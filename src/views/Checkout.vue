@@ -106,7 +106,7 @@
                       <h6 class="card-subtitle subtitle mb-2 ml-5">Where should your order be delivered</h6>
                       <div class="card-text mt-3 mx-md-5">
 
-                        <div
+                        <div v-show="$store.getters.isLoggedIn"
                           v-if="$store.getters.isLoggedIn"
                           class=""
                         >
@@ -155,7 +155,7 @@
                               </div>
                             </div>
                             <div class="col-sm-6">
-                              <div
+                              <div v-show="!$store-getters-isLoggedIn"
                                 id="addnew"
                                 data-toggle="modal"
                                 data-target="#addressform"
@@ -291,7 +291,7 @@
                           <span v-if="order.delivery.method !=='delivery'">2</span>
                           <span v-else>3</span>
                         </div>
-                        <h5 class="title">Fulfillment Information</h5>
+                        <h5 class="title">delivery Information</h5>
                       </div>
                       <div class="card-text my-3 mx-md-5">
                         <p class="mode ml-5">
@@ -585,7 +585,7 @@
                             </tr>
 
                             <tr>
-                              <td>Fulfillment Fee</td>
+                              <td>Delivery Fee</td>
                               <td class="float-right ">
                                 <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{order.delivery.charge}}</span>
                                 <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
@@ -745,10 +745,7 @@
                         placeholder=" "
                         v-model="address.label"
                       >
-                      <label
-                        for=""
-                        class="anim"
-                      >Label e.g Home, Office</label>
+                      <label for="" class="anim" >Label e.g Home, Office</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -931,8 +928,11 @@ export default {
           area: '',
           landmark: "",
           contact_method: "",
+         
 
         },
+
+       
         order_enquiry_contactname: '',
         order_enquiry_contactnumber: '',
         contact_upon_delivery_name: '',
@@ -1508,7 +1508,10 @@ export default {
           .makePostRequest(req)
           .then(res => {
             this.$swal.fire("Success", res.data.message, "success");
-            this.address = {}
+            this.address.label='';
+            this.address.address= '',
+            this.address.landmark= '',
+
             $(".modal").modal("hide")
             this.fetchAddress();
           })
@@ -1528,7 +1531,9 @@ export default {
           .then(res => {
             console.log(res)
             this.$swal.fire("Success", res.data.message, "success");
-            this.address = {}
+            this.address.label='';
+            this.address.address= '',
+            this.address.landmark= '',
             $(".modal").modal("hide")
             this.fetchAddress();
           })
