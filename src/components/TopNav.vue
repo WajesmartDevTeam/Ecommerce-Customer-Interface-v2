@@ -603,6 +603,7 @@ export default {
     this.user = this.$store.getters.user;
     if (this.$store.getters.storesCart.length > 0) {
       this.cart = this.$store.getters.storesCart;
+      // console.log(this.cart)
     }
   },
   watch: {

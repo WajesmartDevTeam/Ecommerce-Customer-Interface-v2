@@ -17,7 +17,15 @@
             <div class="card-body">
               <div class="row mt-3">
                 <div class="col-sm-5 p-0">
+
                   <img
+                    v-if="product.img_url.includes('https://cdn.marketsquareng.website')"
+                    :src="product.img_url"
+                    alt=""
+                    class="img-fluid img-responsive"
+                  >
+                  <img
+                    v-else
                     :src="'https://marketsquareng.com'+product.img_url"
                     alt=""
                     class="img-fluid img-responsive"

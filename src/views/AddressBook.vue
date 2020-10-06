@@ -401,7 +401,7 @@ export default {
     createAddress () {
 
       this.address.user_id = this.$store.getters.user.id
-      if (!this.address.hasOwnProperty("default")) {
+      if (!this.address.hasOwnProperty("address_default")) {
         this.address.address_default = 0
       }
       if (this.edit) {

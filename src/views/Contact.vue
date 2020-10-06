@@ -158,6 +158,7 @@ export default {
           this.contact.message = "";
           this.contact.email = "";
           this.contact.subject = "";
+          location.reload()
         })
         .catch(error => {
           console.log(error)

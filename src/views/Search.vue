@@ -23,6 +23,13 @@
                     data-toggle="modal"
                   >
                     <img
+                      v-if="product.img_url.includes('https://cdn.marketsquareng.website')"
+                      v-lazy="product.img_url"
+                      alt=""
+                      class="img-fluid"
+                    >
+                    <img
+                      v-else
                       v-lazy="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
@@ -119,19 +126,17 @@
 
               <infinite-loading
                 @distance="1"
-                @infinite="fetchProducts"
+                :onInfinite="fetchProducts"
+                ref="infiniteLoading"
+                spinner="bubbles"
               >
-                <div slot="no-more">
-                  <!-- <i class="material-icons text-center">info_outline</i> -->
-                  <!-- <i>No more items</i> -->
-                </div>
-                <div slot="no-results">
-                  <!-- <i>No item</i> -->
-                  <!-- <img
+                <span
+                  slot="no-results"
+                  class="text-center"
+                > <img
                     src="../assets/img/app/nodata.png"
                     alt=""
-                  > -->
-                </div>
+                  > </span>
               </infinite-loading>
             </div>
           </div>
@@ -168,6 +173,13 @@
               <div class="row">
                 <div class="col-5">
                   <img
+                    v-if="pro.img_url.includes('https://cdn.marketsquareng.website')"
+                    :src="pro.img_url"
+                    alt=""
+                    class="img-fluid"
+                  >
+                  <img
+                    v-else
                     :src="'https://marketsquareng.com'+pro.img_url"
                     alt=""
                     class="img-fluid"
@@ -338,6 +350,7 @@ export default {
 
               })
             })
+            console.log(pro)
             if (pro.length > 0) {
               pro.forEach($product => this.products.push($product));
               if ($state) $state.loaded();

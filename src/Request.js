@@ -9,8 +9,8 @@ import store from "./store";
 import axios from 'axios'
 
 // const URL = "http://localhost:8080/api/";
-const URL = "https://marketsquareng.website/api/"
-
+// const URL = "https://marketsquareng.website/api/"
+const URL = "https://marketsquareng.com/api/"
 
 export default {
     name: "Request",

@@ -83,11 +83,17 @@
                     data-toggle="modal"
                   >
                     <img
+                      v-if="product.img_url.includes('https://cdn.marketsquareng.website')"
+                      v-lazy="product.img_url"
+                      alt=""
+                      class="img-fluid"
+                    >
+                    <img
+                      v-else
                       v-lazy="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
-
                   </div>
                   <div
                     @click="viewProduct(product)"
@@ -207,6 +213,13 @@
                     data-toggle="modal"
                   >
                     <img
+                      v-if="product.img_url.includes('https://cdn.marketsquareng.website')"
+                      v-lazy="product.img_url"
+                      alt=""
+                      class="img-fluid"
+                    >
+                    <img
+                      v-else
                       v-lazy="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
@@ -339,6 +352,13 @@
                     data-toggle="modal"
                   >
                     <img
+                      v-if="product.img_url.includes('https://cdn.marketsquareng.website')"
+                      v-lazy="product.img_url"
+                      alt=""
+                      class="img-fluid"
+                    >
+                    <img
+                      v-else
                       v-lazy="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
@@ -462,6 +482,13 @@
                     data-toggle="modal"
                   >
                     <img
+                      v-if="product.img_url.includes('https://cdn.marketsquareng.website')"
+                      v-lazy="product.img_url"
+                      alt=""
+                      class="img-fluid"
+                    >
+                    <img
+                      v-else
                       v-lazy="'https://marketsquareng.com'+product.img_url"
                       alt=""
                       class="img-fluid"
@@ -588,6 +615,13 @@
               <div class="row">
                 <div class="col-5">
                   <img
+                    v-if="pro.img_url.includes('https://cdn.marketsquareng.website')"
+                    :src="pro.img_url"
+                    alt=""
+                    class="img-fluid"
+                  >
+                  <img
+                    v-else
                     :src="'https://marketsquareng.com'+pro.img_url"
                     alt=""
                     class="img-fluid"

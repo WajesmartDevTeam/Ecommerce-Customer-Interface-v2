@@ -234,7 +234,7 @@
                     >
                       <h5>Processing</h5>
                       <span class="subtext">Order is being processed for delivery</span>
-                      <div id="Market_Square_Ada_George__9_Ad">
+                      <div id="market">
                         <span>{{order.name}}</span>
                         <br>
                         <span class="subtext"> {{order.address}}</span>
@@ -274,9 +274,16 @@
                       <td class="">
 
                         <img
+                          v-if="row.old_productinfo.img_url.includes('https://cdn.marketsquareng.website')"
+                          :src="row.old_productinfo.img_url"
+                          alt=""
+                          class="img-fluid"
+                        >
+                        <img
+                          v-else
                           :src="'https://marketsquareng.com'+row.old_productinfo.img_url"
                           alt=""
-                          class="img"
+                          class="img-fluid"
                         >
 
                       </td>
@@ -361,18 +368,20 @@ export default {
     reOrder () {
       let cart = [];
       this.order.itemdetails.forEach(i => {
-        let cartitem = {
-          price: i.old_productinfo.price,
-          quantity: i.old_productinfo.quantity,
-          unit_price: i.unit_price,
-          product: {
-            id: i.product_id,
-            img_url: i.old_productinfo.img_url,
-            name: i.old_productinfo.name,
-            price: i.unit_price
+        if (i.isavailable) {
+          let cartitem = {
+            price: i.old_productinfo.price,
+            quantity: i.old_productinfo.quantity,
+            unit_price: i.unit_price,
+            product: {
+              id: i.product_id,
+              img_url: i.old_productinfo.img_url,
+              name: i.old_productinfo.name,
+              price: i.unit_price
+            }
           }
+          cart.push(cartitem)
         }
-        cart.push(cartitem)
       });
       this.$store.dispatch('addToCart', cart)
         .then((r) => {
@@ -445,7 +454,7 @@ export default {
   color: rgba(152, 152, 152, 1);
 }
 
-#Market_Square_Ada_George__9_Ad {
+#market {
   width: 200px;
   height: 34px;
   text-align: left;

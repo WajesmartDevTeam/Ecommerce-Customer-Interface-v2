@@ -32,6 +32,13 @@
                     <td class="">
 
                       <img
+                        v-if="row.product.img_url.includes('https://cdn.marketsquareng.website')"
+                        :src="row.product.img_url"
+                        alt=""
+                        class="img"
+                      >
+                      <img
+                        v-else
                         :src="'https://marketsquareng.com'+row.product.img_url"
                         alt=""
                         class="img"

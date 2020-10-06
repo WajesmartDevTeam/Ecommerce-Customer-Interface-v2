@@ -64,7 +64,18 @@ Vue.use(VueLazyload, {
 })
 Vue.use(VueTelInput) // Define default global options here (optional)
 Vue.use(VueAxios, axios);
-Vue.use(InfiniteLoading);
+// Vue.use(InfiniteLoading);
+Vue.use(InfiniteLoading, {
+    slots: {
+        // keep default styles
+        noResults: 'No results message',
+
+        // remove default styles
+        noMore: 'No more',
+
+
+    },
+});
 Vue.use(VueCarousel);
 
 Vue.use(EasySlider)

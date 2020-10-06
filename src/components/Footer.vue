@@ -30,7 +30,7 @@
                 <li class="footer-link d-flex justify-content-start">
                   <a
                     class="mr-3"
-                    href=""
+                    href="https://twitter.com/marketsquarengr"
                   >
                     <img
                       src="../assets/img/Path 355.svg"
@@ -39,21 +39,21 @@
                   </a>
                   <a
                     class="mr-3"
-                    href=""
+                    href="https://facebook.com/marketsquarengr"
                   > <img
                       src="../assets/img/Group 277.svg"
                       alt=""
                     ></a>
                   <a
                     class="mr-3"
-                    href=""
+                    href="https://instagram.com/marketsquarengr"
                   > <img
                       src="../assets/img/Group 275.svg"
                       alt=""
                     ></a>
                 </li>
                 <li class="footer-link">
-                  <a href="">service@sundrymarkets.ng</a>
+                  <a href="mailto:service@sundrymarkets.ng">service@sundrymarkets.ng</a>
                 </li>
                 <li class="footer-link">
                   Market Square, Nigeria

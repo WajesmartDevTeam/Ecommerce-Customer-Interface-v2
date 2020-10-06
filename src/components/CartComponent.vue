@@ -52,7 +52,15 @@
                 v-bind:key="index"
               >
                 <div class="col-3 p-0">
+
                   <img
+                    v-if="row.product.img_url.includes('https://cdn.marketsquareng.website')"
+                    :src="row.product.img_url"
+                    alt=""
+                    class="img-fluid"
+                  >
+                  <img
+                    v-else
                     :src="'https://marketsquareng.com'+row.product.img_url"
                     alt=""
                     class="img-fluid"
