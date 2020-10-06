@@ -30,7 +30,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://marketsquareng.com'+product.img_url"
+                      v-lazy="'http://admin.sundrymarkets.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -180,7 +180,7 @@
                   >
                   <img
                     v-else
-                    :src="'https://marketsquareng.com'+pro.img_url"
+                    :src="'http://admin.sundrymarkets.com'+pro.img_url"
                     alt=""
                     class="img-fluid"
                   >

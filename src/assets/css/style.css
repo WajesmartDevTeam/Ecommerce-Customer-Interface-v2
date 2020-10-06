@@ -754,7 +754,7 @@
         .cartcomponent #cart-icon {
             position: fixed;
             z-index: 1000;
-            top: 75%;
+            top: 70%;
             right: 0;
             width: 100px;
             height: 100px;

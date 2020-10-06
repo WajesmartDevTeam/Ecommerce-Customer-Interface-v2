@@ -41,7 +41,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://marketsquareng.com'+product.img_url"
+                      v-lazy="'http://admin.sundrymarkets.com'+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -197,7 +197,7 @@
                   >
                   <img
                     v-else
-                    :src="'https://marketsquareng.com'+pro.img_url"
+                    :src="'http://admin.sundrymarkets.com'+pro.img_url"
                     alt=""
                     class="img-fluid"
                   >
@@ -349,7 +349,7 @@ export default {
   },
   methods: {
     fetchProducts ($state) {
-      this.page += 1;``
+      this.page += 1; ``
       let req = {
         what: "categories",
         showLoader: false,
@@ -366,7 +366,7 @@ export default {
             let cart = this.$store.getters.cart;
             pro.forEach(i => {
 
-              
+
               i.hidebtn = false;
               i.hideqty = true;
               i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;

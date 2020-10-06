@@ -26,7 +26,7 @@
                   >
                   <img
                     v-else
-                    :src="'https://marketsquareng.com'+product.img_url"
+                    :src="'http://admin.sundrymarkets.com'+product.img_url"
                     alt=""
                     class="img-fluid img-responsive"
                   >
