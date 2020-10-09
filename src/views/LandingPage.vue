@@ -23,7 +23,7 @@
             class="container my-5"
           >
             <h4 class="title">How It Works</h4>
-            <p class="subtitle">Your favourite brands straight from the store to your doorstep</p>
+            <!-- <p class="subtitle">Your favourite brands straight from the store to your doorstep</p> -->
 
             <div class="row mt-5 px-5">
               <div class="col-sm-4">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="description">
                   <h5>Shop For Products</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                  <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p> -->
                 </div>
               </div>
               <div class="col-sm-4">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="description">
                   <h5>Pay With Ease</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                  <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
                 </div>
               </div>
               <div class="col-sm-4">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="description">
                   <h5>Delivery At Your Doorstep</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                  <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p> -->
                 </div>
               </div>
             </div>
