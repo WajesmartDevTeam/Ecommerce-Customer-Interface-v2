@@ -93,6 +93,7 @@
 
                 </div>
               </div> -->
+
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div
                   class="inner"
@@ -112,6 +113,17 @@
                 >
                   <figure><img src="../assets/img/homepage/winesand-spirits.jpg" /></figure>
                   <span class="text">Wines & Spirits</span>
+
+                </div>
+              </div>
+              <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
+                <div
+                  class="inner"
+                  data-toggle="modal"
+                  data-target="#store"
+                >
+                  <figure><img src="../assets/img/homepage/cosmetics.jpg" /></figure>
+                  <span class="text">Cosmetics</span>
 
                 </div>
               </div>
@@ -139,17 +151,7 @@
 
                 </div>
               </div>
-              <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
-                <div
-                  class="inner"
-                  data-toggle="modal"
-                  data-target="#store"
-                >
-                  <figure><img src="../assets/img/homepage/cosmetics.jpg" /></figure>
-                  <span class="text">Cosmetics</span>
 
-                </div>
-              </div>
               <div class=" col-md-3 col-sm-6 p-0 ">
                 <div
                   class="inner"
