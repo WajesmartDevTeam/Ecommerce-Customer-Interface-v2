@@ -7,7 +7,7 @@
           <div class="container">
             <div class="banner-text">
               <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
-              <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
+              <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p>
               <button
                 data-toggle="modal"
                 data-target="#store"
@@ -82,7 +82,7 @@
 
                 </div>
               </div>
-              <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
+              <!-- <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div
                   class="inner"
                   data-toggle="modal"
@@ -92,7 +92,7 @@
                   <span class="text">Meals</span>
 
                 </div>
-              </div>
+              </div> -->
               <div class=" col-md-3 col-sm-6 p-0 pr-3 mb-2">
                 <div
                   class="inner"
