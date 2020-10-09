@@ -281,7 +281,7 @@
                         >
                         <img
                           v-else
-                          :src="'http://admin.sundrymarkets.com'+row.old_productinfo.img_url"
+                          :src="'https://admin.sundrymarkets.com'+row.old_productinfo.img_url"
                           alt=""
                           class="img-fluid"
                         >

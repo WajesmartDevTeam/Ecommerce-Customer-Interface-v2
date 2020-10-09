@@ -39,7 +39,7 @@
                       >
                       <img
                         v-else
-                        :src="'http://admin.sundrymarkets.com'+row.product.img_url"
+                        :src="'https://admin.sundrymarkets.com'+row.product.img_url"
                         alt=""
                         class="img"
                       >

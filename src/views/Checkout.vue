@@ -106,14 +106,18 @@
                       <h6 class="card-subtitle subtitle mb-2 ml-5">Where should your order be delivered</h6>
                       <div class="card-text mt-3 mx-md-5">
 
-                        <div v-show="$store.getters.isLoggedIn"
+                        <div
+                          v-show="$store.getters.isLoggedIn"
                           v-if="$store.getters.isLoggedIn"
                           class=""
                         >
 
                           <div class="address row">
 
-                            <div class="col-sm-6">
+                            <div
+                              v-if="Object.keys(default_address).length > 0"
+                              class="col-sm-6"
+                            >
                               <div
                                 class="address-box "
                                 style="cursor:pointer;"
@@ -155,7 +159,8 @@
                               </div>
                             </div>
                             <div class="col-sm-6">
-                              <div v-show="!$store-getters-isLoggedIn"
+                              <div
+                                v-show="$store.getters.isLoggedIn"
                                 id="addnew"
                                 data-toggle="modal"
                                 data-target="#addressform"
@@ -745,7 +750,10 @@
                         placeholder=" "
                         v-model="address.label"
                       >
-                      <label for="" class="anim" >Label e.g Home, Office</label>
+                      <label
+                        for=""
+                        class="anim"
+                      >Label e.g Home, Office</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
@@ -896,7 +904,7 @@ export default {
         address: '',
         city: '',
         landmark: '',
-        default: 1
+        address_default: 1
       },
       windows: [],
       open_windows: [],
@@ -928,11 +936,11 @@ export default {
           area: '',
           landmark: "",
           contact_method: "",
-         
+
 
         },
 
-       
+
         order_enquiry_contactname: '',
         order_enquiry_contactnumber: '',
         contact_upon_delivery_name: '',
@@ -977,7 +985,7 @@ export default {
       this.order.delivery.area = this.$store.getters.area;
       setTimeout(() => {
         this.fetchAddress();
-      }, 3000)
+      }, 2000)
       this.address.state = this.store.state
       this.address.city = this.store.city
       this.address.area = this.$store.getters.area
@@ -1468,10 +1476,8 @@ export default {
       }
       this.$request.makeGetRequest(req)
         .then(response => {
-
+          console.log(response)
           if (response.type == 'listaddress') {
-            console.log(response);
-
             this.addresslist = response.data.data
             response.data.data.forEach(i => {
               if (i.address_default == 1) {
@@ -1494,7 +1500,7 @@ export default {
     },
     createAddress () {
       this.address.user_id = this.$store.getters.user.id
-      if (!this.address.hasOwnProperty("default")) {
+      if (!this.address.hasOwnProperty("address_default")) {
         this.address.address_default = 0
       }
       if (this.edit) {
@@ -1508,11 +1514,11 @@ export default {
           .makePostRequest(req)
           .then(res => {
             this.$swal.fire("Success", res.data.message, "success");
-            this.address.label='';
-            this.address.address= '',
-            this.address.landmark= '',
+            this.address.label = '';
+            this.address.address = '',
+              this.address.landmark = '',
 
-            $(".modal").modal("hide")
+              $(".modal").modal("hide")
             this.fetchAddress();
           })
           .catch(error => {
@@ -1531,10 +1537,10 @@ export default {
           .then(res => {
             console.log(res)
             this.$swal.fire("Success", res.data.message, "success");
-            this.address.label='';
-            this.address.address= '',
-            this.address.landmark= '',
-            $(".modal").modal("hide")
+            this.address.label = '';
+            this.address.address = '',
+              this.address.landmark = '',
+              $(".modal").modal("hide")
             this.fetchAddress();
           })
           .catch(error => {
@@ -1544,19 +1550,20 @@ export default {
       }
 
     },
+
     editAd (row) {
       this.edit = true;
       this.addressid = row.id;
       this.address = {
-        user_id: this.$store.getters.user.id,
         label: row.label,
         area: row.area,
         state: row.state,
         address: row.address,
         city: row.city,
         landmark: row.landmark,
-        default: Number(row.address_default)
+        address_default: Number(row.address_default)
       }
+
 
     },
     handleDelete (id) {
