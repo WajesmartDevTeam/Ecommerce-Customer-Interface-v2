@@ -145,8 +145,8 @@ export default {
       store: null,
       search: "",
       nooption: false,
-      city_note: "Sorry, no matching options",
-      area_note: "Sorry, no matching options",
+      city_note: "Loading, please wait...",
+      area_note: "Loading, please wait...",
       all_stores: [],
       stores: [],
       stores_id: [],
@@ -221,7 +221,7 @@ export default {
           }
         })
         if (vm.cities.length === 0) {
-          vm.city_note = "Service currently unavailable";
+          vm.city_note = "No matching options";
         }
       }
       else if (val == 'Delivery') {
@@ -247,7 +247,7 @@ export default {
           }
         })
         if (vm.cities.length === 0) {
-          vm.city_note = "Service currently unavailable";
+          vm.city_note = "No matching options";
         }
       }
       vm.cities.sort();
@@ -288,7 +288,7 @@ export default {
       });
       vm.areas.sort();
       if (vm.areas.length === 0) {
-        vm.area_note = "Service currently unavailable";
+        vm.area_note = "No matching options";
       }
       // console.log(vm.areas)
     },
