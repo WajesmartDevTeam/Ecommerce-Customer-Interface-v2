@@ -3,20 +3,38 @@
     <TopNav></TopNav>
     <div class="landingpage">
       <div class="">
-        <div class="landing-header">
-          <div class="container">
-            <div class="banner-text">
-              <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
-              <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p>
-              <button
-                data-toggle="modal"
-                data-target="#store"
-                class="start-button"
-              >Get Started
-                <i class="fa fa-long-arrow-right ml-2"></i></button>
+      <slider
+            class="d-none d-md-block"
+            height="400px"
+            :ease="0.5"
+            :interval="8000"
+            :speed="1000"
+            :control-btn="false"
+            :indicators="false"
+          >
+            <slider-item
+              v-for="(i, index) in banners"
+              :key="index"
+              :style="i"
+            >
+            <div class="landing-header get-started" 
+                  data-toggle="modal"
+                  data-target="#store">
+              <div class="container">
+                <div class="banner-text">
+                  <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
+                  <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p>
+                  <button
+                    data-toggle="modal"
+                    data-target="#store"
+                    class="start-button"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+            </slider-item>
+          </slider>
         <div class="content container">
           <div
             id="how"
@@ -26,7 +44,9 @@
             <!-- <p class="subtitle">Your favourite brands straight from the store to your doorstep</p> -->
 
             <div class="row mt-5 px-5">
-              <div class="col-sm-4">
+              <div class="col-sm-4 get-started" 
+                  data-toggle="modal"
+                  data-target="#store">
                 <div class="icon-box">
                   <img
                     src="../assets/img/shopping-cart.svg"
@@ -38,7 +58,9 @@
                   <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p> -->
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-4 get-started" 
+                  data-toggle="modal"
+                  data-target="#store">
                 <div class="icon-box">
                   <img
                     src="../assets/img/payment.svg"
@@ -50,7 +72,9 @@
                   <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-4 get-started"
+                data-toggle="modal"
+                data-target="#store">
                 <div class="icon-box">
                   <img
                     src="../assets/img/Delivery.svg"
@@ -166,7 +190,9 @@
             </div>
           </div>
 
-          <div class="sub-banner container my-3">
+          <div class="sub-banner container my-3 get-started" 
+                  data-toggle="modal"
+                  data-target="#store">
             <div class="banner-text">
               <h3 class="title">Find Products from the <br> Stores you already shop at</h3>
               <button
@@ -229,7 +255,9 @@
         </div>
         <div
           id="sub-banner2"
-          class="mt-5 d-none d-md-block"
+          class="mt-5 d-none d-md-block get-started" 
+                  data-toggle="modal"
+                  data-target="#store"
         >
           <div class="row container-fluid">
             <div class="col-4 ">
@@ -269,6 +297,12 @@
 
 </template>
 
+<style scoped>
+  .get-started:hover{
+    cursor : pointer;
+  }
+</style>
+
 <script>
 import StoreSelector from '@/components/StoreSelector.vue'
 import TopNav from '@/components/TopNav.vue'
@@ -281,10 +315,11 @@ export default {
   },
   data () {
     return {
-      loader: ''
+      loader: '',
+      banners: []
     }
   },
-
+  
   beforeMount () {
     this.$store.dispatch("setStoreStatus", false);
     this.$store.dispatch('ToggleShowSearch', false);
@@ -297,6 +332,12 @@ export default {
     this.fetchBanners()
 
   },
+
+  created () {
+    this.banners = this.$store.getters.banners
+    // console.log(this.banners)
+  },
+  
   methods: {
     fetchBanners () {
       let req = {

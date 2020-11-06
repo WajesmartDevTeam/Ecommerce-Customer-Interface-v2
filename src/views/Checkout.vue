@@ -961,8 +961,8 @@ export default {
     let rave = document.createElement("script");
     rave.setAttribute(
       "src",
-      // "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
-      "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
 
