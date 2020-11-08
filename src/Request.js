@@ -50,7 +50,8 @@ export default {
             windows: 'recentdeliverywindow',
             listaddress: 'addresses',
             banners: 'thumbnail',
-            getproduct: 'getproduct'
+            getproduct: 'getproduct',
+            deliveryFeeVariation: 'getDeliveryFeeVariation'
 
         };
         if (request.params !== undefined) {

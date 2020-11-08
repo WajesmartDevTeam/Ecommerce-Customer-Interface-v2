@@ -22,12 +22,12 @@
                   data-target="#store">
               <div class="container">
                 <div class="banner-text">
-                  <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
-                  <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p>
+                  <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
+                  <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
                   <button
                     data-toggle="modal"
                     data-target="#store"
-                    class="start-button"
+                    class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
@@ -300,6 +300,9 @@
 <style scoped>
   .get-started:hover{
     cursor : pointer;
+  }
+  .margin {
+    margin-top: 150px;
   }
 </style>
 

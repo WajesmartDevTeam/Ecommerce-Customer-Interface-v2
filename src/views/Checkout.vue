@@ -952,7 +952,8 @@ export default {
         cart_subtotal: 0,
         order_total: 0,
         order_items: ""
-      }
+      },
+      delivery_fee_variation: {}
     }
   },
   created () {
@@ -996,6 +997,7 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
+    this.fetchDeliveryFeeVariation();
   },
   watch: {
     edit (val) {
@@ -1008,13 +1010,33 @@ export default {
     }
   },
   computed: {
+    deliveryFee () {
+      return (this.order.delivery.charge * (this.delivery_fee_variation.delivery_area/100)) + (this.order.delivery.charge * (this.delivery_fee_variation.basket_size/100));
+    },
     ordertotal () {
-      let total = Number(this.order.cart_subtotal) + Number(this.order.delivery.charge);
+      let total = Number(this.order.cart_subtotal) + Number(this.deliveryFee);
       this.order.order_total = total;
       return total;
-    }
+    },
   },
   methods: {
+    fetchDeliveryFeeVariation() {
+      let req = {
+        what: "deliveryFeeVariation",
+        showLoader: false,
+        params: {
+          subtotal: this.order.cart_subtotal,
+          store_id: this.store.id,
+          area: this.order.delivery.area
+        }
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+          this.delivery_fee_variation = response.data.data
+        }).catch(error => {
+          console.log(error)
+        });
+    },
     fetchWindow () {
       let req = {
         what: "windows",

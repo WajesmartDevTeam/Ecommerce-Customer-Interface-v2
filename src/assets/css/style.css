@@ -1870,13 +1870,14 @@
             border-radius: 50%;
         }
         
-        .about .block-3 .value#trust {
+        .about .block-3 .value#professionalism {
             background: #1f1fe333 url(../img/Trust.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
+            margin-left: 5%;
         }
         
-        .about .block-3 .value#service {
+        .about .block-3 .value#passion {
             background: #66005a33 url(../img/noun_Love_2334880.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
@@ -1888,10 +1889,11 @@
             background-size: 60px;
         }
         
-        .about .block-3 .value#initiative {
+        .about .block-3 .value#continuous-improvement {
             background: #01556033 url(../img/noun_Thinking_3129881.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
+            margin-left: 25%;
         }
         
         .about .block-3 .value#teamwork {
@@ -1906,7 +1908,7 @@
             background-size: 60px;
         }
         
-        .about .block-3 .value#accountability {
+        .about .block-3 .value#respect {
             background: #24009d33 url(../img/noun_responsible_2046675.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
