@@ -592,7 +592,7 @@
                             <tr>
                               <td>Delivery Fee</td>
                               <td class="float-right ">
-                                <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{order.delivery.charge}}</span>
+                                <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
                                 <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
                                 <span v-else>Pickup(Free)</span>
                               </td>
@@ -1011,7 +1011,7 @@ export default {
   },
   computed: {
     deliveryFee () {
-      return (this.order.delivery.charge * (this.delivery_fee_variation.delivery_area/100)) + (this.order.delivery.charge * (this.delivery_fee_variation.basket_size/100));
+      return Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
     },
     ordertotal () {
       let total = Number(this.order.cart_subtotal) + Number(this.deliveryFee);
@@ -1025,7 +1025,7 @@ export default {
         what: "deliveryFeeVariation",
         showLoader: false,
         params: {
-          subtotal: this.order.cart_subtotal,
+          subtotal: Number(this.order.cart_subtotal),
           store_id: this.store.id,
           area: this.order.delivery.area
         }
