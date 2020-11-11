@@ -22,7 +22,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
-// import VueAnalytics from 'vue-analytics';
+import VueAnalytics from 'vue-analytics';
 import VueGtag from "vue-gtag";
 
 Vue.config.productionTip = false;
@@ -103,14 +103,14 @@ Vue.use(Loading, {
     opacity: 0.8,
     backgroundColor: '#ffffff',
 });
-Vue.use(VueAnalytics, {
-    id: 'G-L92RYLZ402',
-    router
-})
-Vue.use(VueGtag, {
-        config: { id: 'G-L92RYLZ402' }
-    },
-    router);
+// Vue.use(VueAnalytics, {
+//     id: 'G-L92RYLZ402',
+//     router
+// });
+// Vue.use(VueGtag, {
+//         config: { id: 'G-L92RYLZ402' }
+//     },
+//     router);
 Vue.component('v-select', vSelect)
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
