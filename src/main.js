@@ -103,12 +103,12 @@ Vue.use(Loading, {
     opacity: 0.8,
     backgroundColor: '#ffffff',
 });
-// Vue.use(VueAnalytics, {
-//     id: 'UA-157722413-2',
-//     router
-// })
+Vue.use(VueAnalytics, {
+    id: 'G-L92RYLZ402',
+    router
+})
 Vue.use(VueGtag, {
-        config: { id: 'UA-157722413-2' }
+        config: { id: 'G-L92RYLZ402' }
     },
     router);
 Vue.component('v-select', vSelect)
