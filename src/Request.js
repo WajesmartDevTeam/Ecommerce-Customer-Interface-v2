@@ -8,8 +8,8 @@ import Vue from "vue";
 import store from "./store";
 import axios from 'axios'
 
-const URL = "http://localhost:8000/api/";
-// const URL = "https://marketsquareng.website/api/"
+// const URL = "http://localhost:8000/api/";
+const URL = "https://marketsquareng.website/api/"
 // const URL = "https://marketsquareng.com/api/"
 
 export default {
@@ -50,7 +50,7 @@ export default {
             windows: 'recentdeliverywindow',
             listaddress: 'addresses',
             banners: 'thumbnail',
-            getproduct: 'getproduct'
+            getproduct: 'getproduct',
 
         };
         if (request.params !== undefined) {
