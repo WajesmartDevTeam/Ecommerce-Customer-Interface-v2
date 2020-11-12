@@ -296,7 +296,7 @@
                           <span v-if="order.delivery.method !=='delivery'">2</span>
                           <span v-else>3</span>
                         </div>
-                        <h5 class="title">delivery Information</h5>
+                        <h5 class="title">Fulfillment Information</h5>
                       </div>
                       <div class="card-text my-3 mx-md-5">
                         <p class="mode ml-5">
@@ -664,14 +664,14 @@
                           class="form-check-input"
                           @change="paymethod($event, 'card')"
                         />
-                        <label class="form-check-label">Pay with Flutterwave
+                        <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
                           <small
                             class="ml-2"
                             id="balance"
                             style="color:red;font-size:11px"
                           ></small>
                           <br>
-                          <span style="color:black">Pay with Flutterwave (Card, Bank Transfer or USSD)</span>
+                          <span style="color:black">Pay with Flutterwave</span>
                         </label>
                       </div>
 
