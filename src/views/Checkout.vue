@@ -381,7 +381,9 @@
                             </div>
 
                           </div>
-
+                          <div class="text-center mt-2 col-md-12" style="font-size: 12px;font-style:italic;font-weight:bold;color:red">
+                            Disclaimer: We typically deliver most of our orders with the delivery fee paid online. However, on rare occasions, we might contact you to give you an update on the delivery fee depending on the weight of your items or the delivery distance.
+                          </div>
                         </div>
                       </div>
                     </div>
