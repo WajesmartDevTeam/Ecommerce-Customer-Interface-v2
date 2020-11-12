@@ -1022,8 +1022,8 @@ export default {
   },
   computed: {
     deliveryFee () {
-      $result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
-      return isNaN($result) ? 0 : $result;
+      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      return isNaN(result) ? 0 : result;
     },
     ordertotal () {
       let total = Number(this.order.cart_subtotal) + Number(this.deliveryFee);
