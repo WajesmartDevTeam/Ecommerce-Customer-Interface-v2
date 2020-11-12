@@ -330,7 +330,7 @@
                         <div class="date-box">
                           <p
                             class="window-date wday"
-                            v-bind:class="row.window_day=='Today' ? 'active': ''"
+                            v-bind:class="('day'+index) =='day0' ? 'active': ''"
                             v-bind:style="row.active== false ? 'color: lightgrey;':''"
                             :id="'day'+index"
                             @click.prevent="listWindows(row, 'day'+index)"
@@ -339,14 +339,23 @@
                           >{{row.window_day}}
                           </p>
                         </div>
-
-                        <div class="row mr-5 mt-3">
+                        <div class="row mr-5 mt-3"
+                            v-if="windows.length == 0"
+                        >
+                          <div
+                            class="text-center col-md-12 mt-2"
+                            qaz
+                          >
+                            <div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://www.c-sgroup.com/images/loading-icon-red.gif" /></div>
+                          </div>
+                        </div>
+                        <div v-else class="row mr-5 mt-3">
                           <div
                             v-if="open_windows.length == 0"
                             class="text-center col-md-12 mt-2"
                             qaz
                           >
-                            <p>There is no availability for this date.</p>
+                            <p>There are no available windows for this date</p>
                           </div>
                           <div
                             v-else
@@ -381,7 +390,9 @@
                             </div>
 
                           </div>
-
+                          <div class="text-center mt-2 col-md-12" style="font-size: 12px;font-style:italic;font-weight:bold;color:red">
+                            Disclaimer: We typically deliver most of our orders with the delivery fee paid online. However, on rare occasions, we might contact you to give you an update on the delivery fee depending on the weight of your items or the delivery distance.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -620,7 +631,7 @@
                         />
                         <label class="form-check-label">Pay with Giftcard
                           <br>
-                          <span>Got a voucher or Gift card?</span>
+                          <span >Got a voucher or Gift card?</span>
                         </label>
                         <small
                           class="ml-2"
@@ -660,7 +671,7 @@
                             style="color:red;font-size:11px"
                           ></small>
                           <br>
-                          <span>Pay with Flutterwave (Card, Bank Transfer or USSD)</span>
+                          <span style="color:black">Pay with Flutterwave (Card, Bank Transfer or USSD)</span>
                         </label>
                       </div>
 
@@ -1081,6 +1092,7 @@ export default {
             });
             let sortedActivities = response.data.data.slice().sort((a, b) => new Date(b.window_date) - new Date(a.window_date));
             this.windows = sortedActivities.reverse();
+            this.listWindows(this.windows[0], 'day0');
 
           }
         })
@@ -1215,6 +1227,7 @@ export default {
       }
     },
     listWindows (row, index) {
+      console.log('in '+ index)
       this.order.delivery.deliverydate = row.window_date;
       row.open_window.forEach(i => {
         i.id = index

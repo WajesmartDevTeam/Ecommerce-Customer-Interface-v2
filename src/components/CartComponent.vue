@@ -145,6 +145,7 @@
             <p
               v-if="cart_total < 3000"
               class="minimum text-bold"
+              style="font-size:17px"
             >₦3,000 Minimum</p>
             <div class="checkout">
               <button
