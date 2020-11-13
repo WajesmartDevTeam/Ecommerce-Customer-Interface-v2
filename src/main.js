@@ -22,8 +22,13 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
+<<<<<<< HEAD
 import VueAnalytics from 'vue-analytics';
 import VueGtag from "vue-gtag";
+=======
+// import VueAnalytics from 'vue-analytics';
+// import VueGtag from "vue-gtag";
+>>>>>>> test-server
 
 Vue.config.productionTip = false;
 
@@ -106,9 +111,9 @@ Vue.use(Loading, {
 // Vue.use(VueAnalytics, {
 //     id: 'G-L92RYLZ402',
 //     router
-// });
+// })
 // Vue.use(VueGtag, {
-//         config: { id: 'G-L92RYLZ402' }
+//         config: { id: 'UA-157722413-2' }
 //     },
 //     router);
 Vue.component('v-select', vSelect)
