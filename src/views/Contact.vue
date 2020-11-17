@@ -80,97 +80,6 @@
                     <span class="err_msg">{{ errors[0] }}</span>
                   </validation-provider>
                 </div>
-                
-                  <div class="form-row">
-                    <div class="form-group col-sm-6">
-                      <validation-provider
-                        rules="required"
-                        v-slot="{ errors }"
-                      >
-                        <input
-                          type="text"
-                          required
-                          class="form-control"
-                          placeholder=" "
-                          v-model="contact.street"
-                        >
-                        <label class="anim">Street Address</label>
-                        <span class="err_msg">{{ errors[0] }}</span>
-                      </validation-provider>
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <validation-provider
-                        rules="required"
-                        v-slot="{ errors }"
-                      >
-                        <input
-                          type="text"
-                          required
-                          class="form-control"
-                          placeholder=" "
-                          v-model="contact.area"
-                        >
-                        <label class="anim">Area</label>
-                        <span class="err_msg">{{ errors[0] }}</span>
-                      </validation-provider>
-                    </div>
-                  </div>
-                  <div class="form-row ">
-                    <div class="form-group col-sm-6">
-                      <validation-provider
-                        rules="required"
-                        v-slot="{ errors }"
-                      >
-
-                        <select
-                          name=""
-                          id=""
-                          required
-                          class="form-control "
-                          v-model="selected"
-                        >
-                          <option
-                            value=""
-                            selected
-                            hidden
-                          >Select State</option>
-                          <option
-                            v-for="(row, index) in states"
-                            v-bind:key='index'
-                            :value="row.state.name"
-                          >{{row.state.name}}</option>
-                        </select>
-                        <span class="err_msg">{{ errors[0] }}</span>
-                      </validation-provider>
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <validation-provider
-                        rules="required"
-                        v-slot="{ errors }"
-                      >
-
-                        <select
-                          name=""
-                          id=""
-                          required
-                          class="form-control "
-                          v-model="contact.city"
-                        >
-                          <option
-                            value=""
-                            selected
-                            hidden
-                          >Select City</option>
-                          <option
-                            v-for="(row, index) in cities"
-                            v-bind:key='index'
-                            :value="row"
-                          >{{row}}</option>
-                        </select>
-                        <span class="err_msg">{{ errors[0] }}</span>
-                      </validation-provider>
-                    </div>
-                  </div>
                 <div class="form-group">
                   <input
                     type="text"
@@ -212,7 +121,6 @@
 <script>
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
-import States from "../states";
 export default {
   name: 'Contact',
   components: {
@@ -220,38 +128,18 @@ export default {
   },
   data () {
     return {
-      selected: '',
-      states: States.states,
-      cities: [],
-      areas: [],
       contact: {
         firstname: "",
         lastname: "",
         phone: "",
         message: "",
         email: "",
-        subject: "",
-        area: "",
-        city: "",
-        street: "",
-        state: ""
+        subject: ""
       }
     }
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
-  },
-  watch: {
-    selected: function (val) {
-      let vm = this;
-      vm.contact.state = val
-      this.states.forEach(i => {
-        if (i.state.name == val) {
-          // vm.cities = i.state.locals
-          vm.cities = i.state.cities;
-        }
-      })
-    },
   },
   methods: {
     sendMessage () {
@@ -270,10 +158,6 @@ export default {
           this.contact.message = "";
           this.contact.email = "";
           this.contact.subject = "";
-          this.contact.area = "";
-          this.contact.street= "";
-          this.contact.city = "";
-          this.contact.state = "";
           location.reload()
         })
         .catch(error => {

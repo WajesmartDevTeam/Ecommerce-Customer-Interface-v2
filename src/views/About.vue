@@ -71,20 +71,18 @@
             >
               <div class="value-box">
                 <div
-                  id="continuous-improvement"
+                  id="trust"
                   class="value"
                 ></div>
-                <h5 class="value-text">Continuous Improvement</h5>
+                <h5 class="value-text">Trust</h5>
               </div>
-
               <div class="value-box">
                 <div
-                  id="respect"
+                  id="service"
                   class="value"
                 ></div>
-                <h5 class="value-text">Respect</h5>
+                <h5 class="value-text">Service</h5>
               </div>
-
               <div class="value-box">
                 <div
                   id="integrity"
@@ -92,23 +90,13 @@
                 ></div>
                 <h5 class="value-text">Integrity</h5>
               </div>
-
               <div class="value-box">
                 <div
-                  id="passion"
+                  id="initiative"
                   class="value"
                 ></div>
-                <h5 class="value-text">Passion</h5>
+                <h5 class="value-text">Initiative</h5>
               </div>
-
-              <div class="value-box">
-                <div
-                  id="professionalism"
-                  class="value"
-                ></div>
-                <h5 class="value-text">Professionalism</h5>
-              </div>
-
               <div class="value-box">
                 <div
                   id="teamwork"
@@ -116,13 +104,20 @@
                 ></div>
                 <h5 class="value-text">Teamwork</h5>
               </div>
-              <!-- <div class="value-box">
+              <div class="value-box">
                 <div
                   id="leadership"
                   class="value"
                 ></div>
                 <h5 class="value-text">Leadership</h5>
-              </div> -->
+              </div>
+              <div class="value-box">
+                <div
+                  id="accountability"
+                  class="value"
+                ></div>
+                <h5 class="value-text">Accountability</h5>
+              </div>
             </div>
           </div>
           <div class="container block-1">
@@ -166,11 +161,6 @@
   </div>
 </template>
 
-<style scoped>
-.value-box .value {
-  
-}
-</style>
 
 <script>
 import StoreSelector from '@/components/StoreSelector.vue'
