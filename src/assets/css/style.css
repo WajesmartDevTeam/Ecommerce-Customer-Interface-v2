@@ -1049,7 +1049,7 @@
         .checkout .card .subtitle {
             text-align: left;
             letter-spacing: 0px;
-            color: #989898;
+            color: #212121;
             opacity: 1;
             font-size: 12px;
         }
@@ -1097,7 +1097,7 @@
         .checkout .card-3 .card-text .fulfillment-address img {}
         
         .checkout .card-3 .card-text .fulfillment-address p {
-            color: #989898;
+            color: #212121;
             font-size: 14px;
             margin: 0;
             margin: 0 0 0 7px;
@@ -1158,7 +1158,7 @@
             text-align: left;
             font-size: 13px;
             letter-spacing: 0px;
-            color: #989898;
+            color: #212121;
         }
         
         .checkout .card-4 .window .fee h5 {
@@ -1315,7 +1315,7 @@
         }
         
         .checkout #summary .pay span {
-            color: #989898;
+            color: #212121;
             font-size: 10px;
             font-weight: lighter;
         }
@@ -1356,7 +1356,7 @@
         }
         
         .confirm-banner .text p {
-            color: #989898;
+            color: #212121;
             font-size: 13px;
             margin-top: 20px;
         }
@@ -1377,7 +1377,7 @@
             text-align: left;
             font: Light 18px/22px Rubik;
             letter-spacing: 0px;
-            color: #989898;
+            color: #212121;
             font-size: 13px;
         }
         
@@ -1412,7 +1412,7 @@
         }
         
         .order-details div.info span:nth-of-type(2) {
-            color: #989898;
+            color: #212121;
             font-size: 13px;
         }
         
@@ -1870,13 +1870,14 @@
             border-radius: 50%;
         }
         
-        .about .block-3 .value#trust {
+        .about .block-3 .value#professionalism {
             background: #1f1fe333 url(../img/Trust.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
+            margin-left: 5%;
         }
         
-        .about .block-3 .value#service {
+        .about .block-3 .value#passion {
             background: #66005a33 url(../img/noun_Love_2334880.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
@@ -1888,10 +1889,11 @@
             background-size: 60px;
         }
         
-        .about .block-3 .value#initiative {
+        .about .block-3 .value#continuous-improvement {
             background: #01556033 url(../img/noun_Thinking_3129881.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
+            margin-left: 25%;
         }
         
         .about .block-3 .value#teamwork {
@@ -1906,7 +1908,7 @@
             background-size: 60px;
         }
         
-        .about .block-3 .value#accountability {
+        .about .block-3 .value#respect {
             background: #24009d33 url(../img/noun_responsible_2046675.png) 0% 0% no-repeat padding-box;
             background-position: center;
             background-size: 60px;
@@ -2027,7 +2029,7 @@
             text-align: left;
             font-size: 13px;
             letter-spacing: 0px;
-            color: #989898;
+            color: #212121;
         }
         
         .address .vs__search,

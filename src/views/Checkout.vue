@@ -296,7 +296,7 @@
                           <span v-if="order.delivery.method !=='delivery'">2</span>
                           <span v-else>3</span>
                         </div>
-                        <h5 class="title">delivery Information</h5>
+                        <h5 class="title">Fulfillment Information</h5>
                       </div>
                       <div class="card-text my-3 mx-md-5">
                         <p class="mode ml-5">
@@ -330,7 +330,7 @@
                         <div class="date-box">
                           <p
                             class="window-date wday"
-                            v-bind:class="row.window_day=='Today' ? 'active': ''"
+                            v-bind:class="('day'+index) =='day0' ? 'active': ''"
                             v-bind:style="row.active== false ? 'color: lightgrey;':''"
                             :id="'day'+index"
                             @click.prevent="listWindows(row, 'day'+index)"
@@ -339,14 +339,23 @@
                           >{{row.window_day}}
                           </p>
                         </div>
-
-                        <div class="row mr-5 mt-3">
+                        <div class="row mr-5 mt-3"
+                            v-if="windows.length == 0"
+                        >
+                          <div
+                            class="text-center col-md-12 mt-2"
+                            qaz
+                          >
+                            <div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://www.c-sgroup.com/images/loading-icon-red.gif" /></div>
+                          </div>
+                        </div>
+                        <div v-else class="row mr-5 mt-3">
                           <div
                             v-if="open_windows.length == 0"
                             class="text-center col-md-12 mt-2"
                             qaz
                           >
-                            <p>There is no availability for this date.</p>
+                            <p>There are no available windows for this date</p>
                           </div>
                           <div
                             v-else
@@ -381,7 +390,9 @@
                             </div>
 
                           </div>
-
+                          <div class="text-center mt-2 col-md-12" style="font-size: 12px;font-style:italic;font-weight:bold;color:red">
+                            Disclaimer: We typically deliver most of our orders with the delivery fee paid online. However, on rare occasions, we might contact you to give you an update on the delivery fee depending on the weight of your items or the delivery distance.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -592,7 +603,7 @@
                             <tr>
                               <td>Delivery Fee</td>
                               <td class="float-right ">
-                                <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{order.delivery.charge}}</span>
+                                <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
                                 <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
                                 <span v-else>Pickup(Free)</span>
                               </td>
@@ -620,7 +631,7 @@
                         />
                         <label class="form-check-label">Pay with Giftcard
                           <br>
-                          <span>Got a voucher or Gift card?</span>
+                          <span >Got a voucher or Gift card?</span>
                         </label>
                         <small
                           class="ml-2"
@@ -653,14 +664,14 @@
                           class="form-check-input"
                           @change="paymethod($event, 'card')"
                         />
-                        <label class="form-check-label">Pay with Flutterwave
+                        <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
                           <small
                             class="ml-2"
                             id="balance"
                             style="color:red;font-size:11px"
                           ></small>
                           <br>
-                          <span>Pay with Flutterwave (Card, Bank Transfer or USSD)</span>
+                          <span style="color:black">Pay with Flutterwave</span>
                         </label>
                       </div>
 
@@ -952,7 +963,8 @@ export default {
         cart_subtotal: 0,
         order_total: 0,
         order_items: ""
-      }
+      },
+      delivery_fee_variation: {}
     }
   },
   created () {
@@ -961,8 +973,8 @@ export default {
     let rave = document.createElement("script");
     rave.setAttribute(
       "src",
-      // "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
-      "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
 
@@ -996,6 +1008,7 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
+    this.fetchDeliveryFeeVariation();
   },
   watch: {
     edit (val) {
@@ -1008,13 +1021,34 @@ export default {
     }
   },
   computed: {
+    deliveryFee () {
+      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      return isNaN(result) ? 0 : result;
+    },
     ordertotal () {
-      let total = Number(this.order.cart_subtotal) + Number(this.order.delivery.charge);
+      let total = Number(this.order.cart_subtotal) + Number(this.deliveryFee);
       this.order.order_total = total;
       return total;
-    }
+    },
   },
   methods: {
+    fetchDeliveryFeeVariation() {
+      let req = {
+        what: "deliveryFeeVariation",
+        showLoader: false,
+        params: {
+          subtotal: Number(this.order.cart_subtotal),
+          store_id: this.store.id,
+          area: this.order.delivery.area
+        }
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+          this.delivery_fee_variation = response.data.data
+        }).catch(error => {
+          console.log(error)
+        });
+    },
     fetchWindow () {
       let req = {
         what: "windows",
@@ -1059,6 +1093,7 @@ export default {
             });
             let sortedActivities = response.data.data.slice().sort((a, b) => new Date(b.window_date) - new Date(a.window_date));
             this.windows = sortedActivities.reverse();
+            this.listWindows(this.windows[0], 'day0');
 
           }
         })
@@ -1193,6 +1228,7 @@ export default {
       }
     },
     listWindows (row, index) {
+      console.log('in '+ index)
       this.order.delivery.deliverydate = row.window_date;
       row.open_window.forEach(i => {
         i.id = index

@@ -23,7 +23,7 @@ import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
 // import VueAnalytics from 'vue-analytics';
-import VueGtag from "vue-gtag";
+// import VueGtag from "vue-gtag";
 
 Vue.config.productionTip = false;
 
@@ -107,10 +107,10 @@ Vue.use(Loading, {
 //     id: 'UA-157722413-2',
 //     router
 // })
-Vue.use(VueGtag, {
-        config: { id: 'UA-157722413-2' }
-    },
-    router);
+// Vue.use(VueGtag, {
+//         config: { id: 'UA-157722413-2' }
+//     },
+//     router);
 Vue.component('v-select', vSelect)
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
