@@ -64,14 +64,6 @@
                       <div class="info"><span>{{order.payment_method}}</span></div>
                     </div>
                     <div class="d-flex mb-3">
-                      <h5>Cart Subtotal</h5>
-                      <div class="info"><span>₦{{formatPrice(order.cart_subtotal)}}</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
-                      <h5>Delivery Fee</h5>
-                      <div class="info"><span>₦{{formatPrice(Number(order.order_total) - Number(order.cart_subtotal))}}</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
                       <h5>Total Amount</h5>
                       <div class="info"><span>₦{{formatPrice(order.order_total)}}</span></div>
                     </div>
