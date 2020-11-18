@@ -204,7 +204,7 @@ export default {
       vm.stores_id = [];
       if (val == 'Pickup') {
         vm.all_stores.forEach(i => {
-          if (i.store_options.pickup == 1) {
+          if (i.store_options != null && i.store_options.pickup == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
@@ -227,7 +227,7 @@ export default {
       else if (val == 'Delivery') {
 
         vm.all_stores.forEach(i => {
-          if (i.store_options.delivery == 1) {
+          if (i.store_options != null && i.store_options.delivery == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
@@ -341,7 +341,7 @@ export default {
       this.fetchAreas();
       let stat = [];
       this.all_stores.forEach(i => {
-        if (i.store_options.pickup != '1' && i.store_options.delivery != '1') {
+        if (i.store_options == null || (i.store_options.pickup != '1' && i.store_options.delivery != '1')) {
           stat.push(false)
         }
         else {

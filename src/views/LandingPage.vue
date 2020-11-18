@@ -19,7 +19,11 @@
             >
             <div class="landing-header get-started" 
                   data-toggle="modal"
-                  data-target="#store">
+                  data-target="#store" :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}">
               <div class="container">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
@@ -319,7 +323,7 @@ export default {
   data () {
     return {
       loader: '',
-      banners: []
+      banners: ['Homepage', 'MSQNowOpenHomePage']
     }
   },
   
@@ -337,7 +341,7 @@ export default {
   },
 
   created () {
-    this.banners = this.$store.getters.banners
+    // this.banners = this.$store.getters.banners
     // console.log(this.banners)
   },
   

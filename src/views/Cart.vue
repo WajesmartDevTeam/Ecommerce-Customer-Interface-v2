@@ -111,8 +111,8 @@
                     @click="$router.push('home')"
                   >Continue Shopping</button>
                   <button
-                    v-bind:disabled="cart_total < 3000"
-                    v-bind:class="cart_total < 3000? 'disabled': ''"
+                    v-bind:disabled="cart_total < 1500"
+                    v-bind:class="cart_total < 1500 ? 'disabled': ''"
                     @click="handleCheckout"
                   >Proceed to checkout</button>
                 </div>
