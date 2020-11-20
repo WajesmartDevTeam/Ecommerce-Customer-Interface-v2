@@ -3,6 +3,9 @@
     <TopNav></TopNav>
     <div class="landingpage">
       <div class="">
+        <div class="landing-header get-started"
+             data-toggle="modal"
+             data-target="#store">
       <slider
             class="d-none d-md-block"
             height="400px"
@@ -17,14 +20,12 @@
               :key="index"
               :style="i"
             >
-            <div class="landing-header get-started" 
-                  data-toggle="modal"
-                  data-target="#store" :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+
+              <div class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}">
-              <div class="container">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
@@ -36,9 +37,41 @@
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
               </div>
-            </div>
             </slider-item>
           </slider>
+          <slider
+              class="d-block d-md-none"
+              :duration="10000"
+              height="400px"
+              :speed="8000"
+              :control-btn="false"
+              :indicators="false"
+          >
+            <slider-item
+                v-for="(i, index) in banners"
+                :key="index"
+                :style="i"
+            >
+
+              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}">
+                <div class="banner-text">
+                  <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
+                  <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
+                  <button
+                      data-toggle="modal"
+                      data-target="#store"
+                      class="start-button margin"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
+            </slider-item>
+          </slider>
+        </div>
         <div class="content container">
           <div
             id="how"

@@ -35,11 +35,11 @@
         
         .landing-header {
             /* background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/landing.png); */
-            height: 400px;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: relative;
+            /*height: 400px;*/
+            /*background-position: center;*/
+            /*background-size: cover;*/
+            /*background-repeat: no-repeat;*/
+            /*position: relative;*/
         }
         
         .landingpage .banner-text {
