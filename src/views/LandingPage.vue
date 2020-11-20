@@ -42,7 +42,7 @@
           <slider
               class="d-block d-md-none"
               :duration="10000"
-              height="200px"
+              height="275px"
               :speed="8000"
               :control-btn="false"
               :indicators="false"
@@ -53,12 +53,12 @@
                 :style="i"
             >
 
-              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '200px',
+              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '275px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}">
-                <div class="banner-text">
+                <div class="banner-text" >
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
                   <button
