@@ -158,6 +158,7 @@ export default {
     }
   },
   mounted () {
+    this.fetchStores();
     // console.log(this.$store.getters.isStoreSet)
     if (this.$store.getters.stat_stores == false) {
       this.fetchStores();
