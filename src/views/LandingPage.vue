@@ -42,7 +42,7 @@
           <slider
               class="d-block d-md-none"
               :duration="10000"
-              height="400px"
+              height="200px"
               :speed="8000"
               :control-btn="false"
               :indicators="false"
@@ -53,7 +53,7 @@
                 :style="i"
             >
 
-              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '200px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
