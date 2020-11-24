@@ -4,8 +4,7 @@
     <div class="landingpage">
       <div class="">
         <div class="landing-header get-started"
-             data-toggle="modal"
-             data-target="#store">
+             >
       <slider
             class="d-none d-md-block"
             height="400px"
@@ -21,17 +20,30 @@
               :style="i"
             >
 
-              <div class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
-            'position': 'relative'}">
+            'position': 'relative'}"  data-toggle="modal"
+             data-target="#store">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
                   <button
                     data-toggle="modal"
                     data-target="#store"
+                    class="start-button margin"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
+              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
+                <div class="banner-text">
+                  <button
                     class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
@@ -53,18 +65,31 @@
                 :style="i"
             >
 
-              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '275px',
+              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
-            'position': 'relative'}">
-                <div class="banner-text" >
+            'position': 'relative'}"  data-toggle="modal"
+             data-target="#store">
+                <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
                   <button
-                      data-toggle="modal"
-                      data-target="#store"
-                      class="start-button margin"
+                    data-toggle="modal"
+                    data-target="#store"
+                    class="start-button margin"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
+              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
+                <div class="banner-text">
+                  <button
+                    class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
