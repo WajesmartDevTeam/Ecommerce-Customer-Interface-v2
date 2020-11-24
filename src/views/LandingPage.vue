@@ -42,7 +42,7 @@
           <slider
               class="d-block d-md-none"
               :duration="10000"
-              height="275px"
+              height="100px"
               :speed="8000"
               :control-btn="false"
               :indicators="false"
