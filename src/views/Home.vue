@@ -29,6 +29,8 @@
               <img
                 :src="'https://admin.sundrymarkets.com'+i.img_url"
                 alt=""
+                class="router"
+                @click="goTo(i.name)"
               >
             </slider-item>
           </slider>
@@ -48,6 +50,8 @@
               <img
                 :src="'https://admin.sundrymarkets.com'+i.img_url"
                 alt=""
+                class="router"
+                @click="goTo(i.name)"
               >
             </slider-item>
           </slider>
@@ -728,7 +732,11 @@
     <Footer></Footer>
   </div>
 </template>
-
+<style scoped>
+.router:hover {
+  cursor: pointer;
+}
+</style>
 
 <script>
 import StoreSelector from '@/components/StoreSelector.vue'
@@ -764,6 +772,36 @@ export default {
     this.fetchProducts()
   },
   methods: {
+    goToCategory(name) {
+      switch (name) {
+        case "Black Friday": 
+          return "/black-friday";
+          break;
+        case "First Image":
+          return "/category/sda";
+          break;
+        case "Second Image":
+          return "/category/medicare";
+          break;
+        case "Third Image":
+          return "/category/spirits";
+          break;
+        case "landing page":
+          return "/category/fresh produce";
+          break;
+        case "banner_5":
+          return "/category/groceries";
+          break;
+        default:
+          return null;
+      }
+    },
+    goTo (name) {
+      let result = this.goToCategory(name);
+      if(result != null) {
+        this.$router.push(result);
+      }
+    },
     fetchProducts () {
       let req = {
         what: "products",

@@ -57,10 +57,10 @@
             class="container my-5"
           >
 
-            <div v-if="$store.getters.isStoreSet" class="row title-container"><router-link to="/category/groceries"><div class="col-sm-4 title-space"><div class="title"><h4>Groceries</h4></div></div></router-link></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container"><router-link to="/category/groceries"><div class="col-sm-4 title-space"><div class="title h4">Groceries</div></div></router-link></div>
             <div v-else class="row" 
                     data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="col-sm-4 title-space"><div class="title"><h4>Groceries</h4></div></div></div>
+                    data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="col-sm-4 title-space"><div class="title h4">Groceries</div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
@@ -136,10 +136,10 @@
                   </div>
               </div>
             </div>
-            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><router-link to="/category/spirits"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Drinks</h4></div></div></router-link></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><router-link to="/category/spirits"><div class="col-sm-4 title-space"><div class="h4 title">Drinks</div></div></router-link></div>
             <div v-else class="row mt-4" 
                     data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/spirits')"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Drinks</h4></div></div></div>
+                    data-target="#store" @click="setCategoryRoute('/category/spirits')"><div class="col-sm-4 title-space"><div class="h4 title">Drinks</div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
@@ -236,10 +236,10 @@
                   </div>
               </div>
             </div>
-            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><router-link to="/category/sda"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Home Appliances</h4></div></div></router-link></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><router-link to="/category/sda"><div class="col-sm-4 title-space"><div class="h4 title">Home Appliances</div></div></router-link></div>
             <div v-else class="row mt-4" 
                     data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/sda')"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Home Appliances</h4></div></div></div>
+                    data-target="#store" @click="setCategoryRoute('/category/sda')"><div class="col-sm-4 title-space"><div class="h4 title">Home Appliances</div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1 col-xs-4 mb-4">
                   <div
@@ -349,6 +349,7 @@
   .title-space{
     background: #ff0000;
     padding-right: 0;
+    color: white;
     margin: 0;
   }
   .download{
@@ -357,16 +358,13 @@
   }
   .title{
     background: #000066;
-    color: #fff;
+    color: white !important;
     padding-top: 4px;
     padding-bottom: 4px;
-    font-weight: bold;
-    font-family: harabara;
-  }
-  h4{
     margin-bottom: 0;
-    margin-right: 0;
-    color: #fff;
+    font-size: 26px !important;
+    font-family: harabara;
+    font-weight: normal !important;
   }
   .promo{
     color: #fff;
@@ -387,8 +385,9 @@
     font-size: 2.5vh;
   }
   .description {
-    font-style: italic;
-    font-family: harabara;
+    /* font-style: italic; */
+    font-family: hughs;
+    font-size: 3vh;
     color: #000066;
   }
   .scratched{
@@ -434,6 +433,7 @@
   .product-image{
     background: #fff;
     text-align: center;
+    border-radius: 5%;
   }
   .img-fluid{
     margin: auto;
@@ -497,6 +497,12 @@
     .promo .row .col-11{
     font-size: 1.5vw;
     padding-right: 0;
+  }
+  .description {
+    /* font-style: italic; */
+    font-family: hughs;
+    font-size: 1.5vh;
+    color: #000066;
   }
    .malt{
     top: 3vh; 
