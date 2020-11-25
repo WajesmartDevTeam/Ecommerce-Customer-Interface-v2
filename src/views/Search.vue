@@ -9,6 +9,12 @@
 
           <div class="product-group container bg-white my-5 py-2">
 
+            <div v-if="products.length < 1 && !this.loader.isActive" class="text-center" style="width: inherit">
+              <p>We didn't find the results for {{searchQuery}}</p>
+              <p>Kindly double-check the spelling or use simple or related words</p>
+              <div class="btn btn-info" @click="$router.push('/home#menu')">Browse Categories</div>
+              <p> The product you are looking for might be in our store but not yet online </p>
+            </div>
             <div class="row  mt-4 pb-2  px-md-2 pb-sm-2">
               <div
                 v-for="(product, index) in products"
@@ -123,7 +129,7 @@
 
                 </div>
               </div>
-
+              
               <infinite-loading
                 @distance="1"
                 :onInfinite="fetchProducts"
@@ -133,10 +139,13 @@
                 <span
                   slot="no-results"
                   class="text-center"
-                > <img
+                > 
+                <!-- <img
                     src="../assets/img/app/nodata.png"
                     alt=""
-                  > </span>
+                  >  -->
+                  
+                  </span>
               </infinite-loading>
             </div>
           </div>

@@ -57,16 +57,16 @@
             class="container my-5"
           >
 
-            <div v-if="$store.getters.isStoreSet" class="row title-container"><router-link to="/category/groceries"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Groceries</h4></div></div></router-link></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container"><router-link to="/category/groceries"><div class="col-sm-4 title-space"><div class="title"><h4>Groceries</h4></div></div></router-link></div>
             <div v-else class="row" 
                     data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Groceries</h4></div></div></div>
+                    data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="col-sm-4 title-space"><div class="title"><h4>Groceries</h4></div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
                     class="product-image row"
                   >
-                  <span style="position: absolute; top: 9vh; right: 0.5vw; width: 2vw; height: 3vh" class="multi">x40</span>
+                  <div class="append indomie text-center"><p class="text-center">x40</p></div>
                     <img
                       src="../assets/img/blackFriday/indomie.jpg"
                       alt=""
@@ -81,7 +81,7 @@
                   <div class="price row">
                       <div class="col-6 promo">
                         <div class="row">
-                          <div class="col-11">₦2,200 <sub class="side-text"> For a Carton</sub> </div>
+                          <div class="col-11">₦2,200<sub class="side-text">For a Carton</sub> </div>
                         </div>
                       </div>
                       <div class="col-6 default text-right">RSP  <del><div class="scratched text-right">₦2,400</div></del></div>
@@ -159,7 +159,7 @@
                   <div class="price row mb-2">
                       <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi mr-2">x1</span>
+                          <span class="multi mr-2"><p class="one">x1</p></span>
                           <span class="cost">₦1,200 <sub class="side-text">Each</sub></span>
                           
                         </div>
@@ -169,7 +169,7 @@
                   <div class="price row">
                       <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi mr-2">x6</span>
+                          <span class="multi mr-2"><p class="six">x6</p></span>
                           <span class="cost">₦7,200 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
@@ -194,7 +194,7 @@
                   <div class="price row mb-2">
                       <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi mr-2">x1</span>
+                          <span class="multi mr-2"><p class="one">x1</p></span>
                           <span class="cost">₦3,000 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
@@ -203,7 +203,7 @@
                   <div class="price row">
                       <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi mr-2">x12</span>
+                          <span class="multi mr-2"><p class="twelve">x12</p></span>
                           <span class="cost">₦36,000 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
@@ -223,13 +223,13 @@
                   <div
                     class="product-text row"
                   >
-                   <span style="position: absolute; top: 7vh; right: 6vw; width: 2vw; height: 3vh" class="multi">x24</span>
+                   <div class="append malt text-center"><p class="text-center">x24</p></div>
                     <p class="description">Amstel Malta 33cl</p>
                   </div>
                   <div class="price row">
                       <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-11">₦2,880 <sub class="side-text">For a Carton</sub></span>
+                          <span class="col-11">₦2,880<sub class="side-text">For a Carton</sub></span>
                         </div>
                       </div>
                       <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦3,480</span></del></div>
@@ -316,7 +316,7 @@
             </div>
             <div class="row column mt-5 justify-content-end no-gutters">
               <div class=" offset-sm-5 col-sm-4 mb-3 download mr-auto btn discount" style="color: white; font-weight:0">
-                Download discounted product list
+                Download discounted product flyer
               </div>
               <div v-if='$store.getters.isStoreSet==false' class="discount col-sm-2 mb-3 promo get-started btn" data-toggle="modal"
                 data-target="#store" @click="setCategoryRoute('/home')">
@@ -361,6 +361,7 @@
     padding-top: 4px;
     padding-bottom: 4px;
     font-weight: bold;
+    font-family: harabara;
   }
   h4{
     margin-bottom: 0;
@@ -387,6 +388,7 @@
   }
   .description {
     font-style: italic;
+    font-family: harabara;
     color: #000066;
   }
   .scratched{
@@ -403,18 +405,31 @@
     font-size: 12px;
     background: #000066;
     color: #fff;
-    min-width: 2.5vw;
-    height: auto;
-    margin: 0;
-    text-align: center;
+    display: inline;
+    text-align: center !important;
     border-radius: 50%;
   }
+  .six{
+    margin-left: 0.9vh;
+    margin-right: 0.9vh;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+  }
+  .twelve{
+    margin-left: 0.8vh;
+    margin-right: 0.8vh;
+    margin-top: 0.75vh;
+    font-size: 10px;
+    margin-bottom: 0.75vh;
+  }
+  .one{
+    margin-left: 1.05vh;
+    margin-right: 1.05vh;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
+  }
   .side-text{
-    font-size: 1vh;
-    /* padding-bottom: 0; */
-    /* padding-left: auto; */
-    /* text-align: right !important; */
-    /* padding-top: 1vh; */
+    font-size: 1.5vh;
   }
   .product-image{
     background: #fff;
@@ -424,28 +439,92 @@
     margin: auto;
     display: block;
   }
-  @media screen and (max-width:320px) {
+  .malt{
+    right: 6vw; 
   }
-  @media screen and (max-width:375px) and (min-width:321px) {
+  .indomie{
+    right: 0vw;
   }
-  @media screen and (max-width:425px) and (min-width:375px) {
+  .append p{
+    margin: 1vh;
   }
-  @media screen and (max-width:580px) {
-    .multi{
+  .append{
+    position: absolute;
+    top: 7vh;
     font-size: 12px;
     background: #000066;
     color: #fff;
-    min-width: 8vw;
     height: auto;
+    display: inline;
     margin: 0;
     text-align: center;
     border-radius: 50%;
   }
+  @media screen and (max-width:320px) {
+    .malt{
+    right: 26vw;
+  }
+  .indomie{
+    right: 1vw;
+  }
+  }
+  @media screen and (max-width:424px) and (min-width:321px) {
+    .malt{
+    right: 26vw; 
+  }
+  .indomie{
+    right: 11vw;
+  }
+  }
+  @media screen and (max-width:579px) and (min-width:425px) {
+    /* .malt{
+      right: 20vw; 
+    }
+    .indomie{
+      right: 6vh;
+    } */
+  }
+  @media screen and (max-width:580px) and (min-width:425px) {
+    .malt{
+      right: 30vw; 
+      top: 8vh;
+    }
+    .indomie{
+      right: 20vw;
+    }
   }
   @media screen and (max-width:1024px) and (min-width:580px) {
     .promo .row .col-11{
     font-size: 1.5vw;
     padding-right: 0;
+  }
+   .malt{
+    top: 3vh; 
+  }
+  .indomie{
+    top:4vh;
+  }
+  .append p{
+    margin: 0.5vh;
+  }
+  .one{
+    margin-left: 0.65vh;
+    margin-right: 0.65vh;
+    margin-top: 0.4vh;
+    margin-bottom: 0.4vh;
+  }
+  .six{
+    margin-left: 0.55vh;
+    margin-right: 0.55vh;
+    margin-top: 0.4vh;
+    margin-bottom: 0.4vh;
+  }
+  .twelve{
+    margin-left: 0.5vh;
+    margin-right: 0.5vh;
+    margin-top: 0.5vh;
+    font-size: 10px;
+    margin-bottom: 0.5vh;
   }
   .discount {
     font-size: 1.5vw;

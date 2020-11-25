@@ -433,7 +433,9 @@ export default {
           // location.reload()
         } else if(window.location.pathname == '/black-friday') {
           $(".modal").modal("hide")
-          console.log('redirecting')
+          if(this.$store.getters.categoryRoute == null) {
+            this.$router.push('home')
+          }
           this.$router.push(this.$store.getters.categoryRoute);
           this.$router.go();
         } else {

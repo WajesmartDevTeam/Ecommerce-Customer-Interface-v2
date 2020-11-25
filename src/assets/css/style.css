@@ -3,6 +3,11 @@
         * {
             outline: none!important;
         }
+
+        @font-face {
+            font-family: harabara;
+            src: url('../fonts/Harabara Mais Demo.otf');
+        }
         
         .page {
             background: #F7F7F7 0% 0% no-repeat padding-box;
