@@ -81,10 +81,10 @@
                   <div class="price row">
                       <div class="col-md-6 promo">
                         <div class="row">
-                          <span class="col-sm-6">₦2,200</span><span class="side-text col-sm-5"> For a Carton</span>
+                          <div class="col-sm-6">₦2,200</div><div class="side-text text-right col-sm-5"> For a Carton</div>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦2,400</span></del></div>
+                      <div class="col-md-6 default">RSP  <del><div class="scratched text-right">₦2,400</div></del></div>
                   </div>
               </div>
               <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
@@ -371,10 +371,14 @@
     color: #fff;
     background: #ff0000;
   }
+  .promo .row{
+    font-size: 1.5vw;
+  }
   .default  {
     color: #000066;
     padding-right: 0;
     margin-right: 0;
+    font-size: 1.5vw;
   }
   .description {
     font-style: italic;
@@ -384,6 +388,8 @@
     color: #000066;
     padding-right: 0;
     margin-right: 0;
+    display: inline;
+    text-align: right !important;
   }
   del{
     color: #ff0000;
@@ -400,6 +406,10 @@
   .side-text{
     font-size: 6px;
     padding-bottom: 0;
+    padding-right: 0;
+    margin-right: 0;
+    text-align: right !important;
+    padding-top: 1vh;
   }
   .product-image{
     background: #fff;
