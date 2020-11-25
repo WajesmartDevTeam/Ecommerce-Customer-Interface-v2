@@ -62,7 +62,7 @@
                     data-toggle="modal"
                     data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Groceries</h4></div></div></div>
             <div class=" row column">
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -79,15 +79,15 @@
                     <p class="description">Indomie Chicken 70g</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <div class="col-sm-6">₦2,200</div><div class="side-text text-right col-sm-5"> For a Carton</div>
+                          <div class="col-11">₦2,200 <sub class="side-text"> For a Carton</sub> </div>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><div class="scratched text-right">₦2,400</div></del></div>
+                      <div class="col-6 default text-right">RSP  <del><div class="scratched text-right">₦2,400</div></del></div>
                   </div>
               </div>
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -103,15 +103,15 @@
                     <p class="description">Power Vegetable Oil 3ltrs</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-sm-6">₦2,450</span><span class="side-text col-sm-5">Each</span>
+                          <span class="col-11">₦2,450 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦2,945</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦2,945</span></del></div>
                   </div>
               </div>
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -127,12 +127,12 @@
                     <p class="description">Nestle Milo 1kg</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-sm-6">₦1,750</span><span class="side-text col-sm-5">For a Carton</span>
+                          <span class="col-11">₦1,750 <sub class="side-text">For a Carton</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦1,945</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦1,945</span></del></div>
                   </div>
               </div>
             </div>
@@ -141,7 +141,7 @@
                     data-toggle="modal"
                     data-target="#store" @click="setCategoryRoute('/category/spirits')"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Drinks</h4></div></div></div>
             <div class=" row column">
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -157,26 +157,26 @@
                     <p class="description">Baileys Delight 75cl</p>
                   </div>
                   <div class="price row mb-2">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi">x1</span>
-                          <span class="col-sm-5">₦1,200</span>
-                          <span class="side-text col-sm-4">Each</span>
+                          <span class="multi mr-2">x1</span>
+                          <span class="cost">₦1,200 <sub class="side-text">Each</sub></span>
+                          
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦1,315</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦1,315</span></del></div>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi">x6</span>
-                          <span class="col-sm-5">₦7,200</span><span class="side-text col-sm-4">Each</span>
+                          <span class="multi mr-2">x6</span>
+                          <span class="cost">₦7,200 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦7,890</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦7,890</span></del></div>
                   </div>
               </div>
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 p-md-2 col-xs-4 mb-4 p-sm-1">
                   <div
                     class="product-image row"
                   >
@@ -192,25 +192,25 @@
                     <p class="description">Johnnie Walker Red Label 70cl</p>
                   </div>
                   <div class="price row mb-2">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi">x1</span>
-                          <span class="col-sm-5">₦3,000</span><span class="side-text col-sm-4">Each</span>
+                          <span class="multi mr-2">x1</span>
+                          <span class="cost">₦3,000 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦4,285</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦4,285</span></del></div>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="multi">x12</span>
-                          <span class="col-sm-5">₦36,000</span><span class="side-text col-sm-4">Each</span>
+                          <span class="multi mr-2">x12</span>
+                          <span class="cost">₦36,000 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦51,420</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦51,420</span></del></div>
                   </div>
               </div>
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1 col-xs-4 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -227,12 +227,12 @@
                     <p class="description">Amstel Malta 33cl</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-sm-6">₦2,880</span><span class="side-text col-sm-5">For a Carton</span>
+                          <span class="col-11">₦2,880 <sub class="side-text">For a Carton</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦3,480</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦3,480</span></del></div>
                   </div>
               </div>
             </div>
@@ -241,7 +241,7 @@
                     data-toggle="modal"
                     data-target="#store" @click="setCategoryRoute('/category/sda')"><div class="col-sm-4 title-space"><div class=" col-sm-12 title"><h4>Home Appliances</h4></div></div></div>
             <div class=" row column">
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1 col-xs-4 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -257,15 +257,15 @@
                     <p class="description">Binatone Standing Fan</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-sm-12">₦17,000</span>
+                          <span class="col-11">₦17,000</span>
                         </div>
                       </div>
                       <!-- <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦2,400</span></del></div> -->
                   </div>
               </div>
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1 col-xs-4 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -281,15 +281,15 @@
                     <p class="description">Binatone Dry Iron</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-sm-6">₦4,000</span><span class="side-text col-sm-5">Each</span>
+                          <span class="col-11">₦4,000 <sub class="side-text">Each</sub></span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦5,405</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦5,405</span></del></div>
                   </div>
               </div>
-              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1">
+              <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1 col-xs-4 mb-4">
                   <div
                     class="product-image row"
                   >
@@ -305,24 +305,24 @@
                     <p class="description">Binatone Big-452 Blender/grinder</p>
                   </div>
                   <div class="price row">
-                      <div class="col-md-6 promo">
+                      <div class="col-6 promo">
                         <div class="row">
-                          <span class="col-sm-12">₦12,000</span>
+                          <span class="col-11">₦12,000</span>
                         </div>
                       </div>
-                      <div class="col-md-6 default">RSP  <del><span class="scratched text-right">₦14,905</span></del></div>
+                      <div class="col-6 default text-right">RSP  <del><span class="scratched text-right">₦14,905</span></del></div>
                   </div>
               </div>
             </div>
             <div class="row column mt-5 justify-content-end no-gutters">
-              <div class=" offset-sm-5 col-sm-4 download mr-auto btn" style="color: white; font-weight:0">
+              <div class=" offset-sm-5 col-sm-4 mb-3 download mr-auto btn" style="color: white; font-weight:0">
                 Download discounted product list
               </div>
-              <div v-if='$store.getters.isStoreSet==false' class="col-sm-2 promo get-started btn" data-toggle="modal"
+              <div v-if='$store.getters.isStoreSet==false' class="col-sm-2 mb-3 promo get-started btn" data-toggle="modal"
                 data-target="#store">
                 Shop Now
               </div>
-              <div v-else class="col-sm-2 promo get-started btn" @click="$router.push('home')">
+              <div v-else class="col-sm-2 promo mb-3 get-started btn" @click="$router.push('home')">
                 Shop Now
               </div>
             </div>
@@ -371,14 +371,19 @@
     color: #fff;
     background: #ff0000;
   }
-  .promo .row{
-    font-size: 1.5vw;
+  .promo .row .col-11{
+    font-size: 2.5vh;
+    padding-right: 0;
+  }
+  .cost{
+    font-size: 2.5vh;
+    padding-right: 0;
   }
   .default  {
     color: #000066;
     padding-right: 0;
     margin-right: 0;
-    font-size: 1.5vw;
+    font-size: 2.5vh;
   }
   .description {
     font-style: italic;
@@ -398,18 +403,18 @@
     font-size: 12px;
     background: #000066;
     color: #fff;
-    min-width: 2vw;
+    min-width: 3vw;
     height: auto;
+    margin: 0;
     text-align: center;
     border-radius: 50%;
   }
   .side-text{
-    font-size: 6px;
-    padding-bottom: 0;
-    padding-right: 0;
-    margin-right: 0;
-    text-align: right !important;
-    padding-top: 1vh;
+    font-size: 1vh;
+    /* padding-bottom: 0; */
+    /* padding-left: auto; */
+    /* text-align: right !important; */
+    /* padding-top: 1vh; */
   }
   .product-image{
     background: #fff;
@@ -425,9 +430,36 @@
   }
   @media screen and (max-width:425px) and (min-width:375px) {
   }
-  @media screen and (min-width:1025px) {
+  @media screen and (max-width:580px) {
+    .multi{
+    font-size: 12px;
+    background: #000066;
+    color: #fff;
+    min-width: 8vw;
+    height: auto;
+    margin: 0;
+    text-align: center;
+    border-radius: 50%;
   }
-  @media screen and (max-width:1024px) and (min-width:993px) {
+  }
+  @media screen and (max-width:1024px) and (min-width:580px) {
+    .promo .row .col-11{
+    font-size: 1.5vw;
+    padding-right: 0;
+  }
+  .cost{
+    font-size: 1.5vw;
+    padding-right: 0;
+  }
+  .side-text{
+    font-size: 0.7vw;
+  }
+  .default  {
+    color: #000066;
+    padding-right: 0;
+    margin-right: 0;
+    font-size: 1.5vw;
+  }
   }
 </style>
 
