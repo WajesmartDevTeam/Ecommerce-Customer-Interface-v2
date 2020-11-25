@@ -315,14 +315,14 @@
               </div>
             </div>
             <div class="row column mt-5 justify-content-end no-gutters">
-              <div class=" offset-sm-5 col-sm-4 mb-3 download mr-auto btn" style="color: white; font-weight:0">
+              <div class=" offset-sm-5 col-sm-4 mb-3 download mr-auto btn discount" style="color: white; font-weight:0">
                 Download discounted product list
               </div>
-              <div v-if='$store.getters.isStoreSet==false' class="col-sm-2 mb-3 promo get-started btn" data-toggle="modal"
-                data-target="#store">
+              <div v-if='$store.getters.isStoreSet==false' class="discount col-sm-2 mb-3 promo get-started btn" data-toggle="modal"
+                data-target="#store" @click="setCategoryRoute('/home')">
                 Shop Now
               </div>
-              <div v-else class="col-sm-2 promo mb-3 get-started btn" @click="$router.push('home')">
+              <div v-else class="col-sm-2 promo mb-3 discount get-started btn" @click="$router.push('home')">
                 Shop Now
               </div>
             </div>
@@ -403,7 +403,7 @@
     font-size: 12px;
     background: #000066;
     color: #fff;
-    min-width: 3vw;
+    min-width: 2.5vw;
     height: auto;
     margin: 0;
     text-align: center;
@@ -444,6 +444,10 @@
   }
   @media screen and (max-width:1024px) and (min-width:580px) {
     .promo .row .col-11{
+    font-size: 1.5vw;
+    padding-right: 0;
+  }
+  .discount {
     font-size: 1.5vw;
     padding-right: 0;
   }
