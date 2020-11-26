@@ -757,7 +757,6 @@ export default {
       viewproduct: false,
       loader: '',
       banners: [],
-
     }
   },
   beforeMount () {
