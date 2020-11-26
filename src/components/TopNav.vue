@@ -271,7 +271,7 @@
       </div>
     </div>
     <div
-      v-if="$route.name !== 'LandingPage'"
+      v-if="$route.name !== 'LandingPage' && $route.name !== 'BlackFriday'"
       id="menu-bar"
       class="d-none  d-md-block"
     >

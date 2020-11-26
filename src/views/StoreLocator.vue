@@ -235,6 +235,7 @@ export default {
       this.store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
+      this.$store.dispatch("setBlackFiday", false);
       this.$store.dispatch("setStore", this.store).then(res => {
         if (oldstore !== this.store.name) {
           this.$store.dispatch('addToCart', [])
