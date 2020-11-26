@@ -57,10 +57,9 @@
             class="container my-5"
           >
 
-            <div v-if="$store.getters.isStoreSet" class="row title-container"><router-link to="/category/groceries"><div class="col-sm-4 title-space"><div class="title h4">Groceries</div></div></router-link></div>
-            <div v-else class="row" 
-                    data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="col-sm-4 title-space"><div class="title h4">Groceries</div></div></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container"><div class="col-sm-4 title-space" @click="$router.push('/category/groceries')"><div class="title h4">Groceries</div></div></div>
+            <div v-else class="row"><div class="col-sm-4 title-space" data-toggle="modal"
+                    data-target="#store" @click="setCategoryRoute('/category/groceries')"><div class="title h4">Groceries</div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
@@ -136,10 +135,9 @@
                   </div>
               </div>
             </div>
-            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><router-link to="/category/spirits"><div class="col-sm-4 title-space"><div class="h4 title">Drinks</div></div></router-link></div>
-            <div v-else class="row mt-4" 
-                    data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/spirits')"><div class="col-sm-4 title-space"><div class="h4 title">Drinks</div></div></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><div class="col-sm-4 title-space" @click="$router.push('/category/spirits')"><div class="h4 title">Drinks</div></div></div>
+            <div v-else class="row mt-4" ><div class="col-sm-4 title-space" data-toggle="modal"
+                    data-target="#store" @click="setCategoryRoute('/category/spirits')"><div class="h4 title">Drinks</div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 col-xs-4 p-md-2 p-sm-1 mb-4">
                   <div
@@ -236,10 +234,9 @@
                   </div>
               </div>
             </div>
-            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><router-link to="/category/sda"><div class="col-sm-4 title-space"><div class="h4 title">Home Appliances</div></div></router-link></div>
-            <div v-else class="row mt-4" 
-                    data-toggle="modal"
-                    data-target="#store" @click="setCategoryRoute('/category/sda')"><div class="col-sm-4 title-space"><div class="h4 title">Home Appliances</div></div></div>
+            <div v-if="$store.getters.isStoreSet" class="row title-container mt-4"><div class="col-sm-4 title-space" @click="$router.push('/category/sda')"><div class="h4 title">Home Appliances</div></div></div>
+            <div v-else class="row mt-4" ><div class="col-sm-4 title-space" data-toggle="modal"
+                    data-target="#store" @click="setCategoryRoute('/category/sda')"><div class="h4 title">Home Appliances</div></div></div>
             <div class=" row column">
               <div class="product offset-sm-1 col-sm-3 p-md-2 p-sm-1 col-xs-4 mb-4">
                   <div
@@ -357,6 +354,12 @@
     color: #fff;
   }
   .title{
+    /* background: linear-gradient(to right, 
+     #ff0000, 
+     #ff0000 15%, 
+     #000066 15%,
+     #000066 85%
+    ); */
     background: #000066;
     color: white !important;
     padding-top: 4px;
@@ -365,6 +368,7 @@
     font-size: 26px !important;
     font-family: harabara;
     font-weight: normal !important;
+
   }
   .promo{
     color: #fff;
@@ -582,12 +586,31 @@ export default {
   },
 
   created () {
+    this.fetchBanners();
     // this.banners = this.$store.getters.banners
   },
   
   methods: {
     setCategoryRoute (route) {
       this.$store.dispatch('setCategoryRoute', route);
+    },
+    fetchBanners () {
+      let req = {
+        what: "banners",
+        showLoader: false,
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+
+          if (response.type == 'banners') {
+            this.$store.dispatch('banners', response.data.data)
+
+          }
+        })
+        .catch(error => {
+
+          console.log(error)
+        });
     }
   }
 }
