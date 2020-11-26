@@ -23,6 +23,7 @@ import OrderView from '../views/OrderView.vue'
 import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
 import BlackFriday from '../views/BlackFriday.vue';
+import Wallet from '../views/Wallet.vue';
 Vue.use(VueRouter)
 
 const routes = [{
@@ -124,6 +125,11 @@ const routes = [{
         path: '/orders',
         name: 'MyOrders',
         component: MyOrders
+    },
+    {
+        path: '/wallet',
+        name: 'MyWallet',
+        component: Wallet
     },
     {
         path: '/orderview/:id',

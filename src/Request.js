@@ -8,15 +8,9 @@ import Vue from "vue";
 import store from "./store";
 import axios from 'axios'
 
-<<<<<<< HEAD
 const URL = "http://localhost:8000/api/";
 // const URL = "https://marketsquareng.website/api/"
-// const URL = "https://marketsquareng.com/api/"
-=======
-// const URL = "http://localhost:8000/api/";
-// const URL = "https://marketsquareng.website/api/"
-const URL = "https://admin.sundrymarkets.com/api/"
->>>>>>> test-server
+// const URL = "https://admin.sundrymarkets.com/api/"
 
 export default {
     name: "Request",
