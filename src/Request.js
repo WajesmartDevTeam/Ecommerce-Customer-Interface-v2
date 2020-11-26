@@ -51,7 +51,9 @@ export default {
             listaddress: 'addresses',
             banners: 'thumbnail',
             getproduct: 'getproduct',
-            deliveryFeeVariation: 'getDeliveryFeeVariation'
+            deliveryFeeVariation: 'getDeliveryFeeVariation',
+            wallet: 'getWalletTransactions',
+            
 
         };
         if (request.params !== undefined) {
@@ -124,7 +126,10 @@ export default {
             createaddress: 'addresses',
             editaddress: 'editaddresses/',
             updatecustomer: 'updatecustomer',
-            redeemgift: 'redeemgiftcard'
+            redeemgift: 'redeemgiftcard',
+            redeemgiftwallet: 'redeemWalletGiftCard',
+            creditWallet: 'creditWallet',
+            verifywalletcredit: 'verifyWalletCredit'
 
 
         };

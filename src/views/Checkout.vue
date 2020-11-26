@@ -1159,7 +1159,6 @@ export default {
           //   this.payment.loyalty = false;
           // }
         });
-
     },
     formatUnique (n) {
       return Number(n) > 9 ? "" + n : "0" + n;
@@ -1344,16 +1343,15 @@ export default {
       else {
         this.$swal.fire("Error", `Kindly select your preferred ${field.toString()}`, "error");
       }
-
-
     },
+    
     payCard (order, giftref) {
       // live
       // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
 
       // test
-      // let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
-      let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
+      let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
+      // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
       let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;

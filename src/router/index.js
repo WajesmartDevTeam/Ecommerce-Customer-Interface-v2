@@ -22,8 +22,12 @@ import MyOrders from '../views/Orders.vue'
 import OrderView from '../views/OrderView.vue'
 import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
+<<<<<<< Updated upstream
 import BlackFriday from '../views/BlackFriday.vue';
 import Wallet from '../views/Wallet.vue';
+=======
+import Wallet from '../views/Wallet.vue'
+>>>>>>> Stashed changes
 Vue.use(VueRouter)
 
 const routes = [{
@@ -128,7 +132,11 @@ const routes = [{
     },
     {
         path: '/wallet',
+<<<<<<< Updated upstream
         name: 'MyWallet',
+=======
+        name: 'Wallet',
+>>>>>>> Stashed changes
         component: Wallet
     },
     {

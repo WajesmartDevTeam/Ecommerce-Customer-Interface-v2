@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
   <div class="container-fluid">
     <div
       v-if="d_errors"
@@ -195,92 +196,174 @@
                         </table>
 
                       </div>
-                    </div>
-                    <div>
-                      <div class="form-group form-check pay mt-3">
-                        <input
-                          id='voucherCheck'
-                          type="checkbox"
-                          class="form-check-input"
-                          v-model="payment.voucher"
-                          @change="paymethod($event, 'voucher')"
-                        />
-                        <label class="form-check-label">Pay with Giftcard
-                          <br>
-                          <span >Got a voucher or Gift card?</span>
-                        </label>
-                        <small
-                          class="ml-2"
-                          id="statusvoucher"
-                          style="color:red;font-size:11px"
-                        ></small>
-                      </div>
-                      <div
-                        v-if="payment.voucher"
-                        class="form-group"
-                      >
-                        <div class="form-row px-2">
-                          <input
-                            type="text"
-                            class="form-control col-7"
-                            placeholder="Enter serial no."
-                            v-model="serialnumber"
-                          >
-                          <button
-                            @click.prevent="verifyMethod('voucher')"
-                            class="btn mt-1 ml-1 col-4"
-                          >Verify</button>
-                        </div>
-
-                      </div>
-
-                      <div class="form-group form-check pay mt-3">
-                        <input
-                          type="checkbox"
-                          class="form-check-input"
-                          @change="paymethod($event, 'card')"
-                        />
-                        <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
-                          <small
-                            class="ml-2"
-                            id="balance"
-                            style="color:red;font-size:11px"
-                          ></small>
-                          <br>
-                          <span style="color:black">Pay with Flutterwave</span>
-                        </label>
-                      </div>
-
-                      <div class="form-group form-check agree">
-                        <validation-provider
-                          rules="required"
-                          v-slot="{ errors }"
-                        >
-                          <input
-                            type="checkbox"
-                            class="form-check-input"
-                            v-model="clearance"
-                          >
-                          <label
-                            class="form-check-label"
-                            for="exampleCheck1"
-                          >I accept to the <a
-                              href="/terms"
-                              style="color:#000066; font-weight:bold;"
-                            >terms and conditions</a> of marketsquare</label>
-                          <span class="err_msg">{{ errors[0] }}</span>
-                        </validation-provider>
-                      </div>
-                      <button type="submit" @click.prevent="handleSubmit(placeOrder)">Proceed to Payment</button>
-                    </div>
+=======
+  <div>
+    <TopNav></TopNav>
+    <div class="checkout page">
+      <div class="">
+        <div class="banner checkout-banner">
+          <div class="container">
+            <h4 class="title">Wallet</h4>
+          </div>
+        </div>
+        <div class="content container-fluid">
+          <div class="row ">
+            <div class="col-lg-8 col-md-8">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <div class="pull-left">
+                    <h4 class="card-title">Wallet Transations list</h4>
+                    <p class="card-category">Here are the list of Wallet Transactions</p>
                   </div>
                 </div>
+                <div class="card-body">
+                  <v-client-table
+                    :data="walletTransactions"
+                    :columns="columns"
+                    :options="options"
+                    slots="slots"
+                  >
+                    <span
+                      slot="sn"
+                      slot-scope="props"
+                    >{{props.index}}</span>
+                  </v-client-table>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+              <div id="summary">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title title ">Your Wallet</h5>
+                    <table class="table">
+                      <tbody class="body2">
+                        <tr>
+                          <td>Balance OnHold</td>
+                          <td class="float-right ">₦{{user.balanace_onHold}}</td>
+                        </tr>
+
+                        <tr>
+                          <td>Available Balance</td>
+                          <td class="float-right ">₦{{user.available_balance}}</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Total</th>
+                          <th class="float-right total">₦{{ user.wallet_balance}}</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                    <div class="form-row px-2">
+                      <input
+                        type="text"
+                        class="form-control col-12"
+                        min="1"
+                        placeholder="Enter Wallet Top U Ammount"
+                        v-model="transaction.balance"
+                      >
+>>>>>>> Stashed changes
+                    </div>
+
+                  </div>
+                </div>
+                <div>
+                  <div class="form-group form-check pay mt-3">
+                    <input
+                      id='voucherCheck'
+                      type="checkbox"
+                      class="form-check-input"
+                      v-model="payment.voucher"
+                      @change="paymethod($event, 'voucher')"
+                    />
+                    <label class="form-check-label">Pay with Giftcard
+                      <br>
+                      <span >Got a voucher or Gift card?</span>
+                    </label>
+                    <small
+                      class="ml-2"
+                      id="statusvoucher"
+                      style="color:red;font-size:11px"
+                    ></small>
+                  </div>
+                  <div
+                    v-if="payment.voucher"
+                    class="form-group"
+                  >
+                    <div class="form-row px-2">
+                      <input
+                        type="text"
+                        class="form-control col-7"
+                        placeholder="Enter serial no."
+                        v-model="serialnumber"
+                      >
+                      <button
+                        @click.prevent="verifyMethod('voucher')"
+                        class="btn mt-1 ml-1 col-4"
+                      >Verify</button>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group form-check pay mt-3">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      @change="paymethod($event, 'card')"
+                    />
+                    <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
+                      <small
+                        class="ml-2"
+                        id="balance"
+                        style="color:red;font-size:11px"
+                      ></small>
+                      <br>
+                      <span style="color:black">Pay with Flutterwave</span>
+                    </label>
+                  </div>
+
+                  <div class="form-group form-check agree">
+                    <validation-provider
+                      rules="required"
+                      v-slot="{ errors }"
+                    >
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        v-model="clearance"
+                      >
+                      <label
+                        class="form-check-label"
+                        for="exampleCheck1"
+                      >I accept to the <a
+                          href="/terms"
+                          style="color:#000066; font-weight:bold;"
+                        >terms and conditions</a> of marketsquare</label>
+                      <span class="err_msg">{{ errors[0] }}</span>
+                    </validation-provider>
+                  </div>
+                  <button type="submit" @click.prevent="creditWallet">Proceed to Payment</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import * as $ from "jquery";
+import TopNav from '@/components/TopNav.vue'
+import Footer from '@/components/Footer.vue'
 export default {
+  name: 'Wallet',
+  components: {
+    TopNav, Footer
+  },
   data () {
     return {
       my_permissions: {},
@@ -296,9 +379,13 @@ export default {
       },
       loading: false,
       d_errors: null,
+      clearance: false,
       perpage: 10,
-      order: {},
-      user: this.$store.getters.user,
+      transaction: {
+        balance: 0,
+        user_id: this.$store.getters.user.id,
+        payment: []
+      },
       walletTransactions: [],
       page_url: null,
       pagination: {},
@@ -325,22 +412,9 @@ export default {
 
     };
   },
-
-  watch: {
-    loading: function (val) {
-      if (val) {
-        this.$swal({
-          title: "Loading...",
-          text: "Please wait",
-          imageUrl: "/assets/img/Spinner.gif",
-          imageWidth: 200,
-          imageHeight: 200,
-          showConfirmButton: false,
-          allowOutsideClick: false
-        });
-      } else {
-        this.$swal.close();
-      }
+  computed: {
+    user () {
+      return this.$store.getters.user
     }
   },
   created () {
@@ -356,26 +430,16 @@ export default {
 
   methods: {
     fetchWalletTransactions () {
-      this.loading = true;
-      let vm = this;
-
-      fetch(`/wallet`, {
-        method: "get"
-      })
+      let req = {
+        what: "wallet",
+        showLoader: false,
+        params: {
+          user_id: this.user.id
+        }
+      }
+      this.$request.makeGetRequest(req)
         .then(res => {
-          if (res.status !== 200 && res.status !== 201) {
-            this.loading = false;
-            this.$toast.error({
-              title: "Error",
-              message: "An error occured, Pls try again.",
-              delay: 0
-            });
-          }
-          return res.json();
-        })
-        .then(res => {
-          this.walletTransactions = res.data;
-          this.loading = false;
+          this.walletTransactions = res.data.data;
         })
         .catch(err => console.log(err));
     },
@@ -390,47 +454,86 @@ export default {
       this.pagination = pagination;
     },
 
-    creditWallet () {
-      if (this.payment.loyalty) {
-        if (this.order.payment.method.toLowerCase().includes("loyalty") == false) {
+    formatUnique (n) {
+      return Number(n) > 9 ? "" + n : "0" + n;
+    },
 
-          this.order.payment.method += " loyalty"
+    creditWallet () {
+      this.transaction.unique_code = this.formatUnique(this.user.id) + Math.floor(10000 + Math.random() * 90000);
+      let isValidate = [];
+      let field = [];
+
+      if (this.payment.loyalty) {
+        if (this.transaction.payment.method.toLowerCase().includes("loyalty") == false) {
+
+          this.transaction.payment.method += " loyalty"
         }
       }
       else {
-        if (this.order.payment.method.toLowerCase().includes("loyalty")) {
+        if (this.transaction.payment.method.toLowerCase().includes("loyalty")) {
 
-          this.order.payment.method = this.order.payment.method.replace(' loyalty', '')
+          this.transaction.payment.method = this.transaction.payment.method.replace(' loyalty', '')
         }
 
       }
       if (this.payment.voucher) {
-        if (this.order.payment.method.toLowerCase().includes("gift") == false) {
-          this.order.payment.method += " gift"
+        if (this.transaction.payment.method.toLowerCase().includes("gift") == false) {
+          this.transaction.payment.method += " gift"
         }
       }
       else {
-        if (this.order.payment.method.toLowerCase().includes("gift")) {
-          this.order.payment.method = this.order.payment.method.replace(' gift', '')
+        if (this.transaction.payment.method.toLowerCase().includes("gift")) {
+          this.transaction.payment.method = this.transaction.payment.method.replace(' gift', '')
         }
 
       }
       if (this.payment.card) {
-        if (this.order.payment.method.toLowerCase().includes("card") == false) {
-          this.order.payment.method += " card"
+        if (this.transaction.payment.method.toLowerCase().includes("card") == false) {
+          this.transaction.payment.method += " card"
         }
       }
       else {
-        if (this.order.payment.method.toLowerCase().includes("card")) {
+        if (this.transaction.payment.method.toLowerCase().includes("card")) {
 
-          this.order.payment.method = this.order.payment.method.replace(' card', '')
+          this.transaction.payment.method = this.transaction.payment.method.replace(' card', '')
         }
       }
-      if (this.payment.voucher) {
-        this.payGift(res.data.data.order)
+
+      if (this.transaction.payment.method == '') {
+        isValidate.push(false)
+        field.push('payment method')
       }
-      else if(this.payment.card) {
-        this.payCard(res.data.data.order)
+      if (!isValidate.includes(false)) {
+
+        console.log(this.transaction);
+        if (this.clearance) {
+          let req = {
+            what: "creditWallet",
+            showLoader: true,
+            data: this.transaction
+          }
+          this.$request
+            .makePostRequest(req)
+            .then(res => {
+              if (this.transaction.payment.method.includes("gift")) {
+                this.payGift(res.data)
+              }
+              else {
+                this.payCard(res.data)
+              }
+              this.fetchWalletTransactions();
+            })
+            .catch(error => {
+              console.log(error);
+              this.$swal.fire("Error", error.message, "error");
+            });
+        }
+        else {
+          this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
+        }
+      }
+      else {
+        this.$swal.fire("Error", `Kindly select your preferred ${field.toString()}`, "error");
       }
     },
 
@@ -465,6 +568,7 @@ export default {
         }
       }
     },
+
     verifyMethod (method) {
       let req = {
         what: "verifycard",
@@ -483,7 +587,7 @@ export default {
             this.payment.voucher = true;
             this.giftcard_amount = res.data.data
             document.getElementById('statusvoucher').textContent = '₦' + this.giftcard_amount;
-            this.balance = Number(this.order.order_total) - Number(res.data.data)
+            this.balance = Number(this.transaction.amount) - Number(res.data.data)
             document.getElementById('balance').textContent = 'Balance= ₦' + this.balance;
           }
         })
@@ -497,8 +601,8 @@ export default {
           //   this.payment.loyalty = false;
           // }
         });
-
     },
+
     formatPrice (price) {
       var str = price.toString().split(".");
       if (str[0].length >= 3) {
@@ -509,20 +613,37 @@ export default {
       }
       return str.join(".");
     },
-    getpaidSetup({
+
+    payCard (transaction, giftref) {
+      // live
+      // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
+
+      // test
+      let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
+      let transid = giftref ? giftref : `${this.user.id}${Math.floor(Date.now())}`;
+      let vm = this;
+      let cardamount;
+      if (Number(this.balance) !== "" && this.balance > 0) {
+        cardamount = this.balance
+
+      }
+      else {
+        cardamount = transaction.balance
+      }
+        getpaidSetup({
 
         PBFPubKey: PBFKey,
-        customer_email: this.order.customer.email,
-        customer_firstname: this.order.customer.firstname,
-        customer_lastname: this.order.customer.lastname,
-        custom_description: "Payment for order made",
+        customer_email: this.user.email,
+        customer_firstname: this.user.firstname,
+        customer_lastname: this.user.lastname,
+        custom_description: "Payment for transaction made",
         custom_logo: "https:marketsquareng.com/assets/img/logo_mobile.png",
         custom_title: "Market Square",
         amount: cardamount,
-        customer_phone: this.order.customer.phone,
+        customer_phone: this.user.phone,
         country: "NG",
         currency: "NGN",
-        txref: order.unique_code,
+        txref: this.transaction.unique_code,
         onclose: function () { },
         callback: function (response) {
           var flw_ref = response.tx.flwRef; // collect flwRef returned and pass to a 					server page to complete status check.
@@ -533,48 +654,29 @@ export default {
 
           if (chargeResponse == "00" || chargeResponse == "0") {
             let req;
-            if (!vm.$store.getters.isLoggedIn) {
+            
               req = {
-                what: "verifypayment",
+                what: "verifywalletcredit",
                 showLoader: true,
                 data: {
                   txref: txref,
                   pref: flw_ref,
-                  order_id: order.id,
-                  user_id: "",
-                  cart_id: "",
-                  customer_id: order.customer_id,
+                  transaction_id: transaction.id,
+                  user_id: vm.user.id,
                   status: status,
                   amount: amount
                 }
               }
-            }
-            else {
-              req = {
-                what: "verifypayment",
-                showLoader: true,
-                data: {
-                  txref: txref,
-                  pref: flw_ref,
-                  order_id: order.id,
-                  user_id: order.user_id,
-                  cart_id: "",
-                  customer_id: "",
-                  status: status,
-                  amount: amount
-                }
-              }
-            }
+            
 
             vm.$request
               .makePostRequest(req)
               .then(res => {
                 console.log(res)
-                vm.$store.dispatch('orderinfo', order);
-                vm.$store.dispatch('addToCart', [])
+                vm.$store.dispatch('user', res.data)
                 vm.$swal.fire({
                   title: 'Success!',
-                  html: 'Order Payment Successful!!!',
+                  html: 'Wallet TopUp Successful!!!',
                   timer: 5000,
                   onBeforeOpen: () => {
                     vm.$swal.showLoading()
@@ -589,7 +691,6 @@ export default {
                         }
                       }
                     }, 100))
-                    vm.$router.push('/confirm')
                   }
 
                 })
@@ -611,17 +712,17 @@ export default {
         }
       });
     },
-    payGift (order) {
+    payGift (transaction) {
       let vm = this;
       let req = {
-        what: "redeemgift",
+        what: "redeemgiftwallet",
         showLoader: true,
         data: {
           serviceid: "351817683",
           serialnumber: this.serialnumber,
-          phonenumber: this.order.customer.phone.replace(/\s/g, ''),
+          phonenumber: this.user.phone.replace(/\s/g, ''),
           amount: this.giftcard_amount,
-          order_id: order.id
+          order_id: transaction.id
         }
       }
       this.$request
@@ -631,15 +732,9 @@ export default {
           if (res.type == "redeemgift") {
             this.$swal.fire("Success", "Giftcard Redeemed Successfully", "success");
             if (this.balance !== "" && this.balance > 0) {
-              this.payCard(order, res.data)
-            }
-            else {
-              vm.$store.dispatch('addToCart', [])
-              vm.$store.dispatch('orderinfo', order).then(() => {
-                vm.$router.push('/confirm')
-              })
-
-
+              this.payCard(transaction, res.data)
+            }else {
+              this.$store.dispatch('user', res.data)
             }
           }
         })

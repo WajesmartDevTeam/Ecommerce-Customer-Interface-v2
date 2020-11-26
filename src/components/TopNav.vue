@@ -159,6 +159,14 @@
                     <span class="text ml-4">My Account</span>
                   </a>
                 </li>
+                <li>
+                  <a href="/wallet">
+                    <span class="material-icons mr-2 ml-1">
+                      person
+                    </span>
+                    <span class="text ml-4">My Wallet</span>
+                  </a>
+                </li>
                 <li class="divider"></li>
                 <li>
                   <a href="/orders">

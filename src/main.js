@@ -22,6 +22,8 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
+import { ClientTable, Event } from "vue-tables-2";
+
 // import VueAnalytics from 'vue-analytics';
 // import VueGtag from "vue-gtag";
 
@@ -64,6 +66,11 @@ Vue.use(VueLazyload, {
 })
 Vue.use(VueTelInput) // Define default global options here (optional)
 Vue.use(VueAxios, axios);
+// Vue.use(ClientTable, {
+//     perPage: 100,
+//     perPageValues: [10, 25, 50, 100, 300, 500, 1000],
+// });
+Vue.use(ClientTable);
 // Vue.use(InfiniteLoading);
 Vue.use(InfiniteLoading, {
     slots: {
