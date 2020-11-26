@@ -313,7 +313,9 @@
             </div>
             <div class="row column mt-5 justify-content-end no-gutters">
               <div class=" offset-sm-5 col-sm-4 mb-3 download mr-auto btn discount" style="color: white; font-weight:0">
+                <a :href="url+'/MSQ%20Black%20Friday%202020.pdf'" style="color: white" download>
                 Download discounted product flyer
+                </a>
               </div>
               <div v-if='$store.getters.isStoreSet==false' class="discount col-sm-2 mb-3 promo get-started btn" data-toggle="modal"
                 data-target="#store" @click="setCategoryRoute('/home')">
@@ -540,6 +542,9 @@
     font-size: 1.5vw;
     padding-right: 0;
   }
+  .discount a{
+    color: white !important;
+  }
   .cost{
     font-size: 1.5vw;
     padding-right: 0;
@@ -569,6 +574,7 @@ export default {
   data () {
     return {
       loader: '',
+      url: window.location.origin,
       // MSQNowOpenHomePage
       banners: ['Homepage']
     }
