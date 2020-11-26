@@ -66,7 +66,7 @@
             <li class=" navlink text-capitalize mt-md-0 mt-3">
               <!-- store not selected -->
               <a
-                v-if='$store.getters.isStoreSet==false && $store.getters.blackFriday'
+                v-if='$store.getters.isStoreSet==false'
                 href=""
                 data-toggle="modal"
                 data-target="#store"
