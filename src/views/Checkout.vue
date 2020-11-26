@@ -390,8 +390,8 @@
                             </div>
 
                           </div>
-                          <div class="text-center mt-2 col-md-12" style="font-size: 12px;font-style:italic;font-weight:bold;color:red">
-                            Disclaimer: We typically deliver most of our orders with the delivery fee paid online. However, on rare occasions, we might contact you to give you an update on the delivery fee depending on the weight of your items or the delivery distance.
+                          <div class="text-center mt-2 col-md-12" style="font-size: 12px;font-style:italic;font-weight:bold;">
+                            <span style="color:black">Disclaimer:</span> <span style="color:red">We typically deliver most of our orders with the delivery fee paid online. However, on rare occasions, we might contact you to give you an update on the delivery fee depending on the weight of your items or the delivery distance.</span>
                           </div>
                         </div>
                       </div>
@@ -583,7 +583,7 @@
                         <h5 class="card-title title ">Your Order</h5>
                         <table class="table table-responsive">
                           <tbody class="body1">
-                            <tr v-for="row in cart">
+                            <tr v-for="(row, i) in cart" :key="i">
                               <td> {{row.quantity}}x {{row.product.name}}</td>
                               <td class="float-right ">₦{{formatPrice(row.price)}}</td>
                             </tr>
@@ -973,8 +973,8 @@ export default {
     let rave = document.createElement("script");
     rave.setAttribute(
       "src",
-      "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
-      // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      // "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
 
@@ -1008,7 +1008,7 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
-    this.fetchDeliveryFeeVariation();
+    // this.fetchDeliveryFeeVariation();
   },
   watch: {
     edit (val) {
@@ -1022,8 +1022,9 @@ export default {
   },
   computed: {
     deliveryFee () {
-      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
-      return isNaN(result) ? 0 : result;
+      // let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      // return isNaN(result) ? 0 : result;
+      return this.order.delivery.charge;
     },
     ordertotal () {
       let total = Number(this.order.cart_subtotal) + Number(this.deliveryFee);

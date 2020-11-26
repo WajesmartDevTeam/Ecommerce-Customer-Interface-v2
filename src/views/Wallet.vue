@@ -18,7 +18,119 @@
     <!-- Table List -->
     <div class="row">
       <div class="col-md-8">
-        <div class="card">
+        <div class="content container">
+          <div class="row my-5">
+            <div class="col-md-8">
+              <table class="table table-responsive">
+                <thead>
+                  <tr>
+
+                    <th scope="col">Product</th>
+                    <th scope="col"></th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Total</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(row, i) in cart"
+                    v-bind:key="i"
+                  >
+
+                    <td class="">
+
+                      <img
+                        v-if="row.product.img_url.includes('https://cdn.marketsquareng.website')"
+                        :src="row.product.img_url"
+                        alt=""
+                        class="img"
+                      >
+                      <img
+                        v-else
+                        :src="'https://admin.sundrymarkets.com'+row.product.img_url"
+                        alt=""
+                        class="img"
+                      >
+
+                    </td>
+                    <td class="productname">{{row.product.name}}</td>
+                    <td>
+                      <input
+                        v-if="row.product.name.includes('/KG') || row.product.name.includes('/ KG')"
+                        oninput="validity.valid||(value='');"
+                        :id="i"
+                        type="number"
+                        min="0.001"
+                        step="any"
+                        class="number qty"
+                        v-model=row.quantity
+                        @keypress="restrictChars($event)"
+                        @change="inputChange(i, row.product.id)"
+                      >
+
+                      <input
+                        v-else
+                        :id="i"
+                        type="number"
+                        min="1"
+                        step="1"
+                        class="number qty"
+                        v-model=row.quantity
+                        oninput="validity.valid||(value='');"
+                        @keypress="restrictChars($event)"
+                        @change="inputChange(i, row.product.id)"
+                      />
+                    </td>
+                    <td>₦{{formatPrice(row.unit_price)}} </td>
+                    <td>₦{{formatPrice(row.price)}} </td>
+                    <td> <img
+                        @click="removeItem(row)"
+                        style="cursor:pointer;"
+                        src="../assets/img/cancel.png"
+                        alt=""
+                        title="Remove item"
+                      ></td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-bold">Cart Total</h5>
+                  <table class="table table-sm">
+
+                    <tbody>
+                      <tr>
+                        <td class="float-left">Cart Subtotal</td>
+                        <td class="float-right">₦{{formatPrice(cart_subtotal)}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <div class="mt-4 total d-flex  justify-content-between">
+                    <p>Total</p>
+                    <h5>₦{{formatPrice(cart_total)}}</h5>
+                  </div>
+                  <button
+                    id="continue"
+                    @click="$router.push('home')"
+                  >Continue Shopping</button>
+                  <button
+                    v-bind:disabled="cart_total < 3000"
+                    v-bind:class="cart_total < 3000? 'disabled': ''"
+                    @click="handleCheckout"
+                  >Proceed to checkout</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card">
           <div class="card-header card-header-danger">
             <div class="pull-left">
               <h4 class="card-title">Wallet Transations list</h4>
@@ -38,7 +150,7 @@
               >{{props.index}}</span>
             </v-client-table>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-lg-4 col-md-5">
                   <div id="summary">

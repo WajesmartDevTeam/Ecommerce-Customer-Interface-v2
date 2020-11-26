@@ -158,6 +158,7 @@ export default {
     }
   },
   mounted () {
+    this.fetchStores();
     // console.log(this.$store.getters.isStoreSet)
     if (this.$store.getters.stat_stores == false) {
       this.fetchStores();
@@ -204,7 +205,7 @@ export default {
       vm.stores_id = [];
       if (val == 'Pickup') {
         vm.all_stores.forEach(i => {
-          if (i.store_options.pickup == 1) {
+          if (i.store_options != null && i.store_options.pickup == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
@@ -227,7 +228,7 @@ export default {
       else if (val == 'Delivery') {
 
         vm.all_stores.forEach(i => {
-          if (i.store_options.delivery == 1) {
+          if (i.store_options != null && i.store_options.delivery == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
@@ -341,7 +342,7 @@ export default {
       this.fetchAreas();
       let stat = [];
       this.all_stores.forEach(i => {
-        if (i.store_options.pickup != '1' && i.store_options.delivery != '1') {
+        if (i.store_options == null || (i.store_options.pickup != '1' && i.store_options.delivery != '1')) {
           stat.push(false)
         }
         else {
@@ -420,6 +421,7 @@ export default {
       store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
+      this.$store.dispatch("setBlackFriday", false);
       this.$store.dispatch("setStore", store).then(res => {
         if (oldstore !== store.name) {
           this.$store.dispatch('addToCart', []);
@@ -429,8 +431,14 @@ export default {
           $(".modal").modal("hide")
           this.$router.push('home')
           // location.reload()
-        }
-        else {
+        } else if(window.location.pathname == '/black-friday') {
+          $(".modal").modal("hide")
+          if(this.$store.getters.categoryRoute == null) {
+            this.$router.push('home')
+          }
+          this.$router.push(this.$store.getters.categoryRoute);
+          this.$router.go();
+        } else {
           $(".modal").modal("hide")
           // this.$router.go()
         }

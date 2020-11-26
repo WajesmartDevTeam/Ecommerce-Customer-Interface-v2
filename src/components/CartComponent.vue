@@ -143,14 +143,14 @@
             class="modal-footer"
           >
             <p
-              v-if="cart_total < 3000"
+              v-if="cart_total < 1500"
               class="minimum text-bold"
               style="font-size:17px"
-            >₦3,000 Minimum</p>
+            >₦1,500 Minimum</p>
             <div class="checkout">
               <button
-                v-bind:disabled="cart_total < 3000"
-                v-bind:class="cart_total < 3000? 'disabled': ''"
+                v-bind:disabled="cart_total < 1500"
+                v-bind:class="cart_total < 1500? 'disabled': ''"
                 @click="handleCheckout"
               >
                 <span>Checkout</span>
@@ -338,13 +338,13 @@ export default {
       }
     },
     handleCheckout () {
-      if (this.cart_total > 3000) {
+      if (this.cart_total >= 1500) {
 
         $(".modal").modal("hide");
         this.$router.push({ name: 'Cart' })
       }
       else {
-        this.$toasted.show('The minimum order amount is N3000.')
+        this.$toasted.show('The minimum order amount is N1500.')
 
       }
     },

@@ -3,6 +3,8 @@
     <TopNav></TopNav>
     <div class="landingpage">
       <div class="">
+        <div class="landing-header get-started"
+             >
       <slider
             class="d-none d-md-block"
             height="400px"
@@ -17,10 +19,13 @@
               :key="index"
               :style="i"
             >
-            <div class="landing-header get-started" 
-                  data-toggle="modal"
-                  data-target="#store">
-              <div class="container">
+
+              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}"  data-toggle="modal"
+             data-target="#store">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
@@ -32,9 +37,66 @@
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
               </div>
-            </div>
+              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
+                <div class="banner-text">
+                  <button
+                    class="start-button margin"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
             </slider-item>
           </slider>
+          <slider
+              class="d-block d-md-none"
+              :duration="10000"
+              height="100px"
+              :speed="8000"
+              :control-btn="false"
+              :indicators="false"
+          >
+            <slider-item
+                v-for="(i, index) in banners"
+                :key="index"
+                :style="i"
+            >
+
+              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}"  data-toggle="modal"
+             data-target="#store">
+                <div class="banner-text">
+                  <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
+                  <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
+                  <button
+                    data-toggle="modal"
+                    data-target="#store"
+                    class="start-button margin"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
+              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
+                <div class="banner-text">
+                  <button
+                    class="start-button margin"
+                  >Get Started
+                    <i class="fa fa-long-arrow-right ml-2"></i></button>
+                </div>
+              </div>
+            </slider-item>
+          </slider>
+        </div>
         <div class="content container">
           <div
             id="how"
@@ -319,7 +381,7 @@ export default {
   data () {
     return {
       loader: '',
-      banners: []
+      banners: ['Homepage', 'MSQNowOpenHomePage']
     }
   },
   
@@ -337,7 +399,7 @@ export default {
   },
 
   created () {
-    this.banners = this.$store.getters.banners
+    // this.banners = this.$store.getters.banners
     // console.log(this.banners)
   },
   
