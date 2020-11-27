@@ -1,3 +1,22 @@
+<style scoped>
+.btn {
+  background: #000066 !important;
+  color: #fff !important;
+  box-shadow: 2px 3px #ccc; 
+  /* margin-bottom: 10px; */
+}
+.text {
+  font-size: 15px;
+}
+.searchError{
+  font-size: 16px;
+  font-weight: bold;
+}
+.rounded {
+  width: 30vh;
+  /* height: */
+}
+</style>
 <template>
   <div>
     <Disclaimer />
@@ -9,12 +28,13 @@
 
           <div class="product-group container bg-white my-5 py-2">
 
-            <div v-if="products.length < 1 && !this.loader.isActive" class="text-center" style="width: inherit">
-              <p>We didn't find the results for {{searchQuery}}</p>
-              <p>Kindly double-check the spelling or use simple or related words</p>
-              <div class="btn btn-info" style="background: #000066" @click="$router.push('/home#menu')">Browse Categories</div>
-              <p> The product you are looking for might be in our store but not yet online </p>
-              <div class="btn btn-info" style="background: #000066" @click="chat()">Chat To Find Offline Products</div>
+            <div v-if="products.length < 1 && !this.loader.isActive" class="text-center" style="width: inherit;">
+              <img class="rounded mx-auto mb-2" src="../assets/img/app/failed_search.jpg"/>
+              <p class="searchError">We didn't find the results for <i>"{{searchQuery}}".</i></p>
+              <p class="text"> - Kindly double-check the spelling or use simple or related words.</p>
+              <p class="text"> - The product you are looking for might be in our store but not yet online.</p>
+              <p><div class="btn mr-auto" @click="chat()">Chat To Find Offline Products</div>
+              <div class="btn ml-2" @click="$router.push('/home#menu')">Continue Shopping</div></p>
             </div>
             <div class="row  mt-4 pb-2  px-md-2 pb-sm-2">
               <div
