@@ -30,7 +30,7 @@
 
             <div v-if="products.length < 1 && !this.loader.isActive" class="text-center" style="width: inherit;">
               <img class="rounded mx-auto mb-2" src="../assets/img/app/failed_search.jpg"/>
-              <p class="searchError">We didn't find the results for <i>"{{searchQuery}}".</i></p>
+              <p class="searchError">We didn't find results for <i>"{{searchQuery}}".</i></p>
               <p class="text"> - Kindly double-check the spelling or use simple or related words.</p>
               <p class="text"> - The product you are looking for might be in our store but not yet online.</p>
               <p><div class="btn mr-auto" @click="chat()">Chat To Find Offline Products</div>
