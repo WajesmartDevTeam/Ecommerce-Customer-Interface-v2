@@ -33,8 +33,8 @@
               <p class="searchError">We didn't find results for <i>"{{searchQuery}}".</i></p>
               <p class="text"> - Kindly double-check the spelling or use simple or related words.</p>
               <p class="text"> - The product you are looking for might be in our store but not yet online.</p>
-              <p><div class="btn mr-auto" @click="chat()">Chat To Find Offline Products</div>
-              <div class="btn ml-2" @click="$router.push('/home#menu')">Continue Shopping</div></p>
+              <p><div class="btn mr-auto mb-2" @click="chat()">Chat To Find Offline Products</div>
+              <div class="btn ml-2 mb-2" @click="$router.push('/home#menu')">Continue Shopping</div></p>
             </div>
             <div class="row  mt-4 pb-2  px-md-2 pb-sm-2">
               <div
