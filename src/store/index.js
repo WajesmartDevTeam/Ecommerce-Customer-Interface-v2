@@ -138,7 +138,7 @@ export default new Vuex.Store({
         isLoggedIn: state => state.loggedIn,
         storesCart: state => state.storesCart,
         order: state => state.order,
-        banners: state => state.banners,
+        banners: state => state.banners.reverse(),
         blackFriday: state => state.blackFriday,
         categoryRoute: state => state.categoryRoute,
     },
