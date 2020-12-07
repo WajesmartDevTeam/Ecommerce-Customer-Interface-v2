@@ -387,6 +387,7 @@
                                   <p v-else>₦{{row.deliveryfee}}</p>
                                 </div>
                               </div>
+                              
                             </div>
 
                           </div>
@@ -607,6 +608,10 @@
                                 <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
                                 <span v-else>Pickup(Free)</span>
                               </td>
+                            </tr>
+                            <tr>
+                              <td>Wallet Balance</td>
+                              <td class="float-right ">₦{{formatPrice(user.wallet_balance)}}</td>
                             </tr>
 
                           </tbody>
@@ -895,6 +900,7 @@ export default {
   },
   data () {
     return {
+      isLoggedIn: this.$store.getters.isLoggedIn,
       edit: false,
       clearance: '',
       selected_window: '',
@@ -947,11 +953,7 @@ export default {
           area: '',
           landmark: "",
           contact_method: "",
-
-
         },
-
-
         order_enquiry_contactname: '',
         order_enquiry_contactnumber: '',
         contact_upon_delivery_name: '',
@@ -973,8 +975,8 @@ export default {
     let rave = document.createElement("script");
     rave.setAttribute(
       "src",
-      // "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
-      "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
 
@@ -1027,7 +1029,9 @@ export default {
       return this.order.delivery.charge;
     },
     ordertotal () {
-      let total = Number(this.order.cart_subtotal) + Number(this.deliveryFee);
+      let total = ((Number(this.order.cart_subtotal) + Number(this.deliveryFee)) - Number(user.wallet_ballance));
+      console.log(total);
+      total = total > 0 ? total : total * -1;
       this.order.order_total = total;
       return total;
     },
@@ -1351,7 +1355,6 @@ export default {
 
       // test
       let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
-      // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
       let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;

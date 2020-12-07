@@ -12,14 +12,14 @@
           <div class="row ">
             <div class="col-lg-8 col-md-8">
               <div class="card">
-                <div class="card-header card-header-danger">
+                <!-- <div class="card-header card-header-danger">
                   <div class="pull-left">
                     <h4 class="card-title">Wallet Transations list</h4>
                     <p class="card-category">Here are the list of Wallet Transactions</p>
                   </div>
-                </div>
+                </div> -->
                 <div class="card-body">
-                  <v-client-table
+                  <!-- <v-client-table
                     :data="walletTransactions"
                     :columns="columns"
                     :options="options"
@@ -29,7 +29,8 @@
                       slot="sn"
                       slot-scope="props"
                     >{{props.index}}</span>
-                  </v-client-table>
+                  </v-client-table> -->
+                  <vue-table-dynamic :params="params"></vue-table-dynamic>
                 </div>
               </div>
             </div>
@@ -160,10 +161,11 @@
 import * as $ from "jquery";
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import VueTableDynamic from 'vue-table-dynamic'
 export default {
   name: 'Wallet',
   components: {
-    TopNav, Footer
+    TopNav, Footer, VueTableDynamic
   },
   data () {
     return {
@@ -185,32 +187,25 @@ export default {
       transaction: {
         balance: 0,
         user_id: this.$store.getters.user.id,
+        type: "CREDIT",
         payment: []
       },
       walletTransactions: [],
       page_url: null,
       pagination: {},
-      columns: ["sn",'amount_before', 'amount' , 'amount_after', 'order_number', 'id', 'channel', 'remarks', 'date'],
-      options: {
-
-        headings:  {
-          sn: "S/N",
-          amount_before: "Amount Before",
-          amount_after: "Amount After",
-          amount: "Transaction Amount",
-          order_number: "Order Number",
-          id: "Transaction ID",
-          channel: "Transaction Channel",
-          remarks: "Transaction Remarks",
-          date: "Transaction Date and Time"
-
-        },
-
-        sortable:  ["sn",'amount_before', 'amount' , 'amount_after', 'order_number', 'id', 'channel', 'remarks', 'date'],
-        filterable: ['amount_before', 'amount' , 'amount_after', 'order_number', 'id', 'channel', 'remarks', 'date'],
-        saveState: true,
-      }
-
+      params: {
+        data: [
+          ["sn", 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+        ],
+        header: 'row',
+        stripe: true,
+        enableSearch: true,
+        sort: [0, 1, 3, 4, 5, 6, 7, 8, 9],
+        pagination: true,
+        pageSize: 10,
+        pageSizes: [10],
+        columnWidth: [{column: 0, width: '5%'}, {column: 1, width: '5%'}, {column: 2, width: '13%'}, {column: 4, width: '10%'}],
+      },
     };
   },
   computed: {
@@ -240,7 +235,17 @@ export default {
       }
       this.$request.makeGetRequest(req)
         .then(res => {
+          let object = [];
+          this.params.data = [this.params.data[0]];
           this.walletTransactions = res.data.data;
+          this.walletTransactions.forEach(val => {
+            console.log(this.params.data[0])
+            this.params.data[0].forEach((key) => {
+                object.push(val[key]);
+            });
+            this.params.data.push(object);
+            object = [];
+          });
         })
         .catch(err => console.log(err));
     },
@@ -307,6 +312,7 @@ export default {
       if (!isValidate.includes(false)) {
 
         console.log(this.transaction);
+        this.transaction.amount = this.transaction.balance;
         if (this.clearance) {
           let req = {
             what: "creditWallet",
@@ -317,10 +323,10 @@ export default {
             .makePostRequest(req)
             .then(res => {
               if (this.transaction.payment.method.includes("gift")) {
-                this.payGift(res.data)
+                this.payGift(res.data.data)
               }
               else {
-                this.payCard(res.data)
+                this.payCard(res.data.data)
               }
               this.fetchWalletTransactions();
             })
@@ -349,6 +355,7 @@ export default {
         }
         if (meth == 'card') {
           this.payment.card = true;
+          this.transaction.payment.method = "card";
         }
       }
       else {
@@ -366,6 +373,7 @@ export default {
         }
         if (meth == 'card') {
           this.payment.card = false;
+          this.balance = this.transaction.balance
         }
       }
     },
@@ -424,12 +432,12 @@ export default {
       let transid = giftref ? giftref : `${this.user.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;
-      if (Number(this.balance) !== "" && this.balance > 0) {
+      if (this.balance !== "" && Number(this.balance) > 0) {
         cardamount = this.balance
 
       }
       else {
-        cardamount = transaction.balance
+        cardamount = this.transaction.balance
       }
         getpaidSetup({
 
@@ -438,7 +446,7 @@ export default {
         customer_firstname: this.user.firstname,
         customer_lastname: this.user.lastname,
         custom_description: "Payment for transaction made",
-        custom_logo: "https:marketsquareng.com/assets/img/logo_mobile.png",
+        custom_logo: "https//:marketsquareng.com/assets/img/logo_mobile.png",
         custom_title: "Market Square",
         amount: cardamount,
         customer_phone: this.user.phone,
