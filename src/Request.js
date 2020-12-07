@@ -129,6 +129,7 @@ export default {
             redeemgift: 'redeemgiftcard',
             redeemgiftwallet: 'redeemWalletGiftCard',
             creditWallet: 'creditWallet',
+            debitWallet: 'debitWallet',
             verifywalletcredit: 'verifyWalletCredit'
 
 

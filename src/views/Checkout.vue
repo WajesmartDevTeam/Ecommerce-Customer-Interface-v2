@@ -609,11 +609,14 @@
                                 <span v-else>Pickup(Free)</span>
                               </td>
                             </tr>
-                            <tr>
-                              <td>Wallet Balance</td>
-                              <td class="float-right ">₦{{formatPrice(user.wallet_balance)}}</td>
+                            <tr v-if="isLoggedIn">
+                              <td>Wallet</td>
+                              <td class="float-right ">₦{{formatPrice(user.available_balance)}}</td>
                             </tr>
-
+                            <tr v-if="isLoggedIn">
+                              <td>Wallet Balance</td>
+                              <td class="float-right ">₦{{formatPrice(available_balance)}}</td>
+                            </tr>
                           </tbody>
                           <tfoot>
                             <tr>
@@ -631,6 +634,7 @@
                           id='voucherCheck'
                           type="checkbox"
                           class="form-check-input"
+                          :disabled="Number(balance) == 0"
                           v-model="payment.voucher"
                           @change="paymethod($event, 'voucher')"
                         />
@@ -668,6 +672,7 @@
                           type="checkbox"
                           class="form-check-input"
                           @change="paymethod($event, 'card')"
+                          :disabled="Number(balance) == 0"
                         />
                         <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
                           <small
@@ -701,8 +706,8 @@
                         </validation-provider>
                       </div>
                       <button
-                        v-bind:disabled="(balance ==order.order_total || balance >0) && payment.card==false"
-                        v-bind:class="(balance ==order.order_total || balance >0) && payment.card==false? 'disabled': ''"
+                        v-bind:disabled="!canPay"
+                        v-bind:class="!canPay ? 'disabled': ''"
                         type="submit"
                       >Proceed to Payment</button>
                     </div>
@@ -900,11 +905,24 @@ export default {
   },
   data () {
     return {
+      transaction: {
+        balance: 0,
+        user_id: this.$store.getters.user.id,
+        type: "DEBIT",
+        amount: 0
+      },
+      top_up_transaction: {
+        balance: 0,
+        user_id: this.$store.getters.user.id,
+        type: "CREDIT",
+        amount: 0
+      },
       isLoggedIn: this.$store.getters.isLoggedIn,
       edit: false,
       clearance: '',
       selected_window: '',
       user: {},
+      available_balance: 0,
       balance: "",
       giftcard_amount: '',
       store: {},
@@ -954,6 +972,7 @@ export default {
           landmark: "",
           contact_method: "",
         },
+        
         order_enquiry_contactname: '',
         order_enquiry_contactnumber: '',
         contact_upon_delivery_name: '',
@@ -1010,7 +1029,7 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
-    // this.fetchDeliveryFeeVariation();
+    this.fetchDeliveryFeeVariation();
   },
   watch: {
     edit (val) {
@@ -1023,20 +1042,48 @@ export default {
     }
   },
   computed: {
+    canPay(){
+      if(this.isLoggedIn) {
+        return (Number(this.user.available_balance) == 0 || Number(this.user.available_balance) > 0) && this.balance  > 0 && this.payment.card || (Number(this.user.available_balance) || this.payment.voucher) > 0 && this.balance == 0 && this.clearance;
+      } else {
+        return !((this.balance == this.order.order_total || this.balance >0) && this.payment.card==false);
+      }
+    },
     deliveryFee () {
-      // let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
-      // return isNaN(result) ? 0 : result;
-      return this.order.delivery.charge;
+      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      return isNaN(result) || result == undefined ? 0 : result;
+      // return this.order.delivery.charge;
     },
     ordertotal () {
-      let total = ((Number(this.order.cart_subtotal) + Number(this.deliveryFee)) - Number(user.wallet_ballance));
-      console.log(total);
-      total = total > 0 ? total : total * -1;
+      let total = (Number(this.order.cart_subtotal) + Number(this.deliveryFee));
       this.order.order_total = total;
-      return total;
+      if(this.isLoggedIn) {
+        let available_balance =  Number(this.user.available_balance);
+        let top_up = Number(this.top_up_transaction.amount);
+        let balance =  Number(this.user.available_balance) - total;
+        
+        if(balance < 0) {
+          balance = balance * -1;
+          this.available_balance = 0;
+          this.transaction.amount =  -1 * available_balance;
+          this.balance = balance;
+        } else {
+          this.available_balance = balance;
+          this.transaction.amount = -1 * (available_balance - balance);
+          balance = 0;
+          this.balance = balance;
+        }
+        if(top_up > 0){
+           this.balance = top_up + this.balance;
+        }
+        return this.balance;
+      } else {
+        return total;
+      }
     },
   },
   methods: {
+    
     fetchDeliveryFeeVariation() {
       let req = {
         what: "deliveryFeeVariation",
@@ -1149,7 +1196,7 @@ export default {
             this.payment.voucher = true;
             this.giftcard_amount = res.data.data
             document.getElementById('statusvoucher').textContent = '₦' + this.giftcard_amount;
-            this.balance = Number(this.order.order_total) - Number(res.data.data)
+            this.balance = Number(this.balance) - Number(res.data.data)
             document.getElementById('balance').textContent = 'Balance= ₦' + this.balance;
           }
         })
@@ -1250,15 +1297,66 @@ export default {
 
 
     },
+    makeTransaction (type, data) {
+      let req = {
+        what: type,
+        showLoader: true,
+        data: data
+      }
+      this.$request
+      .makePostRequest(req)
+      .then(res => {
+        let req = {
+          what: "placeorder",
+          showLoader: false,
+          data: this.order
+        }
+        this.$request
+        .makePostRequest(req)
+        .then(res => {
+          this.order.amount_paid = this.transaction.amount;
+          // console.log(res.data.data.order);
+          if(this.balance > 0) {
+            if (this.order.payment.method.includes("gift")) {
+              this.payGift(res.data.data.order)
+            }
+            else {
+              this.payCard(res.data.data.order)
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.$swal.fire("Error", error.message, "error");
+        });              
+        })
+        .catch(error => {
+          console.log(error);
+          this.$swal.fire("Error", error.message, "error");
+        });
+    },
     placeOrder () {
+      console.log('about to order');
 
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
+      this.transaction.unique_code = this.order.unique_code;
       this.order.contact_upon_delivery_number = this.order.contact_upon_delivery_number.replace(/\s/g, '');
       this.order.order_enquiry_contactnumber = this.order.order_enquiry_contactnumber.replace(/\s/g, '');
       this.order.customer.phone = this.order.customer.phone.replace(/\s/g, '');
       let isValidate = [];
-      let field = []
+      let field = [];
 
+      if (Number(this.user.available_balance) >  0) {
+        if (this.order.payment.method.toLowerCase().includes("wallet") == false) {
+          this.order.payment.method += " wallet"
+        }
+      }
+      else {
+        if (this.order.payment.method.toLowerCase().includes("wallet")) {
+
+          this.order.payment.method = this.order.payment.method.replace(' wallet', '')
+        }
+      }
       if (this.payment.loyalty) {
         if (this.order.payment.method.toLowerCase().includes("loyalty") == false) {
 
@@ -1267,10 +1365,8 @@ export default {
       }
       else {
         if (this.order.payment.method.toLowerCase().includes("loyalty")) {
-
           this.order.payment.method = this.order.payment.method.replace(' loyalty', '')
         }
-
       }
       if (this.payment.voucher) {
         if (this.order.payment.method.toLowerCase().includes("gift") == false) {
@@ -1281,7 +1377,6 @@ export default {
         if (this.order.payment.method.toLowerCase().includes("gift")) {
           this.order.payment.method = this.order.payment.method.replace(' gift', '')
         }
-
       }
       if (this.payment.card) {
         if (this.order.payment.method.toLowerCase().includes("card") == false) {
@@ -1290,7 +1385,6 @@ export default {
       }
       else {
         if (this.order.payment.method.toLowerCase().includes("card")) {
-
           this.order.payment.method = this.order.payment.method.replace(' card', '')
         }
       }
@@ -1319,26 +1413,36 @@ export default {
 
         console.log(this.order);
         if (this.clearance) {
-          let req = {
-            what: "placeorder",
-            showLoader: true,
-            data: this.order
+          if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
+            if(Number(this.top_up_transaction.amount) > 0) {
+              this.makeTransaction('creditWallet', this.top_up_transaction);
+            } else if(Number(this.user.available_balance) >  0 ) {
+              this.makeTransaction('deditWallet', this.transaction);
+            } 
+          } else {
+            let req = {
+                what: "placeorder",
+                showLoader: true,
+                data: this.order
+              }
+              this.$request
+              .makePostRequest(req)
+              .then(res => {
+                // console.log(res.data.data.order);
+                if(this.balance > 0) {
+                  if (this.order.payment.method.includes("gift")) {
+                    this.payGift(res.data.data.order)
+                  }
+                  else {
+                    this.payCard(res.data.data.order)
+                  }
+                }
+              })
+              .catch(error => {
+                console.log(error);
+                this.$swal.fire("Error", error.message, "error");
+              });  
           }
-          this.$request
-            .makePostRequest(req)
-            .then(res => {
-              // console.log(res.data.data.order);
-              if (this.order.payment.method.includes("gift")) {
-                this.payGift(res.data.data.order)
-              }
-              else {
-                this.payCard(res.data.data.order)
-              }
-            })
-            .catch(error => {
-              console.log(error);
-              this.$swal.fire("Error", error.message, "error");
-            });
         }
         else {
           this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
@@ -1361,6 +1465,9 @@ export default {
       if (Number(this.balance) !== "" && this.balance > 0) {
         cardamount = this.balance
 
+      }
+      else if(this.isLoggedIn && this.user.available_balance > 0) {
+        cardamount = Number(order.order_total) + Number(this.top_up_transaction.amount)
       }
       else {
         cardamount = order.balance
