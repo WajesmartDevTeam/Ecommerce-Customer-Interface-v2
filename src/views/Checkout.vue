@@ -1466,8 +1466,8 @@ export default {
         cardamount = this.balance
 
       }
-      else if(this.isLoggedIn && this.user.available_balance > 0) {
-        cardamount = Number(order.order_total) + Number(this.top_up_transaction.amount)
+      else if(this.isLoggedIn) {
+        cardamount = Number(this.balance) + Number(this.top_up_transaction.amount)
       }
       else {
         cardamount = order.balance
