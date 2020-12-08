@@ -626,6 +626,16 @@
                           </tfoot>
                         </table>
 
+                        <div class="form-row px-2">
+                          <input
+                            type="text"
+                            class="form-control col-12"
+                            min="0"
+                            placeholder="Enter Wallet Top Up Ammount"
+                            v-model="top_up_transaction.amount"
+                          >
+                        </div>
+
                       </div>
                     </div>
                     <div>
@@ -1060,19 +1070,20 @@ export default {
       if(this.isLoggedIn) {
         let available_balance =  Number(this.user.available_balance);
         let top_up = Number(this.top_up_transaction.amount);
-        let balance =  Number(this.user.available_balance) - total;
+        let balance = available_balance - total;
         
         if(balance < 0) {
           balance = balance * -1;
           this.available_balance = 0;
           this.transaction.amount =  -1 * available_balance;
-          this.balance = balance;
+          this.order.amount_paid = (total - balance);
         } else {
+          this.order.amount_paid = (available_balance - balance);
+          this.transaction.amount = -1 * this.order.amount_paid;
           this.available_balance = balance;
-          this.transaction.amount = -1 * (available_balance - balance);
           balance = 0;
-          this.balance = balance;
         }
+        this.balance = balance;
         if(top_up > 0){
            this.balance = top_up + this.balance;
         }
@@ -1144,9 +1155,8 @@ export default {
               }
             });
             let sortedActivities = response.data.data.slice().sort((a, b) => new Date(b.window_date) - new Date(a.window_date));
-            this.windows = sortedActivities.reverse();
+            this.windows = sortedActivities.length > 0 ? sortedActivities.reverse() : [];
             this.listWindows(this.windows[0], 'day0');
-
           }
         })
         .catch(error => {
@@ -1298,6 +1308,7 @@ export default {
 
     },
     makeTransaction (type, data) {
+      data.unique_code = this.order.unique_code;
       let req = {
         what: type,
         showLoader: true,
@@ -1306,40 +1317,17 @@ export default {
       this.$request
       .makePostRequest(req)
       .then(res => {
-        let req = {
-          what: "placeorder",
-          showLoader: false,
-          data: this.order
-        }
-        this.$request
-        .makePostRequest(req)
-        .then(res => {
-          this.order.amount_paid = this.transaction.amount;
-          // console.log(res.data.data.order);
-          if(this.balance > 0) {
-            if (this.order.payment.method.includes("gift")) {
-              this.payGift(res.data.data.order)
-            }
-            else {
-              this.payCard(res.data.data.order)
-            }
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          this.$swal.fire("Error", error.message, "error");
-        });              
-        })
-        .catch(error => {
-          console.log(error);
-          this.$swal.fire("Error", error.message, "error");
-        });
+          this.$store.dispatch('user', res.user );
+      })
+      .catch(error => {
+        console.log(error);
+        this.$swal.fire("Error", error.message, "error");
+      });
     },
     placeOrder () {
       console.log('about to order');
 
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
-      this.transaction.unique_code = this.order.unique_code;
       this.order.contact_upon_delivery_number = this.order.contact_upon_delivery_number.replace(/\s/g, '');
       this.order.order_enquiry_contactnumber = this.order.order_enquiry_contactnumber.replace(/\s/g, '');
       this.order.customer.phone = this.order.customer.phone.replace(/\s/g, '');
@@ -1414,11 +1402,55 @@ export default {
         console.log(this.order);
         if (this.clearance) {
           if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
+            
             if(Number(this.top_up_transaction.amount) > 0) {
               this.makeTransaction('creditWallet', this.top_up_transaction);
-            } else if(Number(this.user.available_balance) >  0 ) {
-              this.makeTransaction('deditWallet', this.transaction);
-            } 
+            }
+            if(Number(this.user.available_balance) >  0 ) {
+              this.makeTransaction('debitWallet', this.transaction);
+            }
+            
+            let req = {
+              what: "placeorder",
+              showLoader: false,
+              data: this.order
+            }
+            this.$request
+            .makePostRequest(req)
+            .then(res => {
+              
+              // console.log(res.data.data.order);
+              if(this.balance > 0 || this.top_up_transaction.amount > 0) {
+                if (this.order.payment.method.includes("gift")) {
+                  this.payGift(res.data.data.order)
+                }
+                else {
+                  this.payCard(res.data.data.order)
+                }
+              } else {
+                let order = res.data.data.order;
+                let req = {
+                  what: "verifypayment",
+                  showLoader: true,
+                  data: {
+                    txref: null,
+                    pref: null,
+                    order_id: order.id,
+                    user_id: order.user_id,
+                    cart_id: "",
+                    customer_id: "",
+                    status: "successful",
+                    amount: Number(this.balance)
+                  }
+                }
+
+                this.verifyPayment(this, req, order);
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              this.$swal.fire("Error", error.message, "error");
+            });     
           } else {
             let req = {
                 what: "placeorder",
@@ -1467,7 +1499,7 @@ export default {
 
       }
       else if(this.isLoggedIn) {
-        cardamount = Number(this.balance) + Number(this.top_up_transaction.amount)
+        cardamount = Number(this.balance)
       }
       else {
         cardamount = order.balance
@@ -1529,12 +1561,27 @@ export default {
               }
             }
 
-            vm.$request
+           vm.verifyPayment(vm, req, order);
+
+          } else {
+            //Add your failure page here
+            vm.$swal.fire({
+              icon: 'error',
+              type: "error",
+              title: 'Error',
+              text: 'Payment Failed!!!',
+            })
+          }
+        }
+      });
+    },
+    verifyPayment (vm, req, order) {
+       vm.$request
               .makePostRequest(req)
               .then(res => {
                 console.log(res)
                 vm.$store.dispatch('orderinfo', order);
-                vm.$store.dispatch('addToCart', [])
+                vm.$store.dispatch('addToCart', []);
                 vm.$swal.fire({
                   title: 'Success!',
                   html: 'Order Payment Successful!!!',
@@ -1561,18 +1608,6 @@ export default {
                 console.log(error);
                 vm.$swal.fire("Error", error, "error");
               });
-
-          } else {
-            //Add your failure page here
-            vm.$swal.fire({
-              icon: 'error',
-              type: "error",
-              title: 'Error',
-              text: 'Payment Failed!!!',
-            })
-          }
-        }
-      });
     },
     payGift (order) {
       let vm = this;

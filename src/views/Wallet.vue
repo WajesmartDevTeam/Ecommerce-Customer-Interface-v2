@@ -64,7 +64,7 @@
                         type="text"
                         class="form-control col-12"
                         min="1"
-                        placeholder="Enter Wallet Top U Ammount"
+                        placeholder="Enter Wallet Top Up Ammount"
                         v-model="transaction.balance"
                       >
                     </div>
@@ -477,7 +477,6 @@ export default {
                 }
               }
             
-
             vm.$request
               .makePostRequest(req)
               .then(res => {
