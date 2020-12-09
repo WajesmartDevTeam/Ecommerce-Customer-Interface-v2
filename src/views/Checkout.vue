@@ -1317,7 +1317,7 @@ export default {
       this.$request
       .makePostRequest(req)
       .then(res => {
-          this.$store.dispatch('user', res.data.user );
+          
       })
       .catch(error => {
         console.log(error);
@@ -1582,6 +1582,7 @@ export default {
                 console.log(res)
                 vm.$store.dispatch('orderinfo', order);
                 vm.$store.dispatch('addToCart', []);
+                this.$store.dispatch('user', res.data.data);
                 vm.$swal.fire({
                   title: 'Success!',
                   html: 'Order Payment Successful!!!',
