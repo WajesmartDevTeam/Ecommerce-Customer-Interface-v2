@@ -68,7 +68,6 @@
                         v-model="transaction.balance"
                       >
                     </div>
-
                   </div>
                 </div>
                 <div>
@@ -106,9 +105,7 @@
                         class="btn mt-1 ml-1 col-4"
                       >Verify</button>
                     </div>
-
                   </div>
-
                   <div class="form-group form-check pay mt-3">
                     <input
                       type="checkbox"

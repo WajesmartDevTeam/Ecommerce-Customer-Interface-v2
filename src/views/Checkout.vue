@@ -1317,7 +1317,7 @@ export default {
       this.$request
       .makePostRequest(req)
       .then(res => {
-          this.$store.dispatch('user', res.user );
+          this.$store.dispatch('user', res.data.user );
       })
       .catch(error => {
         console.log(error);
