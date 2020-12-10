@@ -431,13 +431,14 @@ export default {
           $(".modal").modal("hide")
           this.$router.push('home')
           // location.reload()
-        } else if(window.location.pathname == '/black-friday') {
+        } else if(window.location.pathname == '/hampers') {
           $(".modal").modal("hide")
           if(this.$store.getters.categoryRoute == null) {
             this.$router.push('home')
+          } else {
+            this.$router.push(this.$store.getters.categoryRoute);
+            this.$router.go();
           }
-          this.$router.push(this.$store.getters.categoryRoute);
-          this.$router.go();
         } else {
           $(".modal").modal("hide")
           // this.$router.go()

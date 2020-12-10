@@ -23,6 +23,8 @@ import OrderView from '../views/OrderView.vue'
 import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
 import BlackFriday from '../views/BlackFriday.vue';
+import Hampers from '../views/Hampers.vue';
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -38,7 +40,12 @@ const routes = [{
     {
         path: '/black-friday',
         name: 'BlackFriday',
-        component: BlackFriday
+        component: Home
+    },
+    {
+        path: '/hampers',
+        name: 'Hampers',
+        component: Hampers
     },
     {
         path: '/category/:cat',

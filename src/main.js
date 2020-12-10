@@ -138,7 +138,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 router.beforeEach((to, from, next) => {
-    if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About' || to.name == 'MyOrders' || to.name == 'MyAccount' || to.name == 'AddressBook' || to.name == 'Product'|| to.name === 'BlackFriday') next()
+    if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About' || to.name == 'MyOrders' || to.name == 'MyAccount' || to.name == 'AddressBook' || to.name == 'Product'|| to.name === 'BlackFriday' || to.name == 'Hampers') next()
     else if (to.name !== 'LandingPage' && !store.getters.isStoreSet) next({ name: 'LandingPage' })
     else if (to.name == 'LandingPage' && store.getters.isStoreSet) next({ name: 'Home' })
     else next();
