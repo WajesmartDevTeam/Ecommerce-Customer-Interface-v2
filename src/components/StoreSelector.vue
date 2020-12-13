@@ -421,7 +421,7 @@ export default {
       store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
-      this.$store.dispatch("setBlackFriday", false);
+      // this.$store.dispatch("setBlackFriday", false);
       this.$store.dispatch("setStore", store).then(res => {
         if (oldstore !== store.name) {
           this.$store.dispatch('addToCart', []);
@@ -431,13 +431,13 @@ export default {
           $(".modal").modal("hide")
           this.$router.push('home')
           // location.reload()
-        } else if(window.location.pathname == '/black-friday') {
-          $(".modal").modal("hide")
-          if(this.$store.getters.categoryRoute == null) {
-            this.$router.push('home')
-          }
-          this.$router.push(this.$store.getters.categoryRoute);
-          this.$router.go();
+        // } else if(window.location.pathname == '/black-friday') {
+        //   $(".modal").modal("hide")
+        //   if(this.$store.getters.categoryRoute == null) {
+        //     this.$router.push('home')
+        //   }
+        //   this.$router.push(this.$store.getters.categoryRoute);
+        //   this.$router.go();
         } else {
           $(".modal").modal("hide")
           // this.$router.go()

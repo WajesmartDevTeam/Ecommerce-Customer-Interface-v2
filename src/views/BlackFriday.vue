@@ -581,7 +581,7 @@ export default {
   },
   
   beforeMount () {
-    this.$store.dispatch("setBlackFriday", true);
+    // this.$store.dispatch("setBlackFriday", true);
     this.$store.dispatch('ToggleShowSearch', false);
     this.loader = this.$loading.show();
   },

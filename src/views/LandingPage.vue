@@ -20,7 +20,7 @@
               :style="i"
             >
 
-              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+              <div class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
@@ -32,18 +32,6 @@
                   <button
                     data-toggle="modal"
                     data-target="#store"
-                    class="start-button margin"
-                  >Get Started
-                    <i class="fa fa-long-arrow-right ml-2"></i></button>
-                </div>
-              </div>
-              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
-            'background-position': 'center',
-            'background-size': 'cover',
-            'background-repeat': 'no-repeat',
-            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
-                <div class="banner-text">
-                  <button
                     class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
@@ -65,7 +53,7 @@
                 :style="i"
             >
 
-              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
+              <div class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
@@ -77,18 +65,6 @@
                   <button
                     data-toggle="modal"
                     data-target="#store"
-                    class="start-button margin"
-                  >Get Started
-                    <i class="fa fa-long-arrow-right ml-2"></i></button>
-                </div>
-              </div>
-              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
-            'background-position': 'center',
-            'background-size': 'cover',
-            'background-repeat': 'no-repeat',
-            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
-                <div class="banner-text">
-                  <button
                     class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
@@ -381,7 +357,7 @@ export default {
   data () {
     return {
       loader: '',
-      banners: ['Homepage', 'MSQNowOpenHomePage']
+      banners: ['MSQNowOpenHomePage']
     }
   },
   
