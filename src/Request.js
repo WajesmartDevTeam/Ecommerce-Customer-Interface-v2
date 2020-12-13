@@ -8,12 +8,14 @@ import Vue from "vue";
 import store from "./store";
 import axios from 'axios'
 
-// const URL = "http://localhost:8000/api/";
+const URL = "http://localhost:8000/api/";
 // const URL = "https://marketsquareng.website/api/"
-const URL = "https://admin.sundrymarkets.com/api/"
+// const URL = "https://admin.sundrymarkets.com/api/"
 
 export default {
     name: "Request",
+
+    url: URL.substring(0, URL.indexOf('/api')),
 
     makeGetRequest: request => {
         if (request.showLoader || request.showLoader == undefined) {
@@ -51,7 +53,8 @@ export default {
             listaddress: 'addresses',
             banners: 'thumbnail',
             getproduct: 'getproduct',
-            deliveryFeeVariation: 'getDeliveryFeeVariation'
+            deliveryFeeVariation: 'getDeliveryFeeVariation',
+            landingPageThumbnails: 'landing_page_thumbnail',
 
         };
         if (request.params !== undefined) {

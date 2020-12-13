@@ -359,7 +359,7 @@
             margin: 0;
         }
         
-        .product-group .product .product-footer button.addtocart {
+        .product-group .product .product-footer button.addtocart, button.addtocart {
             margin: 10px auto;
             width: 109px;
             height: 40px;
@@ -374,7 +374,7 @@
         }
         
         .product-group .product .product-footer button.addtocart:hover,
-        .product-group .product .product-footer button.addtocart:focus {
+        .product-group .product .product-footer button.addtocart:focus, button.addtocart:focus, button.addtocart:hover {
             background: #000066;
             color: #fff;
         }
@@ -468,7 +468,7 @@
             align-items: center;
         }
         
-        #product .product-footer button.addtocart {
+        #product .product-footer button.addtocart, button.addtocart {
             width: 125px;
             height: 40px;
             background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -482,7 +482,7 @@
         }
         
         #product .product-footer button.addtocart:hover,
-        #product .product-footer button.addtocart:focus {
+        #product .product-footer button.addtocart:focus, button.addtocart:hover, button.addtocart:focus {
             background: #000066;
             color: #fff;
         }
@@ -490,14 +490,14 @@
         #product .product-footer button.addtocart:hover .img1,
         #product .product-footer button.addtocart:focus .img1,
         .product-group .product .product-footer button.addtocart:hover .img1,
-        .product-group .product .product-footer button.addtocart:focus .img1 {
+        .product-group .product .product-footer button.addtocart:focus .img1, button.addtocart:hover .img1, button.addtocart:focus .img1{
             display: none;
         }
         
         #product .product-footer button.addtocart:hover .img2,
         #product .product-footer button.addtocart:focus .img2,
         .product-group .product .product-footer button.addtocart:hover .img2,
-        .product-group .product .product-footer button.addtocart:focus .img2 {
+        .product-group .product .product-footer button.addtocart:focus .img2, button.addtocart:hover .img2, button.addtocart:focus .img2 {
             display: block!important;
         }
         

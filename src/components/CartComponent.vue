@@ -61,7 +61,7 @@
                   >
                   <img
                     v-else
-                    :src="'http://admin.sundrymarkets.com'+row.product.img_url"
+                    :src="url+row.product.img_url"
                     alt=""
                     class="img-fluid"
                   >
@@ -176,7 +176,8 @@ export default {
   data () {
     return {
       cart_total: 0,
-      cart: []
+      cart: [],
+      url: this.$request.url,
     }
   },
   mounted () {

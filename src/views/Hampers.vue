@@ -19,7 +19,7 @@
               :style="i"
             >
 
-              <div class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+              <div class="container-fluid"  :style="{'background-image': `url('` + image_url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
@@ -42,7 +42,7 @@
                 :style="i"
             >
 
-              <div class="container-fluid"   :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
+              <div class="container-fluid"   :style="{'background-image': `url('` + image_url + i.img_url+`')`, 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
@@ -58,162 +58,130 @@
           >
 
             
-            <div v-if='true' class=" row column">
-              <div class="product offset-sm-1 col-sm-6 col-xs-12 p-md-2 p-sm-1 mb-4">
+            <div v-if='!$store.getters.isStoreSet'  class=" row column">
+              <div
+                  v-for="(product, index) in products"
+                  v-bind:key="index"
+                  class="product offset-sm-1 col-sm-5 col-xs-12 p-md-2 p-sm-1 mb-4"
+              >
                   <div
                     class="product-image row"
                   >
                     <img
-                      src="../assets/img/blackFriday/indomie.jpg"
+                      :src="image_url + product.img_url"
                       alt=""
                       class="img-fluid"
                     >
                   </div>
                   <div class="product-text row justify-content-center">
-                    <div class="text-center product_name col-12">Standard Hamper</div>
-                    <div class="text-center product_subname col-12"> Alchoholic </div>
-                    <p class="  text-justify col-12 description" >Indomie Chicken 70gfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</p>
+                    <div class="text-center product_name col-12">{{product.name.substring(0, product.name.toLowerCase().indexOf('hamper') + 6)}}</div>
+                    <div class="text-center product_subname col-12"> {{product.name.substring(product.name.toLowerCase().indexOf('hamper') + 6)}} </div>
+                    <p class="  text-justify col-12 description" >{{product.description}}</p>
                   </div>
-                  <div class="row title-container justify-content-center"><div class="col-sm-4 title-space"><div class="title cost">N25, 000</div></div></div>
+                  <div class="row title-container justify-content-center"><div class="col-sm-4 title-space"><div class="title cost">N{{product.sellingprice}}</div></div></div>
               </div>
             </div>
 
             <div v-else >
-            <div 
-                    v-for="(product, index) in products"
-                    v-bind:key="product.sku"
-                    class="product-layout product-grid item  col-md-6 col-sm-6 col-xs-12"
+              <div
+                v-for="(product, index) in products"
+                v-bind:key="product.sku"
+                class="product offset-sm-1 col-sm-5 col-xs-12 p-md-2 p-sm-1 mb-4"
+              >
+                <input
+                  type="hidden"
+                  class="row"
+                  v-model="product.product_id"
+                />
+
+                <div
+                    class="product-image row"
+                    @click="$router.push('/category/'+product.category+'/'+product.name)"
+                >
+                  <img
+                      :src="image_url + product.img_url"
+                      alt=""
+                      class="img-fluid"
                   >
-                    <input
-                      type="hidden"
-                      v-model="product.product_id"
-                    />
-                    <div class="product-thumb col-item">
-                      <div class="item-inner">
-                        <div class="item-img">
-                          <div class="item-img-info">
-                            <a
-                              class="product-image"
-                              :href="'/category/'+product.category+'/'+product.name"
-                              :title="product.name"
-                            >
-                              <ImageItem
-                                mclass="img-container"
-                                :source="product.img_url"
-                                :alt="product.name"
-                                :title="product.name"
-                              />
-                            </a>
-                          </div>
-                        </div>
-                        <div class="item-info">
-                          <div class="info-inner">
-                            <div class="item-title">
-                              <a
-                                :title="product.name"
-                                :href="'/category/'+product.category+'/'+product.name"
-                              >{{ product.name }}
-                                <span v-if="product.description.includes('/KG') || product.description.includes('/ KG')">(Per Kg)</span></a>
-                            </div>
-
-                            <div class="item-content">
-                              <div class="desc std">
-                                <p>{{ product.description }}</p>
-                              </div>
-
-                              <div class="item-price">
-                                <div class="price-box">
-                                  <p class="regular-price">
-                                    <span v-if="product.promo">
-                                      <span class="price cancel naira">{{ formatPrice(product.sellingprice) }}</span>
-                                      <span class="price newprice naira">{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
-                                    </span>
-                                    <span
-                                      v-else
-                                      class="price naira"
-                                    >{{ formatPrice(product.sellingprice) }}</span>
-                                  </p>
-                                </div>
-                              </div>
-
-                              <div
-                                :id="'addtp'+index"
-                                class="addquantity hideqty addqt"
-                              >
-                                <div
-                                  @click="decreaseQuantity('tp'+index, product.id)"
-                                  class="value-button decrease"
-                                  value="Decrease Value"
-                                >-</div>
-                                <div class="value-button input-wrapper">
-                                  <input
-                                    v-if="product.description.includes('/KG') || product.description.includes('/ KG')"
-                                    :id="'tp'+index"
-                                    type="number"
-                                    min="0.001"
-                                    step="any"
-                                    class="number"
-                                    value=1.0
-                                    @keypress="restrictChars($event)"
-                                    @change="inputChange('tp'+index, product.id)"
-                                  >
-                                  <input
-                                    v-else
-                                    :id="'tp'+index"
-                                    type="number"
-                                    min="0"
-                                    class="number"
-                                    value=1
-                                    @keypress="restrictChars($event)"
-                                    @change="inputChange('tp'+index, product.id)"
-                                  />
-                                </div>
-                                <div
-                                  class="value-button increase"
-                                  value="Increase Value"
-                                  @click="increaseQuantity('tp'+index, product.id)"
-                                >+</div>
-                              </div>
-                              <div
-                                class="action"
-                                :id="'btntp'+index"
-                              >
-                                <button
-                                  style=" margin: 10px auto;"
-                                  type="button"
-                                  title
-                                  data-original-title="Add to Cart"
-                                  class="button btn-cart link-cart"
-                                  @click="addToCart(product, 'addtp'+index ,'btntp'+index ,'tp'+index)"
-                                >
-                                  <span>
-                                    Add to
-                                    Cart
-                                  </span>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- End Item info -->
-                      </div>
-                      <!-- End  Item inner-->
-                    </div>
+                </div>
+                <div class="product-text row justify-content-center">
+                  <div class="text-center product_name col-12" @click="$router.push('/category/'+product.category+'/'+product.name)">
+                    {{product.name.substring(0, product.name.toLowerCase().indexOf('hamper') + 6)}}
                   </div>
+                  <div class="text-center product_subname col-12"> {{product.name.substring(product.name.toLowerCase().indexOf('hamper') + 6)}} </div>
+                  <p class="  text-justify col-12 description" >{{product.description}}</p>
+                </div>
+                <div class="row title-container justify-content-center"><div class="col-sm-4 title-space"><div class="title cost">{{formatPrice(product.sellingprice)}}</div></div></div>
+                <div class="row">
+                      <button
+                          :id="'btntp'+index"
+                          class="addtocart"
+                          v-bind:class="product.hidebtn? 'hideqty':''"
+                          @click="addToCart(product, 'addtp'+index ,'btntp'+index ,'tp'+index)"
+                      >
+                        <img
+                            src="../assets/img/cart.png"
+                            class="img1"
+                            alt=""
+                        >
+                        <img
+                            class="d-none img2"
+                            src="../assets/img/cart-white.png"
+                            alt=""
+                        >
+
+                        <span>Add to cart</span>
+                      </button>
+                      <button
+                          :id="'addtp'+index"
+                          class="addquantity"
+                          v-bind:class="product.hideqty? 'hideqty':''"
+                      >
+                        <div
+                            @click="decreaseQuantity('tp'+index, product.id)"
+                            class=" decrease"
+                        >-</div>
+                        <input
+                            oninput="validity.valid||(value='');"
+                            :id="'tp' +index"
+                            type="number"
+                            min="0"
+                            step="1"
+                            class="number"
+                            :value=product.cart_qty
+                            @keypress="restrictChars($event)"
+                            @change="inputChange('tp'+index, product.id)"
+                        />
+
+                        <div
+                            @click="increaseQuantity('tp'+index, product.id)"
+                            class=" increase"
+                        >+</div>
+                      </button>
+                </div>
+              </div>
             </div>
 
             <div class="row column mt-5 text-center no-gutters">
-              <div class=" offset-sm-5 col-sm-4 mb-3 download mr-auto btn discount" style="color: white; font-weight:0">
-                <a :href="url+'/MSQ%20Black%20Friday%202020.pdf'" style="color: white" download>
-                Download discounted product flyer
-                </a>
-              </div>
-              <div v-if='$store.getters.isStoreSet==false' class="discount col-sm-2 mb-3 promo get-started btn" data-toggle="modal"
-                data-target="#store" @click="setCategoryRoute('/home')">
-                Shop Now
-              </div>
-              <div v-else class="col-sm-2 promo mb-3 discount get-started btn" @click="$router.push('home')">
-                Shop Now
+              <div class="col-sm-12 align-items-start justify-content-start">
+                <div class="row">
+                  <div class="col-sm-4 ml-auto" style="color: #ff0000;">
+                  For more gift hamper options
+                  </div>
+                  <div class="discount col-sm-2  mr-auto">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4 mb-3 ml-auto" style="color: red; font-weight:0">
+                      <a :href="url+'/XmasBasket.pdf'" class="download  btn discount" style="color: white" download>
+                      Download Full Gift Hamper List
+                      </a>
+                    </div>
+                    <div class="discount pb-0 col-sm-2 mb-3 mr-auto promo get-started btn" style="color: white" data-toggle="modal"
+                      data-target="#store">
+                      Shop Now
+                    </div>
+                </div>
               </div>
             </div>
           </div>
@@ -228,6 +196,9 @@
 </template>
 
 <style scoped>
+  button.addtocart .img1, button.addtocart .img2 {
+    margin: auto;
+  }
   .get-started:hover{
     cursor : pointer;
   }
@@ -260,7 +231,7 @@
   }
   .description {
     word-wrap: break-word !important; 
-    font-size: 2vh;
+    font-size: 1.25vh;
   }
   .promo{
     color: #fff;
@@ -277,10 +248,10 @@
   .product_name {
     font-size: 3vh;
     color: #000066;
-    font-weight: bold;
+    font-weight: 1000;
   }
   .product_subname {
-    font-size: 2.5vh;
+    font-size: 1.75vh;
     color: #ff0000;
   }
   .product-image{
@@ -325,6 +296,7 @@ export default {
       url: window.location.origin,
       products: [],
       page: 1,
+      image_url: this.$request.url,
       // MSQNowOpenHomePage
       banners: ['Homepage']
     }
@@ -339,25 +311,21 @@ export default {
     setTimeout(() => {
       this.loader.hide()
     }, 500);
+    this.fetchProducts();
   },
 
   created () {
     this.fetchBanners();
     // this.banners = this.$store.getters.banners
   },
-
-  mounted () {
-    this.fetchProducts();
-  },
   
   methods: {
     fetchProducts ($state) {
-      this.page += 1; ``
       let req = {
         what: "categories",
         showLoader: false,
         params: {
-          storeid: 1,
+          storeid: 13,
           category: 'HAMPERS',
           page: this.page
         }
@@ -591,14 +559,14 @@ export default {
     },
     fetchBanners () {
       let req = {
-        what: "banners",
+        what: "landingPageThumbnails",
         showLoader: false,
       }
       this.$request.makeGetRequest(req)
         .then(response => {
 
-          if (response.type == 'banners') {
-            this.$store.dispatch('banners', response.data.data)
+          if (response.type == 'landingPageThumbnails') {
+            this.banners = response.data.data.filter((banner) => banner.name.toLowerCase().includes('xmas'))
           }
         })
         .catch(error => {

@@ -768,7 +768,8 @@ export default {
     // this.banners = this.banners != [] ? this.banners.reverse() : this.banners;
   },
   mounted () {
-    this.fetchProducts()
+    this.fetchProducts();
+    this.fetchBanners();
   },
   methods: {
     goToCategory(name) {
@@ -799,7 +800,28 @@ export default {
       let result = this.goToCategory(name);
       if(result != null) {
         this.$router.push(result);
+      } else if(name.includes('xmas')) {
+        this.$router.push('/hampers');
       }
+    },
+    fetchBanners () {
+      let req = {
+        what: "banners",
+        showLoader: false,
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'banners') {
+              this.banners = response.data.data
+              this.$store.dispatch('banners', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
     },
     fetchProducts () {
       let req = {
