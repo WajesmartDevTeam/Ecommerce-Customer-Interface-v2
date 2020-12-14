@@ -1,6 +1,6 @@
 deployment:
     tasks:
-          - export DEPLOYPATH=../../test-front/
+          - export DEPLOYPATH=../../customer.marketsquareng.website/
           # - npm install
           # - npm run build
           - /bin/cp -R dist/* $DEPLOYPATH
