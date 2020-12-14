@@ -1,8 +1,8 @@
 deployment:
     tasks:
           - export DEPLOYPATH=/home/user/test-front/
-          # - /bin/npm install
-          # - /bin/npm run build
+          - npm install
+          - npm run build
           - /bin/cp /dist/. $DEPLOYPATH
         # - composer install --ignore-platform-reqs --optimize-autoloader --no-progress
         # - cp -n .env.example .env
