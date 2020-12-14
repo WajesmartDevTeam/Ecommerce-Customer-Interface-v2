@@ -3,7 +3,7 @@ deployment:
           - export DEPLOYPATH=/home/user/test-front/
           # - npm install
           # - npm run build
-          - /bin/cp dist/. $DEPLOYPATH
+          - /bin/cp -R /dist $DEPLOYPATH
         # - composer install --ignore-platform-reqs --optimize-autoloader --no-progress
         # - cp -n .env.example .env
         # - mv public_html public_html_old
