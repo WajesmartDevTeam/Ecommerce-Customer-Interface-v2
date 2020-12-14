@@ -1,0 +1,11 @@
+deployment:
+    tasks:
+          - export DEPLOYPATH=/home/user/test-front/
+          - /bin/npm install
+          - /bin/npm run build
+          - /bin/cp /dist/. $DEPLOYPATH
+        # - composer install --ignore-platform-reqs --optimize-autoloader --no-progress
+        # - cp -n .env.example .env
+        # - mv public_html public_html_old
+        # - ln -s /home/user/qaqc-backend.marketsquareng.com/public /home/user/qaqc-backend.marketsquareng.com
+
