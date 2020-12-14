@@ -1,6 +1,6 @@
 deployment:
     tasks:
-          - export DEPLOYPATH=/home/user/test-front/
+          - export DEPLOYPATH=../../test-front/
           # - npm install
           # - npm run build
           - /bin/cp -R dist/* $DEPLOYPATH
