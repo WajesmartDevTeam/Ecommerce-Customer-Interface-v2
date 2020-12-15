@@ -319,6 +319,12 @@
             margin: auto;
             text-align: center;
         }
+        .product-group .product .hamper {
+            width: auto;
+            height: 240px;
+            margin: auto;
+            text-align: center;
+        }
         
         .product-group .product .product-image img {
             height: 100%;

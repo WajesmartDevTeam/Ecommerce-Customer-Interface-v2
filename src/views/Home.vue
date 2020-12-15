@@ -27,7 +27,7 @@
               :style="i"
             >
               <img
-                :src="'https://admin.sundrymarkets.com'+i.img_url"
+                :src="image_url+i.img_url"
                 alt=""
                 class="router"
                 @click="goTo(i.name)"
@@ -48,7 +48,7 @@
               :style="i"
             >
               <img
-                :src="'https://admin.sundrymarkets.com'+i.img_url"
+                :src="image_url+i.img_url"
                 alt=""
                 class="router"
                 @click="goTo(i.name)"
@@ -751,6 +751,7 @@ export default {
   },
   data () {
     return {
+      image_url: this.$request.url,
       showSearch: false,
       products: {},
       pro: '',

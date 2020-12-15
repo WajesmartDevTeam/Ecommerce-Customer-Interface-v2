@@ -291,6 +291,14 @@
             text-align: center;
             padding: 10px;
         }
+
+        .product-group .product .hamper {
+            width: auto;
+            height: 180px;
+            margin: auto;
+            text-align: center;
+            padding: 10px;
+        }
         .product-group .product .product-text {
             height: 28px;
         }
@@ -377,6 +385,13 @@
         .product-group .product .product-image {
             width: auto;
             height: 95px;
+            margin: auto;
+            text-align: center;
+            padding: 10px;
+        }
+        .product-group .product .hamper {
+            width: auto;
+            height: 180px;
             margin: auto;
             text-align: center;
             padding: 10px;

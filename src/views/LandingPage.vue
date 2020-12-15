@@ -25,14 +25,15 @@
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
-            'position': 'relative'}" @click="goTo(i.name)">
+            'position': 'relative'}" data-toggle="modal"
+                   data-target="#store" @click="setCategoryRoute('/category/hampers')">
               </div>
               <div v-else class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}"  data-toggle="modal"
-                   data-target="#store">
+                   data-target="#store" @click="setCategoryRoute('/home')">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
@@ -64,14 +65,15 @@
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
-            'position': 'relative'}" @click="goTo(i.name)">
+            'position': 'relative'}" data-toggle="modal"
+                   data-target="#store" @click="setCategoryRoute('/category/hampers')">
               </div>
               <div v-else class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}"  data-toggle="modal"
-                   data-target="#store">
+                   data-target="#store" @click="setCategoryRoute('/home')">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
@@ -394,6 +396,9 @@ export default {
   },
   
   methods: {
+    setCategoryRoute (route) {
+      this.$store.dispatch('setCategoryRoute', route);
+    },
     goToCategory(name) {
       switch (name) {
         case "Black Friday":

@@ -427,17 +427,17 @@ export default {
           this.$store.dispatch('addToCart', []);
           location.reload()
         }
-        if (window.location.pathname == "/" || window.location.pathname == "/storeslist") {
+        if (window.location.pathname == "/storeslist") {
           $(".modal").modal("hide")
           this.$router.push('home')
           // location.reload()
-        // } else if(window.location.pathname == '/hampers') {
-        //   $(".modal").modal("hide")
-        //   if(this.$store.getters.categoryRoute == null) {
-        //     this.$router.push('home')
-        //   }
-        //   this.$router.push(this.$store.getters.categoryRoute);
-        //   this.$router.go();
+        } else if(window.location.pathname == '/') {
+          $(".modal").modal("hide")
+          if(this.$store.getters.categoryRoute == null) {
+            this.$router.push('home')
+          }
+          this.$router.push(this.$store.getters.categoryRoute);
+          this.$router.go();
         } else {
           $(".modal").modal("hide")
           // this.$router.go()
