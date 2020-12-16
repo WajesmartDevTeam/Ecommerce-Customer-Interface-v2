@@ -21,7 +21,7 @@
 
             >
 
-              <div v-if="i.name.toLowerCase().includes('hamper')" class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
+              <div v-if="i.name.toLowerCase().includes('xmas')" class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
@@ -61,7 +61,7 @@
                 :style="i"
             >
 
-              <div v-if="i.name.toLowerCase().includes('hamper')" class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
+              <div v-if="i.name.toLowerCase().includes('xmas')" class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',

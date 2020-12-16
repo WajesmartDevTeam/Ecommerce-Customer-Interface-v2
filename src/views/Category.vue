@@ -99,8 +99,8 @@
                     data-toggle="modal"
                   >
                     <p class="description">{{product.name}}</p>
-                    <p class="description desc">{{product.description}}</p>
-                    <p class="description"><a href="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p>
+                    <p class="description desc"><b>Content: </b>{{product.description}}</p>
+                    <p class="description"><a @click.prevent="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p>
                   </div>
                   
                   <div class="product-footer">
@@ -561,6 +561,7 @@ export default {
 
     this.category = this.$route.params.cat
     this.fetchProducts()
+    this.fetchBanners();
   },
   methods: {
     fetchBanners () {

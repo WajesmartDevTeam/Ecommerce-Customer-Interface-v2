@@ -43,11 +43,6 @@ const routes = [{
         component: Home
     },
     {
-        path: '/hampers',
-        name: 'Hampers',
-        component: Hampers
-    },
-    {
         path: '/category/:cat',
         name: 'Category',
         component: Category

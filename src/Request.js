@@ -6,7 +6,7 @@
 
 import Vue from "vue";
 import store from "./store";
-import axios from 'axios'
+import axios from 'axios';
 
 // const URL = "http://localhost:8000/api/";
 const URL = "https://marketsquareng.website/api/"
@@ -55,6 +55,7 @@ export default {
             getproduct: 'getproduct',
             deliveryFeeVariation: 'getDeliveryFeeVariation',
             landingPageThumbnails: 'landing_page_thumbnail',
+            hamperStatus: 'hamperStatus',
 
         };
         if (request.params !== undefined) {

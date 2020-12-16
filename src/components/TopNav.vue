@@ -374,6 +374,7 @@
               <li><a href="/category/general">General</a></li>
             </ul>
           </li>
+          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hamper</a></li>
         </ul>
       </div>
     </div>
@@ -472,6 +473,11 @@
         <a href="/category/general">General</a>
 
       </div>
+      <a
+        v-if="hamper_status == 1"
+        href="/category/hampers"
+        class="sidemenu"
+      >Hamper </a>
       <a
         href="/storelocator"
         class="sidemenu"
@@ -585,6 +591,7 @@ export default {
   data () {
     return {
       searchQuery: '',
+      hamper_status: 0,
       user: {},
       cart: [],
       store: {},
@@ -603,6 +610,7 @@ export default {
       this.cart = this.$store.getters.storesCart;
       // console.log(this.cart)
     }
+    this.getHamperStatus();
   },
   watch: {
     method (val) {
@@ -648,6 +656,24 @@ export default {
     }
   },
   methods: {
+    getHamperStatus() {
+      let req = {
+          what: "hamperStatus",
+          showLoader: false
+        }
+        this.$request.makeGetRequest(req)
+          .then(response => {
+            if (response.type == 'hamperStatus') {
+              this.hamper_status = response.data;
+              // this.$store.dispatch('hamper_status', response.data.data);
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+
+    },
     openNav () {
       document.getElementById("mySidepanel").style.width = "80%";
     },

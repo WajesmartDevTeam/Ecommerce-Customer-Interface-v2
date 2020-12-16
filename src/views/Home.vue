@@ -799,10 +799,12 @@ export default {
     },
     goTo (name) {
       let result = this.goToCategory(name);
+      
       if(result != null) {
         this.$router.push(result);
-      } else if(name.includes('xmas')) {
-        this.$router.push('/hampers');
+      } else if(name.toLowerCase().includes('xmas')) {
+        
+        this.$router.push('/category/hampers');
       }
     },
     fetchBanners () {
