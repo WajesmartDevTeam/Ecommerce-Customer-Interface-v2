@@ -22,8 +22,7 @@ export default {
             if (!Vue.prototype.$swal.isVisible()) {
                 var loading_html =
                     '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://www.c-sgroup.com/images/loading-icon-red.gif" /></div>';
-
-                Vue.prototype.$swal.fire({
+                   Vue.prototype.$swal.fire({
                     title: "",
                     html: loading_html,
                     showConfirmButton: false,

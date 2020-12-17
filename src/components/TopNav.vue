@@ -70,6 +70,7 @@
                 href=""
                 data-toggle="modal"
                 data-target="#store"
+                @click="setCategoryRoute('/home')"
               >
                 <img
                   src="../assets/img/store-icon-sm.png"
@@ -84,6 +85,7 @@
                 href=""
                 data-toggle="modal"
                 data-target="#store"
+                @click="setCategoryRoute('/home')"
               >
                 <img
                   src="../assets/img/store-icon-sm.png"
@@ -658,6 +660,9 @@ export default {
     }
   },
   methods: {
+     setCategoryRoute (route) {
+      this.$store.dispatch('setCategoryRoute', route);
+    },
     getHamperStatus() {
       let req = {
           what: "hamperStatus",
