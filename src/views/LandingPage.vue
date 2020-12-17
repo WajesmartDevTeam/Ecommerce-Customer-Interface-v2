@@ -21,12 +21,12 @@
 
             >
 
-              <div v-if="i.name.toLowerCase().includes('xmas')" class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
+              <div v-if="i.url.toLowerCase() != '/home' && i.url.toLowerCase() != '' && i.url.toLowerCase() != null" class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}" data-toggle="modal"
-                   data-target="#store" @click="setCategoryRoute('/category/hampers')">
+                   data-target="#store" @click="setCategoryRoute(i.url.toLowerCase())">
               </div>
               <div v-else class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
@@ -61,12 +61,12 @@
                 :style="i"
             >
 
-              <div v-if="i.name.toLowerCase().includes('xmas')" class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
+              <div v-if="i.url.toLowerCase() != '/home' && i.url.toLowerCase() != '' && i.url.toLowerCase() != null" class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}" data-toggle="modal"
-                   data-target="#store" @click="setCategoryRoute('/category/hampers')">
+                   data-target="#store" @click="setCategoryRoute(i.url.toLowerCase())">
               </div>
               <div v-else class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
             'background-position': 'center',

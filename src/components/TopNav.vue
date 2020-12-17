@@ -281,6 +281,7 @@
           id="menu"
           class="d-flex justify-content-between"
         >
+          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hamper</a></li>
           <li class="menu-link"><a href="/category/bakery">Bakery</a></li>
           <li class="menu-link dropdown">
             <a
@@ -374,7 +375,7 @@
               <li><a href="/category/general">General</a></li>
             </ul>
           </li>
-          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hamper</a></li>
+          
         </ul>
       </div>
     </div>
@@ -399,6 +400,11 @@
         href="/home"
         class="sidemenu"
       >Home</a>
+      <a
+        v-if="hamper_status == 1"
+        href="/category/hampers"
+        class="sidemenu"
+      >Hamper </a>
       <a
         href="/category/bakery"
         class="sidemenu"
@@ -473,11 +479,7 @@
         <a href="/category/general">General</a>
 
       </div>
-      <a
-        v-if="hamper_status == 1"
-        href="/category/hampers"
-        class="sidemenu"
-      >Hamper </a>
+      
       <a
         href="/storelocator"
         class="sidemenu"

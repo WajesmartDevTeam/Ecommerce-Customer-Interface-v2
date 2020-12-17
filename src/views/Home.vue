@@ -30,7 +30,7 @@
                 :src="image_url+i.img_url"
                 alt=""
                 class="router"
-                @click="goTo(i.name)"
+                @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
               >
             </slider-item>
           </slider>
@@ -51,7 +51,7 @@
                 :src="image_url+i.img_url"
                 alt=""
                 class="router"
-                @click="goTo(i.name)"
+                @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
               >
             </slider-item>
           </slider>

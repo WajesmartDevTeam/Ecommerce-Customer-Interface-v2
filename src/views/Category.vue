@@ -94,7 +94,7 @@
                   <div
                     @click="viewProduct(product)"
                     class="product-text"
-                    style="margin: auto !important"
+                    style="margin: auto !important; height: auto !important"
                     data-target="#product"
                     data-toggle="modal"
                   >
@@ -103,7 +103,7 @@
                     <p class="description"><a @click.prevent="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p>
                   </div>
                   
-                  <div class="product-footer">
+                  <div class="product-footer" style="height: auto !important">
                     <p class="price">
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
