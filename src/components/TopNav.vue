@@ -281,7 +281,7 @@
           id="menu"
           class="d-flex justify-content-between"
         >
-          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hamper</a></li>
+          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>
           <li class="menu-link"><a href="/category/bakery">Bakery</a></li>
           <li class="menu-link dropdown">
             <a
@@ -404,7 +404,7 @@
         v-if="hamper_status == 1"
         href="/category/hampers"
         class="sidemenu"
-      >Hamper </a>
+      >Hampers </a>
       <a
         href="/category/bakery"
         class="sidemenu"
