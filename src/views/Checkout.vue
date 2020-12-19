@@ -340,7 +340,7 @@
                           </p>
                         </div>
                         <div class="row mr-5 mt-3"
-                            v-if="windows.length == 0"
+                            v-if="!window_set"
                         >
                           <div
                             class="text-center col-md-12 mt-2"
@@ -898,6 +898,7 @@ export default {
       edit: false,
       clearance: '',
       selected_window: '',
+      window_set: false,
       user: {},
       balance: "",
       giftcard_amount: '',
@@ -1093,8 +1094,12 @@ export default {
               }
             });
             let sortedActivities = response.data.data.slice().sort((a, b) => new Date(b.window_date) - new Date(a.window_date));
-            this.windows = sortedActivities.reverse();
-            this.listWindows(this.windows[0], 'day0');
+            this.windows = sortedActivities.length > 0 ? sortedActivities.reverse() : [];
+            this.window_set = true;
+            if(this.windows != []) {
+              this.listWindows(this.windows[0], 'day0');
+            }
+
 
           }
         })
