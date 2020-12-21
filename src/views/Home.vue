@@ -4,7 +4,7 @@
     <TopNav></TopNav>
     <div class="home page">
       <div class="">
-        <div class="banner home-banner">
+        <div class="banner home-banner" style="text-align: center !important; ">
           <!-- <div class="container">
             <div class="banner-text">
               <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
