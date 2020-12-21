@@ -4,57 +4,7 @@
     <TopNav></TopNav>
     <div class="category page">
       <div class="container">
-         <div v-if="category.toLowerCase().includes('hamper')" class="banner home-banner mt-5">
-          <!-- <div class="container">
-            <div class="banner-text">
-              <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
-              <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
-
-            </div>
-          </div> -->
-          <slider
-            class="d-none d-md-block"
-            height="400px"
-            :ease="0.5"
-            :interval="8000"
-            :speed="1000"
-            :control-btn="false"
-            :indicators="false"
-          >
-            <slider-item
-              v-for="(i, index) in banners"
-              :key="index"
-              :style="i"
-            >
-              <img
-                :src="image_url+i.img_url"
-                alt=""
-                class="router"
-              >
-            </slider-item>
-          </slider>
-          <slider
-            class="d-block d-md-none"
-            :duration="10000"
-            height="150px"
-            :speed="8000"
-            :control-btn="false"
-            :indicators="false"
-          >
-            <slider-item
-              v-for="(i, index) in banners"
-              :key="index"
-              :style="i"
-            >
-              <img
-                :src="image_url+i.img_url"
-                alt=""
-                class="router"
-              >
-            </slider-item>
-          </slider>
-        </div>
-        <div v-else
+        <div
           class="banner category-banner mt-5"
           v-bind:class='category.replace(/\s+/g, "")'
         >
@@ -530,7 +480,12 @@ export default {
   },
   data () {
     return {
-        banners: [],
+        banners: [
+          {
+            name: 'xmas',
+            img_url: window.location.origin+'/xmas.jpg'
+          }
+        ],
       loader: '',
       showSearch: false,
       viewproduct: false,
@@ -561,7 +516,7 @@ export default {
 
     this.category = this.$route.params.cat
     this.fetchProducts()
-    this.fetchBanners();
+    // this.fetchBanners();
   },
   methods: {
     fetchBanners () {

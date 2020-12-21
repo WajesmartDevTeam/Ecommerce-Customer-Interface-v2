@@ -534,6 +534,13 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
+        .banner.category-banner.hampers {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../img/banners/xmas.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
         
         .banner.category-banner.groceries {
             background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../img/banners/Groceries.jpg);
