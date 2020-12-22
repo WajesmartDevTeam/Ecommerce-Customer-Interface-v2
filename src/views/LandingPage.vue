@@ -33,7 +33,7 @@
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}"  data-toggle="modal"
-                   data-target="#store" @click="setCategoryRoute('/home')">
+                   data-target="#store" >
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
@@ -73,7 +73,7 @@
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}"  data-toggle="modal"
-                   data-target="#store" @click="setCategoryRoute('/home')">
+                   data-target="#store">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->

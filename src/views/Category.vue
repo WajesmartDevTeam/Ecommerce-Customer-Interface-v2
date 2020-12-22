@@ -515,7 +515,11 @@ export default {
   mounted () {
 
     this.category = this.$route.params.cat
-    this.fetchProducts()
+    if(this.$store.getters.isStoreSet) {
+      this.fetchProducts()
+    } else {
+      this.loader.hide();
+    }
     // this.fetchBanners();
   },
   methods: {
