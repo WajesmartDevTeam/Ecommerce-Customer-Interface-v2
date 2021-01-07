@@ -974,8 +974,8 @@ export default {
     let rave = document.createElement("script");
     rave.setAttribute(
       "src",
-      // "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
-      "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
 
@@ -1357,8 +1357,7 @@ export default {
       // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
 
       // test
-      // let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
-      let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
+      let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
       let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;
