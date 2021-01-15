@@ -26,13 +26,16 @@
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}" data-toggle="modal"
+                   width="100%"
                    data-target="#store" @click="setCategoryRoute(i.url.toLowerCase())">
               </div>
               <div v-else class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
+
             'position': 'relative'}"  data-toggle="modal"
+                   width="100%"
                    data-target="#store" >
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
@@ -66,6 +69,7 @@
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}" data-toggle="modal"
+                   width="100%"
                    data-target="#store" @click="setCategoryRoute(i.url.toLowerCase())">
               </div>
               <div v-else class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
@@ -73,6 +77,7 @@
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
             'position': 'relative'}"  data-toggle="modal"
+                   width="100%"
                    data-target="#store">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
