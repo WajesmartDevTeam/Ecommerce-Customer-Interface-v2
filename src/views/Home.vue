@@ -28,6 +28,7 @@
             >
               <img
                 :src="image_url+i.img_url"
+                width="100%"
                 alt=""
                 class="router"
                 @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
@@ -50,6 +51,7 @@
               <img
                 :src="image_url+i.img_url"
                 alt=""
+                width="100%"
                 class="router"
                 @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
               >
