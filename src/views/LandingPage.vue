@@ -33,7 +33,7 @@
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
-
+            'width': '100% !important',
             'position': 'relative'}"  data-toggle="modal"
                    width="100%"
                    data-target="#store" >
@@ -76,6 +76,7 @@
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
+            'width': '100% !important',
             'position': 'relative'}"  data-toggle="modal"
                    width="100%"
                    data-target="#store">

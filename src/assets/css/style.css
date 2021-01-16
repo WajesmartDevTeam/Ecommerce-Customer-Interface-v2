@@ -220,7 +220,7 @@
         }
         
         .landingpage .sub-banner {
-            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/banner2.png);
+            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/sub-banner.jpg);
             height: 300px;
             background-position: center;
             background-size: cover;
@@ -409,7 +409,7 @@
         }
         
         .home .sub-banner {
-            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/banner2.png);
+            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/sub-banner.jpg);
             height: 300px;
             background-position: center;
             background-size: cover;

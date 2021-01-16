@@ -737,6 +737,7 @@
 <style scoped>
 .router:hover {
   cursor: pointer;
+  width: 100% !important;
 }
 </style>
 
