@@ -281,7 +281,7 @@
           id="menu"
           class="d-flex justify-content-between"
         >
-          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>
+<!--          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>-->
           <li class="menu-link"><a href="/category/bakery">Bakery</a></li>
           <li class="menu-link dropdown">
             <a
@@ -400,11 +400,11 @@
         href="/home"
         class="sidemenu"
       >Home</a>
-      <a
-        v-if="hamper_status == 1"
-        href="/category/hampers"
-        class="sidemenu"
-      >Hampers </a>
+<!--      <a-->
+<!--        v-if="hamper_status == 1"-->
+<!--        href="/category/hampers"-->
+<!--        class="sidemenu"-->
+<!--      >Hampers </a>-->
       <a
         href="/category/bakery"
         class="sidemenu"
@@ -612,7 +612,7 @@ export default {
       this.cart = this.$store.getters.storesCart;
       // console.log(this.cart)
     }
-    this.getHamperStatus();
+    // this.getHamperStatus();
   },
   watch: {
     method (val) {
