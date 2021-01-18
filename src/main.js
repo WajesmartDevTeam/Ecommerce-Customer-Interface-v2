@@ -104,7 +104,7 @@ Vue.use(Loading, {
     backgroundColor: '#ffffff',
 });
 // Vue.use(VueAnalytics, {
-//     id: 'UA-157722413-2',
+//     id: 'G-L92RYLZ402',
 //     router
 // })
 // Vue.use(VueGtag, {
