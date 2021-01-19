@@ -4,6 +4,7 @@
       id="cart-icon"
       data-toggle="modal"
       data-target="#sidecart"
+      @click="hideChat"
     >
       <p id="cart-count">
         <span class="material-icons">
@@ -39,6 +40,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
+              @click="showChat"
               title="Continue shopping"
             >
               <span aria-hidden="true">&times;</span>
@@ -181,6 +183,7 @@ export default {
     }
   },
   mounted () {
+
     $(this.$refs.cartm).on("hidden.bs.modal", (e) => {
       let cart = this.$store.getters.cart;
       if (this.$props.products) {
@@ -276,6 +279,14 @@ export default {
     }
   },
   methods: {
+    showChat() {
+      Tawk_API.showWidget();
+    },
+    hideChat() {
+      if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        Tawk_API.hideWidget();
+      }
+    },
     removeItem (id) {
       let index;
       let cart = this.$store.getters.cart;
@@ -339,8 +350,9 @@ export default {
       }
     },
     handleCheckout () {
-      if (this.cart_total >= 1500) {
 
+      if (this.cart_total >= 1500) {
+        this.showChat()
         $(".modal").modal("hide");
         this.$router.push({ name: 'Cart' })
       }

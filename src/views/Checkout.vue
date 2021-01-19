@@ -626,7 +626,7 @@
                           </tfoot>
                         </table>
 
-                        <div class="form-row px-2">
+                        <div class="form-row px-2" v-if="isLoggedIn">
                           <input
                             type="text"
                             class="form-control col-12"
@@ -644,7 +644,7 @@
                           id='voucherCheck'
                           type="checkbox"
                           class="form-check-input"
-                          :disabled="Number(balance) == 0"
+                          :disabled="isLoggedIn && Number(balance) == 0"
                           v-model="payment.voucher"
                           @change="paymethod($event, 'voucher')"
                         />
@@ -682,7 +682,7 @@
                           type="checkbox"
                           class="form-check-input"
                           @change="paymethod($event, 'card')"
-                          :disabled="Number(balance) == 0"
+                          :disabled="isLoggedIn && Number(balance) == 0"
                         />
                         <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
                           <small
