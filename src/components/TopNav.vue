@@ -279,7 +279,8 @@
       </div>
     </div>
     <div
-      v-if="$route.name !== 'LandingPage' && $route.name !== 'BlackFriday'"
+
+      v-if="$route.name !== 'LandingPage'"
       id="menu-bar"
       class="d-none  d-md-block"
     >
@@ -288,6 +289,7 @@
           id="menu"
           class="d-flex justify-content-between"
         >
+<!--          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>-->
           <li class="menu-link"><a href="/category/bakery">Bakery</a></li>
           <li class="menu-link dropdown">
             <a
@@ -381,6 +383,7 @@
               <li><a href="/category/general">General</a></li>
             </ul>
           </li>
+          
         </ul>
       </div>
     </div>
@@ -405,6 +408,11 @@
         href="/home"
         class="sidemenu"
       >Home</a>
+<!--      <a-->
+<!--        v-if="hamper_status == 1"-->
+<!--        href="/category/hampers"-->
+<!--        class="sidemenu"-->
+<!--      >Hampers </a>-->
       <a
         href="/category/bakery"
         class="sidemenu"
@@ -479,6 +487,7 @@
         <a href="/category/general">General</a>
 
       </div>
+      
       <a
         href="/storelocator"
         class="sidemenu"
@@ -592,6 +601,7 @@ export default {
   data () {
     return {
       searchQuery: '',
+      hamper_status: 0,
       user: {},
       cart: [],
       store: {},
@@ -610,6 +620,7 @@ export default {
       this.cart = this.$store.getters.storesCart;
       // console.log(this.cart)
     }
+    // this.getHamperStatus();
   },
   watch: {
     method (val) {
@@ -655,6 +666,27 @@ export default {
     }
   },
   methods: {
+     setCategoryRoute (route) {
+      this.$store.dispatch('setCategoryRoute', route);
+    },
+    getHamperStatus() {
+      let req = {
+          what: "hamperStatus",
+          showLoader: false
+        }
+        this.$request.makeGetRequest(req)
+          .then(response => {
+            if (response.type == 'hamperStatus') {
+              this.hamper_status = response.data;
+              // this.$store.dispatch('hamper_status', response.data.data);
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+
+    },
     openNav () {
       document.getElementById("mySidepanel").style.width = "80%";
     },

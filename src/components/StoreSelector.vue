@@ -421,17 +421,17 @@ export default {
       store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
-      this.$store.dispatch("setBlackFriday", false);
+      // this.$store.dispatch("setBlackFriday", false);
       this.$store.dispatch("setStore", store).then(res => {
         if (oldstore !== store.name) {
           this.$store.dispatch('addToCart', []);
           location.reload()
         }
-        if (window.location.pathname == "/" || window.location.pathname == "/storeslist") {
+        if (window.location.pathname == "/storeslist") {
           $(".modal").modal("hide")
           this.$router.push('home')
           // location.reload()
-        } else if(window.location.pathname == '/black-friday') {
+        } else if(window.location.pathname == '/') {
           $(".modal").modal("hide")
           if(this.$store.getters.categoryRoute == null) {
             this.$router.push('home')

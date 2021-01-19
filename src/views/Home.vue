@@ -4,7 +4,7 @@
     <TopNav></TopNav>
     <div class="home page">
       <div class="">
-        <div class="banner home-banner">
+        <div class="banner home-banner" style="text-align: center !important; ">
           <!-- <div class="container">
             <div class="banner-text">
               <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
@@ -27,10 +27,11 @@
               :style="i"
             >
               <img
-                :src="'https://admin.sundrymarkets.com'+i.img_url"
+                :src="image_url+i.img_url"
+                width="100%"
                 alt=""
                 class="router"
-                @click="goTo(i.name)"
+                @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
               >
             </slider-item>
           </slider>
@@ -48,10 +49,11 @@
               :style="i"
             >
               <img
-                :src="'https://admin.sundrymarkets.com'+i.img_url"
+                :src="image_url+i.img_url"
                 alt=""
+                width="100%"
                 class="router"
-                @click="goTo(i.name)"
+                @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
               >
             </slider-item>
           </slider>
@@ -735,6 +737,7 @@
 <style scoped>
 .router:hover {
   cursor: pointer;
+  width: 100% !important;
 }
 </style>
 
@@ -751,6 +754,7 @@ export default {
   },
   data () {
     return {
+      image_url: this.$request.url,
       showSearch: false,
       products: {},
       pro: '',
@@ -768,7 +772,8 @@ export default {
     // this.banners = this.banners != [] ? this.banners.reverse() : this.banners;
   },
   mounted () {
-    this.fetchProducts()
+    this.fetchProducts();
+    this.fetchBanners();
   },
   methods: {
     goToCategory(name) {
@@ -797,9 +802,32 @@ export default {
     },
     goTo (name) {
       let result = this.goToCategory(name);
+      
       if(result != null) {
         this.$router.push(result);
+      } else if(name.toLowerCase().includes('xmas')) {
+        
+        this.$router.push('/category/hampers');
       }
+    },
+    fetchBanners () {
+      let req = {
+        what: "banners",
+        showLoader: false,
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'banners') {
+              this.banners = response.data.data
+              this.$store.dispatch('banners', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
     },
     fetchProducts () {
       let req = {

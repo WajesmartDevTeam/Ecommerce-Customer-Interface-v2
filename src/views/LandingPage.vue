@@ -18,40 +18,39 @@
               v-for="(i, index) in banners"
               :key="index"
               :style="i"
+
             >
 
-              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
+              <div v-if="i.url.toLowerCase() != '/home' && i.url.toLowerCase() != '' && i.url.toLowerCase() != null" class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
+            'position': 'relative'}" data-toggle="modal"
+                   width="100%"
+                   data-target="#store" @click="setCategoryRoute(i.url.toLowerCase())">
+              </div>
+              <div v-else class="container-fluid get-started"  :style="{'background-image': `url('` + url + i.img_url+`')`, 'height': '400px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'width': '100% !important',
             'position': 'relative'}"  data-toggle="modal"
-             data-target="#store">
+                   width="100%"
+                   data-target="#store" >
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
                   <button
-                    data-toggle="modal"
-                    data-target="#store"
-                    class="start-button margin"
-                  >Get Started
-                    <i class="fa fa-long-arrow-right ml-2"></i></button>
-                </div>
-              </div>
-              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '400px',
-            'background-position': 'center',
-            'background-size': 'cover',
-            'background-repeat': 'no-repeat',
-            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
-                <div class="banner-text">
-                  <button
-                    class="start-button margin"
+                      data-toggle="modal"
+                      data-target="#store"
+                      class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
               </div>
             </slider-item>
           </slider>
-          <slider
+      <slider
               class="d-block d-md-none"
               :duration="10000"
               height="100px"
@@ -65,31 +64,29 @@
                 :style="i"
             >
 
-              <div v-if="i !== 'Homepage'" class="container-fluid get-started"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
+              <div v-if="i.url.toLowerCase() != '/home' && i.url.toLowerCase() != '' && i.url.toLowerCase() != null" class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
             'background-position': 'center',
             'background-size': 'cover',
             'background-repeat': 'no-repeat',
+            'position': 'relative'}" data-toggle="modal"
+                   width="100%"
+                   data-target="#store" @click="setCategoryRoute(i.url.toLowerCase())">
+              </div>
+              <div v-else class="container-fluid get-started"  :style="{'background-image': 'url(' + url + i.img_url +')', 'height': '100px',
+            'background-position': 'center',
+            'background-size': 'cover',
+            'background-repeat': 'no-repeat',
+            'width': '100% !important',
             'position': 'relative'}"  data-toggle="modal"
-             data-target="#store">
+                   width="100%"
+                   data-target="#store">
                 <div class="banner-text">
                   <!-- <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3> -->
                   <!-- <p class="subtitle">Drinks, groceries, and more are available for delivery and pickup.</p> -->
                   <button
-                    data-toggle="modal"
-                    data-target="#store"
-                    class="start-button margin"
-                  >Get Started
-                    <i class="fa fa-long-arrow-right ml-2"></i></button>
-                </div>
-              </div>
-              <div v-else class="container-fluid"  :style="{'background-image': `url(`+ require('@/assets/img/banners/'+ i +'.jpg')+`)`, 'height': '100px',
-            'background-position': 'center',
-            'background-size': 'cover',
-            'background-repeat': 'no-repeat',
-            'position': 'relative'}" @click="$router.push({path: '/black-friday'})">
-                <div class="banner-text">
-                  <button
-                    class="start-button margin"
+                      data-toggle="modal"
+                      data-target="#store"
+                      class="start-button margin"
                   >Get Started
                     <i class="fa fa-long-arrow-right ml-2"></i></button>
                 </div>
@@ -381,7 +378,8 @@ export default {
   data () {
     return {
       loader: '',
-      banners: ['Homepage', 'MSQNowOpenHomePage']
+      url: this.$request.url,
+      banners: []
     }
   },
   
@@ -404,16 +402,52 @@ export default {
   },
   
   methods: {
+    setCategoryRoute (route) {
+      this.$store.dispatch('setCategoryRoute', route);
+    },
+    goToCategory(name) {
+      switch (name) {
+        case "Black Friday":
+          return "/black-friday";
+          break;
+        case "First Image":
+          return "/category/sda";
+          break;
+        case "Second Image":
+          return "/category/medicare";
+          break;
+        case "Third Image":
+          return "/category/spirits";
+          break;
+        case "landing page":
+          return "/category/fresh produce";
+          break;
+        case "banner_5":
+          return "/category/groceries";
+          break;
+        default:
+          return null;
+      }
+    },
+    goTo (name) {
+      // let result = this.goToCategory(name);
+      // if(result != null) {
+      //   this.$router.push(result);
+      if(name.toLowerCase().includes('xmas')) {
+        this.$router.push('/hampers');
+      }
+    },
     fetchBanners () {
       let req = {
-        what: "banners",
+        what: "landingPageThumbnails",
         showLoader: false,
       }
       this.$request.makeGetRequest(req)
         .then(response => {
 
-          if (response.type == 'banners') {
-            this.$store.dispatch('banners', response.data.data)
+          if (response.type == 'landingPageThumbnails') {
+            this.banners = response.data.data
+            // this.$store.dispatch('banners', response.data.data)
 
           }
         })

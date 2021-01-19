@@ -21,7 +21,7 @@ export default new Vuex.Store({
         order: {},
         banners: [],
         blackFriday: false,
-        categoryRoute: null,
+        categoryRoute: '/home',
     },
     mutations: {
         updateBlackFriday(state, status) {

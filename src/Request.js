@@ -6,7 +6,8 @@
 
 import Vue from "vue";
 import store from "./store";
-import axios from 'axios'
+import axios from 'axios';
+
 
 const URL = "http://localhost:8000/api/";
 // const URL = "https://marketsquareng.website/api/"
@@ -15,13 +16,14 @@ const URL = "http://localhost:8000/api/";
 export default {
     name: "Request",
 
+    url: URL.substring(0, URL.indexOf('/api')),
+
     makeGetRequest: request => {
         if (request.showLoader || request.showLoader == undefined) {
             if (!Vue.prototype.$swal.isVisible()) {
                 var loading_html =
                     '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://www.c-sgroup.com/images/loading-icon-red.gif" /></div>';
-
-                Vue.prototype.$swal.fire({
+                   Vue.prototype.$swal.fire({
                     title: "",
                     html: loading_html,
                     showConfirmButton: false,
@@ -54,6 +56,8 @@ export default {
             deliveryFeeVariation: 'getDeliveryFeeVariation',
             wallet: 'getWalletTransactions',
             
+            landingPageThumbnails: 'landing_page_thumbnail',
+            hamperStatus: 'hamperStatus',
 
         };
         if (request.params !== undefined) {

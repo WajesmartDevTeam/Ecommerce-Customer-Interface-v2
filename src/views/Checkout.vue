@@ -340,7 +340,7 @@
                           </p>
                         </div>
                         <div class="row mr-5 mt-3"
-                            v-if="windows.length == 0"
+                            v-if="!window_set"
                         >
                           <div
                             class="text-center col-md-12 mt-2"
@@ -931,6 +931,7 @@ export default {
       edit: false,
       clearance: '',
       selected_window: '',
+      window_set: false,
       user: {},
       available_balance: 0,
       balance: "",
@@ -1156,7 +1157,12 @@ export default {
             });
             let sortedActivities = response.data.data.slice().sort((a, b) => new Date(b.window_date) - new Date(a.window_date));
             this.windows = sortedActivities.length > 0 ? sortedActivities.reverse() : [];
-            this.listWindows(this.windows[0], 'day0');
+            this.window_set = true;
+            if(this.windows != []) {
+              this.listWindows(this.windows[0], 'day0');
+            }
+
+
           }
         })
         .catch(error => {
@@ -1487,10 +1493,10 @@ export default {
     
     payCard (order, giftref) {
       // live
-      // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
+      let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
 
       // test
-      let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
+      // let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
       let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;
