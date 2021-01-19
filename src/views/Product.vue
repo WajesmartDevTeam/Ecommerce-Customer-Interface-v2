@@ -71,7 +71,8 @@
                       :id="'btntp_modal'"
                       class="addtocart mt-4"
                       v-bind:class="product.hidebtn? 'hideqty':''"
-                      @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
+                      v-if="$store.getters.isStoreSet!=false"
+                      @click="addToCart(product, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
                       <img
                         src="../assets/img/cart.png"
@@ -85,6 +86,25 @@
                       >
 
                       <span>Add to cart</span>
+                    </button>
+                    <button
+                        class="addtocart mt-4"
+                        v-else
+                        data-toggle="modal"
+                        data-target="#store"
+                    >
+                      <img
+                          src="../assets/img/cart.png"
+                          class="img1"
+                          alt=""
+                      >
+                      <img
+                          class="d-none img2"
+                          src="../assets/img/cart-white.png"
+                          alt=""
+                      >
+
+                      <span>Select Store</span>
                     </button>
                     <button
                       :id="'addtp_modal'"
@@ -138,7 +158,7 @@
             </div>
 
           </div>
-          <div class="card mb-5">
+          <div v-if='!isEmpty' class="card mb-5">
             <div class="card-body">
               <div class="description">
                 <h5><u>Product Description</u> </h5>
@@ -150,6 +170,8 @@
       </div>
 
     </div>
+    <Cart v-if='$store.getters.isStoreSet!=false' :products="[product]" />
+    <storeSelector></storeSelector>
     <Footer></Footer>
   </div>
 </template>
@@ -158,10 +180,13 @@
 <script>
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import StoreSelector from '@/components/StoreSelector.vue'
+import Cart from '@/components/CartComponent.vue'
+import * as $ from "jquery";
 export default {
   name: 'Product',
   components: {
-    TopNav, Footer
+    TopNav, Footer, StoreSelector, Cart
   },
   data () {
     return {
@@ -172,11 +197,20 @@ export default {
     this.$store.dispatch('ToggleShowSearch', true);
     this.loader = this.$loading.show();
   },
-  created () {
-    this.getProduct()
+  computed : {
+    isEmpty() {
+      return Object.values(this.product).length == 0
+    }
   },
-  computed: {
+  mounted() {
+    this.loader.hide()
+    if(this.$store.getters.isStoreSet ==false) {
+      $("#store").modal('show');
+    } else {
 
+        this.getProduct()
+
+    }
   },
   methods: {
     getProduct () {
@@ -185,7 +219,7 @@ export default {
         showLoader: false,
         params: {
           category: this.$route.params.category,
-          storeid: this.$route.params.store,
+          storeid: this.$store.getters.store.id,
           name: this.$route.params.name
         }
       }
@@ -215,7 +249,7 @@ export default {
 
         })
         .catch(error => {
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
           console.log(error)
         });
     },

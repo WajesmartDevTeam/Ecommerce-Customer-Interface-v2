@@ -10,37 +10,40 @@
         </div>
         <div class="content container-fluid">
           <div class="row ">
-            <div class="col-lg-8 col-md-8">
+            <div class="col-lg-12 col-md-12">
               <div class="card">
-                <!-- <div class="card-header card-header-danger">
+                <div class="card-header card-header-danger">
                   <div class="pull-left">
-                    <h4 class="card-title">Wallet Transations list</h4>
-                    <p class="card-category">Here are the list of Wallet Transactions</p>
+                    <h4 class="card-title"><div>Transaction History</div></h4>
                   </div>
-                </div> -->
+                  <div class="pull-right">
+                    <h4 class="card-title"><div class="btn btn-success" data-toggle="modal" data-target="#modal_aside_right"> Make Transaction</div></h4>
+                  </div>
+                </div>
                 <div class="card-body">
-                  <!-- <v-client-table
-                    :data="walletTransactions"
-                    :columns="columns"
-                    :options="options"
-                    slots="slots"
-                  >
-                    <span
-                      slot="sn"
-                      slot-scope="props"
-                    >{{props.index}}</span>
-                  </v-client-table> -->
                   <vue-table-dynamic :params="params"></vue-table-dynamic>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4 col-md-4">
-              <div id="summary">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title title ">Your Wallet</h5>
-                    <table class="table">
-                      <tbody class="body2">
+          </div>
+        </div>
+
+        <div id="modal_aside_right" class="modal fixed-left fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-aside" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Make Transaction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div id="summary">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title title ">Your Wallet</h5>
+                      <table class="table">
+                        <tbody class="body2">
                         <tr>
                           <td>Balance OnHold</td>
                           <td class="float-right ">₦{{user.balanace_onHold}}</td>
@@ -50,104 +53,105 @@
                           <td>Available Balance</td>
                           <td class="float-right ">₦{{user.available_balance}}</td>
                         </tr>
-                      </tbody>
-                      <tfoot>
+                        </tbody>
+                        <tfoot>
                         <tr>
                           <th>Total</th>
                           <th class="float-right total">₦{{ user.wallet_balance}}</th>
                         </tr>
-                      </tfoot>
-                    </table>
+                        </tfoot>
+                      </table>
 
-                    <div class="form-row px-2">
-                      <input
-                        type="text"
-                        class="form-control col-12"
-                        min="1"
-                        placeholder="Enter Wallet Top Up Ammount"
-                        v-model="transaction.balance"
-                      >
+                      <div class="form-row px-2">
+                        <input
+                            type="text"
+                            class="form-control col-12"
+                            min="1"
+                            placeholder="Enter Wallet Top Up Ammount"
+                            v-model="transaction.balance"
+                        >
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div>
-                  <div class="form-group form-check pay mt-3">
-                    <input
-                      id='voucherCheck'
-                      type="checkbox"
-                      class="form-check-input"
-                      v-model="payment.voucher"
-                      @change="paymethod($event, 'voucher')"
-                    />
-                    <label class="form-check-label">Pay with Giftcard
-                      <br>
-                      <span >Got a voucher or Gift card?</span>
-                    </label>
-                    <small
-                      class="ml-2"
-                      id="statusvoucher"
-                      style="color:red;font-size:11px"
-                    ></small>
-                  </div>
-                  <div
-                    v-if="payment.voucher"
-                    class="form-group"
-                  >
-                    <div class="form-row px-2">
+                  <div>
+                    <div class="form-group form-check pay mt-3">
                       <input
-                        type="text"
-                        class="form-control col-7"
-                        placeholder="Enter serial no."
-                        v-model="serialnumber"
-                      >
-                      <button
-                        @click.prevent="verifyMethod('voucher')"
-                        class="btn mt-1 ml-1 col-4"
-                      >Verify</button>
-                    </div>
-                  </div>
-                  <div class="form-group form-check pay mt-3">
-                    <input
-                      type="checkbox"
-                      class="form-check-input"
-                      @change="paymethod($event, 'card')"
-                    />
-                    <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
+                          id='voucherCheck'
+                          type="checkbox"
+                          class="form-check-input"
+                          v-model="payment.voucher"
+                          @change="paymethod($event, 'voucher')"
+                      />
+                      <label class="form-check-label">Pay with Giftcard
+                        <br>
+                        <span >Got a voucher or Gift card?</span>
+                      </label>
                       <small
-                        class="ml-2"
-                        id="balance"
-                        style="color:red;font-size:11px"
+                          class="ml-2"
+                          id="statusvoucher"
+                          style="color:red;font-size:11px"
                       ></small>
-                      <br>
-                      <span style="color:black">Pay with Flutterwave</span>
-                    </label>
-                  </div>
-
-                  <div class="form-group form-check agree">
-                    <validation-provider
-                      rules="required"
-                      v-slot="{ errors }"
+                    </div>
+                    <div
+                        v-if="payment.voucher"
+                        class="form-group"
                     >
+                      <div class="form-row px-2">
+                        <input
+                            type="text"
+                            class="form-control col-7"
+                            placeholder="Enter serial no."
+                            v-model="serialnumber"
+                        >
+                        <button
+                            @click.prevent="verifyMethod('voucher')"
+                            class="btn mt-1 ml-1 col-4"
+                        >Verify</button>
+                      </div>
+                    </div>
+                    <div class="form-group form-check pay mt-3">
                       <input
-                        type="checkbox"
-                        class="form-check-input"
-                        v-model="clearance"
+                          type="checkbox"
+                          class="form-check-input"
+                          @change="paymethod($event, 'card')"
+                      />
+                      <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
+                        <small
+                            class="ml-2"
+                            id="balance"
+                            style="color:red;font-size:11px"
+                        ></small>
+                        <br>
+                        <span style="color:black">Pay with Flutterwave</span>
+                      </label>
+                    </div>
+
+                    <div class="form-group form-check agree">
+                      <validation-provider
+                          rules="required"
+                          v-slot="{ errors }"
                       >
-                      <label
-                        class="form-check-label"
-                        for="exampleCheck1"
-                      >I accept to the <a
-                          href="/terms"
-                          style="color:#000066; font-weight:bold;"
+                        <input
+                            type="checkbox"
+                            class="form-check-input"
+                            v-model="clearance"
+                        >
+                        <label
+                            class="form-check-label"
+                            for="exampleCheck1"
+                        >I accept to the <a
+                            href="/terms"
+                            style="color:#000066; font-weight:bold;"
                         >terms and conditions</a> of marketsquare</label>
-                      <span class="err_msg">{{ errors[0] }}</span>
-                    </validation-provider>
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+                    </div>
+                    <button type="submit" @click.prevent="creditWallet">Proceed to Payment</button>
                   </div>
-                  <button type="submit" @click.prevent="creditWallet">Proceed to Payment</button>
                 </div>
               </div>
             </div>
-          </div>
+          </div> <!-- modal-bialog .// -->
         </div>
       </div>
     </div>
@@ -555,4 +559,13 @@ export default {
 select.form-control {
   height: 36px !important;
 }
+
+.modal .modal-dialog-aside{
+  width: 350px; max-width:80%; height: 100%; margin:0;transform: translate(0); transition: transform .2s;
+}
+.modal .modal-dialog-aside .modal-content{  height: inherit; border:0; border-radius: 0;}
+.modal .modal-dialog-aside .modal-content .modal-body{ overflow-y: auto }
+.modal.fixed-left .modal-dialog-aside{ margin-left:auto;  transform: translateX(100%); }
+.modal.fixed-right .modal-dialog-aside{ margin-right:auto; transform: translateX(-100%); }
+.modal.show .modal-dialog-aside{ transform: translateX(0);  }
 </style>

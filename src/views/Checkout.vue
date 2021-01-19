@@ -1618,6 +1618,12 @@ export default {
     },
     payGift (order) {
       let vm = this;
+      let amount = 0;
+      if(this.giftcard_amount == this.balance) {
+        amount = this.balance
+      } else {
+        amount = this.giftcard_amount
+      }
       let req = {
         what: "redeemgift",
         showLoader: true,
@@ -1625,7 +1631,7 @@ export default {
           serviceid: "351817683",
           serialnumber: this.serialnumber,
           phonenumber: this.order.customer.phone.replace(/\s/g, ''),
-          amount: this.giftcard_amount,
+          amount: amount,
           order_id: order.id
         }
       }
@@ -1635,6 +1641,7 @@ export default {
           console.log(res)
           if (res.type == "redeemgift") {
             this.$swal.fire("Success", "Giftcard Redeemed Successfully", "success");
+            this.balance = Number(this.balance) - Number(this.giftcard_amount);
             if (this.balance !== "" && this.balance > 0) {
               this.payCard(order, res.data)
             }
