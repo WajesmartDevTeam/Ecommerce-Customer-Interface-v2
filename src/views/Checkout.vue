@@ -964,6 +964,7 @@ export default {
         user_id: '',
         unique_code: "",
         comment: "",
+        amount_paid: 0,
         customer: {
           firstname: "",
           lastname: "",
