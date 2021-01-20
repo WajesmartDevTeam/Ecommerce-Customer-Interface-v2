@@ -330,6 +330,7 @@ export default {
                 this.payCard(res.data.data)
               }
               this.fetchWalletTransactions();
+              $('#modal_aside_right').modal('hide');
             })
             .catch(error => {
               console.log(error);
@@ -482,7 +483,8 @@ export default {
               .makePostRequest(req)
               .then(res => {
                 console.log(res)
-                vm.$store.dispatch('user', res.data)
+                vm.$store.dispatch('user', res.data.data.user)
+                vm.fetchWalletTransactions()
                 vm.$swal.fire({
                   title: 'Success!',
                   html: 'Wallet TopUp Successful!!!',

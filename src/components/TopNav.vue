@@ -724,7 +724,7 @@ export default {
     logOut () {
       this.$store.dispatch('setLoggedIn', false)
       this.$store.dispatch('user', {})
-      this.$router.go();
+      this.$router.push('home');
     },
     placeOrder () {
       console.log(this.store);

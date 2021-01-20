@@ -934,7 +934,7 @@ export default {
       window_set: false,
       user: {},
       available_balance: 0,
-      balance: "",
+      balance: 0,
       giftcard_amount: '',
       store: {},
       cart: [],
@@ -1091,6 +1091,7 @@ export default {
         }
         return this.balance;
       } else {
+        this.balance = total;
         return total;
       }
     },
@@ -1494,10 +1495,10 @@ export default {
     
     payCard (order, giftref) {
       // live
-      let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
+      // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
 
       // test
-      // let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
+      let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
       let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;
@@ -1675,7 +1676,7 @@ export default {
           if (response.type == 'listaddress') {
             this.addresslist = response.data.data
             response.data.data.forEach(i => {
-              if (i.address_default == 1) {
+              if (Number(i.address_default) == 1) {
                 this.default_address = i;
                 this.order.delivery.id = i.id;
                 this.order.delivery.label = i.label;
@@ -1689,7 +1690,7 @@ export default {
           }
         })
         .catch(error => {
-
+          // this.$swal.fire("Error", error.message, "error");
           console.log(error)
         });
     },
@@ -1712,6 +1713,8 @@ export default {
             this.address.label = '';
             this.address.address = '',
               this.address.landmark = '',
+
+
 
               $(".modal").modal("hide")
             this.fetchAddress();
