@@ -24,6 +24,9 @@ import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
 import { ClientTable, Event } from "vue-tables-2";
 import VueTableDynamic from 'vue-table-dynamic';
+import VueFriendlyIframe from 'vue-friendly-iframe';
+
+Vue.use(VueFriendlyIframe);
 
 // import VueAnalytics from 'vue-analytics';
 // import VueGtag from "vue-gtag";

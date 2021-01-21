@@ -84,6 +84,7 @@
       </div>
 
     </div>
+    <Questionnaire></Questionnaire>
     <Footer></Footer>
   </div>
 </template>
@@ -93,10 +94,11 @@
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
 import Disclaimer from '@/components/Disclaimer.vue'
+import Questionnaire from "@/components/Questionnaire";
 export default {
   name: 'OrderConfirmation',
   components: {
-    TopNav, Footer, Disclaimer
+    TopNav, Footer, Disclaimer, Questionnaire
   },
   data () {
     return {

@@ -22,10 +22,18 @@ export default new Vuex.Store({
         banners: [],
         blackFriday: false,
         categoryRoute: '/home',
+        CompletedQuestionnaire: false,
+        QuestionnaireSeen: 0,
     },
     mutations: {
         updateBlackFriday(state, status) {
             this.state.blackFriday = status
+        },
+        updateCompletedQuestionnaire(state, status) {
+            this.state.CompletedQuestionnaire = status
+        },
+        updateQuestionnaireSeen(state, value) {
+            this.state.QuestionnaireSeen = value
         },
         updateCategoryRoute(state, route) {
             this.state.categoryRoute = route
@@ -76,6 +84,12 @@ export default new Vuex.Store({
     actions: {
         ToggleShowSearch({ commit }, status) {
             commit("updateShowSearch", status);
+        },
+        setCompletedQuestionnaire({ commit }, status) {
+            commit("updateCompletedQuestionnaire", status);
+        },
+        setQuestionnaireSeen({ commit }, status) {
+            commit("updateQuestionnaireSeen", status);
         },
         setBlackFriday({ commit }, status) {
             commit("updateBlackFriday", status);
@@ -140,6 +154,8 @@ export default new Vuex.Store({
         order: state => state.order,
         banners: state => state.banners.reverse(),
         blackFriday: state => state.blackFriday,
+        QuestionnaireSeen: state => state.QuestionnaireSeen,
+        CompletedQuestionnaire: state => state.CompletedQuestionnaire,
         categoryRoute: state => state.categoryRoute,
     },
     plugins: [createPersistedState()]

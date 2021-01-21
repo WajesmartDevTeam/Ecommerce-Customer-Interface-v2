@@ -592,6 +592,7 @@
         </div>
       </div>
       <storeSelector></storeSelector>
+      <Questionnaire></Questionnaire>
 
       <!-- Product Modal -->
       <div
@@ -728,9 +729,9 @@
           </div>
         </div>
       </div>
-
     </div>
     <Cart :home_products="products"></Cart>
+
     <Footer></Footer>
   </div>
 </template>
@@ -747,10 +748,11 @@ import Cart from '@/components/CartComponent.vue'
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
 import Disclaimer from '@/components/Disclaimer.vue'
+import Questionnaire from "@/components/Questionnaire";
 export default {
   name: 'Home',
   components: {
-    StoreSelector, Cart, TopNav, Footer, Disclaimer
+    StoreSelector, Cart, TopNav, Footer, Disclaimer, Questionnaire
   },
   data () {
     return {
@@ -774,6 +776,7 @@ export default {
   mounted () {
     this.fetchProducts();
     this.fetchBanners();
+
   },
   methods: {
     goToCategory(name) {
