@@ -119,6 +119,10 @@
                         <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
                       </span>
+                      <span v-else-if="product.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(product.sellingprice) }}</span>
+                      </span>
                       <span
                         v-else
                         class="price"
@@ -248,6 +252,10 @@
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+                      </span>
+                      <span v-else-if="product.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(product.sellingprice) }}</span>
                       </span>
                       <span
                         v-else
@@ -388,6 +396,10 @@
                         <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
                       </span>
+                      <span v-else-if="product.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(product.sellingprice) }}</span>
+                      </span>
                       <span
                         v-else
                         class="price"
@@ -517,6 +529,10 @@
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+                      </span>
+                      <span v-else-if="product.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(product.sellingprice) }}</span>
                       </span>
                       <span
                         v-else
@@ -654,6 +670,10 @@
                       <span v-if="pro.promo">
                         <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(pro.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((pro.promo.value_percent/100)*pro.sellingprice)) }}</span>
+                      </span>
+                      <span v-else-if="pro.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(pro.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(pro.sellingprice) }}</span>
                       </span>
                       <span
                         v-else
