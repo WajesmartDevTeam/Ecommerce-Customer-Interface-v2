@@ -782,6 +782,8 @@ export default {
       pro: '',
       viewproduct: false,
       loader: '',
+      categories: [],
+      promotions: [],
       banners: [],
     }
   },
@@ -796,6 +798,8 @@ export default {
   mounted () {
     this.fetchProducts();
     this.fetchBanners();
+    this.fetchCategories();
+    this.fetchPromotions();
 
   },
   methods: {
@@ -852,6 +856,50 @@ export default {
             console.log(error)
           });
     },
+    fetchCategories () {
+      let req = {
+        what: "getCategories",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getCategories') {
+              this.categories = response.data.data
+              this.$store.dispatch('categories', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
+    fetchPromotions () {
+      let req = {
+        what: "getPromotions",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getPromotions') {
+              this.categories = response.data.data
+              this.$store.dispatch('promotions', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
     fetchProducts () {
       let req = {
         what: "products",
@@ -877,7 +925,6 @@ export default {
                     i.hideqty = false;
                     i.cart_qty = j.quantity;
                   }
-
                 })
               })
               res.data.data.beverages.forEach(i => {

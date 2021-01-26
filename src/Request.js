@@ -9,8 +9,8 @@ import store from "./store";
 import axios from 'axios';
 
 
-// const URL = "http://localhost:8000/api/";
-const URL = "https://marketsquareng.website/api/"
+const URL = "http://localhost:8000/api/";
+// const URL = "https://marketsquareng.website/api/"
 // const URL = "https://admin.sundrymarkets.com/api/"
 
 export default {
@@ -55,7 +55,8 @@ export default {
             getproduct: 'getproduct',
             deliveryFeeVariation: 'getDeliveryFeeVariation',
             wallet: 'getWalletTransactions',
-            
+            getPromotions: 'getPromotion',
+            getCategories: 'getCategory',            
             landingPageThumbnails: 'landing_page_thumbnail',
             hamperStatus: 'hamperStatus',
 

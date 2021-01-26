@@ -290,97 +290,109 @@
           class="d-flex justify-content-between"
         >
 <!--          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>-->
-          <li class="menu-link"><a href="/category/bakery">Bakery</a></li>
           <li class="menu-link dropdown">
+            <a
+              v-if="promotions.length > 0"
+              href=""
+              class="dropdown-toggle"
+              data-toggle="dropdown"
+            >Promos</a>
+            <ul class="dropdown-menu">
+              <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
+              <!-- <li class="divider"></li> -->
+            </ul>
+          </li>
+          <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
+          <li class="menu-link dropdown" v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')">
             <a
               href=""
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Groceries</a>
             <ul class="dropdown-menu">
-              <li><a href="/category/groceries">Groceries</a></li>
+              <li v-if="showCategory('groceries')" ><a href="/category/groceries" >Groceries</a></li>
               <li class="divider"></li>
-              <li><a href="/category/confectioneries">Confectioneries</a></li>
+              <li v-if="showCategory('confectioneries')"><a href="/category/confectioneries" >Confectioneries</a></li>
               <li class="divider"></li>
-              <li><a href="/category/beverages">Beverages</a></li>
+              <li v-if="showCategory('beverages')" ><a href="/category/beverages">Beverages</a></li>
               <li class="divider"></li>
-              <li><a href="/category/breakfast cereal">Breakfast Cereal</a></li>
+              <li v-if="showCategory('breakfast cereal')"><a href="/category/breakfast cereal" >Breakfast Cereal</a></li>
 
             </ul>
           </li>
 
-          <li class="menu-link dropdown">
+          <li class="menu-link dropdown" v-if="showCategory('fresh produce') || showCategory('commodities') || showCategory('perishables') || showCategory('butchery')">
             <a
               href="/category/food"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Food</a>
             <ul class="dropdown-menu">
-              <li><a href="/category/fresh produce">Fresh Produce</a></li>
+              <li v-if="showCategory('fresh produce')"><a href="/category/fresh produce">Fresh Produce</a></li>
               <li class="divider"></li>
-              <li><a href="/category/commodities">Commodities</a></li>
+              <li v-if="showCategory('commodities')"><a href="/category/commodities">Commodities</a></li>
               <li class="divider"></li>
-              <li><a href="/category/perishables">Perishables</a></li>
+              <li v-if="showCategory('perishables')"><a href="/category/perishables">Perishables</a></li>
               <li class="divider"></li>
-              <li><a href="/category/butchery">Butchery</a></li>
+              <li v-if="showCategory('butchery')"><a href="/category/butchery" >Butchery</a></li>
             </ul>
           </li>
-          <li class="menu-link dropdown">
+          <li class="menu-link dropdown" v-if="showCategory('spirits') || showCategory('water')">
             <a
               href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Drinks</a>
             <ul class="dropdown-menu">
-              <li><a href="/category/spirits">Spirits</a></li>
-              <li class="divider"></li>
-              <li><a href="/category/water">Water</a></li>
+              <li v-if="showCategory('spirits')"><a href="/category/spirits">Spirits</a></li>
+              <li class="divider"></li> 
+              <li v-if="showCategory('water')"><a href="/category/water">Water</a></li>
             </ul>
           </li>
-          <li class="menu-link dropdown">
+          <li class="menu-link dropdown" v-if="showCategory('medicare') || showCategory('toiletries')">
             <a
               href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Health & Beauty</a>
             <ul class="dropdown-menu">
-              <li><a href="/category/medicare">Medicare</a></li>
+              <li v-if="showCategory('medicare')"><a href="/category/medicare" >Medicare</a></li>
               <li class="divider"></li>
-              <li><a href="/category/toiletries">Toiletries</a></li>
+              <li v-if="showCategory('toiletries')"><a href="/category/toiletries" >Toiletries</a></li>
               <li class="divider"></li>
 
             </ul>
           </li>
-          <li class="menu-link dropdown">
+          <li class="menu-link dropdown" v-if="showCategory('household') || showCategory('accessories') ||  showCategory('sda')">
             <a
               href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Appliances & Accessories</a>
             <ul class="dropdown-menu">
-              <li><a href="/category/household">Household Items</a></li>
+              <li v-if="showCategory('household')"><a href="/category/household" >Household Items</a></li>
               <li class="divider"></li>
-              <li><a href="/category/accessories">Accessories</a></li>
+              <li v-if="showCategory('accessories')"><a href="/category/accessories" >Accessories</a></li>
               <li class="divider"></li>
-              <li><a href="/category/sda">SmallDomestiic Appliances</a></li>
+              <li v-if="showCategory('sda')"><a href="/category/sda" >SmallDomestiic Appliances</a></li>
             </ul>
           </li>
-          <li class="menu-link dropdown">
+          <li class="menu-link dropdown" v-if="showCategory('automobile') || showCategory('baby products') || showCategory('pet products') || showCategory('bms') || showCategory('general')">
             <a
               href="#"
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Others</a>
             <ul class="dropdown-menu">
-              <li><a href="/category/automobile">Automobile</a></li>
+              <li v-if="showCategory('automobile')"><a href="/category/automobile" >Automobile</a></li>
               <li class="divider"></li>
-              <li><a href="/category/baby products">Baby Products</a></li>
+              <li v-if="showCategory('baby products')"><a href="/category/baby products" >Baby Products</a></li>
               <li class="divider"></li>
-              <li><a href="/category/pet products">Pet Products</a></li>
+              <li v-if="showCategory('pet products')"><a href="/category/pet products" >Pet Products</a></li>
               <li class="divider"></li>
-              <li><a href="/category/bms">BMS</a></li>
+              <li v-if="showCategory('bms')"><a href="/category/bms" >BMS</a></li>
               <li class="divider"></li>
-              <li><a href="/category/general">General</a></li>
+              <li v-if="showCategory('general')"><a href="/category/general" >General</a></li>
             </ul>
           </li>
           
@@ -418,73 +430,77 @@
         class="sidemenu"
       >Bakery </a>
 
-      <a
+      <a v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')"
         href="/category/groceries"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Groceries </a>
       <div class="dropdown-container">
-        <a href="/category/groceries">Groceries</a>
-        <a href="/category/confectioneries">Confectioneries</a>
-        <a href="/category/beverages">Beverages</a>
-        <a href="/category/breakfast cereals">Breakfast Cereal</a>
+        <a href="/category/groceries" v-if="showCategory('groceries')">Groceries</a>
+        <a href="/category/confectioneries" v-if="showCategory('confectioneries')">Confectioneries</a>
+        <a href="/category/beverages" v-if="showCategory('beverages')">Beverages</a>
+        <a href="/category/breakfast cereals" v-if="showCategory('breakfast cereals')">Breakfast Cereal</a>
 
       </div>
-      <a
+      <a v-if="showCategory('fresh produce') || showCategory('commodities') || showCategory('perishables') || showCategory('butchery')"
         href="#"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Food</a>
       <div class="dropdown-container">
-        <a href="/category/fresh produce">Fresh Produce</a>
-        <a href="/category/commodities">Commodities</a>
-        <a href="/category/perishables">Perishables</a>
-        <a href="/category/butchery">Butchery</a>
-        <a href="/category/condiments">Condiments</a>
+        <a href="/category/fresh produce" v-if="showCategory('fresh produce')"> Fresh Produce</a>
+        <a href="/category/commodities" v-if="showCategory('commodities')">Commodities</a>
+        <a href="/category/perishables" v-if="showCategory('perishables')">Perishables</a>
+        <a href="/category/butchery" v-if="showCategory('butchery')">Butchery</a>
+        <a href="/category/condiments" v-if="showCategory('condiments')">Condiments</a>
 
       </div>
       <a
+        v-if="showCategory('spirits') || showCategory('water')"
         href="#"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Drinks</a>
       <div class="dropdown-container">
-        <a href="/category/spirits">Spirits</a>
-        <a href="/category/water">Water</a>
+        <a href="/category/spirits" v-if="showCategory('spirits')">Spirits</a>
+        <a href="/category/water" v-if="showCategory('water')">Water</a>
 
       </div>
       <a
+        v-if="showCategory('medicare') || showCategory('toiletries')"
         href="#"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Health & Beauty </a>
       <div class="dropdown-container">
-        <a href="/category/medicare">Medicare</a>
-        <a href="/category/toiletries">Toiletries</a>
+        <a href="/category/medicare" v-if="showCategory('medicare')">Medicare</a>
+        <a href="/category/toiletries" v-if="showCategory('toiletries')">Toiletries</a>
 
       </div>
       <a
+        v-if="showCategory('household') || showCategory('accessories') ||  showCategory('sda')"
         href="#"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Appliances & Accessories </a>
       <div class="dropdown-container">
-        <a href="/category/household">Household Items</a>
-        <a href="/category/accessories">Accessories</a>
-        <a href="/category/sda">Small Doestic Appliances</a>
+        <a href="/category/household" v-if="showCategory('household')">Household Items</a>
+        <a href="/category/accessories" v-if="showCategory('accessories')">Accessories</a>
+        <a href="/category/sda" v-if="showCategory('sda')">Small Doestic Appliances</a>
 
       </div>
       <a
+        v-if="showCategory('automobile') || showCategory('baby products') || showCategory('pet products') || showCategory('bms') || showCategory('general')"
         href="#"
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu"
       >Others </a>
       <div class="dropdown-container">
-        <a href="/category/automobile">Automobile</a>
-        <a href="/category/baby products">Baby Products</a>
-        <a href="/category/pet products">Pet Products</a>
-        <a href="/category/bms">BMS</a>
-        <a href="/category/general">General</a>
+        <a href="/category/automobile" v-if="showCategory('automobile')">Automobile</a>
+        <a href="/category/baby products" v-if="showCategory('baby products')">Baby Products</a>
+        <a href="/category/pet products" v-if="showCategory('pet products')">Pet Products</a>
+        <a href="/category/bms" v-if="showCategory('bms')">BMS</a>
+        <a href="/category/general" v-if="showCategory('general')">General</a>
 
       </div>
       
@@ -602,6 +618,15 @@ export default {
     return {
       searchQuery: '',
       hamper_status: 0,
+      cats : {
+        food : ['commodities', 'perishable', 'butchery', 'fresh produce', 'condiments'],
+        appliances_acessories : ['sda', 'accessories', 'household'],
+        drinks : ['water', 'spirits'],
+        health_beauty : ['medicare', 'toiletries'],
+        others : ['pet products', 'baby products', 'automobile', 'bms', 'general'],
+        groceries : ['beverage', 'confectioneries', 'breakfast cereal', 'groceries']
+      },
+      
       user: {},
       cart: [],
       store: {},
@@ -663,9 +688,17 @@ export default {
         total += Number(i.total_price);
       })
       return total
-    }
+    },
+    promotions () { return this.$store.getters.promotions.filter((val) => val != null)},
+    categories () {return this.$store.getters.categories},
   },
   methods: {
+    showCategory(name){
+      return this.categories.includes(name);
+    },
+    getSubCategories(name) {
+      return this.$store.getters.categories.filter( (val) => this.cats[name].includes(val))
+    },
      setCategoryRoute (route) {
       this.$store.dispatch('setCategoryRoute', route);
     },

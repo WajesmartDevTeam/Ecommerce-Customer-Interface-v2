@@ -5,7 +5,7 @@
         <div class="modal-content">
           <div class="modal-header"></div>
           <div class="modal-body" id="modal-body">
-            <iframe  width="100%" height= "100%" id="frame" src="https://forms.office.com/Pages/ResponsePage.aspx?id=vtsYzuhcrE27zIdNukwKQNbnK22NbIhNnB4yfyXInDdURVQ1RVhPN0UwUkdIUkg4SkZGMkpLT1c2TS4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" referrerpolicy="origin-when-cross-origin" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+            <iframe @click="log"  width="100%" height= "100%" id="frame" src="https://forms.office.com/Pages/ResponsePage.aspx?id=vtsYzuhcrE27zIdNukwKQNbnK22NbIhNnB4yfyXInDdURVQ1RVhPN0UwUkdIUkg4SkZGMkpLT1c2TS4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" referrerpolicy="origin-when-cross-origin" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
           </div>
           <div class="modal-footer ">
             <div class=" container row">
@@ -26,12 +26,13 @@ export default {
 
   data () {
     return {
-      disable: false
+      disable: false,
+      count : 0,
     }
   },
 
   mounted() {
-    if(localStorage.CompletedQuestionnaire != "true" || localStorage.QuestionnaireSeen < "2") {
+    if(localStorage.getItem("CompletedQuestionnaire") != "true" && localStorage.getItem("QuestionnaireSeen") < 2) {
       $('#exampleModalLong').modal('show');
     }
 
@@ -51,6 +52,9 @@ export default {
   },
 
   methods: {
+    log() {
+      console.log(this.count++);
+    },
     check() {
       localStorage.CompletedQuestionnaire = "true";
       $('#exampleModalLong').modal('hide');

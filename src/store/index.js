@@ -22,18 +22,18 @@ export default new Vuex.Store({
         banners: [],
         blackFriday: false,
         categoryRoute: '/home',
-        CompletedQuestionnaire: false,
-        QuestionnaireSeen: 0,
+        categories: false,
+        promotions: 0,
     },
     mutations: {
         updateBlackFriday(state, status) {
             this.state.blackFriday = status
         },
-        updateCompletedQuestionnaire(state, status) {
-            this.state.CompletedQuestionnaire = status
+        updatecategories(state, data) {
+            this.state.categories = data
         },
-        updateQuestionnaireSeen(state, value) {
-            this.state.QuestionnaireSeen = value
+        updatepromotions(state, data) {
+            this.state.promotions = data
         },
         updateCategoryRoute(state, route) {
             this.state.categoryRoute = route
@@ -85,11 +85,11 @@ export default new Vuex.Store({
         ToggleShowSearch({ commit }, status) {
             commit("updateShowSearch", status);
         },
-        setCompletedQuestionnaire({ commit }, status) {
-            commit("updateCompletedQuestionnaire", status);
+        categories({ commit }, data) {
+            commit("updatecategories", data);
         },
-        setQuestionnaireSeen({ commit }, status) {
-            commit("updateQuestionnaireSeen", status);
+        promotions({ commit }, data) {
+            commit("updatepromotions", data);
         },
         setBlackFriday({ commit }, status) {
             commit("updateBlackFriday", status);
@@ -154,8 +154,8 @@ export default new Vuex.Store({
         order: state => state.order,
         banners: state => state.banners.reverse(),
         blackFriday: state => state.blackFriday,
-        QuestionnaireSeen: state => state.QuestionnaireSeen,
-        CompletedQuestionnaire: state => state.CompletedQuestionnaire,
+        promotions: state => state.promotions,
+        categories: state => state.categories,
         categoryRoute: state => state.categoryRoute,
     },
     plugins: [createPersistedState()]
