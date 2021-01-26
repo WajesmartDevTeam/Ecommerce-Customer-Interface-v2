@@ -41,7 +41,7 @@ const routes = [{
     {
         path: '/black-friday',
         name: 'BlackFriday',
-        component: Home
+        redirect: '/home'
     },
     {
         path: '/category/:cat',
@@ -76,7 +76,7 @@ const routes = [{
     {
         path: '/giftcard',
         name: 'GiftCard',
-        component: GiftCard
+        redirect: '/home'
     },
     {
         path: '/contact',

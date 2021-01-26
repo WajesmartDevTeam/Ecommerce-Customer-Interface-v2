@@ -14,7 +14,8 @@
           <h3 class="banner-title">Thank You</h3>
           <p class="banner-subtitle">Your order has been received
             <br>
-            Confirmation receipt and order details has been shared to <span>{{order.customer.email}}</span>
+            <!-- Confirmation receipt and order details has been shared to <span>{{order.customer.email}}</span> -->
+		Your order has been recieved
           </p>
         </div>
       </div>

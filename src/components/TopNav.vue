@@ -111,12 +111,12 @@
                 </span>
 
                 Store Locator </a></li>
-            <li class=" navlink"><a href="/giftcard">
+            <!-- <li class=" navlink"><a href="/giftcard">
                 <img
                   src="../assets/img/giftcard-icon.png"
                   alt=""
                 >
-                Gift cards </a></li>
+                Gift cards </a></li> -->
             <li class=" navlink">
               <a href="/contact"> Contact Us </a>
             </li>
@@ -508,10 +508,10 @@
         href="/storelocator"
         class="sidemenu"
       >Store Locator </a>
-      <a
+      <!-- <a
         href="/giftcard"
         class="sidemenu"
-      >Gift Card</a>
+      >Gift Card</a> -->
       <a
         href="/contact"
         class="sidemenu"
