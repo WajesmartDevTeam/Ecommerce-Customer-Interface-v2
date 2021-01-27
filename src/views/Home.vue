@@ -96,7 +96,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://admin.sundrymarkets.com'+product.img_url"
+                      v-lazy="image_url+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -230,7 +230,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://admin.sundrymarkets.com'+product.img_url"
+                      v-lazy="image_url+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -373,7 +373,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://admin.sundrymarkets.com'+product.img_url"
+                      v-lazy="image_url+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -507,7 +507,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://admin.sundrymarkets.com'+product.img_url"
+                      v-lazy="image_url+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -645,7 +645,7 @@
                   >
                   <img
                     v-else
-                    :src="'https://admin.sundrymarkets.com'+pro.img_url"
+                    :src="image_url+pro.img_url"
                     alt=""
                     class="img-fluid"
                   >

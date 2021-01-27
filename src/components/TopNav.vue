@@ -290,18 +290,18 @@
           class="d-flex justify-content-between"
         >
 <!--          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>-->
-          <!-- <li class="menu-link dropdown">
+          <li class="menu-link dropdown">
             <a
               v-if="promotions.length > 0"
               href=""
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Promos</a>
-            <ul class="dropdown-menu"> -->
-              <li v-for="(promo, index) in promotions" :key="index" class="menu-link" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
-              <!-- <li class="divider"></li> -->
-            <!-- </ul>
-          </li> -->
+            <ul class="dropdown-menu">
+              <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
+              <li class="divider"></li>
+            </ul>
+          </li>
           <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
           <li class="menu-link dropdown" v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')">
             <a
@@ -425,13 +425,21 @@
 <!--        href="/category/hampers"-->
 <!--        class="sidemenu"-->
 <!--      >Hampers </a>-->
-      <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
+      <a
+        @click.prevent='toggleDropdown'
+        class="dropdown-btn sidemenu">
+        Promos
+      </a>
+        <div class="dropdown-container">
+          <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
+        </div>
 
       <a
         href="/category/bakery"
         class="sidemenu"
       >Bakery </a>
 
+      <
       <a v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')"
         href="/category/groceries"
         @click.prevent='toggleDropdown'
@@ -708,9 +716,9 @@ export default {
     },
     promotions() {
       if(this.$store.getters.promotions != [] ) {
-        return this.$store.getters.promotions;
+        return this.$store.getters.promotions.filter((val) => val != null  && val != "null" && val != "NULL");
       } else if(this.promotion != []) {
-        return this.promotion;
+        return this.promotion.filter((val) => val != null  && val != "null" && val != "NULL");
       } else {
         this.fetchPromotions();
       }
@@ -751,9 +759,8 @@ export default {
           .then(response => {
 
             if (response.type == 'getPromotions') {
-              this.promotion = response.data.data.filter((val) => val != null)
+              this.promotion = response.data.data.filter((val) => val != null  && val != "Null" && val != "NULL")
               this.$store.dispatch('promotions', this.promotion);
-
             }
           })
           .catch(error => {

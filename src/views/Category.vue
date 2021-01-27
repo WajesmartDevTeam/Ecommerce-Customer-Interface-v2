@@ -170,7 +170,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://admin.sundrymarkets.com'+product.img_url"
+                      v-lazy="image_url+product.img_url"
                       alt=""
                       class="img-fluid"
                     >

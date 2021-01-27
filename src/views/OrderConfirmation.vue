@@ -15,7 +15,7 @@
           <p class="banner-subtitle">Your order has been received
             <br>
             <!-- Confirmation receipt and order details has been shared to <span>{{order.customer.email}}</span> -->
-		Your order has been recieved
+		<!-- Your order has been recieved -->
           </p>
         </div>
       </div>

@@ -370,7 +370,7 @@ export default {
 
             if (response.type == 'getPromotions') {
               // this.categories = response.data.data
-              this.$store.dispatch('promotions', response.data.data.filter((val) => val != null))
+              this.$store.dispatch('promotions', response.data.data.filter((val) => val != null ))
 
             }
           })
@@ -464,8 +464,10 @@ export default {
       this.$store.dispatch("setStoreStatus", true);
       // this.$store.dispatch("setBlackFriday", false);
       this.$store.dispatch("setStore", store).then(res => {
-        this.fetchCategories();
-        this.fetchPromotions();
+        if(window.location.pathname != "/home" || window.location.pathname != "/") {
+          this.fetchCategories();
+          this.fetchPromotions();
+        }
         if (oldstore !== store.name) {
           this.$store.dispatch('addToCart', []);
           location.reload()
