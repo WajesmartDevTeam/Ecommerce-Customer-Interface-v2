@@ -798,8 +798,8 @@ export default {
   mounted () {
     this.fetchProducts();
     this.fetchBanners();
-    this.fetchCategories();
-    this.fetchPromotions();
+          this.fetchCategories();
+      this.fetchPromotions();
 
   },
   methods: {
@@ -891,7 +891,7 @@ export default {
 
             if (response.type == 'getPromotions') {
               this.categories = response.data.data
-              this.$store.dispatch('promotions', response.data.data)
+              this.$store.dispatch('promotions', response.data.data.filter((val) => val != null))
 
             }
           })

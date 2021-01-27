@@ -169,7 +169,6 @@ export default {
 
     $('#store').on("show.bs.modal", this.doSomething)
 
-
   },
 
   filters: {
@@ -182,8 +181,6 @@ export default {
 
   computed: {
     filteredList () {
-
-
       return this.stores.filter(store => {
         if (store.name.toLowerCase().includes(this.search.toLowerCase())) {
           return store.name.toLowerCase().includes(this.search.toLowerCase());
@@ -338,6 +335,50 @@ export default {
 
   },
   methods: {
+    fetchCategories () {
+      let req = {
+        what: "getCategories",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getCategories') {
+              // this.categories = response.data.data
+              this.$store.dispatch('categories', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
+    fetchPromotions () {
+      let req = {
+        what: "getPromotions",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getPromotions') {
+              // this.categories = response.data.data
+              this.$store.dispatch('promotions', response.data.data.filter((val) => val != null))
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
     doSomething ($event) {
       this.fetchAreas();
       let stat = [];
@@ -423,6 +464,8 @@ export default {
       this.$store.dispatch("setStoreStatus", true);
       // this.$store.dispatch("setBlackFriday", false);
       this.$store.dispatch("setStore", store).then(res => {
+        this.fetchCategories();
+        this.fetchPromotions();
         if (oldstore !== store.name) {
           this.$store.dispatch('addToCart', []);
           location.reload()

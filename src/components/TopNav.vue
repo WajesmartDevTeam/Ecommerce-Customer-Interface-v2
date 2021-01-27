@@ -290,18 +290,18 @@
           class="d-flex justify-content-between"
         >
 <!--          <li v-if="hamper_status == 1" class="menu-link"><a href="/category/hampers">Hampers</a></li>-->
-          <li class="menu-link dropdown">
+          <!-- <li class="menu-link dropdown">
             <a
               v-if="promotions.length > 0"
               href=""
               class="dropdown-toggle"
               data-toggle="dropdown"
             >Promos</a>
-            <ul class="dropdown-menu">
-              <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
+            <ul class="dropdown-menu"> -->
+              <li v-for="(promo, index) in promotions" :key="index" class="menu-link" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
               <!-- <li class="divider"></li> -->
-            </ul>
-          </li>
+            <!-- </ul>
+          </li> -->
           <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
           <li class="menu-link dropdown" v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')">
             <a
@@ -425,6 +425,8 @@
 <!--        href="/category/hampers"-->
 <!--        class="sidemenu"-->
 <!--      >Hampers </a>-->
+      <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
+
       <a
         href="/category/bakery"
         class="sidemenu"
@@ -632,7 +634,9 @@ export default {
       store: {},
       method: '',
       areas: [],
-      area: ''
+      area: '',
+      promotion: [],
+      category: [],
     }
   },
   mounted () {
@@ -646,6 +650,10 @@ export default {
       // console.log(this.cart)
     }
     // this.getHamperStatus();
+    // if(this.$store.getters.isStoreSet !=false) {
+    //   this.fetchCategories();
+    //   this.fetchPromotions();
+    // }
   },
   watch: {
     method (val) {
@@ -689,10 +697,70 @@ export default {
       })
       return total
     },
-    promotions () { return this.$store.getters.promotions.filter((val) => val != null)},
-    categories () {return this.$store.getters.categories},
+    categories () {
+      if(this.$store.getters.categories != [] ) {
+        return this.$store.getters.categories;
+      } else if(this.category != []) {
+        return this.category;
+      } else {
+        this.fetchCategories();
+      }
+    },
+    promotions() {
+      if(this.$store.getters.promotions != [] ) {
+        return this.$store.getters.promotions;
+      } else if(this.promotion != []) {
+        return this.promotion;
+      } else {
+        this.fetchPromotions();
+      }
+    },
   },
   methods: {
+    fetchCategories () {
+      let req = {
+        what: "getCategories",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getCategories') {
+              this.category = response.data.data
+              this.$store.dispatch('categories', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
+    fetchPromotions () {
+      let req = {
+        what: "getPromotions",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getPromotions') {
+              this.promotion = response.data.data.filter((val) => val != null)
+              this.$store.dispatch('promotions', this.promotion);
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
     showCategory(name){
       return this.categories.includes(name);
     },
