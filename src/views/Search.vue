@@ -36,7 +36,7 @@
               <p><div class="btn mr-auto mb-2" @click="chat()">Chat To Find Offline Products</div>
               <div class="btn ml-2 mb-2" @click="$router.push('/home#menu')">Continue Shopping</div></p>
             </div>
-            <div class="row  mt-4 pb-2  px-md-2 pb-sm-2">
+            <div class="row mt-4 pb-2 px-md-2 pb-sm-2">
               <div
                 v-for="(product, index) in products"
                 v-bind:key="product.sku"
@@ -57,7 +57,7 @@
                     >
                     <img
                       v-else
-                      v-lazy="'https://admin.sundrymarkets.com'+product.img_url"
+                      v-lazy="image_url+product.img_url"
                       alt=""
                       class="img-fluid"
                     >
@@ -80,13 +80,16 @@
                         <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
                       </span>
+                      <span v-else-if="product.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(product.sellingprice) }}</span>
+                      </span>
                       <span
                         v-else
                         class="price"
                       > ₦{{ formatPrice(product.sellingprice) }}</span>
 
                     </p>
-
                     <button
                       :id="'btntp'+index"
                       class="addtocart"
@@ -129,9 +132,9 @@
                       >
 
                       <input
-                        oninput="validity.valid||(value='');"
                         v-else
-                        :id="'tp'+index"
+                        oninput="validity.valid||(value='');"
+                        :id="'tp' +index"
                         type="number"
                         min="0"
                         step="1"
@@ -146,28 +149,28 @@
                         class=" increase"
                       >+</div>
                     </button>
+
                   </div>
 
                 </div>
               </div>
-              
+
               <infinite-loading
                 @distance="1"
-                :onInfinite="fetchProducts"
-                ref="infiniteLoading"
-                spinner="bubbles"
+                @infinite="fetchProducts"
               >
-                <span
-                  slot="no-results"
-                  class="text-center"
-                > 
-                <!-- <img
-                    src="../assets/img/app/nodata.png"
-                    alt=""
-                  >  -->
-                  
-                  </span>
+                <div slot="no-more">
+                  <!-- <i class="material-icons text-center">info_outline</i> -->
+                  <!-- <i>No more items</i> -->
+
+                </div>
+                <div slot="no-results">
+                  <!-- <i class="material-icons text-center">not_interested</i>
+                  <i>No item</i> -->
+
+                </div>
               </infinite-loading>
+
             </div>
           </div>
 
@@ -201,7 +204,8 @@
             </div>
             <div class="modal-body">
               <div class="row">
-                <div class="col-5">
+                <div class="col-4">
+
                   <img
                     v-if="pro.img_url.includes('https://cdn.marketsquareng.website')"
                     :src="pro.img_url"
@@ -210,14 +214,14 @@
                   >
                   <img
                     v-else
-                    :src="'https://admin.sundrymarkets.com'+pro.img_url"
+                    :src="image_url+pro.img_url"
                     alt=""
                     class="img-fluid"
                   >
                 </div>
-                <div class="col-7">
-                  <div class="product-text">
-                    <p class="name">{{pro.name}}</p>
+                <div  :class="category.toLowerCase().includes('hamper') ? 'col-2' : 'col-7'">
+                  <div class="product-text" >
+                    <p class="name mb-2" style="height: auto !important">{{pro.name}}</p>
                     <p
                       v-if="pro.description && (pro.description.includes('/KG') || pro.description.includes('/ KG'))"
                       class="weight"
@@ -226,14 +230,15 @@
                   <div class="product-cat d-flex">
                     <span class="badge text-lowercase">{{pro.category}}</span>
                   </div>
-                  <div class="description">
-                    {{pro.description}}
-                  </div>
                   <div class="product-footer">
                     <p class="price">
                       <span v-if="pro.promo">
                         <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(pro.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((pro.promo.value_percent/100)*pro.sellingprice)) }}</span>
+                      </span>
+                      <span v-else-if="pro.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(pro.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(pro.sellingprice) }}</span>
                       </span>
                       <span
                         v-else
@@ -241,9 +246,11 @@
                       > ₦{{ formatPrice(pro.sellingprice) }}</span>
 
                     </p>
+
                     <button
                       :id="'btntp_modal'"
                       class="addtocart"
+                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('hampers')}"
                       v-bind:class="pro.hidebtn? 'hideqty':''"
                       @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
@@ -263,6 +270,7 @@
                     <button
                       :id="'addtp_modal'"
                       class="addquantity"
+                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('hampers')}"
                       v-bind:class="pro.hideqty? 'hideqty':''"
                     >
                       <div
@@ -300,7 +308,11 @@
                       >+</div>
                     </button>
                   </div>
-
+                </div>
+                <div class="col-md-6 col-sm-12" v-if="category.toLowerCase().includes('hamper')">
+                  <div class="description p-0 m-0">
+                    {{pro.description}}
+                  </div>
                 </div>
               </div>
             </div>
@@ -330,6 +342,7 @@ export default {
     return {
       showSearch: false,
       viewproduct: false,
+      image_url: this.$request.url,
       searchQuery: "",
       storeid: '',
       page: 0,

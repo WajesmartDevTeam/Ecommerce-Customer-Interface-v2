@@ -423,9 +423,7 @@
                         class=" increase"
                       >+</div>
                     </button>
-
                   </div>
-
                 </div>
                 <div class="col-md-6 col-sm-12" v-if="category.toLowerCase().includes('hamper')">
                   <div class="description p-0 m-0">
