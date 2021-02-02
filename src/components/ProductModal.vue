@@ -311,18 +311,73 @@ export default {
         doSomethingOnHidden ($event) {
             history.back()
             let cart = this.$store.getters.cart;
-            this.products.forEach(i => {
+            if(Array.isArray(this.products)) {
+              this.products.forEach(i => {
+                  i.hidebtn = false;
+                  i.hideqty = true;
+                  i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+                  cart.forEach(j => {
+                      if (i.id == j.product.id) {
+                          i.hidebtn = true;
+                          i.hideqty = false;
+                          i.cart_qty = j.quantity;
+                      }
+                  })
+              })
+            } else {
+              this.products.top.forEach(i => {
                 i.hidebtn = false;
                 i.hideqty = true;
                 i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
                 cart.forEach(j => {
-                    if (i.id == j.product.id) {
-                        i.hidebtn = true;
-                        i.hideqty = false;
-                        i.cart_qty = j.quantity;
-                    }
+                  if (i.id == j.product.id) {
+                    i.hidebtn = true;
+                    i.hideqty = false;
+                    i.cart_qty = j.quantity;
+                  }
+
                 })
-            })
+              })
+              this.products.beverages.forEach(i => {
+                i.hidebtn = false;
+                i.hideqty = true;
+                i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+                cart.forEach(j => {
+                  if (i.id == j.product.id) {
+                    i.hidebtn = true;
+                    i.hideqty = false;
+                    i.cart_qty = j.quantity;
+                  }
+
+                })
+              })
+              this.products.water.forEach(i => {
+                i.hidebtn = false;
+                i.hideqty = true;
+                i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+                cart.forEach(j => {
+                  if (i.id == j.product.id) {
+                    i.hidebtn = true;
+                    i.hideqty = false;
+                    i.cart_qty = j.quantity;
+                  }
+
+                })
+              })
+              this.products.commodities.forEach(i => {
+                i.hidebtn = false;
+                i.hideqty = true;
+                i.cart_qty = i.description.includes('/KG') || i.description.includes('/ KG') ? 1.0 : 1;
+                cart.forEach(j => {
+                  if (i.id == j.product.id) {
+                    i.hidebtn = true;
+                    i.hideqty = false;
+                    i.cart_qty = j.quantity;
+                  }
+
+                })
+              })
+            }
         },
     }
     

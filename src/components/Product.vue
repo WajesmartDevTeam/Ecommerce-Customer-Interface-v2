@@ -1,5 +1,5 @@
 <template>
- <div class="col-6 col-md-3 col-lg-2 p-1">
+ <!-- <div class="col-6 col-md-3 col-lg-2 p-1"> -->
     <div class="product p-md-2 p-sm-1" style="height: auto !important">
         <div
         @click="viewProduct(product)"
@@ -37,9 +37,9 @@
             <span style="color:#808080;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
             <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
             </span>
-            <span v-else-if="product.old_price">
+            <span v-else-if="product.old_price != null && product.old_price != 'NULL'">
             <span style="color:#808080;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
-            <span>₦{{ formatPrice(product.sellingprice) }}</span>
+            <span>₦{{ formatPrice(product.sellingprice) }}</span><span style="background-color: #ffcccb; font-size:12px;" class="float-right pr-1 pl-1">{{Math.round((( product.sellingprice - product.old_price)/product.old_price) * 100)}}%</span>
             </span>
             <span
             v-else
@@ -108,7 +108,7 @@
         </div>
 
     </div>
- </div>
+ <!-- </div> -->
 </template>
 
 <script>
