@@ -135,7 +135,8 @@ export default {
             redeemgiftwallet: 'redeemWalletGiftCard',
             creditWallet: 'creditWallet',
             debitWallet: 'debitWallet',
-            verifywalletcredit: 'verifyWalletCredit'
+            verifywalletcredit: 'verifyWalletCredit',
+            submitQuestionnaire: 'submitQuestionnaire',
 
 
         };

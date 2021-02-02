@@ -1621,7 +1621,7 @@ export default {
     payGift (order) {
       let vm = this;
       let amount = 0;
-      if(this.giftcard_amount == this.balance) {
+      if(this.giftcard_amount >= this.balance) {
         amount = this.balance
       } else {
         amount = this.giftcard_amount
