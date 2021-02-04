@@ -25,6 +25,7 @@ import NotFound from '../components/404.vue';
 import Wallet from '../views/Wallet.vue';
 // import BlackFriday from '../views/BlackFriday.vue';
 import Hampers from '../views/Hampers.vue';
+import ValentineForm from '../views/ValentineForm.vue';
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,11 @@ const routes = [{
         path: '/black-friday',
         name: 'BlackFriday',
         redirect: '/home'
+    },
+    {
+        path: '/valentine/story',
+        name: 'ValentineForm',
+        component: ValentineForm
     },
     {
         path: '/category/:cat',

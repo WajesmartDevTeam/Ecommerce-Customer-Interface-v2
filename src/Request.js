@@ -9,8 +9,8 @@ import store from "./store";
 import axios from 'axios';
 
 
-// const URL = "http://localhost:8000/api/";
- const URL = "https://marketsquareng.website/api/"
+const URL = "http://localhost:8000/api/";
+//  const URL = "https://marketsquareng.website/api/"
 // const URL = "https://admin.sundrymarkets.com/api/"
 
 export default {
@@ -137,7 +137,7 @@ export default {
             debitWallet: 'debitWallet',
             verifywalletcredit: 'verifyWalletCredit',
             submitQuestionnaire: 'submitQuestionnaire',
-
+            valentineQuestionnaire: 'submitValentineQuestionnaire',
 
         };
         console.log(
@@ -163,7 +163,7 @@ export default {
                 .post(request_url, request.data, config)
                 .then(response => {
                     Vue.prototype.$swal.close();
-                    if (response.data.status == "true" || response.data.status || response.success == "true") {
+                    if (response.data.status == "true" || response.data.status || response.success == "true" || response.success == true) {
                         response = {
                             data: response.data,
                             type: request.what,

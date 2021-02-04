@@ -757,7 +757,10 @@ export default {
     return {
       disable: false,
       count : 0,
-      data : [],
+      data : {
+        'data' : [],
+        'store_id': this.$store.getters.store.id
+      },
       name:"",
       phone_number: "",
       delivery_issue: "",
@@ -780,14 +783,20 @@ export default {
   },
 
   mounted() {
-    if(localStorage.getItem("CompletedQuestionnaire") != "true" && localStorage.getItem("QuestionnaireSeen") < 2) {
+    // if(localStorage.getItem("CompletedQuestionnaire") != "true" && localStorage.getItem("QuestionnaireSeen") < 2) {
       $('#exampleModalLong').modal('show');
-    }
+    // }
     if (localStorage.getItem("QuestionnaireSeen") != 0 && !isNaN(localStorage.getItem("QuestionnaireSeen"))){
       localStorage.QuestionnaireSeen = Number(localStorage.QuestionnaireSeen) + 1;
     } else {
       localStorage.QuestionnaireSeen = 1;
     }
+
+    if(this.$store.getters.isLoggedIn) {
+      this.phone_number = this.$store.getters.user.phone;
+      this.name = this.$store.getters.user.first_name + this.$store.getters.user.first_name;
+    }
+
 
     setTimeout(() => this.disable = true, 30000)
   },
@@ -795,6 +804,9 @@ export default {
   computed: {
     notDisabled() {
       return this.disable
+    }, 
+    user_id(){
+      return this.$store.getters.isLoggedIn ? this.$store.getters.user.id : null
     }
   },
 
@@ -832,7 +844,8 @@ export default {
               questionno: individual.questionno
             });
       });
-      this.data = data;
+      this.data.data = data;
+      this.data.user_id = this.user_id;
       console.log(data);
       this.postForm();
     },
