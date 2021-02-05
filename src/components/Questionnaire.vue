@@ -783,9 +783,9 @@ export default {
   },
 
   mounted() {
-    // if(localStorage.getItem("CompletedQuestionnaire") != "true" && localStorage.getItem("QuestionnaireSeen") < 2) {
+    if(localStorage.getItem("CompletedQuestionnaire") != "true" && localStorage.getItem("QuestionnaireSeen") < 2) {
       $('#exampleModalLong').modal('show');
-    // }
+    }
     if (localStorage.getItem("QuestionnaireSeen") != 0 && !isNaN(localStorage.getItem("QuestionnaireSeen"))){
       localStorage.QuestionnaireSeen = Number(localStorage.QuestionnaireSeen) + 1;
     } else {
