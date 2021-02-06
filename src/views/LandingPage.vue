@@ -369,6 +369,7 @@
 import StoreSelector from '@/components/StoreSelector.vue'
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import * as $ from "jquery";
 
 export default {
   name: 'LandingPage',
@@ -391,6 +392,10 @@ export default {
   mounted () {
     setTimeout(() => {
       this.loader.hide()
+      if(this.$store.getters.categoryRoute != '/home') {
+        $("#store").modal('show');
+      }
+
     }, 2000);
     this.fetchBanners()
 

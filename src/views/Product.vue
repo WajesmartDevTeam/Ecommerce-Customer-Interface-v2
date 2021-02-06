@@ -55,6 +55,15 @@
                         ></i> &nbsp;In Stock</span>
 
                     </p>
+                    <p
+                        v-else
+                        class="availability out-stock"
+                    ><span><i
+                        class="fa fa-check-square-o"
+                        style="font-size: 13px;"
+                    ></i> &nbsp;Out of Stock</span>
+
+                    </p>
                     <p class="price">
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
@@ -194,7 +203,19 @@ export default {
   },
   data () {
     return {
-      product: {}
+      product: {
+        name: this.$route.params.name,
+        description:'',
+        cart_qty: 0,
+        category: this.$route.params.category,
+        hidebtn: true,
+        hideqty: true,
+        quantity: 0,
+        sellingprice: 0,
+        newprice: 0,
+        img_url: '',
+        active: 0,
+      }
     }
   },
   beforeMount () {
@@ -208,12 +229,10 @@ export default {
   },
   mounted() {
     this.loader.hide()
-    if(this.$store.getters.isStoreSet ==false) {
+    if(this.$store.getters.isStoreSet == false) {
       $("#store").modal('show');
     } else {
-
         this.getProduct()
-
     }
   },
   methods: {
@@ -234,20 +253,25 @@ export default {
             console.log(res.data.data)
             let pro = res.data.data;
 
-            let cart = this.$store.getters.cart;
+            if(pro != null) {
 
-            pro.hidebtn = false;
-            pro.hideqty = true;
-            pro.cart_qty = pro.description.includes('/KG') || pro.description.includes('/ KG') ? 1.0 : 1;
-            cart.forEach(j => {
-              if (pro.id == j.product.id) {
-                pro.hidebtn = true;
-                pro.hideqty = false;
-                pro.cart_qty = j.quantity;
-              }
+                let cart = this.$store.getters.cart;
 
-            })
-            this.product = pro;
+                pro.hidebtn = false;
+                pro.hideqty = true;
+                pro.cart_qty = pro.description.includes('/KG') || pro.description.includes('/ KG') ? 1.0 : 1;
+                cart.forEach(j => {
+                  if (pro.id == j.product.id) {
+                    pro.hidebtn = true;
+                    pro.hideqty = false;
+                    pro.cart_qty = j.quantity;
+                  }
+
+                })
+                this.product = pro;
+            } else {
+              this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
+            }
             this.loader.hide()
           }
 
@@ -280,7 +304,7 @@ export default {
       cart.product.img_url = product.img_url;
       let cart_array = this.$store.getters.cart;
       let check = [];
-      // cart_array.push(cart)
+      // cart_array.push(cart
       if (cart_array.length > 0) {
         cart_array.forEach(i => {
           if (i.product.id == cart.product.id) {
@@ -435,12 +459,28 @@ export default {
   padding: 3px 0;
   width: 100px;
 }
+.availability.out-stock {
+  padding: 3px 0;
+  width: 100px;
+}
 .availability.in-stock span {
   color: #fff;
   font-size: 11px;
   line-height: 16px;
   display: block;
   background: #6dbe14;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.availability.out-stock span {
+  color: #fff;
+  font-size: 11px;
+  line-height: 16px;
+  display: block;
+  background: #ea1414;
   text-transform: uppercase;
   padding: 6px 8px;
   font-weight: 700;
