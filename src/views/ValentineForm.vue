@@ -37,7 +37,7 @@
                         placeholder=" "
                         required
                       >
-                      <label class="anim">Name</label>
+                      <label class="anim">Full Name</label>
                       <span class="err_msg">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
