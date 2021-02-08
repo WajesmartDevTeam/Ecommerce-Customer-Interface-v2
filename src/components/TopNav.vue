@@ -297,7 +297,7 @@
           id="menu"
           class="d-flex justify-content-between"
         >
-         <li class="menu-link"><a href="/valentine/story">Valentine Story Promo</a></li>
+         <li class="menu-link"><a href="/valentine/story">Valentine Story</a></li>
           <li class="menu-link dropdown">
             <a
               v-if="promotions.length > 0"
@@ -433,7 +433,7 @@
 <!--        href="/category/hampers"-->
 <!--        class="sidemenu"-->
 <!--      >Hampers </a>-->
-      <a href="/valentine/story" class="sidemenu">Valentine Story Promo</a>
+      <a href="/valentine/story" class="sidemenu">Valentine Story</a>
       <a
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu">

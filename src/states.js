@@ -2230,7 +2230,9 @@ export default {
                         "id": 19
                     }
                 ],
-                "cities": ["Apapa", "Aja", "Badagri", "Epe", "Ibeju", "Iganmi", "Ikeja", "Ikorodu", "Lagos", "Lekki", "Mushin", "Ojo", "Okota", "Oshodi", "Surulere", "Victoria Island"]
+                "cities": ["Apapa", "Aja", "Badagry", "Epe", "Ibeju", "Iganmu", "Ikeja", "Ikorodu", "Lagos", "Lekki", "Mushin", "Ojo", "Okota", "Oshodi", "Surulere", "Victoria Island",
+                'Lagos Island', 'Yaba', 'Gbagada', 'Ketu', 'Agege', 'Isolo', 'Festac', 'Satellite Town', 'Ikotun', 'Abule Egba']
+            
             }
         },
         {
