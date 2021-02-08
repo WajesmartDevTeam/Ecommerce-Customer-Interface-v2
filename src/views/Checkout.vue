@@ -1055,11 +1055,11 @@ export default {
   },
   computed: {
     canPay(){
-      if(this.isLoggedIn) {
-        return (Number(this.user.available_balance) == 0 || Number(this.user.available_balance) > 0) && this.balance  > 0 && this.payment.card || (Number(this.user.available_balance) || this.payment.voucher) > 0 && this.balance == 0 && this.clearance;
-      } else {
+      // if(this.isLoggedIn) {
+      //   return (Number(this.user.available_balance) == 0 || Number(this.user.available_balance) > 0) && this.balance  > 0 && this.payment.card || (Number(this.user.available_balance) || this.payment.voucher) > 0 && this.balance == 0 && this.clearance;
+      // } else {
         return !((this.balance == this.order.order_total || this.balance >0) && this.payment.card==false);
-      }
+      // }
     },
     deliveryFee () {
       let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
