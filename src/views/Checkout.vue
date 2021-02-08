@@ -1258,7 +1258,7 @@ export default {
       else {
         if (meth == 'voucher') {
           this.payment.voucher = false;
-          this.balance = ""
+          // this.balance = ""
           document.getElementById('statusvoucher').textContent = ''
           document.getElementById('balance').textContent = '';
           this.serialnumber = ''
@@ -1639,7 +1639,7 @@ export default {
           console.log(res)
           if (res.type == "redeemgift") {
             this.$swal.fire("Success", "Giftcard Redeemed Successfully", "success");
-            this.balance = Number(this.balance) - Number(this.giftcard_amount);
+            // this.balance = Number(this.balance) - Number(this.giftcard_amount);
             if (this.balance !== "" && this.balance > 0) {
               this.payCard(order, res.data)
             }
