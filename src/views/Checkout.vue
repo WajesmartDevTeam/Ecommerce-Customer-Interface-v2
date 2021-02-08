@@ -644,10 +644,11 @@
                           id='voucherCheck'
                           type="checkbox"
                           class="form-check-input"
-                          :disabled="isLoggedIn && Number(balance) == 0"
+                          
                           v-model="payment.voucher"
                           @change="paymethod($event, 'voucher')"
                         />
+                        <!-- :disabled="isLoggedIn && Number(balance) == 0" -->
                         <label class="form-check-label">Pay with Giftcard
                           <br>
                           <span >Got a voucher or Gift card?</span>
@@ -682,8 +683,9 @@
                           type="checkbox"
                           class="form-check-input"
                           @change="paymethod($event, 'card')"
-                          :disabled="isLoggedIn && Number(balance) == 0"
+                          
                         />
+                        <!-- :disabled="isLoggedIn && Number(balance) == 0" -->
                         <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
                           <small
                             class="ml-2"
