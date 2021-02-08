@@ -1620,12 +1620,6 @@ export default {
     },
     payGift (order) {
       let vm = this;
-      let amount = 0;
-      if(this.giftcard_amount >= this.balance) {
-        amount = this.balance
-      } else {
-        amount = this.giftcard_amount
-      }
       let req = {
         what: "redeemgift",
         showLoader: true,
@@ -1633,7 +1627,7 @@ export default {
           serviceid: "351817683",
           serialnumber: this.serialnumber,
           phonenumber: this.order.customer.phone.replace(/\s/g, ''),
-          amount: amount,
+          amount: this.giftcard_amount,
           order_id: order.id
         }
       }
