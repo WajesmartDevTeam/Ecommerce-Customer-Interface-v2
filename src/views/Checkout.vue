@@ -1258,7 +1258,7 @@ export default {
       else {
         if (meth == 'voucher') {
           this.payment.voucher = false;
-          // this.balance = ""
+          this.balance = (Number(this.order.cart_subtotal) + Number(this.deliveryFee));
           document.getElementById('statusvoucher').textContent = ''
           document.getElementById('balance').textContent = '';
           this.serialnumber = ''
