@@ -131,7 +131,7 @@
                       name=""
                       rows="10"
                       v-model="contact.story"
-                      placeholder="If you realy want to hear about it, the first thing you'll probably want to know is were I was born, and what my idea of love was like ..."
+                      placeholder="If you really want to hear about it, the first thing you'll probably want to know is were I was born, and what my idea of love was like ..."
                     ></textarea>
                     <span class="err_msg">{{ errors[0] }}</span>
                   </validation-provider>
