@@ -297,14 +297,14 @@
           id="menu"
           class="d-flex justify-content-between"
         >
-         <li class="menu-link"><a href="/valentine/story">Valentine Story</a></li>
+<!--         <li class="menu-link"><a href="/valentine/story">Valentine Story</a></li>-->
           <li class="menu-link dropdown">
             <a
               v-if="promotions.length > 0"
               href=""
               class="dropdown-toggle"
               data-toggle="dropdown"
-            >Valentine Deals</a>
+            >Specials</a>
             <ul class="dropdown-menu">
               <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
               <li class="divider"></li>
@@ -433,11 +433,11 @@
 <!--        href="/category/hampers"-->
 <!--        class="sidemenu"-->
 <!--      >Hampers </a>-->
-      <a href="/valentine/story" class="sidemenu">Valentine Story</a>
+<!--      <a href="/valentine/story" class="sidemenu">Valentine Story</a>-->
       <a
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu">
-        Valentine Deals
+        Specials
       </a>
         <div class="dropdown-container">
           <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
