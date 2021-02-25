@@ -222,7 +222,10 @@
           id="search"
           class="d-none d-md-block"
         >
-          <input
+          <Search/>
+
+          <!-- </Search> -->
+          <!-- <input
             @keyup.enter="search()"
             type="text"
             v-model="searchQuery"
@@ -232,7 +235,7 @@
             @click="search()"
             style="cursor:pointer"
             class="material-icons"
-          >search</i>
+          >search</i> -->
         </div>
         <!-- <div
           v-if="$store.getters.isLoggedIn"
@@ -552,7 +555,9 @@
         id="search"
         class=""
       >
-        <input
+        <Search/>
+        <!-- </Search> -->
+        <!-- <input
           @keyup.enter="search()"
           type="text"
           v-model="searchQuery"
@@ -562,7 +567,7 @@
           @click="search()"
           style="cursor:pointer"
           class="material-icons"
-        >search</i>
+        >search</i> -->
       </div>
     </div>
     <!-- mobile end -->
@@ -628,11 +633,13 @@
 
 <script>
 import * as $ from "jquery";
+import Search from "@/components/Search.vue";
 export default {
   name: 'TopNav',
   props: {
     msg: String
   },
+  components: {Search},
   data () {
     return {
       searchQuery: '',

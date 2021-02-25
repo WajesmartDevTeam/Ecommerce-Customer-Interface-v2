@@ -1,4 +1,8 @@
         /* general */
+
+        .autocomplete-input {
+            height: fit-content !important;
+        }
         
         * {
             outline: none!important;

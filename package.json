@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.29",
+        "@trevoreyre/autocomplete-vue": "^2.2.0",
         "axios": "^0.19.2",
         "bootstrap": "^4.5.0",
         "core-js": "^3.6.5",

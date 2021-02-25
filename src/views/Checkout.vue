@@ -222,6 +222,7 @@
                                 <input
                                   placeholder=" "
                                   type="text"
+                                  required
                                   class="form-control"
                                   v-model="order.delivery.landmark"
                                 >

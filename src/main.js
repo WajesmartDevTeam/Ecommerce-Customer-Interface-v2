@@ -24,6 +24,10 @@ import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
 import { ClientTable, Event } from "vue-tables-2";
 import VueTableDynamic from 'vue-table-dynamic';
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+
+Vue.use(Autocomplete)
 // import VueFriendlyIframe from 'vue-friendly-iframe';
 
 // Vue.use(VueFriendlyIframe);
