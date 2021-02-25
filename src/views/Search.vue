@@ -21,12 +21,16 @@
   <div>
     <Disclaimer />
     <TopNav></TopNav>
+
     <div class="search page">
+      
       <div class="container">
-
+        
         <div class="content">
+          <h4 class="my-3"> Search Results - {{searchQuery.toUpperCase()}}</h4>
 
-          <div class="product-group container bg-white my-5 py-2">
+          <div class="product-group container bg-white my-2 py-2">
+            
 
             <div v-if="products.length < 1 && !this.loader.isActive" class="text-center" style="width: inherit;">
               <img class="rounded mx-auto mb-2" src="../assets/img/app/failed_search.jpg"/>
@@ -113,6 +117,7 @@ export default {
     this.storeid = this.$store.getters.store.id
     this.searchQuery = this.$route.params.search
     this.fetchProducts();
+    document.title = this.searchQuery.toUpperCase() + ' | ' + this.$store.getters.store.name
   },
   methods: {
     chat() {

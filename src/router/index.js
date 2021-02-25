@@ -47,7 +47,7 @@ const routes = [{
     {
         path: '/valentine/story',
         name: 'ValentineForm',
-        component: ValentineForm
+        redirect: '/home'
     },
     {
         path: '/category/:cat',

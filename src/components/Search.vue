@@ -4,11 +4,13 @@
             :search="search"
             aria-label="Search Wikipedia"
             @submit="onSubmit"
+            :debounce-time="500"
+            :get-result-value="getResultValue"
             placeholder="Search your products from here"
         >
             <template #result="{ result, props }">
                 <li v-bind="props">
-                    <div v-if="typeof result != 'string'">
+                    <div v-if="typeof result != 'string'" class="hover">
                         <div class="image">
                             <img
                                 v-if="result.img_url.includes('https://cdn.marketsquareng.website')"
@@ -26,7 +28,7 @@
                         </span>
                     </div>
                     <div v-else>
-                        <span v-if="isNotFound" class="description">
+                        <span v-if="isNotFound(result)" class="description">
                             {{ result + ' for ' }} <b class="searchQuery"> {{ searchQuery }} </b>
                         </span>
                         <span v-else class="description">
@@ -37,7 +39,7 @@
             </template>
         </autocomplete>
         <i
-          @click="onSubmit"
+          @click="onSubmitIcon(searchQuery)"
           style="cursor:pointer"
           class="material-icons"
         >search</i>
@@ -57,14 +59,9 @@ export default {
 
    data () {
         return {
-        searchQuery: '',
-        image_url: this.$request.url,
-        }
-    },
-
-    computed: {
-        isNotFound () {
-            return result.toLowerCase().includes('No Result Found'.toLowerCase());
+            searchQuery: '',
+            searchResult: [],
+            image_url: this.$request.url,
         }
     },
 
@@ -72,6 +69,29 @@ export default {
         // Search function can return a promise
         // which resolves with an array of
         // results.
+        isNotFound (searchResult) {
+            return searchResult.toLowerCase().includes('No Result Found'.toLowerCase());
+        },
+
+        getResultValue(result) {
+            if(typeof searchQuery != 'string') {
+                return result.name
+            } else {
+                return result
+            }
+        },
+
+
+        onSubmitIcon (searchQuery) {
+            if (this.$route.name !== 'Search') {
+                    this.$router.push(`/search/${searchQuery.toLowerCase()}`)
+                }
+                else {
+                    this.$router.push({ name: 'Search', params: { search: searchQuery.toLowerCase() } })
+                    this.$router.go();
+                }
+        },
+
         search(input) {
             input = input.trim();
             let req = {
@@ -86,7 +106,7 @@ export default {
             this.searchQuery = input;
             
             return new Promise((resolve) => {
-                if (input.length < 1) {
+                if (input.length < 2) {
                     return resolve([])
                 }
 
@@ -94,6 +114,7 @@ export default {
                 
                 .then((response) => {
                     console.log(response.data)
+                    this.searchResult = response.data.data
                     resolve(response.data.data)
                 }).catch(error => {
                     console.log(error)
@@ -103,16 +124,16 @@ export default {
 
 
         onSubmit(searchQuery) {
+            console.log(searchQuery)
             if(typeof searchQuery != 'string') {
-                if (this.$route.name !== 'Search') {
-                    this.$router.push(`/search/${searchQuery.name.toLowerCase()}`)
+                if(searchQuery == undefined){
+                    searchQuery = this.searchQuery
+                } else {
+                    searchQuery = searchQuery.name
                 }
-                else {
-                    this.$router.push({ name: 'Search', params: { search: searchQuery.name.toLowerCase() } })
-                    this.$router.go();
-                }
+                this.onSubmitIcon(searchQuery)
             } else {
-                if(!this.isNotFound) {
+                if(!this.isNotFound(searchQuery)) {
                     searchQuery = searchQuery.trim().toLowerCase()
                     this.$router.push(`/category/${searchQuery}`)
                     this.$router.go();
@@ -135,6 +156,9 @@ export default {
      background-image: none !important;
      padding: 12px !important;
  }
+ .autocomplete-result:hover{
+    cursor: pointer;
+}
  .image{
      /* height: 100px; */
      display: inline-block;
@@ -159,4 +183,6 @@ export default {
 .searchQuery{
     color: #000066;
 }
+
+
 </style>
