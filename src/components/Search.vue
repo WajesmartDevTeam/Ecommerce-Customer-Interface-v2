@@ -2,9 +2,8 @@
     <div class="search">
         <autocomplete
             :search="search"
-            aria-label="Search Wikipedia"
+            aria-label="Search your products from here"
             @submit="onSubmit"
-            :debounce-time="500"
             :get-result-value="getResultValue"
             placeholder="Search your products from here"
         >
@@ -151,6 +150,7 @@ export default {
  } */
 .autocomplete-input {
      height: fit-content !important;
+     padding: 12px 12px 12px 4px !important;
  }
  .autocomplete-result {
      background-image: none !important;

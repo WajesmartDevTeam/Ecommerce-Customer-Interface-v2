@@ -2,6 +2,7 @@
 
         .autocomplete-input {
             height: fit-content !important;
+            padding: 12px 12px 12px 4px !important;
         }
         
         * {
