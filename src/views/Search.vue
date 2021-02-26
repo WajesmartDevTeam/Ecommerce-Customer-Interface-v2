@@ -50,7 +50,7 @@
                 v-bind:key="product.sku"  @viewProduct="viewProduct($event)" :index="product.id" />
               </div>
 
-              <infinite-loading
+              <!-- <infinite-loading
                 @distance="1"
                 @infinite="fetchProducts"
               >
@@ -58,13 +58,13 @@
                   <!-- <i class="material-icons text-center">info_outline</i> -->
                   <!-- <i>No more items</i> -->
 
-                </div>
-                <div slot="no-results">
+                <!-- </div> -->
+                <!-- <div slot="no-results"> -->
                   <!-- <i class="material-icons text-center">not_interested</i>
                   <i>No item</i> -->
 
-                </div>
-              </infinite-loading>
+                <!-- </div> -->
+              <!-- </infinite-loading>  -->
 
             </div>
           </div>
