@@ -134,7 +134,7 @@ export default {
             } else {
                 if(!this.isNotFound(searchQuery)) {
                     searchQuery = searchQuery.trim().toLowerCase()
-                    this.$router.push(`/category/${searchQuery}`)
+                    this.$router.push(`/category/${searchQuery}/${this.searchQuery}`)
                     this.$router.go();
                 }
             }

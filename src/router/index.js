@@ -55,6 +55,11 @@ const routes = [{
         component: Category
     },
     {
+        path: '/category/:cat/:searchQuery',
+        name: 'Category',
+        component: Category
+    },
+    {
         path: '/search/:search',
         name: 'Search',
         component: Search

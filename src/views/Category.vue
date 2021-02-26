@@ -108,12 +108,6 @@ export default {
   },
   data () {
     return {
-        banners: [
-          {
-            name: 'xmas',
-            img_url: window.location.origin+'/xmas.jpg'
-          }
-        ],
       loader: '',
       showSearch: false,
       viewproduct: false,
@@ -122,6 +116,7 @@ export default {
       page: 0,
       products: [],
       pro: '',
+      searchQuery: '',
       cart: {
         quantity: "",
         unit_price: "",
@@ -143,32 +138,14 @@ export default {
   mounted () {
 
     this.category = this.$route.params.cat
+    this.searchQuery = this.$route.params.searchQuery != undefined ? this.$route.params.searchQuery : null
     if(this.$store.getters.isStoreSet) {
       this.fetchProducts()
     } else {
       this.loader.hide();
     }
-    // this.fetchBanners();
   },
   methods: {
-    fetchBanners () {
-      let req = {
-        what: "banners",
-        showLoader: false,
-      }
-      this.$request.makeGetRequest(req)
-          .then(response => {
-
-            if (response.type == 'banners') {
-              this.banners = response.data.data.filter((banner) => banner.name.toLowerCase().includes('xmas'))
-            //   this.$store.dispatch('banners', response.data.data)
-            }
-          })
-          .catch(error => {
-
-            console.log(error)
-          });
-    },
     fetchProducts ($state) {
       this.page += 1; ``
       let req = {
@@ -177,6 +154,7 @@ export default {
         params: {
           storeid: this.$store.getters.store.id,
           category: this.category,
+          search: this.searchQuery,
           page: this.page
         }
       }
