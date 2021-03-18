@@ -23,6 +23,7 @@ import OrderView from '../views/OrderView.vue'
 import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
 import Wallet from '../views/Wallet.vue';
+import Promotions from "@/views/Promotions";
 // import BlackFriday from '../views/BlackFriday.vue';
 import Hampers from '../views/Hampers.vue';
 import ValentineForm from '../views/ValentineForm.vue';
@@ -38,6 +39,11 @@ const routes = [{
         path: '/home',
         name: 'Home',
         component: Home
+    },
+    {
+        path: '/promotions/:promotion',
+        name: 'Promotions',
+        component: Promotions
     },
     {
         path: '/black-friday',

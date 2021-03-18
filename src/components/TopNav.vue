@@ -309,6 +309,7 @@
               data-toggle="dropdown"
             >Mother's Day</a>
             <ul class="dropdown-menu">
+              <li class="divider"><a href="/promotions/mother's day"> All </a></li>
               <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
               <li class="divider"></li>
             </ul>

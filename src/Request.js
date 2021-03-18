@@ -9,14 +9,20 @@ import store from "./store";
 import axios from 'axios';
 
 
-const URL = "http://localhost:8000/api/";
-//  const URL = "https://marketsquareng.website/api/"
+// const URL = "http://localhost:8000/api/";
+const URL = "https://marketsquareng.website/api/"
 // const URL = "https://admin.sundrymarkets.com/api/"
 
 export default {
     name: "Request",
-
     url: URL.substring(0, URL.indexOf('/api')),
+
+
+    PBFKey: "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X", //test
+    // PBFKey: "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X", //live
+
+    raveAPI: "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js", // test
+    // raveAPI: "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js", // live
 
     makeGetRequest: request => {
         if (request.showLoader || request.showLoader == undefined) {
@@ -59,7 +65,8 @@ export default {
             getCategories: 'getCategory',            
             landingPageThumbnails: 'landing_page_thumbnail',
             hamperStatus: 'hamperStatus',
-            searchAutoComplete: 'productSearchAutoComplete'
+            searchAutoComplete: 'productSearchAutoComplete',
+            getAllPromotions: 'getAllPromotions'
 
         };
         if (request.params !== undefined) {

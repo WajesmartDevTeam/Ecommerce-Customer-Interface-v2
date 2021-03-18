@@ -3,19 +3,74 @@
     <Disclaimer />
     <TopNav></TopNav>
     <div class="category page">
-      <div class="container">
-        <div
-          class="banner category-banner mt-5"
-          v-bind:class='category.replace(/\s+/g, "")'
-        >
-          <div
-            class="banner-text"
-            style="width:100%"
-          >
-            <!-- <h3 class="title text-center text-capitalize">{{category}}</h3> -->
+      <div class="banner home-banner" style="text-align: center !important; ">
+        <!-- <div class="container">
+          <div class="banner-text">
+            <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
+            <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
 
           </div>
-        </div>
+        </div> -->
+        <slider
+            class="d-none d-md-block"
+            height="400px"
+            :ease="0.5"
+            :interval="8000"
+            :speed="1000"
+            :control-btn="false"
+            :indicators="false"
+        >
+          <slider-item
+              v-for="(i, index) in banners"
+              :key="index"
+              :style="i"
+          >
+            <img
+                :src="image_url+i.img_url"
+                width="100%"
+                alt=""
+                class="router"
+                @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
+            >
+          </slider-item>
+        </slider>
+        <slider
+            class="d-block d-md-none"
+            :duration="10000"
+            height="150px"
+            :speed="8000"
+            :control-btn="false"
+            :indicators="false"
+        >
+          <slider-item
+              v-for="(i, index) in banners"
+              :key="index"
+              :style="i"
+          >
+            <img
+                :src="image_url+i.img_url"
+                alt=""
+                width="100%"
+                class="router"
+                @click="$router.push(i.url.toLowerCase() != '' ? i.url.toLowerCase() :  '/home')"
+            >
+          </slider-item>
+        </slider>
+      </div>
+      <div class="container">
+
+<!--        <div-->
+<!--          class="banner category-banner mt-5"-->
+<!--          v-bind:class='category.replace(/\s+/g, "")'-->
+<!--        >-->
+<!--          <div-->
+<!--            class="banner-text"-->
+<!--            style="width:100%"-->
+<!--          >-->
+<!--            &lt;!&ndash; <h3 class="title text-center text-capitalize">{{category}}</h3> &ndash;&gt;-->
+
+<!--          </div>-->
+<!--        </div>-->
         <div class="content">
 
           <div class="product-group container bg-white my-5 py-2">
@@ -116,6 +171,7 @@ export default {
       page: 0,
       products: [],
       pro: '',
+      bannerList: [],
       searchQuery: '',
       cart: {
         quantity: "",
@@ -144,6 +200,15 @@ export default {
     } else {
       this.loader.hide();
     }
+  },
+  computed : {
+    banners () {
+      return this.bannerList.filter(b => b.url.includes(this.category));
+    }
+  },
+  created() {
+    this.bannerList = this.$store.getters.banners;
+    console.log(this.bannerList)
   },
   methods: {
     fetchProducts ($state) {
