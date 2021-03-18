@@ -307,7 +307,7 @@
               href=""
               class="dropdown-toggle"
               data-toggle="dropdown"
-            >Special Deals</a>
+            >Mother's Day</a>
             <ul class="dropdown-menu">
               <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
               <li class="divider"></li>
@@ -440,7 +440,7 @@
       <a
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu">
-        Special Deals
+        Mother's Day
       </a>
         <div class="dropdown-container">
           <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
