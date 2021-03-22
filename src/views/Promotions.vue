@@ -5,13 +5,6 @@
     <div class="home page">
       <div class="">
         <div class="banner home-banner" style="text-align: center !important; ">
-          <!-- <div class="container">
-            <div class="banner-text">
-              <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
-              <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
-
-            </div>
-          </div> -->
           <slider
             class="d-none d-md-block"
             height="400px"
@@ -59,11 +52,10 @@
           </slider>
         </div>
         <div class="content container">
-
-          <div v-for="(promotion, promo) in productsList" class="product-group container bg-white my-5 " :key="promo">
+          <div v-for="(promotion, promo) in productsList" class="product-group container bg-white my-3 " :key="promo">
             <div class="row">
-              <h5 class="col-sm-6 title text-left mt-3">{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</h5>
-              <h5 class="col-sm-6 title text-right mt-3"><a :href="'/category/'+promo" style="color: #000066">View More</a></h5>
+              <h5 class="col-6 title text-left mt-3"><a :href="'/category/'+promo" style="color: #000066; " >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</a></h5>
+              <h5 class="col-6 title view-more text-right mt-3"><a :href="'/category/'+promo" style="color: #ff0000;">View More ></a></h5>
             </div>
 
             <carousel
@@ -106,6 +98,16 @@
   cursor: pointer;
   width: 100% !important;
 }
+.product-group .product{
+  border: unset !important;
+}
+
+.view-more{
+  margin: auto;
+  text-decoration-line: underline; 
+  font-size: 15px !important;
+}
+
 </style>
 
 <script>
@@ -117,7 +119,7 @@ import Disclaimer from '@/components/Disclaimer.vue'
 import Product from '@/components/Product.vue'
 import ProductModal from '@/components/ProductModal.vue'
 export default {
-  name: 'Home',
+  name: 'Promotions',
   components: {
     StoreSelector, Cart, TopNav, Footer, Disclaimer, Product, ProductModal
   },
@@ -154,9 +156,13 @@ export default {
   computed : {
     banners () {
       // console.log('category/valentine'.includes(this.promotions[1]))
+      // console.
 
-       return this.bannerList.filter(b => this.promotions.filter(p =>
-           b.url.toLowerCase().includes(p)
+       return this.bannerList.filter(b => this.promotions.filter(p => {
+        // console.log( b.url.substring(b.url.lastIndexOf('/')))
+        return b.url.substring(b.url.lastIndexOf('/') + 1) == p
+        }
+          //  b.url.toLowerCase().includes(p)
        ).length > 0);
     }
   },

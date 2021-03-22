@@ -228,7 +228,7 @@ export default {
     this.loader = this.$loading.show();
   },
   created () {
-    this.banners = this.$store.getters.banners;
+    this.banners = this.$store.getters.filter( (image) => image.category == null);
     // this.banners = this.banners != [] ? this.banners.reverse() : this.banners;
   },
   mounted () {
