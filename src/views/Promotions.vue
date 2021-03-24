@@ -53,8 +53,8 @@
         </div>
         <div class="content container">
           <div v-for="(promotion, promo) in productsList" class="product-group container bg-white my-3 " :key="promo">
-            <div class="row">
-              <h5 class="col-6 title text-left mt-3"><a :href="'/category/'+promo" style="color: #000066; " >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</a></h5>
+            <div class="row header" >
+              <h5 class="col-6 title text-left mt-3"><a :href="'/category/'+promo" style="color: white; " >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</a></h5>
               <h5 class="col-6 title view-more text-right mt-3"><a :href="'/category/'+promo" style="color: #ff0000;">View More ></a></h5>
             </div>
 
@@ -107,6 +107,16 @@
   text-decoration-line: underline; 
   font-size: 15px !important;
 }
+
+.header{
+  background-color: #000066;
+  /* border-radius: 25% 25% 0 0; */
+  border-radius: 8px 8px 0 0;
+}
+
+/* .product-group{
+  border-radius: 25% 25% 0 0;
+} */
 
 </style>
 
