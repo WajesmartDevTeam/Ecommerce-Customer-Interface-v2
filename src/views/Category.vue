@@ -3,7 +3,7 @@
     <Disclaimer />
     <TopNav></TopNav>
     <div class="category page">
-      <div class="banner home-banner" style="text-align: center !important; ">
+      <div class="banner home-banner" v-if="bannerCount > 0" style="text-align: center !important; ">
         <!-- <div class="container">
           <div class="banner-text">
             <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
@@ -57,20 +57,15 @@
           </slider-item>
         </slider>
       </div>
+             <div v-else
+         class="banner category-banner mt-5"
+         v-bind:class='category.replace(/\s+/g, "")'
+      
+         >
+       </div>
       <div class="container">
 
-<!--        <div-->
-<!--          class="banner category-banner mt-5"-->
-<!--          v-bind:class='category.replace(/\s+/g, "")'-->
-<!--        >-->
-<!--          <div-->
-<!--            class="banner-text"-->
-<!--            style="width:100%"-->
-<!--          >-->
-<!--            &lt;!&ndash; <h3 class="title text-center text-capitalize">{{category}}</h3> &ndash;&gt;-->
 
-<!--          </div>-->
-<!--        </div>-->
         <div class="content">
 
           <div class="product-group container bg-white my-5 py-2">
@@ -202,6 +197,9 @@ export default {
     }
   },
   computed : {
+    bannerCount () {
+      return this.banners.length
+    },
     banners () {
       return this.bannerList.filter(b => b.url.includes(this.category));
     }
