@@ -444,6 +444,7 @@
         Easter
       </a>
         <div class="dropdown-container">
+          <a href="/promotions/Easter" class="sidemenu"> All </a>
           <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
         </div>
 

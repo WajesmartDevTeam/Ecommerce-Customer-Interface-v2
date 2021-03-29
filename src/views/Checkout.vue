@@ -1046,7 +1046,7 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
-    this.fetchDeliveryFeeVariation();
+    // this.fetchDeliveryFeeVariation();
   },
   watch: {
     edit (val) {

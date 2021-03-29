@@ -228,7 +228,7 @@ export default {
     this.loader = this.$loading.show();
   },
   created () {
-    this.banners = this.$store.getters.filter( (image) => image.category == null);
+    this.banners = this.$store.getters.banners.filter( (image) => image.category == null || image.category == 'null');
     // this.banners = this.banners != [] ? this.banners.reverse() : this.banners;
   },
   mounted () {
@@ -282,7 +282,7 @@ export default {
           .then(response => {
 
             if (response.type == 'banners') {
-              this.banners = response.data.data
+              this.banners = response.data.data.filter( (image) => image.category == null || image.category == 'null');
               this.$store.dispatch('banners', response.data.data)
 
             }
