@@ -1474,14 +1474,14 @@ export default {
               .makePostRequest(req)
               .then(res => {
                 // console.log(res.data.data.order);
-                if(this.balance > 0) {
+                // if(this.balance > 0) {
                   if (this.order.payment.method.includes("gift")) {
                     this.payGift(res.data.data.order)
                   }
                   else {
                     this.payCard(res.data.data.order)
                   }
-                }
+                // }
               })
               .catch(error => {
                 console.log(error);
