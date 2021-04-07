@@ -610,14 +610,14 @@
                                 <span v-else>Pickup(Free)</span>
                               </td>
                             </tr>
-                            <!-- <tr v-if="isLoggedIn">
+                            <tr v-if="isLoggedIn">
                               <td>Wallet</td>
                               <td class="float-right ">₦{{formatPrice(user.available_balance)}}</td>
                             </tr>
                             <tr v-if="isLoggedIn">
                               <td>Wallet Balance</td>
                               <td class="float-right ">₦{{formatPrice(available_balance)}}</td>
-                            </tr> -->
+                            </tr>
                           </tbody>
                           <tfoot>
                             <tr>
@@ -627,7 +627,7 @@
                           </tfoot>
                         </table>
 
-                        <!-- <div class="form-row px-2" v-if="isLoggedIn">
+                        <div class="form-row px-2" v-if="isLoggedIn">
                           <input
                             type="text"
                             class="form-control col-12"
@@ -635,7 +635,7 @@
                             placeholder="Enter Wallet Top Up Ammount"
                             v-model="top_up_transaction.amount"
                           >
-                        </div> -->
+                        </div>
 
                       </div>
                     </div>
@@ -1046,7 +1046,7 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
-    // this.fetchDeliveryFeeVariation();
+    this.fetchDeliveryFeeVariation();
   },
   watch: {
     edit (val) {
@@ -1060,45 +1060,45 @@ export default {
   },
   computed: {
     canPay(){
-      // if(this.isLoggedIn) {
-      //   return (Number(this.user.available_balance) == 0 || Number(this.user.available_balance) > 0) && this.balance  > 0 && this.payment.card || (Number(this.user.available_balance) || this.payment.voucher) > 0 && this.balance == 0 && this.clearance;
-      // } else {
+      if(this.isLoggedIn) {
+        return (Number(this.user.available_balance) == 0 || Number(this.user.available_balance) > 0) && this.balance  > 0 && this.payment.card || (Number(this.user.available_balance) || this.payment.voucher) > 0 && this.balance == 0 && this.clearance;
+      } else {
         return !((this.balance == this.order.order_total || this.balance >0) && this.payment.card==false);
-      // }
+      }
     },
     deliveryFee () {
-      // let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
-      // return isNaN(result) || result == undefined ? 0 : result;
+      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      return isNaN(result) || result == undefined ? 0 : result;
       return this.order.delivery.charge;
     },
     ordertotal () {
       let total = (Number(this.order.cart_subtotal) + Number(this.deliveryFee));
       this.order.order_total = total;
-      // if(this.isLoggedIn) {
-      //   let available_balance =  Number(this.user.available_balance);
-      //   let top_up = Number(this.top_up_transaction.amount);
-      //   let balance = available_balance - total;
+      if(this.isLoggedIn) {
+        let available_balance =  Number(this.user.available_balance);
+        let top_up = Number(this.top_up_transaction.amount);
+        let balance = available_balance - total;
         
-      //   if(balance < 0) {
-      //     balance = balance * -1;
-      //     this.available_balance = 0;
-      //     this.transaction.amount =  -1 * available_balance;
-      //     this.order.amount_paid = (total - balance);
-      //   } else {
-      //     this.order.amount_paid = (available_balance - balance);
-      //     this.transaction.amount = -1 * this.order.amount_paid;
-      //     this.available_balance = balance;
-      //     balance = 0;
-      //   }
-      //   this.balance = balance;
-      //   if(top_up > 0){
-      //      this.balance = top_up + this.balance;
-      //   }
-      //   return this.balance;
-      // } else {
+        if(balance < 0) {
+          balance = balance * -1;
+          this.available_balance = 0;
+          this.transaction.amount =  -1 * available_balance;
+          this.order.amount_paid = (total - balance);
+        } else {
+          this.order.amount_paid = (available_balance - balance);
+          this.transaction.amount = -1 * this.order.amount_paid;
+          this.available_balance = balance;
+          balance = 0;
+        }
+        this.balance = balance;
+        if(top_up > 0){
+           this.balance = top_up + this.balance;
+        }
+        return this.balance;
+      } else {
         this.balance = total;
         return total;
-      // }
+      }
     },
   },
   methods: {
@@ -1347,17 +1347,17 @@ export default {
       let isValidate = [];
       let field = [];
 
-      // if (Number(this.user.available_balance) >  0) {
-      //   if (this.order.payment.method.toLowerCase().includes("wallet") == false) {
-      //     this.order.payment.method += " wallet"
-      //   }
-      // }
-      // else {
-        // if (this.order.payment.method.toLowerCase().includes("wallet")) {
+      if (Number(this.user.available_balance) >  0) {
+        if (this.order.payment.method.toLowerCase().includes("wallet") == false) {
+          this.order.payment.method += " wallet"
+        }
+      }
+      else {
+        if (this.order.payment.method.toLowerCase().includes("wallet")) {
 
-        //   this.order.payment.method = this.order.payment.method.replace(' wallet', '')
-        // }
-      // }
+          this.order.payment.method = this.order.payment.method.replace(' wallet', '')
+        }
+      }
       if (this.payment.loyalty) {
         if (this.order.payment.method.toLowerCase().includes("loyalty") == false) {
 
@@ -1414,57 +1414,57 @@ export default {
 
         console.log(this.order);
         if (this.clearance) {
-          // if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
+          if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
             
-          //   if(Number(this.top_up_transaction.amount) > 0) {
-          //     this.makeTransaction('creditWallet', this.top_up_transaction);
-          //   }
-          //   if(Number(this.user.available_balance) >  0 ) {
-          //     this.makeTransaction('debitWallet', this.transaction);
-          //   }
+            if(Number(this.top_up_transaction.amount) > 0) {
+              this.makeTransaction('creditWallet', this.top_up_transaction);
+            }
+            if(Number(this.user.available_balance) >  0 ) {
+              this.makeTransaction('debitWallet', this.transaction);
+            }
             
-          //   let req = {
-          //     what: "placeorder",
-          //     showLoader: false,
-          //     data: this.order
-          //   }
-          //   this.$request
-          //   .makePostRequest(req)
-          //   .then(res => {
+            let req = {
+              what: "placeorder",
+              showLoader: false,
+              data: this.order
+            }
+            this.$request
+            .makePostRequest(req)
+            .then(res => {
               
-          //     // console.log(res.data.data.order);
-          //     if(this.balance > 0 || this.top_up_transaction.amount > 0) {
-          //       if (this.order.payment.method.includes("gift")) {
-          //         this.payGift(res.data.data.order)
-          //       }
-          //       else {
-          //         this.payCard(res.data.data.order)
-          //       }
-          //     } else {
-          //       let order = res.data.data.order;
-          //       let req = {
-          //         what: "verifypayment",
-          //         showLoader: true,
-          //         data: {
-          //           txref: null,
-          //           pref: null,
-          //           order_id: order.id,
-          //           user_id: order.user_id,
-          //           cart_id: "",
-          //           customer_id: "",
-          //           status: "successful",
-          //           amount: Number(this.balance)
-          //         }
-          //       }
+              // console.log(res.data.data.order);
+              if(this.balance > 0 || this.top_up_transaction.amount > 0) {
+                if (this.order.payment.method.includes("gift")) {
+                  this.payGift(res.data.data.order)
+                }
+                else {
+                  this.payCard(res.data.data.order)
+                }
+              } else {
+                let order = res.data.data.order;
+                let req = {
+                  what: "verifypayment",
+                  showLoader: true,
+                  data: {
+                    txref: null,
+                    pref: null,
+                    order_id: order.id,
+                    user_id: order.user_id,
+                    cart_id: "",
+                    customer_id: "",
+                    status: "successful",
+                    amount: Number(this.balance)
+                  }
+                }
 
-          //       this.verifyPayment(this, req, order);
-          //     }
-          //   })
-          //   .catch(error => {
-          //     console.log(error);
-          //     this.$swal.fire("Error", error.message, "error");
-          //   });     
-          // } else {
+                this.verifyPayment(this, req, order);
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              this.$swal.fire("Error", error.message, "error");
+            });     
+          } else {
             let req = {
                 what: "placeorder",
                 showLoader: true,
@@ -1479,7 +1479,9 @@ export default {
                     this.payGift(res.data.data.order)
                   }
                   else {
-                    this.payCard(res.data.data.order)
+                    if(this.balance > 0) {
+                      this.payCard(res.data.data.order)
+                    }
                   }
                 // }
               })
@@ -1487,7 +1489,7 @@ export default {
                 console.log(error);
                 this.$swal.fire("Error", error.message, "error");
               });  
-          // }
+          }
         }
         else {
           this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
@@ -1512,9 +1514,9 @@ export default {
         cardamount = this.balance
 
       }
-      // else if(this.isLoggedIn) {
-      //   cardamount = Number(this.balance)
-      // }
+      else if(this.isLoggedIn) {
+        cardamount = Number(this.balance)
+      }
       else {
         cardamount = order.balance
       }
