@@ -12,7 +12,7 @@
     >
       <p>We have a demand surge in our stores affecting the availability of some products. We will, however, do our best to get you the items in your order. Kindly bear with us.
         Any refund due to you after your order is processed will be issued via a Market Square gift card which can immediately be used online or in any of our branches.</p>
-    </div>
+    </div>  
   </div>
 </template>
 
@@ -22,14 +22,18 @@ export default {
   data () {
     return {
       showA: false,
-      showB: false
+      showB: false,
+      isPromo: false,
+      countdown_left: ""
     }
   },
   created () {
     let current = this.$route.name;
     let arrayA = ['Home', 'Category', 'Search'];
-    let arrayB = ['OrderConfirmation']
-    // console.log(current);
+    let arrayB = ['OrderConfirmation'];
+    
+  
+
     if (arrayA.includes(current)) {
       this.showA = true;
     }
@@ -39,6 +43,8 @@ export default {
     else { }
   }
 }
+
+
 </script>
 <style scoped>
 #disclaimer {
