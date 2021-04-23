@@ -604,10 +604,13 @@
 
                             <tr>
                               <td>Delivery Fee</td>
-                              <td class="float-right ">
-                                <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
-                                <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
-                                <span v-else>Pickup(Free)</span>
+                              <td class="float-right">
+                                <span v-if="isPromo && ordertotal >= 10000">Free</span>
+                                <span v-else>
+                                  <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
+                                  <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
+                                  <span v-else>Pickup(Free)</span>
+                                </span>
                               </td>
                             </tr>
                             <!-- <tr v-if="isLoggedIn">
@@ -687,7 +690,8 @@
                           
                         />
                         <!-- :disabled="isLoggedIn && Number(balance) == 0" -->
-                        <label class="form-check-label">Pay with - USSD, Bank Transfer or Card (Pay with Flutterwave)
+                        <label class="form-check-label">
+                          <b>Pay with - PayPal, USSD, Bank Transfer or Card</b>
                           <small
                             class="ml-2"
                             id="balance"
@@ -918,6 +922,8 @@ export default {
   },
   data () {
     return {
+      isPromo: false,
+
       transaction: {
         balance: 0,
         user_id: this.$store.getters.user.id,
@@ -1015,6 +1021,35 @@ export default {
       // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
+
+    /* for free delivery promotion */
+    let count_start = "April 20, 2021";
+    let count_end   = "April 25, 2021 23:59:59";
+
+    let today_date        = new Date();
+    let today             = today_date.getTime();
+    let today_promo_y     = today_date.getFullYear();
+    let today_promo_m     = today_date.getMonth();
+    let today_promo_d     = today_date.getDate();
+
+    let start_promo       = new Date(count_start).getTime();
+
+    let end_promo_date    = new Date(count_end);
+    let end_promo         = end_promo_date.getTime();
+    let end_promo_y       = end_promo_date.getFullYear();
+    let end_promo_m       = end_promo_date.getMonth();
+    let end_promo_d       = end_promo_date.getDate();
+
+    let day_before_end    = new Date(count_end).setDate(new Date(count_end).getDate() - 1);
+    let day_before_end_y  = new Date(day_before_end).getFullYear();
+    let day_before_end_m  = new Date(day_before_end).getMonth();
+    let day_before_end_d  = new Date(day_before_end).getDate();
+
+    if((today >= start_promo) && (today <= end_promo)){
+      this.isPromo = true;
+    }
+    else 
+      this.isPromo = false;
 
   },
   mounted () {

@@ -140,21 +140,15 @@
               >Shop Now</button>
             </div>
           </div>
-          <div
-            v-if="getCart.length >0"
-            class="modal-footer"
-          >
-            <p
-              v-if="cart_total < 1500"
-              class="minimum text-bold"
-              style="font-size:17px"
-            >₦1,500 Minimum</p>
+
+          <div v-if="getCart.length > 0" class="modal-footer">
+            <p  v-if="cart_total < 10000" class="small-red-focus blinking"><b>Add &#x20A6;{{10000 - cart_total}} for free delivery</b></p>
+            <p  v-if="cart_total >= 10000" class="text-center"><b>You qualify for free delivery</b></p>
+
+            <p v-if="cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
+
             <div class="checkout">
-              <button
-                v-bind:disabled="cart_total < 1500"
-                v-bind:class="cart_total < 1500? 'disabled': ''"
-                @click="handleCheckout"
-              >
+              <button v-bind:disabled="cart_total < 1500" v-bind:class="cart_total < 1500? 'disabled': ''" @click="handleCheckout">
                 <span>Checkout</span>
                 <span class="total">₦ {{formatPrice(cart_total)}}</span>
               </button>
@@ -393,5 +387,25 @@ export default {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #000066;
   border: 1px solid #000066;
+}
+.small-red-focus{
+  color:red;
+  font-size:12px;
+  text-align:center;
+}
+#sidecart .checkout {
+    margin-top: 2mm !important;
+}
+
+.blinking{
+    animation:blinkingText 1.5s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: red; }
+    49%{    color: red; }
+    60%{    color: red; }
+    65%{    color: red; }
+    99%{    color:red;  }
+    100%{   color: red;    }
 }
 </style>
