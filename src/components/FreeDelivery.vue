@@ -18,8 +18,8 @@ export default {
     }
   },
   created () {
-    let count_start = "April 20, 2021";
-    let count_end   = "April 25, 2021 23:59:59";
+    let count_start = "April 25, 2021";
+    let count_end   = "May 3, 2021 23:59:59";
 
 
     let today_date        = new Date();

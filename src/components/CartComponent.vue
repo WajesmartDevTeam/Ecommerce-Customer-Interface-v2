@@ -142,7 +142,7 @@
           </div>
 
           <div v-if="getCart.length > 0" class="modal-footer">
-            <p  v-if="cart_total < 10000" class="small-red-focus blinking"><b>Add &#x20A6;{{10000 - cart_total}} for free delivery</b></p>
+            <p  v-if="cart_total < 10000" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - cart_total).toLocaleString()}} for free delivery</b></p>
             <p  v-if="cart_total >= 10000" class="text-center"><b>You qualify for free delivery</b></p>
 
             <p v-if="cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
@@ -390,7 +390,7 @@ export default {
 }
 .small-red-focus{
   color:red;
-  font-size:12px;
+  font-size:14px;
   text-align:center;
 }
 #sidecart .checkout {
