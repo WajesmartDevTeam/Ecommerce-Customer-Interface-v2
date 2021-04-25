@@ -18,53 +18,57 @@ export default {
     }
   },
   created () {
-    let count_start = "April 25, 2021";
-    let count_end   = "May 3, 2021 23:59:59";
+    //=>> Set date variables here.
+    let startstring     = "April 25, 2021";       // set start date here   >>>
+    let futurestring    = "May 3, 2021 23:59:59"; // set future date here; >>>
+    //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
-    let today_date        = new Date();
-    let today             = today_date.getTime();
-    let today_promo_y     = today_date.getFullYear();
-    let today_promo_m     = today_date.getMonth();
-    let today_promo_d     = today_date.getDate();
+    //=>>Format todays date below. - untouched!
+    //==>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    let montharray      = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+    let today           = new Date();
+    let today_y         = today.getFullYear();
+    let today_m         = today.getMonth();
+    let today_d         = today.getDate();
+    let today_h         = today.getHours();
+    let today_min       = today.getMinutes();
+    let today_sec       = today.getSeconds();
+    let todaystring     = montharray[today_m]+" "+today_d+", "+today_y+" "+today_h+":"+today_min+":"+today_sec;
+
+   
+    //=> Parse date and get diffrences below;
+    //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		let dd              = Date.parse(futurestring) - Date.parse(todaystring);
+	  let dday            = Math.floor(dd/(60*60*1000*24)*1);
+		let dhour           = Math.floor((dd%(60*60*1000*24))/(60*60*1000)*1);
+		let dmin            = Math.floor(((dd%(60*60*1000*24))%(60*60*1000))/(60*1000)*1);
+		let dsec            = Math.floor((((dd%(60*60*1000*24))%(60*60*1000))%(60*1000))/1000*1);
 
 
-    let start_promo       = new Date(count_start).getTime();
+    //=> Get time as milliseconds.
+    //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    let today_time      = today.getTime();
+    let start_time      = new Date(startstring).getTime();
+    let end_time        = new Date(futurestring).getTime();
 
     
-    let end_promo_date    = new Date(count_end);
-    let end_promo         = end_promo_date.getTime();
-    let end_promo_y       = end_promo_date.getFullYear();
-    let end_promo_m       = end_promo_date.getMonth();
-    let end_promo_d       = end_promo_date.getDate();
-
-
-    let day_before_end    = new Date(count_end).setDate(new Date(count_end).getDate() - 1);
-    let day_before_end_y  = new Date(day_before_end).getFullYear();
-    let day_before_end_m  = new Date(day_before_end).getMonth();
-    let day_before_end_d  = new Date(day_before_end).getDate();
-
-    console.log(today, end_promo);
-
     
-    if((today >= start_promo) && (today <= end_promo)){
-      this.isPromo = true;
+    if((today_time >= start_time) && (today_time <= end_time)){
+          this.isPromo = true;
 
-          if(end_promo_y == today_promo_y && end_promo_m == today_promo_m && end_promo_d == today_promo_d)
+          if(dday == 0)
                 this.countdown_left = "Today";
 
-          else if(day_before_end_y == today_promo_y && day_before_end_m == today_promo_m && day_before_end_d == today_promo_d)
+          else if(dday == 1)
                 this.countdown_left = "Tomorrow";
 
-          else{
-                this.countdown_left = " in " + (end_promo_date.getDate() - today_date.getDate()) + " Days";
-          }
+          else
+                this.countdown_left = " in " + dday + " Days";
     }
-    else 
+    else
       this.isPromo = false;
     
-
-
   }
 }
 
