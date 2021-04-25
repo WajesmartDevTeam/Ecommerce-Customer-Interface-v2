@@ -1023,33 +1023,20 @@ export default {
     document.head.appendChild(rave);
 
     /* for free delivery promotion */
-    let count_start = "April 25, 2021";
-    let count_end   = "May 3, 2021 23:59:59";
+    let startstring      = "April 25, 2021";
+    let futurestring     = "May 3, 2021 23:59:59";
 
-    let today_date        = new Date();
-    let today             = today_date.getTime();
-    let today_promo_y     = today_date.getFullYear();
-    let today_promo_m     = today_date.getMonth();
-    let today_promo_d     = today_date.getDate();
+    let today             = new Date().getTime();
+    let start_promo       = new Date(startstring).getTime();
+    let end_promo         = new Date(futurestring).getTime();
 
-    let start_promo       = new Date(count_start).getTime();
-
-    let end_promo_date    = new Date(count_end);
-    let end_promo         = end_promo_date.getTime();
-    let end_promo_y       = end_promo_date.getFullYear();
-    let end_promo_m       = end_promo_date.getMonth();
-    let end_promo_d       = end_promo_date.getDate();
-
-    let day_before_end    = new Date(count_end).setDate(new Date(count_end).getDate() - 1);
-    let day_before_end_y  = new Date(day_before_end).getFullYear();
-    let day_before_end_m  = new Date(day_before_end).getMonth();
-    let day_before_end_d  = new Date(day_before_end).getDate();
 
     if((today >= start_promo) && (today <= end_promo)){
       this.isPromo = true;
     }
     else 
       this.isPromo = false;
+
 
   },
   mounted () {
