@@ -79,7 +79,7 @@ export default {
 .promotion_alert_header {
     margin: 0;
     padding: 25px 0;
-    background: #2b2d42;
+    background: #ff0102;
     background-image: url(https://d2guulkeunn7d8.cloudfront.net/assets/alternate_retailers/top_banner@2x-31cdaa743f689f9da8b2bd235918009831fff1faa0a50bac28ec2520b8350d6b.png);
     color: #ffffff;
     font-size: 14px;
