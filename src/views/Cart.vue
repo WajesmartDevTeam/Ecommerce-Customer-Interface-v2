@@ -281,4 +281,10 @@ export default {
   position: sticky;
   top: 25%;
 }
+
+@media screen and (max-width:500px) {
+  #continue {
+      top: 44%!important;
+  }
+}
 </style>

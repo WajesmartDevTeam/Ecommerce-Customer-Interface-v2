@@ -1271,7 +1271,7 @@ export default {
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
        
-           if(this.isPromo && this.order.order_total >= 10000){
+          if(this.isPromo && this.order.order_total >= 10000){
             this.order.delivery.charge = 0;
           }
           else{
