@@ -1070,8 +1070,10 @@ export default {
       this.order.cart_subtotal += Number(i.price)
     })
 
-    if(this.isPromo && this.order.order_total >= 10000)
+    if(this.isPromo && this.order.order_total >= 10000){
       console.log('is promo window');
+      this.deliveryFee = 0;
+    }
     else
       this.fetchDeliveryFeeVariation();
 
