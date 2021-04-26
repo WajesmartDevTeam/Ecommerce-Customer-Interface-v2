@@ -119,7 +119,7 @@ export default {
 @media screen and (max-width:500px) {
   .countdown_left{
       margin-left: 3px;
-      font-style: 16px !important;
+      font-style: 14px !important;
   }
   .promotion_alert_header {
       font-size: 12px;
