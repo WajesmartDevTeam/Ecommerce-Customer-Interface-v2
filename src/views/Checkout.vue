@@ -1072,7 +1072,6 @@ export default {
 
     if(this.isPromo && this.order.order_total >= 10000){
       console.log('is promo window');
-      this.deliveryFee = 0;
     }
     // else
     //   this.fetchDeliveryFeeVariation();
@@ -1272,7 +1271,12 @@ export default {
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
        
-          this.order.delivery.charge = row.deliveryfee;
+           if(this.isPromo && this.order.order_total >= 10000){
+            this.order.delivery.charge = 0;
+          }
+          else{
+            this.order.delivery.charge = row.deliveryfee;
+          }
         
       }
     },
