@@ -76,7 +76,7 @@ export default {
 
 <style scoped>
 .countdown_left{
-    font-size: 14px !important;
+    font-size: 24px !important;
     background: transparent;
 }
 .promotion_alert_header {
@@ -85,7 +85,7 @@ export default {
     background: #ff0102;
     background-image: url(https://d2guulkeunn7d8.cloudfront.net/assets/alternate_retailers/top_banner@2x-31cdaa743f689f9da8b2bd235918009831fff1faa0a50bac28ec2520b8350d6b.png);
     color: #ffffff;
-    font-size: 14px;
+    font-size: 24px;
 }
 
 .blinking{
