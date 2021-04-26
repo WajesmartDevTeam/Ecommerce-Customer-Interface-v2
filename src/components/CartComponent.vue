@@ -142,15 +142,15 @@
           </div>
 
           <div v-if="getCart.length > 0" class="modal-footer">
-            <p  v-if="cart_total < 10000" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - cart_total).toLocaleString()}} for free delivery</b></p>
-            <p  v-if="cart_total >= 10000" class="text-center"><b>You qualify for free delivery</b></p>
+            <p  v-if="$store.getters.cart_total < 10000" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} for free delivery</b></p>
+            <p  v-if="$store.getters.cart_total >= 10000" class="text-center"><b>You qualify for free delivery</b></p>
 
-            <p v-if="cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
+            <p v-if="$store.getters.cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
 
             <div class="checkout">
-              <button v-bind:disabled="cart_total < 1500" v-bind:class="cart_total < 1500? 'disabled': ''" @click="handleCheckout">
+              <button v-bind:disabled="$store.getters.cart_total < 1500" v-bind:class="$store.getters.cart_total < 1500? 'disabled': ''" @click="handleCheckout">
                 <span>Checkout</span>
-                <span class="total">₦ {{formatPrice(cart_total)}}</span>
+                <span class="total">₦ {{formatPrice($store.getters.cart_total)}}</span>
               </button>
             </div>
           </div>

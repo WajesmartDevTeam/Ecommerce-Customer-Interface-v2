@@ -1,8 +1,12 @@
 <template>
   <div id="FreeDelivery">
-    <div v-if="isPromo" class="text-center promotion_alert_header">
-      Add <strong class="countdown_left">&#x20A6;{{cart_amount_qualify.toLocaleString()}}</strong> for FREE delivery. Free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
+    <div v-if="isPromo && qualify == 0 " class="text-center promotion_alert_header">
+      You qualify for <b>FREE</b> delivery. Free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
     </div>
+    <div v-else-if="isPromo" class="text-center promotion_alert_header">
+      Add <strong class="countdown_left">&#x20A6;{{qualify}}</strong> for <b>FREE</b> delivery. Free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
+    </div>
+
   </div>
 </template>
 
@@ -17,8 +21,22 @@ export default {
       cart_amount_qualify:10000
     }
   },
+  computed : {
+    cart_total () {
+      console.log( this.$store.getters.cart_total)
+      return this.$store.getters.cart_total
+    },
+    qualify () {
+      let total = (this.cart_amount_qualify - Number(this.cart_total))
+      // return total;
+
+      return total > 0 ? total.toLocaleString() : 0;
+      // .toLocaleString()
+    }
+  },
   created () {
     //=>> Set date variables here.
+    
     let startstring     = "April 25, 2021";       // set start date here   >>>
     let futurestring    = "May 3, 2021 23:59:59"; // set future date here; >>>
     //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -76,7 +94,7 @@ export default {
 
 <style scoped>
 .countdown_left{
-    font-size: 14px !important;
+    font-size: 24px !important;
     background: transparent;
 }
 .promotion_alert_header {
@@ -85,7 +103,7 @@ export default {
     background: #ff0102;
     background-image: url(https://d2guulkeunn7d8.cloudfront.net/assets/alternate_retailers/top_banner@2x-31cdaa743f689f9da8b2bd235918009831fff1faa0a50bac28ec2520b8350d6b.png);
     color: #ffffff;
-    font-size: 14px;
+    font-size: 24px;
 }
 
 .blinking{
