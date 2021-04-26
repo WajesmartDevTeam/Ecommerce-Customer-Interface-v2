@@ -385,6 +385,7 @@
                                   <h5 v-if="order.delivery.method == 'delivery'">Delivery Fee</h5>
                                   <h5 v-else>Pickup Fee</h5>
                                   <p v-if="order.delivery.method == 'pickup'">FREE</p>
+                                  <p v-else-if="isPromo && ordertotal >= 10000">FREE</p>
                                   <p v-else>₦{{row.deliveryfee}}</p>
                                 </div>
                               </div>
@@ -1263,12 +1264,10 @@ export default {
       this.order.delivery.hour = row.starttime + ' - ' + row.endtime;
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
-        if(this.isPromo && this.order.order_total >= 10000){
-          this.order.delivery.charge = 'Free'
-        } else {
+       
           this.order.delivery.charge = row.deliveryfee;
-        }
-      } 
+        
+      }
     },
     paymethod ($event, meth) {
       if ($event.target.checked) {
