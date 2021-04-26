@@ -1262,8 +1262,12 @@ export default {
     setWindow (row, index) {
       this.order.delivery.hour = row.starttime + ' - ' + row.endtime;
       this.selected_window = row.id + '' + index;
-      if (row.deliveryfee !== null) {        
-        this.order.delivery.charge = row.deliveryfee;
+      if (row.deliveryfee !== null) {
+        if(this.isPromo && this.order.order_total >= 10000){
+          this.order.delivery.charge = 'Free'
+        } else {
+          this.order.delivery.charge = row.deliveryfee;
+        }
       } 
     },
     paymethod ($event, meth) {
