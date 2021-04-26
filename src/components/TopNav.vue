@@ -307,9 +307,9 @@
               href=""
               class="dropdown-toggle"
               data-toggle="dropdown"
-            >Specials</a>
+            >Ramadan</a>
             <ul class="dropdown-menu">
-              <li class="divider"><a href="/promotions/Specials"> All </a></li>
+              <li class="divider"><a href="/promotions/ramadan"> All </a></li>
               <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
               <li class="divider"></li>
             </ul>
@@ -441,10 +441,10 @@
       <a
         @click.prevent='toggleDropdown'
         class="dropdown-btn sidemenu">
-        Specials
+        Ramadan
       </a>
         <div class="dropdown-container">
-          <a href="/promotions/Specials" class="sidemenu"> All </a>
+          <a href="/promotions/ramadan" class="sidemenu"> All </a>
           <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
         </div>
 
