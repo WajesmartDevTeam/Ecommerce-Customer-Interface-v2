@@ -22,7 +22,7 @@ import MyOrders from '../views/Orders.vue'
 import OrderView from '../views/OrderView.vue'
 import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
-import Wallet from '../views/Wallet.vue';
+// import Wallet from '../views/Wallet.vue';
 import Promotions from "@/views/Promotions";
 // import BlackFriday from '../views/BlackFriday.vue';
 import Hampers from '../views/Hampers.vue';
@@ -145,11 +145,11 @@ const routes = [{
         name: 'MyOrders',
         component: MyOrders
     },
-    {
-        path: '/wallet',
-        name: 'Wallet',
-        component: Wallet
-    },
+    // {
+    //     path: '/wallet',
+    //     name: 'Wallet',
+    //     component: Wallet
+    // },
     {
         path: '/orderview/:id',
         name: 'MyOrder',
