@@ -25,7 +25,6 @@ export default {
 
 
     //=>>Format todays date below. - untouched!
-    //==>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     let montharray      = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
     let today           = new Date();
     let today_y         = today.getFullYear();
@@ -38,7 +37,6 @@ export default {
 
    
     //=> Parse date and get diffrences below;
-    //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		let dd              = Date.parse(futurestring) - Date.parse(todaystring);
 	  let dday            = Math.floor(dd/(60*60*1000*24)*1);
 		let dhour           = Math.floor((dd%(60*60*1000*24))/(60*60*1000)*1);
@@ -47,7 +45,6 @@ export default {
 
 
     //=> Get time as milliseconds.
-    //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     let today_time      = today.getTime();
     let start_time      = new Date(startstring).getTime();
     let end_time        = new Date(futurestring).getTime();
@@ -57,17 +54,19 @@ export default {
     if((today_time >= start_time) && (today_time <= end_time)){
           this.isPromo = true;
 
-          if(dday == 0)
+          if(dday == 0){
                 this.countdown_left = "Today";
-
-          else if(dday == 1)
+          }
+          else if(dday == 1){
                 this.countdown_left = "Tomorrow";
-
-          else
+          }
+          else{
                 this.countdown_left = " in " + dday + " Days";
+          }
     }
-    else
+    else{
       this.isPromo = false;
+    }
     
   }
 }

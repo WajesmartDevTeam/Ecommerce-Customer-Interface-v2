@@ -22,9 +22,7 @@ export default {
   data () {
     return {
       showA: false,
-      showB: false,
-      isPromo: false,
-      countdown_left: ""
+      showB: false
     }
   },
   created () {
@@ -32,15 +30,15 @@ export default {
     let arrayA = ['Home', 'Category', 'Search'];
     let arrayB = ['OrderConfirmation'];
     
-  
-
     if (arrayA.includes(current)) {
       this.showA = true;
     }
     else if (arrayB.includes(current)) {
       this.showB = true;
     }
+
     else { }
+
   }
 }
 

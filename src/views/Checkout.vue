@@ -1034,9 +1034,9 @@ export default {
     if((today >= start_promo) && (today <= end_promo)){
       this.isPromo = true;
     }
-    else 
+    else{
       this.isPromo = false;
-
+    }
 
   },
   mounted () {
