@@ -1,10 +1,10 @@
 <template>
   <div id="FreeDelivery">
     <div v-if="isPromo && qualify == 0 " class="text-center promotion_alert_header">
-      You qualify for <b>FREE</b> delivery. Free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
+      You qualify for <b>FREE</b> delivery, free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
     </div>
     <div v-else-if="isPromo" class="text-center promotion_alert_header">
-      Add <strong class="countdown_left">&#x20A6;{{qualify}}</strong> for <b>FREE</b> delivery. Free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
+      Add <strong class="countdown_left">&#x20A6;{{qualify}}</strong> for <b>FREE</b> delivery, free delivery expires  <span class="countdown_left blinking">{{countdown_left}}</span>
     </div>
 
   </div>
@@ -73,13 +73,13 @@ export default {
           this.isPromo = true;
 
           if(dday == 0){
-                this.countdown_left = "Today";
+                this.countdown_left = "today.";
           }
           else if(dday == 1){
-                this.countdown_left = "Tomorrow";
+                this.countdown_left = "tomorrow.";
           }
           else{
-                this.countdown_left = " in " + dday + " Days";
+                this.countdown_left = " in " + dday + " days.";
           }
     }
     else{
