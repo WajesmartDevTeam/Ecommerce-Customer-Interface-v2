@@ -1069,7 +1069,14 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
-    // this.fetchDeliveryFeeVariation();
+
+    if(this.isPromo && this.order.order_total >= 10000){
+      console.log('is promo window');
+      this.deliveryFee = 0;
+    }
+    // else
+    //   this.fetchDeliveryFeeVariation();
+
   },
   watch: {
     edit (val) {
