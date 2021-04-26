@@ -284,7 +284,10 @@ export default {
 
 @media screen and (max-width:500px) {
   #continue {
-      top: 44%!important;
+      top: 37% !important;
+  }
+  .cart .card button {
+    margin-top: 50px !important;
   }
 }
 </style>
