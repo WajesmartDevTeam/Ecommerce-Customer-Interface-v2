@@ -157,6 +157,10 @@ export default new Vuex.Store({
         promotions: state => state.promotions,
         categories: state => state.categories,
         categoryRoute: state => state.categoryRoute,
+        cart_total: state=> state.cart.map(x => Number(x.quantity) * Number(x.unit_price)).reduce((acc, curr) => {
+            acc += Number(curr)
+            return acc
+        }, 0)
     },
     plugins: [createPersistedState()]
 })
