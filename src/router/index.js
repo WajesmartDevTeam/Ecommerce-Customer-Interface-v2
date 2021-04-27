@@ -110,8 +110,13 @@ const routes = [{
         name: 'Register',
         component: Register
     },
+    // {
+    //     path: '/password/reset/:key',
+    //     name: 'ResetPassword',
+    //     component: ResetPassword
+    // },
     {
-        path: '/password/reset/:key',
+        path: '/reset/:key',
         name: 'ResetPassword',
         component: ResetPassword
     },
