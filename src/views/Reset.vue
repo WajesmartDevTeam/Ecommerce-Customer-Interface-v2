@@ -8,6 +8,7 @@
         >
       </a>
     </div>
+    
     <div class="col-md-8 field p-3">
       <!-- <div class="option text-right">
         <a href="/register">Have an account? <span>Register</span></a>
@@ -17,56 +18,23 @@
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent='handleSubmit(handleReset)'>
 
-            <div
-              class="form-group"
-              style="position:relative"
-            >
-              <validation-provider
-                rules="required"
-                name="password"
-                v-slot="{ errors }"
-              >
-                <input
-                  class="form-control"
-                  placeholder="Enter new Password"
-                  v-model="reset.password"
-                  :type="passwordFieldType"
-                >
+            <div class="form-group" style="position:relative">
+              <validation-provider rules="required" name="password" v-slot="{ errors }">
+                <input class="form-control" placeholder="Enter new Password" v-model="reset.password" :type="passwordFieldType">
                 <span class="err_msg">{{ errors[0] }}</span>
               </validation-provider>
-              <span
-                id="show_hide"
-                @click="switchVisibility"
-              >
-                <i
-                  v-if="passwordFieldType == 'password'"
-                  class="fa fa-eye"
-                ></i>
-                <i
-                  v-if="passwordFieldType == 'text'"
-                  class="fa fa-eye-slash"
-                ></i>
+              
+              <span id="show_hide" @click="passwordFieldType == 'password' ? passwordFieldType = 'text' : passwordFieldType = 'password'">
+                <i :class="passwordFieldType == 'password' ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
               </span>
-
             </div>
-            <div
-              class="form-group"
-              style="position:relative"
-            >
-              <validation-provider
-                name="confirm"
-                rules="required|confirmedBy:@password"
-                v-slot="
-                {
-                errors
-                }"
-              >
-                <input
-                  class="form-control"
-                  placeholder="Confirm Password"
-                  type="password"
-                >
-                <span class="err_msg">{{ errors[0] }}</span>
+
+            <div class="form-group"  style="position:relative">
+              <validation-provider name="confirm" rules="required" v-slot="{errors}">
+
+                <input class="form-control" placeholder="Confirm Password" v-model='reset.re_password' type="password" v-on:keyup="reset.password != reset.re_password ? err_match = 'New password & confirm password did not match' : err_match = ''">
+
+                <span class="err_msg">{{ errors[0] }} {{err_match}}</span>
               </validation-provider>
             </div>
 
@@ -90,6 +58,7 @@ export default {
   data () {
     return {
       passwordFieldType: 'password',
+      err_match:'',
       reset: {
         token: '',
         email: '',
@@ -98,11 +67,10 @@ export default {
     }
   },
   mounted () {
-    let search = window.location.search
-    this.reset.token = this.$route.params.key
-    this.reset.email = search.substr(search.lastIndexOf('=') + 1)
-    this.reset.email = this.reset.email.replace("%40", "@");
-
+    let search = window.location.search;
+    this.reset.token = this.$route.params.key;
+    this.reset.email = decodeURIComponent(search.substr(search.lastIndexOf('=') + 1));
+    //this.reset.email = this.reset.email.replace("%40", "@");
   },
   methods: {
     handleReset () {
@@ -123,9 +91,6 @@ export default {
           console.log(error)
           this.$swal.fire("Error", error, "error");
         });
-    },
-    switchVisibility () {
-      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
     }
   }
 }
