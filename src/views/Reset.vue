@@ -84,7 +84,8 @@ export default {
           console.log(response)
           this.$swal.fire("Success", `Hi ${response.message}, Welcome to Marketsquare`, "success");
           this.reset = {};
-          this.$route.push('/login')
+          //this.$router.push('/login')
+          this.$router.push({ path: '/login' });
 
         })
         .catch(error => {
