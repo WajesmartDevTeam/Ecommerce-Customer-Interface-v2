@@ -241,6 +241,14 @@ export default {
     return {
     }
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Terms & Conditions Page';
+        }
+    },
+  },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
   },

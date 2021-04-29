@@ -590,6 +590,15 @@ export default {
       this.loader.hide()
     }, 500);
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Account Page';
+        }
+    },
+  },
 
   created () {
     this.fetchBanners();

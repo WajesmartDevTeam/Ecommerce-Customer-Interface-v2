@@ -347,6 +347,14 @@ export default {
       },
     }
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Registration Page';
+        }
+    },
+  },
 
   methods: {
     getDob () {

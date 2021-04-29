@@ -174,6 +174,12 @@ export default {
 
   },
   watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Store Locator Page';
+        }
+    },
     method (val) {
       if (val == 'Delivery') {
         let vm = this;
@@ -189,6 +195,7 @@ export default {
       }
     }
   },
+
   methods: {
     getAllStores () {
       let req = {

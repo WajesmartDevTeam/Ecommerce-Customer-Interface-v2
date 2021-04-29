@@ -218,6 +218,12 @@ export default {
     this.$store.dispatch('ToggleShowSearch', true)
   },
    watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Valatine Form Page';
+        }
+    },
     selected: function (val) {
       let vm = this;
       vm.contact.state = val

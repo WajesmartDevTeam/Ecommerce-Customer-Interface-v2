@@ -235,6 +235,14 @@ export default {
         this.getProduct()
     }
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Product Page';
+        }
+    },
+  },
   methods: {
     getProduct () {
       let req = {

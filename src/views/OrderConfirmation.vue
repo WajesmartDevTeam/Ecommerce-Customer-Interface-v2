@@ -121,6 +121,16 @@ export default {
       }
     })
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Order COnfirmation Page';
+        }
+    },
+  },
+
   methods: {
     formatPrice (price) {
       var str = price.toString().split(".");

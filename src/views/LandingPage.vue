@@ -406,6 +406,15 @@ export default {
     // console.log(this.banners)
   },
   
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Landing Page';
+        }
+    },
+  },
+
   methods: {
     setCategoryRoute (route) {
       this.$store.dispatch('setCategoryRoute', route);

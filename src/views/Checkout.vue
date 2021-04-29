@@ -1078,6 +1078,14 @@ export default {
 
   },
   watch: {
+  
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Check Out Page';
+        }
+    },
+
     edit (val) {
       if (val == false) {
         this.address.state = this.store.state

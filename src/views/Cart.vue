@@ -164,6 +164,16 @@ export default {
       return total;
     }
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Cart Page';
+        }
+    },
+  },
+
   methods: {
     removeItem (row) {
       let index;

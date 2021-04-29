@@ -72,6 +72,14 @@ export default {
     this.reset.email = decodeURIComponent(search.substr(search.lastIndexOf('=') + 1));
     //this.reset.email = this.reset.email.replace("%40", "@");
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Reset Password Page';
+        }
+    },
+  },
   methods: {
     handleReset () {
       var req = {

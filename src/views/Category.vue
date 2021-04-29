@@ -208,6 +208,16 @@ export default {
     this.bannerList = this.$store.getters.banners;
     console.log(this.bannerList)
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Category Page';
+        }
+    },
+  },
+
   methods: {
     fetchProducts ($state) {
       this.page += 1; ``

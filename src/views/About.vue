@@ -192,6 +192,14 @@ export default {
     this.$store.dispatch('ToggleShowSearch', false);
     this.loader = this.$loading.show();
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'About Page';
+        }
+    },
+  },
   mounted () {
     setTimeout(() => {
       this.loader.hide()

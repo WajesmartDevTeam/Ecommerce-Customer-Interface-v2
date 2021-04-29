@@ -238,6 +238,14 @@ export default {
       this.fetchPromotions();
 
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Home Page';
+        }
+    },
+  },
   methods: {
     goToCategory(name) {
       switch (name) {
