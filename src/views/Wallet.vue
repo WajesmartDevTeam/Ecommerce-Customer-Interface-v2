@@ -21,7 +21,7 @@
                   </div>
 
                   <div class="pull-right">
-                    <h4 class="card-title"><div class="btn btn-info" data-toggle="modal" data-target="#modal_aside_right_password"> Set Wallet Pin</div></h4>
+                    <h4 class="card-title"><div class="btn btn-info wallet_pin_btn" data-toggle="modal" data-target="#modal_aside_right_password"> Set Wallet Pin</div></h4>
                   </div>
 
                 </div>
@@ -600,5 +600,5 @@ select.form-control {
 .modal.fixed-left .modal-dialog-aside{ margin-left:auto;  transform: translateX(100%); }
 .modal.fixed-right .modal-dialog-aside{ margin-right:auto; transform: translateX(-100%); }
 .modal.show .modal-dialog-aside{ transform: translateX(0);  }
-#modal_aside_right{margin-right:10px;}
+.wallet_pin_btn{margin-right:10px;}
 </style>
