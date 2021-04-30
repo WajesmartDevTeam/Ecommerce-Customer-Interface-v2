@@ -19,6 +19,11 @@
                   <div class="pull-right">
                     <h4 class="card-title"><div class="btn btn-success" data-toggle="modal" data-target="#modal_aside_right"> Make Transaction</div></h4>
                   </div>
+
+                  <div class="pull-right">
+                    <h4 class="card-title"><div class="btn btn-info" data-toggle="modal" data-target="#modal_aside_right_password"> Set Wallet Pin</div></h4>
+                  </div>
+
                 </div>
                 <div class="card-body">
                   <vue-table-dynamic :params="params"></vue-table-dynamic>
@@ -153,6 +158,23 @@
             </div>
           </div> <!-- modal-bialog .// -->
         </div>
+
+        <div id="modal_aside_right_password" class="modal fixed-left fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-aside" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Set Wallet Pin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ---
+              </div>
+            </div>
+          </div> <!-- modal-bialog .// -->
+        </div>
+
       </div>
     </div>
   </div>
