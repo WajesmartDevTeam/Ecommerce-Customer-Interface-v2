@@ -169,7 +169,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                ---
+                
               </div>
             </div>
           </div> <!-- modal-bialog .// -->
@@ -600,4 +600,5 @@ select.form-control {
 .modal.fixed-left .modal-dialog-aside{ margin-left:auto;  transform: translateX(100%); }
 .modal.fixed-right .modal-dialog-aside{ margin-right:auto; transform: translateX(-100%); }
 .modal.show .modal-dialog-aside{ transform: translateX(0);  }
+#modal_aside_right{margin-right:10px;}
 </style>
