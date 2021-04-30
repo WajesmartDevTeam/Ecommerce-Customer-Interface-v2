@@ -90,7 +90,7 @@ export default {
         .makePostRequest(req)
         .then(response => {
           console.log(response)
-          this.$swal.fire("Success", `Hi ${response.message}, Welcome to Marketsquare`, "success");
+          this.$swal.fire("Success", `Hi ${response.message == undefined ? '' : response.message}, Welcome to Marketsquare`, "success");
           this.reset = {};
           //this.$router.push('/login')
           this.$router.push({ path: '/login' });
