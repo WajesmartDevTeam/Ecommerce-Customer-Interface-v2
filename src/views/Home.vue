@@ -238,6 +238,14 @@ export default {
       this.fetchPromotions();
 
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square | Online Shopping | Groceries & Household Appliances | Find More, Pay Less';
+        }
+    },
+  },
   methods: {
     goToCategory(name) {
       switch (name) {

@@ -210,6 +210,14 @@ export default {
     this.user = this.$store.getters.user
     console.log(this.user)
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Account | Market Square';
+        }
+    },
+  },
   methods: {
     updateUser () {
       let req = {

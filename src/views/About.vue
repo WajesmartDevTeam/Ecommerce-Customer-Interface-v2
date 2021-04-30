@@ -192,6 +192,14 @@ export default {
     this.$store.dispatch('ToggleShowSearch', false);
     this.loader = this.$loading.show();
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'About | Market Square';
+        }
+    },
+  },
   mounted () {
     setTimeout(() => {
       this.loader.hide()

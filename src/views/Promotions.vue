@@ -171,6 +171,14 @@ export default {
        ).length > 0);
     }
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Promotions';
+        }
+    },
+  },
   methods: {
     fetchCategories () {
       let req = {

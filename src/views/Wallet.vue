@@ -224,6 +224,14 @@ export default {
     );
     document.head.appendChild(rave);
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Wallet';
+        }
+    },
+  },
 
   methods: {
     fetchWalletTransactions () {

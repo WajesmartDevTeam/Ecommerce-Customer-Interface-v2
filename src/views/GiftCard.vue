@@ -246,6 +246,16 @@ export default {
     document.head.appendChild(rave);
     this.fetchCards()
   },
+
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Gift Card  | Market Square';
+        }
+    },
+  },
+
   methods: {
     fetchCards () {
       let req = {

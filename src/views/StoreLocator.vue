@@ -174,6 +174,12 @@ export default {
 
   },
   watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Store Locator';
+        }
+    },
     method (val) {
       if (val == 'Delivery') {
         let vm = this;

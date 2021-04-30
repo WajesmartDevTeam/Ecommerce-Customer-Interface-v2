@@ -98,11 +98,18 @@ export default {
     }
   },
   mounted () {
-    let search = window.location.search
-    this.reset.token = this.$route.params.key
-    this.reset.email = search.substr(search.lastIndexOf('=') + 1)
-    this.reset.email = this.reset.email.replace("%40", "@");
-
+    let search = window.location.search;
+    this.reset.token = this.$route.params.key;
+    this.reset.email = decodeURIComponent(search.substr(search.lastIndexOf('=') + 1));
+    //this.reset.email = this.reset.email.replace("%40", "@");
+  },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Reset Password';
+        }
+    },
   },
   methods: {
     handleReset () {

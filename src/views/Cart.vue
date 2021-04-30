@@ -164,6 +164,16 @@ export default {
       return total;
     }
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Cart | Market Square';
+        }
+    },
+  },
+
   methods: {
     removeItem (row) {
       let index;

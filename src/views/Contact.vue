@@ -242,6 +242,12 @@ export default {
     this.$store.dispatch('ToggleShowSearch', true)
   },
   watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Contact  | Market Square';
+        }
+    },
     selected: function (val) {
       let vm = this;
       vm.contact.state = val

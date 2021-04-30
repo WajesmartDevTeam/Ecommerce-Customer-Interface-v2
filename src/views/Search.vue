@@ -119,6 +119,14 @@ export default {
     this.fetchProducts();
     document.title = this.searchQuery.toUpperCase() + ' | ' + this.$store.getters.store.name
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Search Results';
+        }
+    },
+  },
   methods: {
     chat() {
       Tawk_API.toggle();

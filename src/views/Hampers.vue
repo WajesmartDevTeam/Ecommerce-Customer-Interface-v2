@@ -318,7 +318,15 @@ export default {
     this.fetchBanners();
     // this.banners = this.$store.getters.banners
   },
-  
+
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Hampers  | Market Square';
+        }
+    },
+  },
   methods: {
     fetchProducts ($state) {
       let req = {

@@ -345,6 +345,14 @@ export default {
     this.order_id = this.$route.params.id;
     this.fetchOrders()
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | View Order';
+        }
+    },
+  },
   methods: {
     fetchOrders () {
       let req = {

@@ -116,6 +116,15 @@ export default {
     return {
     }
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Market Square NG | Privacy Policy';
+        }
+    },
+  },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
   },
