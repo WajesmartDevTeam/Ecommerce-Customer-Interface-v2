@@ -177,7 +177,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Market Square NG | Store Locator Page';
+            document.title = 'Market Square NG | Store Locator';
         }
     },
     method (val) {

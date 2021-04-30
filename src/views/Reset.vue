@@ -76,7 +76,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Market Square NG | Reset Password Page';
+            document.title = 'Market Square NG | Reset Password';
         }
     },
   },

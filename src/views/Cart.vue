@@ -169,7 +169,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Cart Page';
+            document.title = 'Cart | Market Square';
         }
     },
   },

@@ -410,7 +410,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Market Square NG | Landing Page';
+            document.title = 'Market Square | Online Shopping | Groceries & Household Appliances | Find More, Pay Less';
         }
     },
   },

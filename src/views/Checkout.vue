@@ -1082,7 +1082,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Check Out Page';
+            document.title = 'Check Out  | Market Square';
         }
     },
 

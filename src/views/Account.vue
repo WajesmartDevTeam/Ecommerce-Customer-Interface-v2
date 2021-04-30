@@ -214,7 +214,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Account Page';
+            document.title = 'Account | Market Square';
         }
     },
   },

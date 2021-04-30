@@ -245,7 +245,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Contact Page';
+            document.title = 'Contact  | Market Square';
         }
     },
     selected: function (val) {

@@ -251,7 +251,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Gift Card Page';
+            document.title = 'Gift Card  | Market Square';
         }
     },
   },

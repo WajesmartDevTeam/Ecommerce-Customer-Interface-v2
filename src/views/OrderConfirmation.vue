@@ -126,7 +126,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Market Square NG | Order COnfirmation Page';
+            document.title = 'Market Square NG | Order Confirmation';
         }
     },
   },

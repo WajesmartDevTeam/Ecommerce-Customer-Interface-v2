@@ -323,7 +323,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Hampers Page';
+            document.title = 'Hampers  | Market Square';
         }
     },
   },
