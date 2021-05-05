@@ -716,7 +716,7 @@
                           <label
                             class="form-check-label"
                             for="exampleCheck1"
-                          >I accept to the <a
+                          >I accept the <a
                               href="/terms"
                               style="color:#000066; font-weight:bold;"
                             >terms and conditions</a> of marketsquare</label>

@@ -286,7 +286,7 @@ import Cart from '@/components/CartComponent.vue'
 import Disclaimer from '@/components/Disclaimer.vue'
 
 export default {
-  name: 'BlackFriday',
+  name: 'Hampers',
   components: {
     StoreSelector, TopNav, Footer, Cart, Disclaimer
   },
@@ -308,10 +308,18 @@ export default {
     this.loader = this.$loading.show();
   },
   mounted () {
-    setTimeout(() => {
-      this.loader.hide()
-    }, 500);
-    this.fetchProducts();
+    //setTimeout(() => {
+    //  this.loader.hide()
+    //}, 500);
+    //this.fetchProducts();
+
+    this.category = this.$route.params.cat
+    this.searchQuery = this.$route.params.searchQuery != undefined ? this.$route.params.searchQuery : null
+    if(this.$store.getters.isStoreSet) {
+      this.fetchProducts()
+    } else {
+      this.loader.hide();
+    }
   },
 
   created () {
@@ -323,18 +331,20 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Hampers  | Market Square';
+            document.title = 'Ramadam Combo  | Market Square';
         }
     },
   },
   methods: {
-    fetchProducts ($state) {
+      fetchProducts ($state) {
+      this.page += 1; ``
       let req = {
         what: "categories",
         showLoader: false,
         params: {
-          storeid: 13,
-          category: 'HAMPERS',
+          storeid: this.$store.getters.store.id,
+          category: this.category,
+          search: this.searchQuery,
           page: this.page
         }
       }
@@ -378,6 +388,10 @@ export default {
           console.log(error)
         });
     },
+
+
+
+
     viewProduct (product) {
       history.pushState({}, null, `/product/${product.store_id}/${product.category}/${product.name}`);
       let cart = this.$store.getters.cart;
@@ -392,6 +406,8 @@ export default {
       this.pro = product;
       this.viewproduct = true
     },
+
+
     addToCart (product, addid, addbtn, id) {
       document.getElementById(addid).classList.remove('hideqty');
       document.getElementById(addbtn).classList.add('hideqty')

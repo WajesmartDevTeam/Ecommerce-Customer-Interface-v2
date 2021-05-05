@@ -46,6 +46,11 @@ const routes = [{
         component: Promotions
     },
     {
+        path: '/ramadan-combo/:cat',
+        name: 'Hampers',
+        component: Hampers
+    },
+    {
         path: '/black-friday',
         name: 'BlackFriday',
         redirect: '/home'
