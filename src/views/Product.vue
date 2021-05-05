@@ -239,7 +239,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = this.$route.params.name;
+            document.title = this.$route.params.name+' Product Page';
         }
     },
   },
