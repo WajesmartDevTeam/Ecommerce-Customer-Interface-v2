@@ -371,7 +371,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Address | Market Square';
+            document.title = 'Address Book Page';
         }
     },
 

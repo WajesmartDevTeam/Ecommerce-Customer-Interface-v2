@@ -213,7 +213,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Category  | Market Square';
+            document.title = this.category+' Category Page';
         }
     },
   },

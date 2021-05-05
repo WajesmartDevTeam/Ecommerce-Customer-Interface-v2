@@ -331,7 +331,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Ramadam Combo  | Market Square';
+            document.title = 'Ramadam Combo';
         }
     },
   },

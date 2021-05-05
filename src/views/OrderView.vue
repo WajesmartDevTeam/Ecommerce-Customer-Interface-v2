@@ -349,7 +349,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Market Square NG | View Order';
+            document.title = 'View Order Page';
         }
     },
   },

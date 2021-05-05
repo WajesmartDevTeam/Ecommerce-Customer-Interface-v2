@@ -42,7 +42,7 @@
                     class="img-fluid"
                   >
                 </div>
-                <div  :class="category.toLowerCase().includes('hamper') ? 'col-2' : 'col-7'">
+                <div  :class="category.toLowerCase().includes('ramadan packs') ? 'col-2' : 'col-7'">
                   <div class="product-text" >
                     <p class="name mb-2" style="height: auto !important">{{pro.name}}</p>
                     <p
@@ -73,7 +73,7 @@
                     <button
                       :id="'btntp_modal'"
                       class="addtocart"
-                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('hampers')}"
+                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('ramadan packs')}"
                       v-bind:class="pro.hidebtn? 'hideqty':''"
                       @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
@@ -93,7 +93,7 @@
                     <button
                       :id="'addtp_modal'"
                       class="addquantity"
-                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('hampers')}"
+                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('ramadan packs')}"
                       v-bind:class="pro.hideqty? 'hideqty':''"
                     >
                       <div
@@ -132,7 +132,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12" v-if="category.toLowerCase().includes('hamper')">
+                <div class="col-md-6 col-sm-12" v-if="category.toLowerCase().includes('ramadan packs')">
                   <div class="description p-0 m-0">
                     {{pro.description}}
                   </div>
