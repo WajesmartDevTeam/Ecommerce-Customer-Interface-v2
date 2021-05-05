@@ -42,7 +42,7 @@
                 id="Pickup"
                 @click.prevent="toggleMode('Pickup')"
                 class="mode"
-              >In-Store Pickup</button>
+              >Free Pickup</button>
             </div>
             <div id="store-content">
               <div class="row">
