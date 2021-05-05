@@ -142,8 +142,8 @@
           </div>
 
           <div v-if="getCart.length > 0" class="modal-footer">
-            <p  v-if="$store.getters.cart_total < 10000" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} for free delivery</b></p>
-            <p  v-if="$store.getters.cart_total >= 10000" class="text-center"><b>You qualify for free delivery</b></p>
+            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} for free delivery</b></p>
+            <p  v-if="$store.getters.cart_total >= 10000 && isPromo" class="text-center"><b>You qualify for free delivery</b></p>
 
             <p v-if="$store.getters.cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
 
@@ -174,6 +174,7 @@ export default {
       cart_total: 0,
       cart: [],
       url: this.$request.url,
+      isPromo: false,
     }
   },
   mounted () {
