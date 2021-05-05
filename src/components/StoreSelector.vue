@@ -44,84 +44,88 @@
                 class="mode"
               >Free Pickup</button>
             </div>
-            <div id="store-content">
-              <div class="row">
-                <div class="col-sm-6 drop_down_wrap">
-                  <v-select
-                    :options="cities"
-                    v-model="city"
-                    placeholder="Kindly select city"
-                    class="form-group"
-                  >
-                    <span slot="no-options">{{city_note}}</span>
-                  </v-select>
-                </div>
-                <div class="col-sm-6 drop_down_wrap">
-                  <v-select
-                    :options="areas"
-                    v-model="area"
-                    class="form-group"
-                    placeholder="Kindly select area"
-                  >
-                    <span slot="no-options">{{area_note}}</span>
-                  </v-select>
-                </div>
-              </div>
-              <div
-                class="d-md-flex justify-content-between mt-3"
-                v-if="stores.length>0"
-              >
-                <h5 class="label">Select Store</h5>
-                <div class="store-search">
-                  <input
-                    v-model="search"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Search for stores"
-                  >
-                  <i class="material-icons">search</i>
-                </div>
-              </div>
-              <div
-                class="row my-2"
-                v-if="stores.length>0"
-              >
-                <div
-                  v-for="store in filteredList"
-                  v-bind:key="store.name"
-                  class="col-sm-6 store-box "
-                >
-                  <div
-                    class="d-flex"
-                    @click.prevent="saveStore(store)"
-                  >
-                    <img
-                      src="../assets/img/store-icon.png"
-                      alt=""
+
+            <form autocomplete="off" method="POST">
+              <div id="store-content">
+                <div class="row">
+                  <div class="col-sm-6 drop_down_wrap">
+                    <v-select
+                      :options="cities"
+                      v-model="city"
+                      placeholder="Kindly select city"
+                      class="form-group"
                     >
-                    <p class="storename">{{camelCase(store.name)}}</p>
-                    <i class="fa fa-long-arrow-right mt-3 ml-lg-4"></i>
+                      <span slot="no-options">{{city_note}}</span>
+                    </v-select>
+                  </div>
+                  <div class="col-sm-6 drop_down_wrap">
+                    <v-select
+                      :options="areas"
+                      v-model="area"
+                      class="form-group"
+                      placeholder="Kindly select area"
+                    >
+                      <span slot="no-options">{{area_note}}</span>
+                    </v-select>
                   </div>
                 </div>
+                <div
+                  class="d-md-flex justify-content-between mt-3"
+                  v-if="stores.length>0"
+                >
+                  <h5 class="label">Select Store</h5>
+                  <div class="store-search">
+                    <input
+                      v-model="search"
+                      type="text"
+                      name=""
+                      id=""
+                      placeholder="Search for stores"
+                      autocomplete="off"
+                    >
+                    <i class="material-icons">search</i>
+                  </div>
+                </div>
+                <div
+                  class="row my-2"
+                  v-if="stores.length>0"
+                >
+                  <div
+                    v-for="store in filteredList"
+                    v-bind:key="store.name"
+                    class="col-sm-6 store-box "
+                  >
+                    <div
+                      class="d-flex"
+                      @click.prevent="saveStore(store)"
+                    >
+                      <img
+                        src="../assets/img/store-icon.png"
+                        alt=""
+                      >
+                      <p class="storename">{{camelCase(store.name)}}</p>
+                      <i class="fa fa-long-arrow-right mt-3 ml-lg-4"></i>
+                    </div>
+                  </div>
 
-              </div>
-              <div v-if="area !== '' && stores.length == 0 ">
-                <div class="text-center my-2">
+                </div>
+                <div v-if="area !== '' && stores.length == 0 ">
+                  <div class="text-center my-2">
 
-                  We are currently not processing orders in your area. Kindly view other areas to see the areas that we serve.
+                    We are currently not processing orders in your area. Kindly view other areas to see the areas that we serve.
+                  </div>
+                </div>
+                <div
+                  v-if="nooption"
+                  class="my-2"
+                >
+                  <div class="text-center">
+
+                    Our online stores are currently unavailable
+                  </div>
                 </div>
               </div>
-              <div
-                v-if="nooption"
-                class="my-2"
-              >
-                <div class="text-center">
-
-                  Our online stores are currently unavailable
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
 
         </div>
