@@ -4,6 +4,11 @@
             height: 10px !important;
             padding: 12px 12px 12px 4px !important;
         }
+
+        .vs__dropdown-menu{
+            max-height: 150px !important;
+            overflow-y: scroll !important;
+        }
         
         * {
             outline: none!important;
