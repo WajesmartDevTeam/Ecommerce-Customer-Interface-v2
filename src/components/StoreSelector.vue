@@ -37,16 +37,16 @@
                 id="Delivery"
                 @click.prevent="toggleMode('Delivery')"
                 class="mode  active"
-              >Delivery</button>
+              >Home Delivery</button>
               <button
                 id="Pickup"
                 @click.prevent="toggleMode('Pickup')"
                 class="mode"
-              >Pickup</button>
+              >Free In-Store Pickup</button>
             </div>
             <div id="store-content">
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 drop_down_wrap">
                   <v-select
                     :options="cities"
                     v-model="city"
@@ -56,7 +56,7 @@
                     <span slot="no-options">{{city_note}}</span>
                   </v-select>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 drop_down_wrap">
                   <v-select
                     :options="areas"
                     v-model="area"
@@ -503,5 +503,13 @@ export default {
   cursor: text;
   padding: 10px;
   border: 1px solid lightgrey;
+}
+
+
+@media screen and (max-width:500px) {
+  .drop_down_wrap ul{
+    max-height:150px !important;
+    overflow-y:scroll !important;
+  }
 }
 </style>
