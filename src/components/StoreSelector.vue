@@ -42,7 +42,7 @@
                 id="Pickup"
                 @click.prevent="toggleMode('Pickup')"
                 class="mode"
-              >Free In-Store Pickup</button>
+              >In-Store Pickup</button>
             </div>
             <div id="store-content">
               <div class="row">
@@ -507,9 +507,12 @@ export default {
 
 
 @media screen and (max-width:500px) {
-  .drop_down_wrap ul{
+  .vs__dropdown-menu{
     max-height:150px !important;
     overflow-y:scroll !important;
+  }
+  #store #store-content {
+    margin: 5% 1% !important;
   }
 }
 </style>
