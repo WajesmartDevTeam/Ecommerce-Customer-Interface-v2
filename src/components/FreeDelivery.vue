@@ -70,7 +70,7 @@ export default {
     
     
     if((today_time >= start_time) && (today_time <= end_time)){
-          this.isPromo = true;
+          this.isPromo = false;
 
           if(dday == 0){
                 this.countdown_left = "today.";

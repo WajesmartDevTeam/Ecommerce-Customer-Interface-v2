@@ -1033,7 +1033,7 @@ export default {
 
 
     if((today >= start_promo) && (today <= end_promo)){
-      this.isPromo = true;
+      this.isPromo = false;
     }
     else{
       this.isPromo = false;
