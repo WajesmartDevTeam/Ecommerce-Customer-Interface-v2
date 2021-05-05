@@ -9,6 +9,10 @@
             max-height: 150px !important;
             overflow-y: scroll !important;
         }
+
+        .vs__dropdown-menu li{
+            padding: 15px !important;
+        }
         
         * {
             outline: none!important;
