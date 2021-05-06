@@ -157,7 +157,8 @@ export default {
     StoreSelector, Cart, TopNav, Footer, Disclaimer, Product, ProductModal
   },
   data () {
-    return {
+    return {    
+      page_namer : decodeURIComponent(/[^/]*$/.exec(window.location.href)[0]).toUpperCase(),
       loader: '',
       showSearch: false,
       viewproduct: false,
@@ -214,7 +215,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = 'Category  | Market Square';
+            document.title = this.page_namer;
         }
     },
   },
