@@ -42,7 +42,7 @@
                     class="img-fluid"
                   >
                 </div>
-                <div  :class="category.toLowerCase().includes('ramadan packs') ? 'col-2' : 'col-7'">
+                <div  :class="pro.promotion && pro.promotion.toLowerCase().includes('ramadan packs') ? 'col-2' : 'col-7'">
                   <div class="product-text" >
                     <p class="name mb-2" style="height: auto !important">{{pro.name}}</p>
                     <p
@@ -51,7 +51,7 @@
                     >(Per Kg)</p>
                   </div>
                   <div class="product-cat d-flex">
-                    <span class="badge text-lowercase">{{pro.category}}</span>
+                    <span class="badge text-lowercase">{{pro.promotion != null ? pro.promotion : pro.category}}</span>
                   </div>
                   <div class="product-footer">
                     <p class="price">
@@ -73,7 +73,7 @@
                     <button
                       :id="'btntp_modal'"
                       class="addtocart"
-                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('ramadan packs')}"
+                      :style="{'text-align: left !important' : pro.promotion.toLowerCase().includes('ramadan packs')}"
                       v-bind:class="pro.hidebtn? 'hideqty':''"
                       @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
@@ -93,7 +93,7 @@
                     <button
                       :id="'addtp_modal'"
                       class="addquantity"
-                      :style="{'text-align: left !important' : pro.category.toLowerCase().includes('ramadan packs')}"
+                      :style="{'text-align: left !important' : pro.promotion.toLowerCase().includes('ramadan packs')}"
                       v-bind:class="pro.hideqty? 'hideqty':''"
                     >
                       <div
@@ -132,7 +132,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12" v-if="category.toLowerCase().includes('ramadan packs')">
+                <div class="col-md-6 col-sm-12" v-if="pro.promotion.toLowerCase().includes('ramadan packs')">
                   <div class="description p-0 m-0">
                     {{pro.description}}
                   </div>
@@ -151,6 +151,7 @@ export default {
      data () {
     return {
        
+      page_namer : decodeURIComponent(/[^/]*$/.exec(window.location.href)[0]),
       category: '',
       image_url: this.$request.url,
       cart: {
