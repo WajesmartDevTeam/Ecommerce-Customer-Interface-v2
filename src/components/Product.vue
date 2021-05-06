@@ -125,6 +125,7 @@ export default {
         viewproduct: false,
         image_url: this.$request.url,
         pro: '',
+        product: '',
         cart: {
             quantity: "",
             unit_price: "",
