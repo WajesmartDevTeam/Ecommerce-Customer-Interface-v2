@@ -72,8 +72,7 @@
 
             <div  class="row mt-4 pb-2  px-md-2 pb-sm-2">
 
-
-             <div class="col-6 col-md-3 col-lg-2 p-1" v-for="(product, index) in products" :key="index">
+             <div :class="isProductPromotion(product) ? 'col-6 col-md-3 col-lg-3 p-1' : 'col-6 col-md-3 col-lg-2 p-1'" v-for="(product, index) in products" :key="index">
                 <Product :product="product" 
                 v-bind:key="product.sku"  @viewProduct="viewProduct($event)" :index="product.id" />
              </div>
@@ -280,6 +279,15 @@ export default {
       
       this.pro = product;
       this.viewproduct = true
+    },
+    isProductPromotion (product){
+        if(product.promotion){
+            if(product.promotion.toLowerCase().includes('ramadan packs'))
+                return true;
+        }
+        else{
+            return false;
+        }
     },
   }
 }

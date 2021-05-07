@@ -42,7 +42,7 @@
                     class="img-fluid"
                   >
                 </div>
-                <div  :class="pro.promotion && pro.promotion.toLowerCase().includes('ramadan packs') ? 'col-2' : 'col-7'">
+                <div  :class="isProductPromotion() ? 'col-2' : 'col-7'">
                   <div class="product-text" >
                     <p class="name mb-2" style="height: auto !important">{{pro.name}}</p>
                     <p
@@ -73,7 +73,7 @@
                     <button
                       :id="'btntp_modal'"
                       class="addtocart"
-                      :style="{'text-align: left !important' : pro.promotion.toLowerCase().includes('ramadan packs')}"
+                      :style="{'text-align: left !important' : isProductPromotion()}"
                       v-bind:class="pro.hidebtn? 'hideqty':''"
                       @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
@@ -93,7 +93,7 @@
                     <button
                       :id="'addtp_modal'"
                       class="addquantity"
-                      :style="{'text-align: left !important' : pro.promotion.toLowerCase().includes('ramadan packs')}"
+                      :style="{'text-align: left !important' : isProductPromotion()}"
                       v-bind:class="pro.hideqty? 'hideqty':''"
                     >
                       <div
@@ -132,7 +132,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12" v-if="pro.promotion.toLowerCase().includes('ramadan packs')">
+                <div class="col-md-6 col-sm-12" v-if="isProductPromotion()">
                   <div class="description p-0 m-0">
                     {{pro.description}}
                   </div>
@@ -150,10 +150,10 @@ export default {
     props: ['viewproduct', 'pro', 'products'],
      data () {
     return {
-       
       page_namer : decodeURIComponent(/[^/]*$/.exec(window.location.href)[0]),
       category: '',
       image_url: this.$request.url,
+      pro:'',
       cart: {
         quantity: "",
         unit_price: "",
@@ -378,6 +378,15 @@ export default {
 
                 })
               })
+            }
+        },
+        isProductPromotion (){
+            if(this.pro.promotion){
+                if(this.pro.promotion.toLowerCase().includes('ramadan packs'))
+                    return true;
+            }
+            else{
+                return false;
             }
         },
     }
