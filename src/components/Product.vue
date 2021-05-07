@@ -1,5 +1,5 @@
 <template>
- <!-- <div class="col-6 col-md-3 col-lg-2 p-1"> -->
+ <!-- <div :class="isProductPromotion() ? 'col-6 col-md-3 col-lg-3 p-1' : 'col-6 col-md-3 col-lg-2 p-1'"> -->
     <div class="product p-md-2 p-sm-1" style="height: auto !important">
         <div
         @click="viewProduct(product)"
@@ -18,6 +18,7 @@
             v-lazy="image_url+product.img_url"
             alt=""
             class="img-fluid"
+            :style="isProductPromotion() ? 'height:110% !important' : ''"
         >
         </div>
         <div
@@ -28,7 +29,16 @@
         data-toggle="modal"
         >
         <p class="description">{{product.name}}</p>
+<<<<<<< HEAD
         <!-- <p class="description"><a @click.prevent="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p> -->
+=======
+
+        <div v-if="isProductPromotion()">
+            <p class="description  desc mt-2" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><b>Content: </b>{{product.description}}</p>
+            <p class="description"><a @click.prevent="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p>
+        </div>
+
+>>>>>>> 42859ab (testing update)
         </div>
         
         <div class="product-footer" style="height: auto !important">
@@ -295,6 +305,16 @@ export default {
                 str[1] = "00";
             }
             return str.join(".");
+        },
+
+        isProductPromotion (){
+            if(this.product.promotion){
+                if(this.product.promotion.toLowerCase().includes('ramadan packs'))
+                    return true;
+            }
+            else{
+                return false;
+            }
         },
     }
 }
