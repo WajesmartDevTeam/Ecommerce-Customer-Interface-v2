@@ -313,6 +313,9 @@
               </ul>
             </li>
             <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
+
+            <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/ramadan packs"> Ramadan Packs</a></li>
+
             <li class="menu-link dropdown" v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')">
               <a
                 href=""
@@ -451,7 +454,11 @@
           class="sidemenu"
         >Bakery </a>
 
-        
+        <a
+          href="/category/ramadan packs"
+          class="sidemenu"
+        >Ramadan Packs </a>
+
         <a v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')"
           href="/category/groceries"
           @click.prevent='toggleDropdown'
