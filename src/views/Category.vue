@@ -216,8 +216,7 @@ export default {
     $route: {
         immediate: true,
         handler(to, from) {
-            document.title = this.category+' Category Page';
-            document.title = this.page_namer;
+            document.title = this.page_namer +  " | Online Shopping | Market Square";
         }
     },
   },
