@@ -122,6 +122,11 @@
     }
     
     @media screen and (max-width:425px) {
+        .vs__dropdown-menu{
+            max-height: 140px !important;
+            z-index:9999999999 !important;
+        }
+
         #continue {
             position: absolute;
             top: 30%!important;
@@ -206,6 +211,12 @@
     /* large phone */
     
     @media screen and (max-width:425px) and (min-width:375px) {
+        
+        .vs__dropdown-menu{
+            max-height: 120px !important;
+            z-index:9999999999 !important;
+        }
+
         .contact #contact-banner .banner-image {
             position: absolute;
             right: 0;
@@ -335,6 +346,11 @@
     /* iphone */
     
     @media screen and (max-width:320px) {
+        .vs__dropdown-menu{
+            max-height: 100px !important;
+            z-index:9999999999 !important;
+        }
+
         li.navlink {
             margin: 0;
         }
