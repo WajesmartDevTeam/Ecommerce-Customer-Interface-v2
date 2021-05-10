@@ -312,9 +312,11 @@
                 <li class="divider"></li>
               </ul>
             </li>
-            <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
 
             <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/ramadan packs"> Ramadan Packs</a></li>
+
+            <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
+
 
             <li class="menu-link dropdown" v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')">
               <a
@@ -449,15 +451,16 @@
             <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
           </div>
 
-        <a
-          href="/category/bakery"
-          class="sidemenu"
-        >Bakery </a>
 
         <a
           href="/category/ramadan packs"
           class="sidemenu"
         >Ramadan Packs </a>
+        
+        <a
+          href="/category/bakery"
+          class="sidemenu"
+        >Bakery </a>
 
         <a v-if="showCategory('groceries') || showCategory('confectioneries') || showCategory('beverages') || showCategory('breakfast cereal')"
           href="/category/groceries"
