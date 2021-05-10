@@ -206,6 +206,11 @@
     /* large phone */
     
     @media screen and (max-width:425px) and (min-width:375px) {
+        
+        .vs__dropdown-menu{
+            max-height: 120px !important;
+        }
+
         .contact #contact-banner .banner-image {
             position: absolute;
             right: 0;
@@ -252,6 +257,9 @@
     /* android */
     
     @media screen and (max-width:375px) and (min-width:321px) {
+        .vs__dropdown-menu{
+            max-height: 118px !important;
+        }
         li.navlink a {
             font-size: 9px;
         }
@@ -335,6 +343,10 @@
     /* iphone */
     
     @media screen and (max-width:320px) {
+        .vs__dropdown-menu{
+            max-height: 100px !important;
+        }
+
         li.navlink {
             margin: 0;
         }
