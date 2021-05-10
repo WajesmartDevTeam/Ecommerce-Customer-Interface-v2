@@ -124,7 +124,8 @@
     @media screen and (max-width:425px) {
         .vs__dropdown-menu{
             max-height: 140px !important;
-            z-index:9999999999 !important;
+            top: -124px;
+            height: 140px !important;
         }
 
         #continue {
@@ -214,7 +215,8 @@
         
         .vs__dropdown-menu{
             max-height: 120px !important;
-            z-index:9999999999 !important;
+            top: -124px;
+            height: 120px !important;
         }
 
         .contact #contact-banner .banner-image {
@@ -265,6 +267,8 @@
     @media screen and (max-width:375px) and (min-width:321px) {
         .vs__dropdown-menu{
             max-height: 118px !important;
+            top: -124px;
+            height: 118px !important;
         }
         li.navlink a {
             font-size: 9px;
@@ -351,7 +355,8 @@
     @media screen and (max-width:320px) {
         .vs__dropdown-menu{
             max-height: 100px !important;
-            z-index:9999999999 !important;
+            top: -124px;
+            height: 100px !important;
         }
 
         li.navlink {
