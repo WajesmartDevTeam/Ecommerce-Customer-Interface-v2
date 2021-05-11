@@ -126,6 +126,7 @@
             max-height: 140px !important;
             top: -124px;
             height: 140px !important;
+            border: 1px solid #bfbdbd;
         }
 
         #continue {
@@ -217,6 +218,10 @@
             max-height: 120px !important;
             top: -124px;
             height: 120px !important;
+            border: 1px solid #bfbdbd;
+            padding: 2px;
+            left: 10%;
+            width: 90% !important;
         }
 
         .contact #contact-banner .banner-image {
@@ -269,6 +274,10 @@
             max-height: 118px !important;
             top: -124px;
             height: 118px !important;
+            border: 1px solid #bfbdbd;
+            padding: 2px;
+            left: 10%;
+            width: 90% !important;
         }
         li.navlink a {
             font-size: 9px;
@@ -357,6 +366,10 @@
             max-height: 100px !important;
             top: -124px;
             height: 100px !important;
+            border: 1px solid #bfbdbd;
+            padding: 2px;
+            left: 10%;
+            width: 90% !important;
         }
 
         li.navlink {
