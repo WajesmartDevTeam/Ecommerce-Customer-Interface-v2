@@ -201,7 +201,8 @@ export default {
       return this.banners.length
     },
     banners () {
-      return this.bannerList.filter(b => b.url.includes(this.category));
+      // console.log((b.url.lastIndexOf('/') + 1).toLowerCase());
+      return this.bannerList.filter(b => b.url.substring(b.url.lastIndexOf('/') + 1).toLowerCase() == (this.category.toLowerCase()));
     }
   },
   created() {

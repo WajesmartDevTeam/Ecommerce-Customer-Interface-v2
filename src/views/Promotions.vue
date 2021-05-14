@@ -165,14 +165,9 @@ export default {
   },
   computed : {
     banners () {
-      // console.log('category/valentine'.includes(this.promotions[1]))
-      // console.
-
        return this.bannerList.filter(b => this.promotions.filter(p => {
-        // console.log( b.url.substring(b.url.lastIndexOf('/')))
-        return b.url.substring(b.url.lastIndexOf('/') + 1) == p
+        return b.url.substring(b.url.lastIndexOf('/') + 1).toLowerCase() == p.toLowerCase()
         }
-          //  b.url.toLowerCase().includes(p)
        ).length > 0);
     }
   },
