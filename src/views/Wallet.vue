@@ -169,7 +169,25 @@
                 </button>
               </div>
               <div class="modal-body">
-                
+                <ValidationObserver v-slot="{ handleSubmit }">
+                  <form @submit.prevent='handleSubmit(handleLogin)'>
+
+                    <div  class="form-group" style="position:relative">
+                      <validation-provider rules="required"  v-slot="{ errors }">
+                        <input class="form-control" placeholder="Pin" v-model="user.password" :type="passwordFieldType">
+                        <span class="err_msg">{{ errors[0] }}</span>
+                      </validation-provider>
+
+                      <span id="show_hide"
+                        @click="switchVisibility"
+                      >
+                        <i v-if="passwordFieldType == 'password'" class="fa fa-eye"></i>
+                        <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
+                      </span>
+                    </div>
+                    <button class="msq-button mt-3">Set Pin</button>
+                  </form>
+                </ValidationObserver>
               </div>
             </div>
           </div> <!-- modal-bialog .// -->

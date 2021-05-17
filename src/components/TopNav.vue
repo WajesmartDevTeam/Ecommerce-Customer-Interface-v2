@@ -304,7 +304,7 @@
                 href=""
                 class="dropdown-toggle"
                 data-toggle="dropdown"
-              >Ramadan</a>
+              >Specials</a>
               <ul class="dropdown-menu">
                 <li class="divider"><a href="/promotions/Specials"> All </a></li>
                 <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
@@ -312,7 +312,7 @@
               </ul>
             </li>
 
-            <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/ramadan packs"> Ramadan Packs</a></li>
+            <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/combos"> Combos</a></li>
 
             <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
 
@@ -443,7 +443,7 @@
         <a
           @click.prevent='toggleDropdown'
           class="dropdown-btn sidemenu">
-          Ramadan
+          Specials
         </a>
           <div class="dropdown-container">
             <a href="/promotions/Specials" class="sidemenu"> All </a>
@@ -452,9 +452,9 @@
 
 
         <a
-          href="/category/ramadan packs"
+          href="/category/combos"
           class="sidemenu"
-        >Ramadan Packs </a>
+        >Combos </a>
         
         <a
           href="/category/bakery"

@@ -304,7 +304,7 @@ export default {
 
         isProductPromotion (){
             if(this.product.promotion){
-                if(this.product.promotion.toLowerCase().includes('ramadan packs'))
+                if(this.product.promotion.toLowerCase().includes('combos'))
                     return true;
             }
             else{
