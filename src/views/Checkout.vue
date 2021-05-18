@@ -1215,6 +1215,11 @@ export default {
         });
     },
     formatPrice (price) {
+    console.log(price);
+
+      if(price == undefined)
+        price = 0;
+
       var str = price.toString().split(".");
       if (str[0].length >= 3) {
         str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
