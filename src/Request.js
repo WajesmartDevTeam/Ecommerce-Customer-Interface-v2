@@ -59,9 +59,6 @@ export default {
             windows: 'recentdeliverywindow',
             listaddress: 'addresses',
             banners: 'thumbnail',
-<<<<<<< HEAD
-            getproduct: 'getproduct'
-=======
             getproduct: 'getproduct',
             deliveryFeeVariation: 'getDeliveryFeeVariation',
             wallet: 'getWalletTransactions',
@@ -71,7 +68,6 @@ export default {
             hamperStatus: 'hamperStatus',
             searchAutoComplete: 'productSearchAutoComplete',
             getAllPromotions: 'getAllPromotions'
->>>>>>> bfedff0c3e904bdda5f31cb1a0b6ea166f0cae0c
 
         };
         if (request.params !== undefined) {

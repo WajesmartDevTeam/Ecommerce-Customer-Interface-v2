@@ -32,7 +32,7 @@
         "vue-select": "^3.10.5",
         "vue-socket.io": "^3.0.9",
         "vue-table-dynamic": "^0.3.3",
-        "vue-tables-2": "^2.1.46",
+        "vue-tables-2": "^2.3.0",
         "vue-tel-input": "^4.4.0",
         "vue-toasted": "^1.1.28",
         "vuex": "^3.4.0",
@@ -40,7 +40,7 @@
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "^4.4.0",
-        "@vue/cli-service": "^4.4.0",
+        "@vue/cli-service": "^4.5.13",
         "vue-friendly-iframe": "^0.19.0",
         "vue-template-compiler": "^2.6.11"
     },
