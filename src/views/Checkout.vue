@@ -12,7 +12,7 @@
 
           <ValidationObserver v-slot="{ handleSubmit }">
             <form @submit.prevent="handleSubmit(placeOrder)">
-              <div class="row my-5">
+              <div class="row my-5 form_section">
                 <div class="col-lg-8 col-md-7">
                   <div
                     v-if="$store.getters.isLoggedIn ==false"
@@ -103,7 +103,8 @@
                         <div class="num">2</div>
                         <h5 class="title">Delivery Address</h5>
                       </div>
-                      <h6 class="card-subtitle subtitle mb-2 ml-5">Where should your order be delivered</h6>
+                      <h6 class="card-subtitle subtitle mb-2 ml-5">Where should your order be delivered <br>
+                        <span class="delivery_address_err" style="color:red; font-size:10px;font-weight:400"></span></h6>
                       <div class="card-text mt-3 mx-md-5">
 
                         <div
@@ -1387,8 +1388,11 @@ export default {
     },
     placeOrder () {
       console.log('about to order');
-      if(this.default_address.address == undefined){
-        this.$swal.fire("Error", `Kindly enter your delivery address`, "error");
+      console.log(this.order.delivery.method);
+      if(this.default_address.address == undefined && this.order.delivery.method == 'delivery'){
+      
+		    $('html, body').animate({ scrollTop: $(".form_section").offset().top }, 1200);
+        $(".delivery_address_err").html("Kindly enter your delivery address.");
         return;
       }
 
