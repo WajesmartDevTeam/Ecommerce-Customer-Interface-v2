@@ -1387,6 +1387,11 @@ export default {
     },
     placeOrder () {
       console.log('about to order');
+      if(this.default_address.address == undefined){
+        this.$swal.fire("Error", `Kindly enter your delivery address`, "error");
+        return;
+      }
+
 
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
       this.order.contact_upon_delivery_number = this.order.contact_upon_delivery_number.replace(/\s/g, '');
