@@ -241,6 +241,14 @@ export default {
     return {
     }
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Terms & Conditions Page';
+        }
+    },
+  },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
   },

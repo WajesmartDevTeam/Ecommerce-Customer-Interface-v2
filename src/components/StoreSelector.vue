@@ -37,91 +37,95 @@
                 id="Delivery"
                 @click.prevent="toggleMode('Delivery')"
                 class="mode  active"
-              >Delivery</button>
+              >Home Delivery</button>
               <button
                 id="Pickup"
                 @click.prevent="toggleMode('Pickup')"
                 class="mode"
-              >Pickup</button>
+              >Free Pickup</button>
             </div>
-            <div id="store-content">
-              <div class="row">
-                <div class="col-sm-6">
-                  <v-select
-                    :options="cities"
-                    v-model="city"
-                    placeholder="Kindly select city"
-                    class="form-group"
-                  >
-                    <span slot="no-options">{{city_note}}</span>
-                  </v-select>
-                </div>
-                <div class="col-sm-6">
-                  <v-select
-                    :options="areas"
-                    v-model="area"
-                    class="form-group"
-                    placeholder="Kindly select area"
-                  >
-                    <span slot="no-options">{{area_note}}</span>
-                  </v-select>
-                </div>
-              </div>
-              <div
-                class="d-md-flex justify-content-between mt-3"
-                v-if="stores.length>0"
-              >
-                <h5 class="label">Select Store</h5>
-                <div class="store-search">
-                  <input
-                    v-model="search"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Search for stores"
-                  >
-                  <i class="material-icons">search</i>
-                </div>
-              </div>
-              <div
-                class="row my-2"
-                v-if="stores.length>0"
-              >
-                <div
-                  v-for="store in filteredList"
-                  v-bind:key="store.name"
-                  class="col-sm-6 store-box "
-                >
-                  <div
-                    class="d-flex"
-                    @click.prevent="saveStore(store)"
-                  >
-                    <img
-                      src="../assets/img/store-icon.png"
-                      alt=""
+
+            <form autocomplete="off" method="POST">
+              <div id="store-content">
+                <div class="row">
+                  <div class="col-sm-6 drop_down_wrap">
+                    <v-select
+                      :options="cities"
+                      v-model="city"
+                      placeholder="Kindly select city"
+                      class="form-group"
                     >
-                    <p class="storename">{{camelCase(store.name)}}</p>
-                    <i class="fa fa-long-arrow-right mt-3 ml-lg-4"></i>
+                      <span slot="no-options">{{city_note}}</span>
+                    </v-select>
+                  </div>
+                  <div class="col-sm-6 drop_down_wrap">
+                    <v-select
+                      :options="areas"
+                      v-model="area"
+                      class="form-group"
+                      placeholder="Kindly select area"
+                    >
+                      <span slot="no-options">{{area_note}}</span>
+                    </v-select>
                   </div>
                 </div>
+                <div
+                  class="d-md-flex justify-content-between mt-3"
+                  v-if="stores.length>0"
+                >
+                  <h5 class="label">Select Store</h5>
+                  <div class="store-search">
+                    <input
+                      v-model="search"
+                      type="text"
+                      name=""
+                      id=""
+                      placeholder="Search for stores"
+                      autocomplete="off"
+                    >
+                    <i class="material-icons">search</i>
+                  </div>
+                </div>
+                <div
+                  class="row my-2"
+                  v-if="stores.length>0"
+                >
+                  <div
+                    v-for="store in filteredList"
+                    v-bind:key="store.name"
+                    class="col-sm-6 store-box "
+                  >
+                    <div
+                      class="d-flex"
+                      @click.prevent="saveStore(store)"
+                    >
+                      <img
+                        src="../assets/img/store-icon.png"
+                        alt=""
+                      >
+                      <p class="storename">{{camelCase(store.name)}}</p>
+                      <i class="fa fa-long-arrow-right mt-3 ml-lg-4"></i>
+                    </div>
+                  </div>
 
-              </div>
-              <div v-if="area !== '' && stores.length == 0 ">
-                <div class="text-center my-2">
+                </div>
+                <div v-if="area !== '' && stores.length == 0 ">
+                  <div class="text-center my-2">
 
-                  We are currently not processing orders in your area. Kindly view other areas to see the areas that we serve.
+                    We are currently not processing orders in your area. Kindly view other areas to see the areas that we serve.
+                  </div>
+                </div>
+                <div
+                  v-if="nooption"
+                  class="my-2"
+                >
+                  <div class="text-center">
+
+                    Our online stores are currently unavailable
+                  </div>
                 </div>
               </div>
-              <div
-                v-if="nooption"
-                class="my-2"
-              >
-                <div class="text-center">
-
-                  Our online stores are currently unavailable
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
 
         </div>
@@ -158,6 +162,7 @@ export default {
     }
   },
   mounted () {
+    this.fetchStores();
     // console.log(this.$store.getters.isStoreSet)
     if (this.$store.getters.stat_stores == false) {
       this.fetchStores();
@@ -167,7 +172,6 @@ export default {
     }
 
     $('#store').on("show.bs.modal", this.doSomething)
-
 
   },
 
@@ -181,8 +185,6 @@ export default {
 
   computed: {
     filteredList () {
-
-
       return this.stores.filter(store => {
         if (store.name.toLowerCase().includes(this.search.toLowerCase())) {
           return store.name.toLowerCase().includes(this.search.toLowerCase());
@@ -204,7 +206,7 @@ export default {
       vm.stores_id = [];
       if (val == 'Pickup') {
         vm.all_stores.forEach(i => {
-          if (i.store_options.pickup == 1) {
+          if (i.store_options != null && i.store_options.pickup == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
@@ -227,7 +229,7 @@ export default {
       else if (val == 'Delivery') {
 
         vm.all_stores.forEach(i => {
-          if (i.store_options.delivery == 1) {
+          if (i.store_options != null && i.store_options.delivery == 1) {
             vm.zones.forEach(x => {
               x.areas.forEach(j => {
                 j.store.forEach(k => {
@@ -337,11 +339,55 @@ export default {
 
   },
   methods: {
+    fetchCategories () {
+      let req = {
+        what: "getCategories",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getCategories') {
+              // this.categories = response.data.data
+              this.$store.dispatch('categories', response.data.data)
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
+    fetchPromotions () {
+      let req = {
+        what: "getPromotions",
+        showLoader: false,
+        params: {
+          store_id: this.$store.getters.store.id
+        }
+      }
+      this.$request.makeGetRequest(req)
+          .then(response => {
+
+            if (response.type == 'getPromotions') {
+              // this.categories = response.data.data
+              this.$store.dispatch('promotions', response.data.data.filter((val) => val != null ))
+
+            }
+          })
+          .catch(error => {
+
+            console.log(error)
+          });
+    },
     doSomething ($event) {
       this.fetchAreas();
       let stat = [];
       this.all_stores.forEach(i => {
-        if (i.store_options.pickup != '1' && i.store_options.delivery != '1') {
+        if (i.store_options == null || (i.store_options.pickup != '1' && i.store_options.delivery != '1')) {
           stat.push(false)
         }
         else {
@@ -420,17 +466,28 @@ export default {
       store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
+      // this.$store.dispatch("setBlackFriday", false);
       this.$store.dispatch("setStore", store).then(res => {
+        if(window.location.pathname != "/home" || window.location.pathname != "/") {
+          this.fetchCategories();
+          this.fetchPromotions();
+        }
         if (oldstore !== store.name) {
           this.$store.dispatch('addToCart', []);
           location.reload()
         }
-        if (window.location.pathname == "/" || window.location.pathname == "/storeslist") {
+        if (window.location.pathname == "/storeslist") {
           $(".modal").modal("hide")
           this.$router.push('home')
           // location.reload()
-        }
-        else {
+        } else if(window.location.pathname == '/') {
+          $(".modal").modal("hide")
+          if(this.$store.getters.categoryRoute == null) {
+            this.$router.push('home')
+          }
+          this.$router.push(this.$store.getters.categoryRoute);
+          this.$router.go();
+        } else {
           $(".modal").modal("hide")
           // this.$router.go()
         }
@@ -450,5 +507,16 @@ export default {
   cursor: text;
   padding: 10px;
   border: 1px solid lightgrey;
+}
+
+
+@media screen and (max-width:500px) {
+  .vs__dropdown-menu{
+    max-height:150px !important;
+    overflow-y:scroll !important;
+  }
+  #store #store-content {
+    margin: 5% 1% !important;
+  }
 }
 </style>

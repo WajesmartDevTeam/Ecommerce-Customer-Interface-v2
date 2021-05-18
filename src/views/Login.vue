@@ -149,6 +149,17 @@ export default {
   mounted () {
 
   },
+
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Login Page';
+        }
+    },
+  },
+
   methods: {
     handleLogin () {
       this.user.phone = this.user.phone.replace(/\s/g, '');

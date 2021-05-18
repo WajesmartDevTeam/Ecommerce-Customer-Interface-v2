@@ -1,7 +1,35 @@
         /* general */
+
+        .autocomplete-input {
+            height: 10px !important;
+            padding: 12px 12px 12px 4px !important;
+        }
+
+        .vs__dropdown-menu{
+            max-height: 150px !important;
+            overflow-y: scroll !important;
+        }
+
+
         
         * {
             outline: none!important;
+        }
+
+        @font-face {
+            font-family: harabara;
+            src: url('../fonts/Harabara Mais Demo.otf');
+        }
+
+        /* Hughs.otf */
+        @font-face {
+            font-family: hughs;
+            src: url('../fonts/Hughs.otf');
+        }
+
+        @font-face {
+            font-family: frank;
+            src: url('../fonts/FrankRuhlLibre-Regular.ttf');
         }
         
         .page {
@@ -34,12 +62,12 @@
         }
         
         .landing-header {
-            background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/landing.png);
-            height: 400px;
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: relative;
+            /* background: linear-gradient( rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url(../img/landing.png); */
+            /*height: 400px;*/
+            /*background-position: center;*/
+            /*background-size: cover;*/
+            /*background-repeat: no-repeat;*/
+            /*position: relative;*/
         }
         
         .landingpage .banner-text {
@@ -209,7 +237,7 @@
         }
         
         .landingpage .sub-banner {
-            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/banner2.png);
+            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/sub-banner.jpg);
             height: 300px;
             background-position: center;
             background-size: cover;
@@ -308,6 +336,12 @@
             margin: auto;
             text-align: center;
         }
+        .product-group .product .hamper {
+            width: auto;
+            height: 240px;
+            margin: auto;
+            text-align: center;
+        }
         
         .product-group .product .product-image img {
             height: 100%;
@@ -348,7 +382,7 @@
             margin: 0;
         }
         
-        .product-group .product .product-footer button.addtocart {
+        .product-group .product .product-footer button.addtocart, button.addtocart {
             margin: 10px auto;
             width: 109px;
             height: 40px;
@@ -363,7 +397,7 @@
         }
         
         .product-group .product .product-footer button.addtocart:hover,
-        .product-group .product .product-footer button.addtocart:focus {
+        .product-group .product .product-footer button.addtocart:focus, button.addtocart:focus, button.addtocart:hover {
             background: #000066;
             color: #fff;
         }
@@ -392,7 +426,7 @@
         }
         
         .home .sub-banner {
-            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/banner2.png);
+            background: linear-gradient( rgba(0, 0, 0, 0.43), rgba(0, 0, 0, 0.43)), url(../img/sub-banner.jpg);
             height: 300px;
             background-position: center;
             background-size: cover;
@@ -457,7 +491,7 @@
             align-items: center;
         }
         
-        #product .product-footer button.addtocart {
+        #product .product-footer button.addtocart, button.addtocart {
             width: 125px;
             height: 40px;
             background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -471,7 +505,7 @@
         }
         
         #product .product-footer button.addtocart:hover,
-        #product .product-footer button.addtocart:focus {
+        #product .product-footer button.addtocart:focus, button.addtocart:hover, button.addtocart:focus {
             background: #000066;
             color: #fff;
         }
@@ -479,14 +513,14 @@
         #product .product-footer button.addtocart:hover .img1,
         #product .product-footer button.addtocart:focus .img1,
         .product-group .product .product-footer button.addtocart:hover .img1,
-        .product-group .product .product-footer button.addtocart:focus .img1 {
+        .product-group .product .product-footer button.addtocart:focus .img1, button.addtocart:hover .img1, button.addtocart:focus .img1{
             display: none;
         }
         
         #product .product-footer button.addtocart:hover .img2,
         #product .product-footer button.addtocart:focus .img2,
         .product-group .product .product-footer button.addtocart:hover .img2,
-        .product-group .product .product-footer button.addtocart:focus .img2 {
+        .product-group .product .product-footer button.addtocart:focus .img2, button.addtocart:hover .img2, button.addtocart:focus .img2 {
             display: block!important;
         }
         
@@ -513,6 +547,13 @@
         
         .banner.category-banner.bakery {
             background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../img/banners/bakery.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .banner.category-banner.hampers {
+            background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../img/banners/xmas.jpg);
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
@@ -799,7 +840,7 @@
             width: 35%;
             border: 0;
             border-radius: 0;
-            height: 100vh;
+            height: 100%;
         }
         
         .cartcomponent #sidecart .modal-content .modal-header {
@@ -1452,6 +1493,9 @@
             background-repeat: no-repeat;
             display: block;
         }
+
+
+
         
         .sprite-handle-dark {
             width: 67px;

@@ -6,22 +6,31 @@
 
 import Vue from "vue";
 import store from "./store";
-import axios from 'axios'
+import axios from 'axios';
 
-// const URL = "http://localhost:8080/api/";
-// const URL = "https://marketsquareng.website/api/"
-const URL = "https://marketsquareng.com/api/"
+
+//const URL = "http://127.0.0.1:8000/api/";
+//const URL = "http://localhost:8000/api/";
+ const URL = "https://marketsquareng.website/api/" //
+ //const URL = "https://admin.sundrymarkets.com/api/" //
 
 export default {
     name: "Request",
+    url: URL.substring(0, URL.indexOf('/api')),
+
+
+    PBFKey: "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X", //test
+    //PBFKey: "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X", //live
+
+    raveAPI: "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js", // test
+    //raveAPI: "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js", // live
 
     makeGetRequest: request => {
         if (request.showLoader || request.showLoader == undefined) {
             if (!Vue.prototype.$swal.isVisible()) {
                 var loading_html =
                     '<div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://www.c-sgroup.com/images/loading-icon-red.gif" /></div>';
-
-                Vue.prototype.$swal.fire({
+                   Vue.prototype.$swal.fire({
                     title: "",
                     html: loading_html,
                     showConfirmButton: false,
@@ -50,7 +59,19 @@ export default {
             windows: 'recentdeliverywindow',
             listaddress: 'addresses',
             banners: 'thumbnail',
+<<<<<<< HEAD
             getproduct: 'getproduct'
+=======
+            getproduct: 'getproduct',
+            deliveryFeeVariation: 'getDeliveryFeeVariation',
+            wallet: 'getWalletTransactions',
+            getPromotions: 'getPromotion',
+            getCategories: 'getCategory',            
+            landingPageThumbnails: 'landing_page_thumbnail',
+            hamperStatus: 'hamperStatus',
+            searchAutoComplete: 'productSearchAutoComplete',
+            getAllPromotions: 'getAllPromotions'
+>>>>>>> bfedff0c3e904bdda5f31cb1a0b6ea166f0cae0c
 
         };
         if (request.params !== undefined) {
@@ -123,8 +144,13 @@ export default {
             createaddress: 'addresses',
             editaddress: 'editaddresses/',
             updatecustomer: 'updatecustomer',
-            redeemgift: 'redeemgiftcard'
-
+            redeemgift: 'redeemgiftcard',
+            redeemgiftwallet: 'redeemWalletGiftCard',
+            creditWallet: 'creditWallet',
+            debitWallet: 'debitWallet',
+            verifywalletcredit: 'verifyWalletCredit',
+            submitQuestionnaire: 'submitQuestionnaire',
+            valentineQuestionnaire: 'submitValentineQuestionnaire',
 
         };
         console.log(
@@ -150,7 +176,7 @@ export default {
                 .post(request_url, request.data, config)
                 .then(response => {
                     Vue.prototype.$swal.close();
-                    if (response.data.status == "true" || response.data.status || response.success == "true") {
+                    if (response.data.status == "true" || response.data.status || response.success == "true" || response.success == true) {
                         response = {
                             data: response.data,
                             type: request.what,

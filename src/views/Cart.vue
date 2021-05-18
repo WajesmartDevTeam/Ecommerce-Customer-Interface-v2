@@ -111,8 +111,8 @@
                     @click="$router.push('home')"
                   >Continue Shopping</button>
                   <button
-                    v-bind:disabled="cart_total < 3000"
-                    v-bind:class="cart_total < 3000? 'disabled': ''"
+                    v-bind:disabled="cart_total < 1500"
+                    v-bind:class="cart_total < 1500 ? 'disabled': ''"
                     @click="handleCheckout"
                   >Proceed to checkout</button>
                 </div>
@@ -164,6 +164,16 @@ export default {
       return total;
     }
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Your Cart';
+        }
+    },
+  },
+
   methods: {
     removeItem (row) {
       let index;
@@ -280,5 +290,14 @@ export default {
 .cart .card {
   position: sticky;
   top: 25%;
+}
+
+@media screen and (max-width:500px) {
+  #continue {
+      top: 37% !important;
+  }
+  .cart .card button {
+    margin-top: 50px !important;
+  }
 }
 </style>

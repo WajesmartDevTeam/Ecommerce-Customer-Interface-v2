@@ -14,7 +14,8 @@
           <h3 class="banner-title">Thank You</h3>
           <p class="banner-subtitle">Your order has been received
             <br>
-            Confirmation receipt and order details has been shared to <span>{{order.customer.email}}</span>
+            <!-- Confirmation receipt and order details has been shared to <span>{{order.customer.email}}</span> -->
+		<!-- Your order has been recieved -->
           </p>
         </div>
       </div>
@@ -84,6 +85,7 @@
       </div>
 
     </div>
+    <Questionnaire></Questionnaire>
     <Footer></Footer>
   </div>
 </template>
@@ -93,10 +95,11 @@
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
 import Disclaimer from '@/components/Disclaimer.vue'
+import Questionnaire from "@/components/Questionnaire";
 export default {
   name: 'OrderConfirmation',
   components: {
-    TopNav, Footer, Disclaimer
+    TopNav, Footer, Disclaimer, Questionnaire
   },
   data () {
     return {
@@ -118,6 +121,16 @@ export default {
       }
     })
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Order Confirmation Page';
+        }
+    },
+  },
+
   methods: {
     formatPrice (price) {
       var str = price.toString().split(".");

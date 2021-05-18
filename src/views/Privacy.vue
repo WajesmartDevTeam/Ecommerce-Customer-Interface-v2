@@ -116,6 +116,15 @@ export default {
     return {
     }
   },
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Privacy Policy Page';
+        }
+    },
+  },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
   },

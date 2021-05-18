@@ -4,6 +4,7 @@
       id="cart-icon"
       data-toggle="modal"
       data-target="#sidecart"
+      @click="hideChat"
     >
       <p id="cart-count">
         <span class="material-icons">
@@ -39,6 +40,7 @@
               class="close"
               data-dismiss="modal"
               aria-label="Close"
+              @click="showChat"
               title="Continue shopping"
             >
               <span aria-hidden="true">&times;</span>
@@ -61,7 +63,7 @@
                   >
                   <img
                     v-else
-                    :src="'http://admin.sundrymarkets.com'+row.product.img_url"
+                    :src="url+row.product.img_url"
                     alt=""
                     class="img-fluid"
                   >
@@ -138,22 +140,17 @@
               >Shop Now</button>
             </div>
           </div>
-          <div
-            v-if="getCart.length >0"
-            class="modal-footer"
-          >
-            <p
-              v-if="cart_total < 3000"
-              class="minimum text-bold"
-            >₦3,000 Minimum</p>
+
+          <div v-if="getCart.length > 0" class="modal-footer">
+            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} for free delivery</b></p>
+            <p  v-if="$store.getters.cart_total >= 10000 && isPromo" class="text-center"><b>You qualify for free delivery</b></p>
+
+            <p v-if="$store.getters.cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
+
             <div class="checkout">
-              <button
-                v-bind:disabled="cart_total < 3000"
-                v-bind:class="cart_total < 3000? 'disabled': ''"
-                @click="handleCheckout"
-              >
+              <button v-bind:disabled="$store.getters.cart_total < 1500" v-bind:class="$store.getters.cart_total < 1500? 'disabled': ''" @click="handleCheckout">
                 <span>Checkout</span>
-                <span class="total">₦ {{formatPrice(cart_total)}}</span>
+                <span class="total">₦ {{formatPrice($store.getters.cart_total)}}</span>
               </button>
             </div>
           </div>
@@ -175,10 +172,13 @@ export default {
   data () {
     return {
       cart_total: 0,
-      cart: []
+      cart: [],
+      url: this.$request.url,
+      isPromo: false,
     }
   },
   mounted () {
+
     $(this.$refs.cartm).on("hidden.bs.modal", (e) => {
       let cart = this.$store.getters.cart;
       if (this.$props.products) {
@@ -274,6 +274,14 @@ export default {
     }
   },
   methods: {
+    showChat() {
+      Tawk_API.showWidget();
+    },
+    hideChat() {
+      if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        Tawk_API.hideWidget();
+      }
+    },
     removeItem (id) {
       let index;
       let cart = this.$store.getters.cart;
@@ -337,13 +345,14 @@ export default {
       }
     },
     handleCheckout () {
-      if (this.cart_total > 3000) {
 
+      if (this.cart_total >= 1500) {
+        this.showChat()
         $(".modal").modal("hide");
         this.$router.push({ name: 'Cart' })
       }
       else {
-        this.$toasted.show('The minimum order amount is N3000.')
+        this.$toasted.show('The minimum order amount is N1500.')
 
       }
     },
@@ -379,5 +388,25 @@ export default {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #000066;
   border: 1px solid #000066;
+}
+.small-red-focus{
+  color:red;
+  font-size:14px;
+  text-align:center;
+}
+#sidecart .checkout {
+    margin-top: 2mm !important;
+}
+
+.blinking{
+    animation:blinkingText 1.5s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: red; }
+    49%{    color: red; }
+    60%{    color: red; }
+    65%{    color: red; }
+    99%{    color:red;  }
+    100%{   color: red;    }
 }
 </style>

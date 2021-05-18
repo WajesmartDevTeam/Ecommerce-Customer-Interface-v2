@@ -337,6 +337,14 @@ export default {
     this.order_id = this.$route.params.id;
     this.fetchOrders()
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'View Order Page';
+        }
+    },
+  },
   methods: {
     fetchOrders () {
       let req = {

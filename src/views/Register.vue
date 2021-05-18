@@ -347,6 +347,14 @@ export default {
       },
     }
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Register your Market Square Account';
+        }
+    },
+  },
 
   methods: {
     getDob () {

@@ -367,6 +367,14 @@ export default {
 
   },
   watch: {
+  
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Address Book Page';
+        }
+    },
+
     selected: function (val) {
       let vm = this;
       vm.address.state = val

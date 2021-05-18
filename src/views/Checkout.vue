@@ -12,7 +12,7 @@
 
           <ValidationObserver v-slot="{ handleSubmit }">
             <form @submit.prevent="handleSubmit(placeOrder)">
-              <div class="row my-5">
+              <div class="row my-5 form_section">
                 <div class="col-lg-8 col-md-7">
                   <div
                     v-if="$store.getters.isLoggedIn ==false"
@@ -103,7 +103,8 @@
                         <div class="num">2</div>
                         <h5 class="title">Delivery Address</h5>
                       </div>
-                      <h6 class="card-subtitle subtitle mb-2 ml-5">Where should your order be delivered</h6>
+                      <h6 class="card-subtitle subtitle mb-2 ml-5">Where should your order be delivered <br>
+                        <span class="delivery_address_err" style="color:red; font-size:10px;font-weight:400"></span></h6>
                       <div class="card-text mt-3 mx-md-5">
 
                         <div
@@ -222,6 +223,7 @@
                                 <input
                                   placeholder=" "
                                   type="text"
+                                  required
                                   class="form-control"
                                   v-model="order.delivery.landmark"
                                 >
@@ -339,8 +341,17 @@
                           >{{row.window_day}}
                           </p>
                         </div>
-
-                        <div class="row mr-5 mt-3">
+                        <div class="row mr-5 mt-3"
+                            v-if="!window_set"
+                        >
+                          <div
+                            class="text-center col-md-12 mt-2"
+                            qaz
+                          >
+                            <div style="height:150px;width:150px;margin: 0 auto;"><img style="width: 100%;" src="https://www.c-sgroup.com/images/loading-icon-red.gif" /></div>
+                          </div>
+                        </div>
+                        <div v-else class="row mr-5 mt-3">
                           <div
                             v-if="open_windows.length == 0"
                             class="text-center col-md-12 mt-2"
@@ -375,13 +386,17 @@
                                   <h5 v-if="order.delivery.method == 'delivery'">Delivery Fee</h5>
                                   <h5 v-else>Pickup Fee</h5>
                                   <p v-if="order.delivery.method == 'pickup'">FREE</p>
+                                  <p v-else-if="isPromo && ordertotal >= 10000">FREE</p>
                                   <p v-else>₦{{row.deliveryfee}}</p>
                                 </div>
                               </div>
+                              
                             </div>
 
                           </div>
-
+                          <div class="text-center mt-2 col-md-12" style="font-size: 12px;font-style:italic;font-weight:bold;">
+                            <span style="color:black">Disclaimer:</span> <span style="color:red">We typically deliver most of our orders with the delivery fee paid online. However, on rare occasions, we might contact you to give you an update on the delivery fee depending on the weight of your items or the delivery distance.</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -572,7 +587,7 @@
                         <h5 class="card-title title ">Your Order</h5>
                         <table class="table table-responsive">
                           <tbody class="body1">
-                            <tr v-for="row in cart">
+                            <tr v-for="(row, i) in cart" :key="i">
                               <td> {{row.quantity}}x {{row.product.name}}</td>
                               <td class="float-right ">₦{{formatPrice(row.price)}}</td>
                             </tr>
@@ -591,13 +606,23 @@
 
                             <tr>
                               <td>Delivery Fee</td>
-                              <td class="float-right ">
-                                <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{order.delivery.charge}}</span>
-                                <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
-                                <span v-else>Pickup(Free)</span>
+                              <td class="float-right">
+                                <span v-if="isPromo && ordertotal >= 10000">Free</span>
+                                <span v-else>
+                                  <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
+                                  <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
+                                  <span v-else>Pickup(Free)</span>
+                                </span>
                               </td>
                             </tr>
-
+                            <tr v-if="isLoggedIn">
+                              <td>Wallet</td>
+                              <td class="float-right ">₦{{formatPrice(user.available_balance)}}</td>
+                            </tr>
+                            <tr v-if="isLoggedIn">
+                              <td>Wallet Balance</td>
+                              <td class="float-right ">₦{{formatPrice(available_balance)}}</td>
+                            </tr>
                           </tbody>
                           <tfoot>
                             <tr>
@@ -607,6 +632,16 @@
                           </tfoot>
                         </table>
 
+                        <div class="form-row px-2" v-if="isLoggedIn">
+                          <input
+                            type="text"
+                            class="form-control col-12"
+                            min="0"
+                            placeholder="Enter Wallet Top Up Ammount"
+                            v-model="top_up_transaction.amount"
+                          >
+                        </div>
+
                       </div>
                     </div>
                     <div>
@@ -615,9 +650,11 @@
                           id='voucherCheck'
                           type="checkbox"
                           class="form-check-input"
+                          
                           v-model="payment.voucher"
                           @change="paymethod($event, 'voucher')"
                         />
+                        <!-- :disabled="isLoggedIn && Number(balance) == 0" -->
                         <label class="form-check-label">Pay with Giftcard
                           <br>
                           <span>Got a voucher or Gift card?</span>
@@ -652,8 +689,11 @@
                           type="checkbox"
                           class="form-check-input"
                           @change="paymethod($event, 'card')"
+                          
                         />
-                        <label class="form-check-label">Pay with Flutterwave
+                        <!-- :disabled="isLoggedIn && Number(balance) == 0" -->
+                        <label class="form-check-label">
+                          <b>Pay with - PayPal, USSD, Bank Transfer or Card</b>
                           <small
                             class="ml-2"
                             id="balance"
@@ -677,7 +717,7 @@
                           <label
                             class="form-check-label"
                             for="exampleCheck1"
-                          >I accept to the <a
+                          >I accept the <a
                               href="/terms"
                               style="color:#000066; font-weight:bold;"
                             >terms and conditions</a> of marketsquare</label>
@@ -685,8 +725,8 @@
                         </validation-provider>
                       </div>
                       <button
-                        v-bind:disabled="(balance ==order.order_total || balance >0) && payment.card==false"
-                        v-bind:class="(balance ==order.order_total || balance >0) && payment.card==false? 'disabled': ''"
+                        v-bind:disabled="!canPay"
+                        v-bind:class="!canPay ? 'disabled': ''"
                         type="submit"
                       >Proceed to Payment</button>
                     </div>
@@ -884,11 +924,28 @@ export default {
   },
   data () {
     return {
+      isPromo: false,
+
+      transaction: {
+        balance: 0,
+        user_id: this.$store.getters.user.id,
+        type: "DEBIT",
+        amount: 0
+      },
+      top_up_transaction: {
+        balance: 0,
+        user_id: this.$store.getters.user.id,
+        type: "CREDIT",
+        amount: 0
+      },
+      isLoggedIn: this.$store.getters.isLoggedIn,
       edit: false,
       clearance: '',
       selected_window: '',
+      window_set: false,
       user: {},
-      balance: "",
+      available_balance: 0,
+      balance: 0,
       giftcard_amount: '',
       store: {},
       cart: [],
@@ -918,6 +975,7 @@ export default {
         user_id: '',
         unique_code: "",
         comment: "",
+        amount_paid: 0,
         customer: {
           firstname: "",
           lastname: "",
@@ -936,11 +994,8 @@ export default {
           area: '',
           landmark: "",
           contact_method: "",
-
-
         },
-
-
+        
         order_enquiry_contactname: '',
         order_enquiry_contactnumber: '',
         contact_upon_delivery_name: '',
@@ -959,12 +1014,30 @@ export default {
     this.store = this.$store.getters.store;
     this.fetchWindow();
     let rave = document.createElement("script");
+
     rave.setAttribute(
       "src",
+      this.$request.raveAPI
       // "https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"
-      "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
+      // "https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"
     );
     document.head.appendChild(rave);
+
+    /* for free delivery promotion */
+    let startstring      = "April 25, 2021";
+    let futurestring     = "May 3, 2021 23:59:59";
+
+    let today             = new Date().getTime();
+    let start_promo       = new Date(startstring).getTime();
+    let end_promo         = new Date(futurestring).getTime();
+
+
+    if((today >= start_promo) && (today <= end_promo)){
+      this.isPromo = false;
+    }
+    else{
+      this.isPromo = false;
+    }
 
   },
   mounted () {
@@ -996,8 +1069,23 @@ export default {
     this.cart.forEach(i => {
       this.order.cart_subtotal += Number(i.price)
     })
+
+    if(this.isPromo && this.order.order_total >= 10000){
+      console.log('is promo window');
+    }
+    else
+      this.fetchDeliveryFeeVariation();
+
   },
   watch: {
+  
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Check Out Page';
+        }
+    },
+
     edit (val) {
       if (val == false) {
         this.address.state = this.store.state
@@ -1008,13 +1096,67 @@ export default {
     }
   },
   computed: {
+    canPay(){
+      if(this.isLoggedIn) {
+        return (Number(this.user.available_balance) == 0 || Number(this.user.available_balance) > 0) && this.balance  > 0 && this.payment.card || (Number(this.user.available_balance) || this.payment.voucher) > 0 && this.balance == 0 && this.clearance;
+      } else {
+        return !((this.balance == this.order.order_total || this.balance >0) && this.payment.card==false);
+      }
+    },
+    deliveryFee () {
+      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      return isNaN(result) || result == undefined ? 0 : result;
+      return this.order.delivery.charge;
+    },
     ordertotal () {
-      let total = Number(this.order.cart_subtotal) + Number(this.order.delivery.charge);
+      let total = (Number(this.order.cart_subtotal) + Number(this.deliveryFee));
       this.order.order_total = total;
-      return total;
-    }
+      if(this.isLoggedIn) {
+        let available_balance =  Number(this.user.available_balance);
+        let top_up = Number(this.top_up_transaction.amount);
+        let balance = available_balance - total;
+        
+        if(balance < 0) {
+          balance = balance * -1;
+          this.available_balance = 0;
+          this.transaction.amount =  -1 * available_balance;
+          this.order.amount_paid = (total - balance);
+        } else {
+          this.order.amount_paid = (available_balance - balance);
+          this.transaction.amount = -1 * this.order.amount_paid;
+          this.available_balance = balance;
+          balance = 0;
+        }
+        this.balance = balance;
+        if(top_up > 0){
+           this.balance = top_up + this.balance;
+        }
+        return this.balance;
+      } else {
+        this.balance = total;
+        return total;
+      }
+    },
   },
   methods: {
+    
+    fetchDeliveryFeeVariation() {
+      let req = {
+        what: "deliveryFeeVariation",
+        showLoader: false,
+        params: {
+          subtotal: Number(this.order.cart_subtotal),
+          store_id: this.store.id,
+          area: this.order.delivery.area
+        }
+      }
+      this.$request.makeGetRequest(req)
+        .then(response => {
+          this.delivery_fee_variation = response.data.data
+        }).catch(error => {
+          console.log(error)
+        });
+    },
     fetchWindow () {
       let req = {
         what: "windows",
@@ -1058,7 +1200,12 @@ export default {
               }
             });
             let sortedActivities = response.data.data.slice().sort((a, b) => new Date(b.window_date) - new Date(a.window_date));
-            this.windows = sortedActivities.reverse();
+            this.windows = sortedActivities.length > 0 ? sortedActivities.reverse() : [];
+            this.window_set = true;
+            if(this.windows != []) {
+              this.listWindows(this.windows[0], 'day0');
+            }
+
 
           }
         })
@@ -1068,6 +1215,11 @@ export default {
         });
     },
     formatPrice (price) {
+    console.log(price);
+
+      if(price == undefined)
+        price = 0;
+
       var str = price.toString().split(".");
       if (str[0].length >= 3) {
         str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
@@ -1109,7 +1261,7 @@ export default {
             this.payment.voucher = true;
             this.giftcard_amount = res.data.data
             document.getElementById('statusvoucher').textContent = '₦' + this.giftcard_amount;
-            this.balance = Number(this.order.order_total) - Number(res.data.data)
+            this.balance = Number(this.balance) - Number(res.data.data)
             document.getElementById('balance').textContent = 'Balance= ₦' + this.balance;
           }
         })
@@ -1123,7 +1275,6 @@ export default {
           //   this.payment.loyalty = false;
           // }
         });
-
     },
     formatUnique (n) {
       return Number(n) > 9 ? "" + n : "0" + n;
@@ -1132,9 +1283,15 @@ export default {
       this.order.delivery.hour = row.starttime + ' - ' + row.endtime;
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
-        this.order.delivery.charge = row.deliveryfee;
+       
+          if(this.isPromo && this.order.order_total >= 10000){
+            this.order.delivery.charge = 0;
+          }
+          else{
+            this.order.delivery.charge = row.deliveryfee;
+          }
+        
       }
-
     },
     paymethod ($event, meth) {
       if ($event.target.checked) {
@@ -1152,7 +1309,7 @@ export default {
       else {
         if (meth == 'voucher') {
           this.payment.voucher = false;
-          this.balance = ""
+          this.balance = this.order.order_total
           document.getElementById('statusvoucher').textContent = ''
           document.getElementById('balance').textContent = '';
           this.serialnumber = ''
@@ -1210,15 +1367,52 @@ export default {
 
 
     },
+    makeTransaction (type, data) {
+      data.unique_code = this.order.unique_code;
+      let req = {
+        what: type,
+        showLoader: true,
+        data: data
+      }
+      this.$request
+      .makePostRequest(req)
+      .then(res => {
+          
+      })
+      .catch(error => {
+        console.log(error);
+        this.$swal.fire("Error", error.message, "error");
+      });
+    },
     placeOrder () {
+      console.log('about to order');
+      console.log(this.order.delivery.method);
+      if(this.default_address.address == undefined && this.order.delivery.method == 'delivery'){
+      
+		    $('html, body').animate({ scrollTop: $(".form_section").offset().top }, 1200);
+        $(".delivery_address_err").html("Kindly enter your delivery address.");
+        return;
+      }
+
 
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
       this.order.contact_upon_delivery_number = this.order.contact_upon_delivery_number.replace(/\s/g, '');
       this.order.order_enquiry_contactnumber = this.order.order_enquiry_contactnumber.replace(/\s/g, '');
       this.order.customer.phone = this.order.customer.phone.replace(/\s/g, '');
       let isValidate = [];
-      let field = []
+      let field = [];
 
+      if (Number(this.user.available_balance) >  0) {
+        if (this.order.payment.method.toLowerCase().includes("wallet") == false) {
+          this.order.payment.method += " wallet"
+        }
+      }
+      else {
+        if (this.order.payment.method.toLowerCase().includes("wallet")) {
+
+          this.order.payment.method = this.order.payment.method.replace(' wallet', '')
+        }
+      }
       if (this.payment.loyalty) {
         if (this.order.payment.method.toLowerCase().includes("loyalty") == false) {
 
@@ -1227,10 +1421,8 @@ export default {
       }
       else {
         if (this.order.payment.method.toLowerCase().includes("loyalty")) {
-
           this.order.payment.method = this.order.payment.method.replace(' loyalty', '')
         }
-
       }
       if (this.payment.voucher) {
         if (this.order.payment.method.toLowerCase().includes("gift") == false) {
@@ -1241,7 +1433,6 @@ export default {
         if (this.order.payment.method.toLowerCase().includes("gift")) {
           this.order.payment.method = this.order.payment.method.replace(' gift', '')
         }
-
       }
       if (this.payment.card) {
         if (this.order.payment.method.toLowerCase().includes("card") == false) {
@@ -1250,7 +1441,6 @@ export default {
       }
       else {
         if (this.order.payment.method.toLowerCase().includes("card")) {
-
           this.order.payment.method = this.order.payment.method.replace(' card', '')
         }
       }
@@ -1279,26 +1469,82 @@ export default {
 
         console.log(this.order);
         if (this.clearance) {
-          let req = {
-            what: "placeorder",
-            showLoader: true,
-            data: this.order
-          }
-          this.$request
+          if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
+            
+            if(Number(this.top_up_transaction.amount) > 0) {
+              this.makeTransaction('creditWallet', this.top_up_transaction);
+            }
+            if(Number(this.user.available_balance) >  0 ) {
+              this.makeTransaction('debitWallet', this.transaction);
+            }
+            
+            let req = {
+              what: "placeorder",
+              showLoader: false,
+              data: this.order
+            }
+            this.$request
             .makePostRequest(req)
             .then(res => {
+              
               // console.log(res.data.data.order);
-              if (this.order.payment.method.includes("gift")) {
-                this.payGift(res.data.data.order)
-              }
-              else {
-                this.payCard(res.data.data.order)
+              if(this.balance > 0 || this.top_up_transaction.amount > 0) {
+                if (this.order.payment.method.includes("gift")) {
+                  this.payGift(res.data.data.order)
+                }
+                else {
+                  this.payCard(res.data.data.order)
+                }
+              } else {
+                let order = res.data.data.order;
+                let req = {
+                  what: "verifypayment",
+                  showLoader: true,
+                  data: {
+                    txref: null,
+                    pref: null,
+                    order_id: order.id,
+                    user_id: order.user_id,
+                    cart_id: "",
+                    customer_id: "",
+                    status: "successful",
+                    amount: Number(this.balance)
+                  }
+                }
+
+                this.verifyPayment(this, req, order);
               }
             })
             .catch(error => {
               console.log(error);
               this.$swal.fire("Error", error.message, "error");
-            });
+            });     
+          } else {
+            let req = {
+                what: "placeorder",
+                showLoader: true,
+                data: this.order
+              }
+              this.$request
+              .makePostRequest(req)
+              .then(res => {
+                // console.log(res.data.data.order);
+                // if(this.balance > 0) {
+                  if (this.order.payment.method.includes("gift")) {
+                    this.payGift(res.data.data.order)
+                  }
+                  else {
+                    if(this.balance > 0) {
+                      this.payCard(res.data.data.order)
+                    }
+                  }
+                // }
+              })
+              .catch(error => {
+                console.log(error);
+                this.$swal.fire("Error", error.message, "error");
+              });  
+          }
         }
         else {
           this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
@@ -1307,22 +1553,24 @@ export default {
       else {
         this.$swal.fire("Error", `Kindly select your preferred ${field.toString()}`, "error");
       }
-
-
     },
+    
     payCard (order, giftref) {
       // live
       // let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
 
       // test
       // let PBFKey = "FLWPUBK-00fd26c8dc92b4e1663550c4ba7532aa-X";
-      let PBFKey = "FLWPUBK-f079ea84da7aac9ca312a10668f88c44-X";
+      let PBFKey = this.$request.PBFKey;
       let transid = giftref ? giftref : `${order.id}${Math.floor(Date.now())}`;
       let vm = this;
       let cardamount;
       if (Number(this.balance) !== "" && this.balance > 0) {
         cardamount = this.balance
 
+      }
+      else if(this.isLoggedIn) {
+        cardamount = Number(this.balance)
       }
       else {
         cardamount = order.balance
@@ -1384,12 +1632,28 @@ export default {
               }
             }
 
-            vm.$request
+           vm.verifyPayment(vm, req, order);
+
+          } else {
+            //Add your failure page here
+            vm.$swal.fire({
+              icon: 'error',
+              type: "error",
+              title: 'Error',
+              text: 'Payment Failed!!!',
+            })
+          }
+        }
+      });
+    },
+    verifyPayment (vm, req, order) {
+       vm.$request
               .makePostRequest(req)
               .then(res => {
                 console.log(res)
                 vm.$store.dispatch('orderinfo', order);
-                vm.$store.dispatch('addToCart', [])
+                vm.$store.dispatch('addToCart', []);
+                this.$store.dispatch('user', res.data.data);
                 vm.$swal.fire({
                   title: 'Success!',
                   html: 'Order Payment Successful!!!',
@@ -1416,18 +1680,6 @@ export default {
                 console.log(error);
                 vm.$swal.fire("Error", error, "error");
               });
-
-          } else {
-            //Add your failure page here
-            vm.$swal.fire({
-              icon: 'error',
-              type: "error",
-              title: 'Error',
-              text: 'Payment Failed!!!',
-            })
-          }
-        }
-      });
     },
     payGift (order) {
       let vm = this;
@@ -1448,6 +1700,7 @@ export default {
           console.log(res)
           if (res.type == "redeemgift") {
             this.$swal.fire("Success", "Giftcard Redeemed Successfully", "success");
+            // this.balance = Number(this.balance) - Number(this.giftcard_amount);
             if (this.balance !== "" && this.balance > 0) {
               this.payCard(order, res.data)
             }
@@ -1480,7 +1733,7 @@ export default {
           if (response.type == 'listaddress') {
             this.addresslist = response.data.data
             response.data.data.forEach(i => {
-              if (i.address_default == 1) {
+              if (Number(i.address_default) == 1) {
                 this.default_address = i;
                 this.order.delivery.id = i.id;
                 this.order.delivery.label = i.label;
@@ -1494,7 +1747,7 @@ export default {
           }
         })
         .catch(error => {
-
+          // this.$swal.fire("Error", error.message, "error");
           console.log(error)
         });
     },
@@ -1517,6 +1770,8 @@ export default {
             this.address.label = '';
             this.address.address = '',
               this.address.landmark = '',
+
+
 
               $(".modal").modal("hide")
             this.fetchAddress();

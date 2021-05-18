@@ -141,6 +141,24 @@ export default {
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Contact Us';
+        }
+    },
+    selected: function (val) {
+      let vm = this;
+      vm.contact.state = val
+      this.states.forEach(i => {
+        if (i.state.name == val) {
+          // vm.cities = i.state.locals
+          vm.cities = i.state.cities;
+        }
+      })
+    },
+  },
   methods: {
     sendMessage () {
       this.contact.phone = this.contact.phone.replace(/\s/g, '');

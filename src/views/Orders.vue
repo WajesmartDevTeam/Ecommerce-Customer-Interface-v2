@@ -95,6 +95,14 @@ export default {
     // console.log(this.$store.getters.showSearch)
     this.fetchOrders();
   },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Your Orders Page';
+        }
+    },
+  },
   methods: {
     fetchOrders () {
       let req = {
