@@ -313,8 +313,6 @@ export default {
           this.walletTransactions.forEach(val => {
 
             
-            if(this.params.headings[0] == 'sn')
-                  object.push(this.params.counter++);
 
             this.params.headings.forEach((key) => {
             
