@@ -257,7 +257,6 @@ export default {
       params: {
         data: [
         ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
-        ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'], 
         ],
         header: 'row',
         stripe: true,
@@ -306,20 +305,23 @@ export default {
       this.$request.makeGetRequest(req)
         .then(res => {
           let object = [];
-
-          //this.params.data =  [this.params.data[1]];
-          //this.params.data = ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'];
           
+          this.params.headings =  ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'];
+          let i = 0;
+
           this.walletTransactions = res.data.data;
           this.walletTransactions.forEach(val => {
             console.log(this.params.data[1]);
 
-            this.params.data[1].forEach((key) => {
+            this.params.headings.forEach((key) => {
                 object.push(val[key]);
+                if(val[key] == 'sn'){
+                  object.push(i++);
+                }
             });
 
             this.params.data.push(object);
-            
+
             object = [];
 
           });
