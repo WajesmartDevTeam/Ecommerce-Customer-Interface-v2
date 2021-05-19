@@ -175,6 +175,7 @@
 
                     <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
+                        <label>Enter current password</label>
                         <input class="form-control" placeholder="Enter your current password" v-model="set_pin.password" type="password" >
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
@@ -182,6 +183,7 @@
 
                     <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
+                        <label>Enter new pin</label>
                         <input class="form-control" placeholder="Enter New Pin" v-model="set_pin.pin1" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
  minlength="4" maxlength="6" onfocus="this.placeholder = 'Enter 4 to 6 digits number'" onblur="this.placeholder = 'Enter New Pin'" v-on:keyup="set_pin.pin1 != set_pin.pin2 ? err_match = 'Enter the same Pin in confirm pin' : err_match = ''">
                         <span class="err_msg">{{ errors[0] }}</span>
@@ -190,6 +192,7 @@
 
                      <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
+                        <label>Confirm new pin</label>
                         <input class="form-control" label="" placeholder="Confirm your Pin" v-model="set_pin.pin2" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
  minlength="4" maxlength="6"  v-on:keyup="set_pin.pin1 != set_pin.pin2 ? err_match = 'The confirm does not match the Pin' : err_match = ''">
 
@@ -253,7 +256,7 @@ export default {
       pagination: {},
       params: {
         data: [
-          ["sn", 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+          ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
         ],
         header: 'row',
         stripe: true,
