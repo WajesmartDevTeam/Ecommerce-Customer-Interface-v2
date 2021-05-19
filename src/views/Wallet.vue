@@ -174,10 +174,9 @@
 
                     <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
-                        <input class="form-control" placeholder="Pin" v-model="user.password" :type="passwordFieldType">
-                        <span class="err_msg">{{ errors[0] }}</span>
+                        <input class="form-control" placeholder="Enter your current password" v-model="set_pin.password" type="password" >
                       </validation-provider>
-
+                        
                       <span id="show_hide"
                         @click="switchVisibility"
                       >
@@ -185,6 +184,34 @@
                         <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
                       </span>
                     </div>
+                    <div  class="form-group" style="position:relative">
+                      <validation-provider rules="required"  v-slot="{ errors }">
+                        <input class="form-control" placeholder="Enter New Pin" v-model="set_pin.pin1" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+ minlength="4" maxlength="6">
+                      </validation-provider>
+                        
+                      <span id="show_hide"
+                        @click="switchVisibility"
+                      >
+                        <i v-if="passwordFieldType == 'password'" class="fa fa-eye"></i>
+                        <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
+                      </span>
+                    </div>
+
+                     <div  class="form-group" style="position:relative">
+                      <validation-provider rules="required"  v-slot="{ errors }">
+                        <input class="form-control" label="" placeholder="Confirm Pin " v-model="set_pin.pin2" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+ minlength="4" maxlength="6">
+                      </validation-provider>
+                        
+                      <span id="show_hide"
+                        @click="switchVisibility"
+                      >
+                        <i v-if="passwordFieldType == 'password'" class="fa fa-eye"></i>
+                        <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
+                      </span>
+                    </div>
+
                     <button class="msq-button mt-3">Set Pin</button>
                   </form>
                 </ValidationObserver>
@@ -210,6 +237,9 @@ export default {
   },
   data () {
     return {
+      set_pin: {
+
+      },
       my_permissions: {},
       balance: "",
       method: "",

@@ -225,7 +225,7 @@ export default {
           console.log(response)
           $(".modal").modal("hide");
          // this.$swal.fire("Success", response.message, "success");
-          this.$swal.fire("Success", "An email is on its way to you. Kindly click on the link in the email and follow the guide to reset your password.", "success");
+          this.$swal.fire("Success", "<small>An email is on its way to you. Kindly click on the link in the email and follow the guide to reset your password.</small>", "success");
           this.forgot_email = '';
 
         })
