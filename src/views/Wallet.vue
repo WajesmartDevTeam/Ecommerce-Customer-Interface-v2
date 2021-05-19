@@ -307,7 +307,7 @@ export default {
           let object = [];
           
           this.params.headings =  ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'];
-          let i = 0;
+          this.params.counter = 0;
 
           this.walletTransactions = res.data.data;
           this.walletTransactions.forEach(val => {
@@ -316,7 +316,7 @@ export default {
             this.params.headings.forEach((key) => {
                 object.push(val[key]);
                 if(key == 'sn'){
-                  object.push(i++);
+                  object.push(this.params.counter++);
                 }
             });
 
