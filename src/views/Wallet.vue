@@ -621,16 +621,6 @@ export default {
     },
 
     setWalletPin (){
-
-
-
-
-
-
-
-
-
-    
       this.set_pin.phone = this.$store.getters.user.phone;
 
       if(this.set_pin.password != undefined && this.set_pin.pin1 != undefined && (this.set_pin.pin1 == this.set_pin.pin2)){
