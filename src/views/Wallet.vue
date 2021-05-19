@@ -307,16 +307,17 @@ export default {
           let object = [];
           
           this.params.headings =  ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'];
-          this.params.counter = 0;
+          this.params.counter = 1;
 
           this.walletTransactions = res.data.data;
           this.walletTransactions.forEach(val => {
 
-            this.params.headings[0] = this.params.counter++;
-
             this.params.headings.forEach((key) => {
-            console.log(key)
-                object.push(val[key]);                
+            
+                object.push(val[key]);  
+                if(key == 'sn')
+                   object.push(this.params.counter++);
+                             
             });
 
             this.params.data.push(object);
