@@ -255,9 +255,9 @@ export default {
       page_url: null,
       pagination: {},
       params: {
-        data: [        
-          ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
-          ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],  
+        data: [
+        ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
+        ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'], 
         ],
         header: 'row',
         stripe: true,
@@ -306,15 +306,22 @@ export default {
       this.$request.makeGetRequest(req)
         .then(res => {
           let object = [];
-          this.params.data = [this.params.data[0]];
+
+          //this.params.data =  [this.params.data[1]];
+          //this.params.data = ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'];
+          
           this.walletTransactions = res.data.data;
           this.walletTransactions.forEach(val => {
-            console.log(this.params.data[0])
-            this.params.data[0].forEach((key) => {
+            console.log(this.params.data[1]);
+
+            this.params.data[1].forEach((key) => {
                 object.push(val[key]);
             });
+
             this.params.data.push(object);
+            
             object = [];
+
           });
         })
         .catch(err => console.log(err));
