@@ -314,7 +314,7 @@ export default {
 
             this.params.headings.forEach((key) => {
                 object.push(val[key]);                
-                this.params.headings.sn = this.params.counter++;
+                this.params.headings[0] = this.params.counter++;
             });
 
             this.params.data.push(object);
