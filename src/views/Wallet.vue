@@ -255,11 +255,9 @@ export default {
       page_url: null,
       pagination: {},
       params: {
-        data: [
-          ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
-          this.walletTransactions,
-          
-         // ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+        data: [        
+          ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+          ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],  
         ],
         header: 'row',
         stripe: true,
