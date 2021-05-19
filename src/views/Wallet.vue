@@ -168,7 +168,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body" style="margin-top: 30%">
+              <div class="modal-body" style="margin-top: 10%">
                 <p class="text-center"><small>Complete the form to set a new wallet pin;</small></p>
                 <ValidationObserver v-slot="{ handleSubmit }">
                   <form @submit.prevent='handleSubmit(setWalletPin)'>
@@ -256,9 +256,9 @@ export default {
       pagination: {},
       params: {
         data: [
-          ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
+          ["sn", 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
         ],
-        header: 'row',
+        header: ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
         stripe: true,
         enableSearch: true,
         sort: [0, 1, 3, 4, 5, 6, 7, 8, 9],
