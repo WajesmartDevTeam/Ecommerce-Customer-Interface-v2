@@ -312,9 +312,11 @@ export default {
           this.walletTransactions = res.data.data;
           this.walletTransactions.forEach(val => {
 
+            this.params.headings[0] = this.params.counter++;
+
             this.params.headings.forEach((key) => {
+            console.log(key)
                 object.push(val[key]);                
-                this.params.headings[0] = this.params.counter++;
             });
 
             this.params.data.push(object);
