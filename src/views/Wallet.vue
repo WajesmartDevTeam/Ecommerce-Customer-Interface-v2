@@ -315,7 +315,7 @@ export default {
             
 
             this.params.headings.forEach((key) => {
-            
+                console.log(val[key], key)
                 object.push(val[key]);  
 
             });
