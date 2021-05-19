@@ -257,7 +257,9 @@ export default {
       params: {
         data: [
           ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
-          [1, 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+          this.walletTransactions,
+          
+         // ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
         ],
         header: 'row',
         stripe: true,
