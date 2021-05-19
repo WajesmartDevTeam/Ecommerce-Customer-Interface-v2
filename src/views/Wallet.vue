@@ -256,9 +256,10 @@ export default {
       pagination: {},
       params: {
         data: [
-          ["sn", 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+          ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
+          [1, 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
         ],
-        header: ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
+        header: 'row',
         stripe: true,
         enableSearch: true,
         sort: [0, 1, 3, 4, 5, 6, 7, 8, 9],
