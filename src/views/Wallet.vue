@@ -315,7 +315,7 @@ export default {
 
             this.params.headings.forEach((key) => {
                 object.push(val[key]);
-                if(val[key] == 'sn'){
+                if(key == 'sn'){
                   object.push(i++);
                 }
             });
