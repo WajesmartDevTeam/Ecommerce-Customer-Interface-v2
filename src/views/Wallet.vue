@@ -315,11 +315,9 @@ export default {
 
             this.params.headings.forEach((key) => {
                 console.log(val[key], key);
-                
+
                 object.push(val[key]);
-                
-              if(key == "sn") 
-                object[0].push(this.params.counter++);
+                object[0] = this.params.counter++;
 
             });
 
