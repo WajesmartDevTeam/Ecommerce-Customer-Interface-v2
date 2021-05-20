@@ -571,6 +571,7 @@
                           <textarea
                             v-model="order.comment"
                             name=""
+                            class= "tph"
                             placeholder="e.g. an item you want but didn't find OR special instructions about your order."
                           ></textarea>
                         </div>

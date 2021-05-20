@@ -89,6 +89,17 @@
                   >
                   <label class="anim">Subject</label>
                 </div>
+
+                  <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder=" "
+                    v-model="contact.area"
+                  >
+                  <label class="anim">Area & City</label>
+                </div>
+
                 <div class="form-group">
                   <validation-provider
                     rules="required"
@@ -134,7 +145,8 @@ export default {
         phone: "",
         message: "",
         email: "",
-        subject: ""
+        subject: "",
+        area:""
       }
     }
   },
