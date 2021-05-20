@@ -168,51 +168,40 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="margin-top: 10%">
+                <p class="text-center"><small>Complete the form to set a new wallet pin;</small></p>
                 <ValidationObserver v-slot="{ handleSubmit }">
-                  <form @submit.prevent='handleSubmit(handleLogin)'>
+                  <form @submit.prevent='handleSubmit(setWalletPin)'>
 
                     <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
+                        <label>Enter current password</label>
                         <input class="form-control" placeholder="Enter your current password" v-model="set_pin.password" type="password" >
+                        <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
-                        
-                      <span id="show_hide"
-                        @click="switchVisibility"
-                      >
-                        <i v-if="passwordFieldType == 'password'" class="fa fa-eye"></i>
-                        <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
-                      </span>
                     </div>
+
                     <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
+                        <label>Enter new pin</label>
                         <input class="form-control" placeholder="Enter New Pin" v-model="set_pin.pin1" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
- minlength="4" maxlength="6">
+ minlength="4" maxlength="6" onfocus="this.placeholder = 'Enter 4 to 6 digits number'" onblur="this.placeholder = 'Enter New Pin'" v-on:keyup="set_pin.pin1 != set_pin.pin2 ? err_match = 'Enter the same Pin in confirm pin' : err_match = ''">
+                        <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
-                        
-                      <span id="show_hide"
-                        @click="switchVisibility"
-                      >
-                        <i v-if="passwordFieldType == 'password'" class="fa fa-eye"></i>
-                        <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
-                      </span>
                     </div>
 
                      <div  class="form-group" style="position:relative">
                       <validation-provider rules="required"  v-slot="{ errors }">
-                        <input class="form-control" label="" placeholder="Confirm Pin " v-model="set_pin.pin2" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
- minlength="4" maxlength="6">
+                        <label>Confirm new pin</label>
+                        <input class="form-control" label="" placeholder="Confirm your Pin" v-model="set_pin.pin2" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+ minlength="4" maxlength="6"  v-on:keyup="set_pin.pin1 != set_pin.pin2 ? err_match = 'The confirm does not match the Pin' : err_match = ''">
+
+ 
+                        <span class="err_msg">{{ errors[0] }} {{err_match}}</span>
                       </validation-provider>
-                        
-                      <span id="show_hide"
-                        @click="switchVisibility"
-                      >
-                        <i v-if="passwordFieldType == 'password'" class="fa fa-eye"></i>
-                        <i v-if="passwordFieldType == 'text'" class="fa fa-eye-slash"></i>
-                      </span>
                     </div>
 
-                    <button class="msq-button mt-3">Set Pin</button>
+                    <button class="msq-button mt-3">Set Wallet Pin</button>
                   </form>
                 </ValidationObserver>
               </div>
@@ -237,6 +226,7 @@ export default {
   },
   data () {
     return {
+      err_match:"",
       set_pin: {
 
       },
@@ -266,7 +256,7 @@ export default {
       pagination: {},
       params: {
         data: [
-          ["sn", 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'],
+        ["Sn", 'Id', 'Order Number', 'Amount Before', 'Amount' , 'Amount After','Channel', 'Remarks', 'Date'],
         ],
         header: 'row',
         stripe: true,
@@ -315,15 +305,26 @@ export default {
       this.$request.makeGetRequest(req)
         .then(res => {
           let object = [];
-          this.params.data = [this.params.data[0]];
+          
+          this.params.headings =  ['sn', 'id', 'order_number', 'amount_before', 'amount' , 'amount_after','channel', 'remarks', 'date'];
+          this.params.counter = 1;
+
           this.walletTransactions = res.data.data;
           this.walletTransactions.forEach(val => {
-            console.log(this.params.data[0])
-            this.params.data[0].forEach((key) => {
+
+            
+            object[0] = this.params.counter++;
+
+            this.params.headings.forEach((key) => {
+              if(key != "sn")
                 object.push(val[key]);
+
             });
+
             this.params.data.push(object);
+
             object = [];
+
           });
         })
         .catch(err => console.log(err));
@@ -632,6 +633,36 @@ export default {
           this.$swal.fire("Error", error, "error");
         });
     },
+
+    setWalletPin (){
+      this.set_pin.phone = this.$store.getters.user.phone;
+
+      if(this.set_pin.password != undefined && this.set_pin.pin1 != undefined && (this.set_pin.pin1 == this.set_pin.pin2)){
+        var req = {
+          what: "newwalletpin",
+        showLoader: true,
+          data: this.set_pin,
+        };
+        this.$request
+        .makePostRequest(req)
+        .then(response => {
+          console.log(response)
+          this.$swal.fire("Success", "Pin was created successfully", "success");
+          this.set_pin = {};
+        })
+        .catch(error => {
+          console.log(error)
+          this.$swal.fire("Error", error, "error");
+        });
+      }
+      else{
+          this.$swal.fire("Error", "Enter the form correctly to set waller pin", "error");
+      }
+
+
+
+    },
+
   }
 };
 </script>

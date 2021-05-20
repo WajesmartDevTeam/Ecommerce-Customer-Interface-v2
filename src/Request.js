@@ -147,6 +147,7 @@ export default {
             verifywalletcredit: 'verifyWalletCredit',
             submitQuestionnaire: 'submitQuestionnaire',
             valentineQuestionnaire: 'submitValentineQuestionnaire',
+            newwalletpin: 'newwalletpin',
 
         };
         console.log(
