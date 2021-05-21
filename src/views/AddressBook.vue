@@ -159,7 +159,7 @@
                           placeholder=" "
                           v-model="address.label"
                         >
-                        <label class="anim"><small>Adress e.g. Home, Office or Grandma's House </small></label>
+                        <label class="anim"><small>Label e.g. Home, Office or Grandma's House </small></label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
