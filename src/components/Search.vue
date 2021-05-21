@@ -5,6 +5,7 @@
             aria-label="Search your products from here"
             @submit="onSubmit"
             :get-result-value="getResultValue"
+          name="searchQuery"
             placeholder="Search your products from here"
         >
             <template #result="{ result, props }">

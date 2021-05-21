@@ -110,7 +110,18 @@
                       rows="10"
                       v-model="contact.message"
                       placeholder="Message body"
+                      maxlength="255"
+                      v-on:keyup="contact.textcount = contact.message.length"
+                      v-on:keydown="contact.textcount = contact.message.length"
+                      
                     ></textarea>
+                    <div  id= "maxlgt"  align="right"><small>{{0 + contact.textcount * 1}}/255 characters</small></div>
+                   
+                   <span class="err_msg" style="top:-35px; position: relative;"
+                   v-if = "contact.textcount == 255">
+                   Maximum character reached
+                   </span>
+
                     <span class="err_msg">{{ errors[0] }}</span>
                   </validation-provider>
                 </div>
@@ -146,9 +157,13 @@ export default {
         message: "",
         email: "",
         subject: "",
-        area:""
+        area:"",
+        textcount: 0,
+        
       }
+    
     }
+    
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
@@ -188,6 +203,7 @@ export default {
           this.contact.message = "";
           this.contact.email = "";
           this.contact.subject = "";
+          this.contact.area ="";
           location.reload()
         })
         .catch(error => {

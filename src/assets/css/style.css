@@ -1781,6 +1781,12 @@
             margin-top: 40px;
             margin-bottom: 20px;
         }
+        #maxlgt {
+            color: #000066;
+            padding: 1px 0px;
+            top: -10px;
+             position: relative;
+        }
         .vti__input::placeholder {
             color: rgb(63, 62, 62);
           }
