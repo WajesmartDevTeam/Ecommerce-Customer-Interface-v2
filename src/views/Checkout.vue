@@ -924,6 +924,8 @@ export default {
   data () {
     return {
       isPromo: false,
+      selected_date: '',
+      window_end_promo:'',
 
       transaction: {
         balance: 0,
@@ -1031,7 +1033,9 @@ export default {
     let start_promo       = new Date(startstring).getTime();
     let end_promo         = new Date(futurestring).getTime();
 
-    if(today <= end_promo && start_promo > today){
+    this.window_end_promo = end_promo;
+
+    if(today <= end_promo && today > start_promo){
       this.isPromo = true;
     }
     else{
@@ -1077,7 +1081,6 @@ export default {
 
   },
   watch: {
-  
     $route: {
         immediate: true,
         handler(to, from) {
@@ -1277,14 +1280,8 @@ export default {
       this.order.delivery.hour = row.starttime + ' - ' + row.endtime;
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
-
-
-          let futurestring     = "Jun 3, 2021 15:59:59";
-          let end_promo         = new Date(futurestring).getTime();
-
-          let selected_date = new Date(this.order.delivery.deliverydate).getTime();
        
-          if(this.isPromo && this.order.order_total >= 10000 && selected_date < end_promo){
+          if(this.isPromo && this.order.order_total >= 10000){
             this.order.delivery.charge = 0;
           }
           else{
@@ -1352,6 +1349,17 @@ export default {
     listWindows (row, index) {
       console.log('in '+ index)
       this.order.delivery.deliverydate = row.window_date;
+      this.selected_date = new Date(row.window_date).getTime();
+
+      //isPromo
+      if(this.selected_date > this.window_end_promo) {
+        this.isPromo = false;
+      } 
+      else {
+          this.isPromo = true;
+      }
+
+
       row.open_window.forEach(i => {
         i.id = index
       })
