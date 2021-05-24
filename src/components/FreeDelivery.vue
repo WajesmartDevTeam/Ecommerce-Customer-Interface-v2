@@ -91,7 +91,7 @@ export default {
 
 .promotion_alert_header {
     margin: 0;
-    padding: 22px 0;
+    padding: 10px 0;
     background: #dededef7;
     background-image: url(https://image.shutterstock.com/image-photo/asphalt-ground-urban-architectural-landscape-260nw-1905970453.jpg);
     /*background-image: url(../assets/img/promo_bg_img.png);*/
