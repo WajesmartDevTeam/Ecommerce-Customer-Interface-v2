@@ -385,7 +385,7 @@
                                   <h5 v-if="order.delivery.method == 'delivery'">Delivery Fee</h5>
                                   <h5 v-else>Pickup Fee</h5>
                                   <p v-if="order.delivery.method == 'pickup'">FREE</p>
-                                  <p v-else-if="isPromo && ordertotal >= 10000">FREE</p>
+                                  <p v-else-if="isPromo && order.cart_subtotal >= 10000">FREE</p>
                                   <p v-else>₦{{row.deliveryfee}}</p>
                                 </div>
                               </div>
@@ -1024,15 +1024,15 @@ export default {
     document.head.appendChild(rave);
 
     /* for free delivery promotion */
-    let startstring      = "May 25, 2021 00:00:59";
-    let futurestring     = "Jun 3, 2021 15:59:59";
+    let startstring      = "May 20, 2021 00:00:59";
+    let futurestring     = "May 25, 2021 15:59:59";
 
     let today             = new Date().getTime();
     let start_promo       = new Date(startstring).getTime();
     let end_promo         = new Date(futurestring).getTime();
 
     if(today <= end_promo && start_promo > today){
-      this.isPromo = false;
+      this.isPromo = true;
     }
     else{
       this.isPromo = false;
