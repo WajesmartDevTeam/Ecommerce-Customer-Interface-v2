@@ -606,7 +606,7 @@
                             <tr>
                               <td>Delivery Fee</td>
                               <td class="float-right">
-                                <span v-if="isPromo && ordertotal >= 10000">Free</span>
+                                <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
                                 <span v-else>
                                   <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
                                   <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
@@ -1024,15 +1024,14 @@ export default {
     document.head.appendChild(rave);
 
     /* for free delivery promotion */
-    let startstring      = "April 25, 2021";
-    let futurestring     = "May 3, 2021 23:59:59";
+    let startstring      = "May 25, 2021 00:00:59";
+    let futurestring     = "Jun 3, 2021 15:59:59";
 
     let today             = new Date().getTime();
     let start_promo       = new Date(startstring).getTime();
     let end_promo         = new Date(futurestring).getTime();
 
-
-    if((today >= start_promo) && (today <= end_promo)){
+    if(today <= end_promo && start_promo > today){
       this.isPromo = false;
     }
     else{
@@ -1278,8 +1277,14 @@ export default {
       this.order.delivery.hour = row.starttime + ' - ' + row.endtime;
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
+
+
+          let futurestring     = "Jun 3, 2021 15:59:59";
+          let end_promo         = new Date(futurestring).getTime();
+
+          let selected_date = new Date(this.order.delivery.deliverydate).getTime();
        
-          if(this.isPromo && this.order.order_total >= 10000){
+          if(this.isPromo && this.order.order_total >= 10000 && selected_date < end_promo){
             this.order.delivery.charge = 0;
           }
           else{
