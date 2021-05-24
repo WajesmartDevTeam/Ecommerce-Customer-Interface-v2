@@ -1090,7 +1090,7 @@
         .checkout .card .subtitle {
             text-align: left;
             letter-spacing: 0px;
-            color: #989898;
+            color: #222222;
             opacity: 1;
             font-size: 12px;
         }
@@ -1102,7 +1102,7 @@
             border-radius: 4px;
             font-size: 13px;
             letter-spacing: 0px;
-            color: #879388;
+            color: #343534;
             /* text-transform: capitalize; */
             outline: 0;
         }
@@ -1138,7 +1138,7 @@
         .checkout .card-3 .card-text .fulfillment-address img {}
         
         .checkout .card-3 .card-text .fulfillment-address p {
-            color: #989898;
+            color: #313131;
             font-size: 14px;
             margin: 0;
             margin: 0 0 0 7px;
@@ -1693,6 +1693,7 @@
             top: 16px;
             left: 20px;
             transition: ease 0.2s;
+
         }
         
         .auth .field .auth-form input:focus~label.anim,
@@ -1780,7 +1781,19 @@
             margin-top: 40px;
             margin-bottom: 20px;
         }
-        
+        #maxlgt {
+            color: #000066;
+            padding: 1px 0px;
+            top: -10px;
+             position: relative;
+        }
+        .vti__input::placeholder {
+            color: rgb(63, 62, 62);
+          }
+
+          .tph::placeholder {
+            color: rgb(66, 66, 66);
+          }
         .terms .content .terms-content {
             font-size: 15px;
             letter-spacing: 0px;
@@ -2071,7 +2084,7 @@
             text-align: left;
             font-size: 13px;
             letter-spacing: 0px;
-            color: #989898;
+            color: #424242;
         }
         
         .address .vs__search,
