@@ -142,8 +142,8 @@
           </div>
 
           <div v-if="getCart.length > 0" class="modal-footer">
-            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} for free delivery</b></p>
-            <p  v-if="$store.getters.cart_total >= 10000 && isPromo" class="text-center"><b>You qualify for free delivery</b></p>
+            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} more and get FREE Delivery + Umbrella</b></p>
+            <p  v-if="$store.getters.cart_total >= 10000 && isPromo" class="text-center"><b>You qualify for FREE Delivery + Umbrella!</b></p>
 
             <p v-if="$store.getters.cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
 
@@ -366,7 +366,21 @@ export default {
       }
       return str.join(".");
     },
+  },
+  created (){
+  
+      let futurestring = "Jun 3, 2021 15:59:59";
+      let today        = new Date();
+
+      let today_time      = today.getTime();
+      let end_time        = new Date(futurestring).getTime();
+
+      if(today_time <= end_time){
+          this.isPromo = true;
+      }
+  
   }
+
 }
 </script>
 
