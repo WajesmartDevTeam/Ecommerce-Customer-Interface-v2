@@ -37,7 +37,7 @@ export default {
     }
   },
   created () {
-    let startstring  = "May 25, 2021 00:00:59";          // set start date here   >>>
+    let startstring  = "May 20, 2021 00:00:59";          // set start date here   >>>
     let futurestring = "Jun 3, 2021 15:59:59"; // set future date here; >>>
     //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
