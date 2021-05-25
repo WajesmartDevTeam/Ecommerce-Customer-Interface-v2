@@ -647,7 +647,7 @@ export default {
         .makePostRequest(req)
         .then(response => {
           console.log(response)
-          this.$swal.fire("Success", response.data.data , "success");
+          this.$swal.fire("Success", response.data , "success");
           this.set_pin = {};
         })
         .catch(error => {
