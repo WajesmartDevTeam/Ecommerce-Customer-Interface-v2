@@ -386,7 +386,7 @@
                                   <h5 v-if="order.delivery.method == 'delivery'">Delivery Fee</h5>
                                   <h5 v-else>Pickup Fee</h5>
                                   <p v-if="order.delivery.method == 'pickup'">FREE</p>
-                                  <p v-else-if="isPromo && ordertotal >= 10000">FREE</p>
+                                  <p v-else-if="isPromo && order.cart_subtotal >= 10000">FREE</p>
                                   <p v-else>₦{{row.deliveryfee}}</p>
                                 </div>
                               </div>
@@ -608,7 +608,7 @@
                             <tr>
                               <td>Delivery Fee</td>
                               <td class="float-right">
-                                <span v-if="isPromo && ordertotal >= 10000">Free</span>
+                                <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
                                 <span v-else>
                                   <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
                                   <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
@@ -926,6 +926,8 @@ export default {
   data () {
     return {
       isPromo: false,
+      selected_date: '',
+      window_end_promo:'',
 
       transaction: {
         balance: 0,
@@ -1025,16 +1027,17 @@ export default {
     document.head.appendChild(rave);
 
     /* for free delivery promotion */
-    let startstring      = "April 25, 2021";
-    let futurestring     = "May 3, 2021 23:59:59";
+    let startstring      = "May 20, 2021 00:00:59";
+    let futurestring     = "Jun 3, 2021 15:59:59";
 
     let today             = new Date().getTime();
     let start_promo       = new Date(startstring).getTime();
     let end_promo         = new Date(futurestring).getTime();
 
+    this.window_end_promo = end_promo;
 
-    if((today >= start_promo) && (today <= end_promo)){
-      this.isPromo = false;
+    if(today <= end_promo && today > start_promo){
+      this.isPromo = true;
     }
     else{
       this.isPromo = false;
@@ -1079,7 +1082,6 @@ export default {
 
   },
   watch: {
-  
     $route: {
         immediate: true,
         handler(to, from) {
@@ -1352,6 +1354,17 @@ export default {
     },
     listWindows (row, index) {
       this.order.delivery.deliverydate = row.window_date;
+      this.selected_date = new Date(row.window_date).getTime();
+
+      //isPromo
+      if(this.selected_date > this.window_end_promo) {
+        this.isPromo = false;
+      } 
+      else {
+          this.isPromo = true;
+      }
+
+
       row.open_window.forEach(i => {
         i.id = index
       })

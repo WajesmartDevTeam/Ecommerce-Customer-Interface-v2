@@ -1,5 +1,8 @@
 <template>
     <div id="header">
+    
+      <FreeDelivery />
+
       <div id="topnav"  class="">
         <div class=" container">
           <div class="d-flex justify-content-between">
