@@ -159,7 +159,7 @@
                           placeholder=" "
                           v-model="address.label"
                         >
-                        <label class="anim">Label e.g Home, Office</label>
+                        <label class="anim"><small>Label e.g. Home, Office or Grandma's House </small></label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -175,7 +175,7 @@
                           placeholder=" "
                           v-model="address.address"
                         >
-                        <label class="anim">Street Address</label>
+                        <label class="anim"><small>Street Address</small></label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -193,7 +193,7 @@
                           placeholder=" "
                           v-model="address.area"
                         >
-                        <label class="anim">Area</label>
+                        <label class="anim"><small>Area</small></label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -208,7 +208,7 @@
                           class="form-control"
                           placeholder=" "
                           v-model="address.landmark"
-                        > <label class="anim">Closest landmark</label>
+                        > <label class="anim"><small>Closest landmark</small></label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -232,7 +232,7 @@
                             value=""
                             selected
                             hidden
-                          >Select State</option>
+                          ><small>Select State</small></option>
                           <option
                             v-for="(row, index) in states"
                             v-bind:key='index'
@@ -251,7 +251,7 @@
                         <label
                           v-if="edit"
                           class="anim"
-                        >Enter State</label>
+                        ><small>Enter State</small></label>
                         <span class="err_msg">{{ errors[0] }}</span>
                       </validation-provider>
                     </div>
@@ -304,7 +304,7 @@
                       <label
                         class="form-check-label"
                         for="exampleCheck1"
-                      >Set as default</label>
+                      ><small>Set as default</small></label>
                     </div>
                   </div>
                   <button
@@ -367,6 +367,14 @@ export default {
 
   },
   watch: {
+  
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Address Book Page';
+        }
+    },
+
     selected: function (val) {
       let vm = this;
       vm.address.state = val

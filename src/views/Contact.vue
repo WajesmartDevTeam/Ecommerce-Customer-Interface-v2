@@ -89,6 +89,17 @@
                   >
                   <label class="anim">Subject</label>
                 </div>
+
+                  <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder=" "
+                    v-model="contact.area"
+                  >
+                  <label class="anim">Area & City</label>
+                </div>
+
                 <div class="form-group">
                   <validation-provider
                     rules="required"
@@ -99,7 +110,18 @@
                       rows="10"
                       v-model="contact.message"
                       placeholder="Message body"
+                      maxlength="255"
+                      v-on:keyup="contact.textcount = contact.message.length"
+                      v-on:keydown="contact.textcount = contact.message.length"
+                      
                     ></textarea>
+                    <div  id= "maxlgt"  align="right"><small>{{0 + contact.textcount * 1}}/255 characters</small></div>
+                   
+                   <span class="err_msg" style="top:-35px; position: relative;"
+                   v-if = "contact.textcount == 255">
+                   Maximum character reached
+                   </span>
+
                     <span class="err_msg">{{ errors[0] }}</span>
                   </validation-provider>
                 </div>
@@ -134,12 +156,35 @@ export default {
         phone: "",
         message: "",
         email: "",
-        subject: ""
+        subject: "",
+        area:"",
+        textcount: 0,
+        
       }
+    
     }
+    
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true)
+  },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Contact Us';
+        }
+    },
+    selected: function (val) {
+      let vm = this;
+      vm.contact.state = val
+      this.states.forEach(i => {
+        if (i.state.name == val) {
+          // vm.cities = i.state.locals
+          vm.cities = i.state.cities;
+        }
+      })
+    },
   },
   methods: {
     sendMessage () {
@@ -158,6 +203,7 @@ export default {
           this.contact.message = "";
           this.contact.email = "";
           this.contact.subject = "";
+          this.contact.area ="";
           location.reload()
         })
         .catch(error => {

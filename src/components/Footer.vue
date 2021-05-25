@@ -94,7 +94,7 @@
         </div>
         <div class=" col-sm-12 mt-3">
           <div class="container">
-            <p class="footer-text">The Site is owned and operated by Sundry Markets Limited – owners of Marketsquare - a company registered in Nigeria whose registered office is 23 Nzimiro Street, Old GRA, Port Harcourt, Rivers State, Nigeria.Company Registration No. 1181249, TIN No. 17810525 © 2020 marketsquareng.com All Rights Reserved</p>
+            <p class="footer-text">The site is owned and operated by Sundry Markets Limited – owners of Marketsquare - a company registered in Nigeria whose registered office is 23 Nzimiro Street, Old GRA, Port Harcourt, Rivers State, Nigeria. Company Registration No. 1181249, TIN No. 17810525 © {{(new Date()).getFullYear()}} marketsquareng.com All Rights Reserved.</p>
 
           </div>
         </div>

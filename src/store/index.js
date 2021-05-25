@@ -19,10 +19,25 @@ export default new Vuex.Store({
         orders: [],
         storesCart: [],
         order: {},
-        banners: []
+        banners: [],
+        blackFriday: false,
+        categoryRoute: '/home',
+        categories: false,
+        promotions: 0,
     },
     mutations: {
-
+        updateBlackFriday(state, status) {
+            this.state.blackFriday = status
+        },
+        updatecategories(state, data) {
+            this.state.categories = data
+        },
+        updatepromotions(state, data) {
+            this.state.promotions = data
+        },
+        updateCategoryRoute(state, route) {
+            this.state.categoryRoute = route
+        },
         updateShowSearch(state, status) {
             this.state.showSearch = status
         },
@@ -69,6 +84,18 @@ export default new Vuex.Store({
     actions: {
         ToggleShowSearch({ commit }, status) {
             commit("updateShowSearch", status);
+        },
+        categories({ commit }, data) {
+            commit("updatecategories", data);
+        },
+        promotions({ commit }, data) {
+            commit("updatepromotions", data);
+        },
+        setBlackFriday({ commit }, status) {
+            commit("updateBlackFriday", status);
+        },
+        setCategoryRoute({ commit }, route) {
+            commit("updateCategoryRoute", route);
         },
         setStoreStatus({ commit }, status) {
             commit("updateStoreStatus", status);
@@ -125,7 +152,15 @@ export default new Vuex.Store({
         isLoggedIn: state => state.loggedIn,
         storesCart: state => state.storesCart,
         order: state => state.order,
-        banners: state => state.banners
+        banners: state => state.banners.reverse(),
+        blackFriday: state => state.blackFriday,
+        promotions: state => state.promotions,
+        categories: state => state.categories,
+        categoryRoute: state => state.categoryRoute,
+        cart_total: state=> state.cart.map(x => Number(x.quantity) * Number(x.unit_price)).reduce((acc, curr) => {
+            acc += Number(curr)
+            return acc
+        }, 0)
     },
     plugins: [createPersistedState()]
 })

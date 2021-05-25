@@ -22,6 +22,16 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import Toasted from "vue-toasted";
 import VueCarousel from 'vue-carousel';
 import EasySlider from 'vue-easy-slider'
+import { ClientTable, Event } from "vue-tables-2";
+import VueTableDynamic from 'vue-table-dynamic';
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+import '@trevoreyre/autocomplete-vue/dist/style.css'
+
+Vue.use(Autocomplete)
+// import VueFriendlyIframe from 'vue-friendly-iframe';
+
+// Vue.use(VueFriendlyIframe);
+
 // import VueAnalytics from 'vue-analytics';
 import VueGtag from "vue-gtag";
 
@@ -64,6 +74,11 @@ Vue.use(VueLazyload, {
 })
 Vue.use(VueTelInput) // Define default global options here (optional)
 Vue.use(VueAxios, axios);
+// Vue.use(ClientTable, {
+//     perPage: 100,
+//     perPageValues: [10, 25, 50, 100, 300, 500, 1000],
+// });
+Vue.use(ClientTable);
 // Vue.use(InfiniteLoading);
 Vue.use(InfiniteLoading, {
     slots: {
@@ -104,14 +119,15 @@ Vue.use(Loading, {
     backgroundColor: '#ffffff',
 });
 // Vue.use(VueAnalytics, {
-//     id: 'UA-157722413-2',
+//     id: 'G-L92RYLZ402',
 //     router
 // })
-Vue.use(VueGtag, {
-        config: { id: 'UA-157722413-2' }
-    },
-    router);
-Vue.component('v-select', vSelect)
+// Vue.use(VueGtag, {
+//         config: { id: 'UA-157722413-2' }
+//     },
+//     router);
+Vue.component('v-select', vSelect);
+Vue.use(VueTableDynamic);
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
 
@@ -138,9 +154,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 router.beforeEach((to, from, next) => {
-    if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About' || to.name == 'MyOrders' || to.name == 'MyAccount' || to.name == 'AddressBook' || to.name == 'Product') next()
-    else if (to.name !== 'LandingPage' && !store.getters.isStoreSet) next({ name: 'LandingPage' })
-    else if (to.name == 'LandingPage' && store.getters.isStoreSet) next({ name: 'Home' })
+    if (to.name === 'Login' || to.name === 'Register' || to.name == 'GiftCard' || to.name == 'Contact' || to.name == 'Terms' || to.name == 'Reset'  || to.name == 'Privacy' || to.name == 'StoreLocator' || to.name == 'About' || to.name == 'MyOrders' || to.name == 'MyAccount' || to.name == 'AddressBook' || to.name == 'Product'|| to.name === 'BlackFriday' || to.name == 'Hampers') next()
+    else if (to.name !== 'LandingPage' && !store.getters.isStoreSet) {
+        store.dispatch('setCategoryRoute', to.path).then(() => {
+            next({ name: 'LandingPage' })
+        })
+    }
+    else if (to.name == 'LandingPage' && store.getters.isStoreSet) {
+        next({ path: store.getters.categoryRoute })
+    }
     else next();
     if (to.name !== 'Register' && from.name == 'Login') next({ name: 'Home' })
     else next();

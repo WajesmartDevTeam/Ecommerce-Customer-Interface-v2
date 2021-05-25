@@ -20,62 +20,68 @@
           </div>
           <div class="col-sm-9">
             <div class="content">
-              <div class="top d-flex">
+            
+             <div class="top d-flex">
                 <a href="/orders">
                   Back</a>
                 <h5 class="ml-5 text-bold">Order {{order.unique_code}}</h5>
-              </div>
-              <div class="card order-details mt-2">
-                <div class="card-body">
-
-                  <div v-if="Object.keys(order).length >0">
-                    <div class="d-flex mb-3">
-                      <h5>Total Item</h5>
-                      <div class="info"><span>{{order.itemdetails.length}} items</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
-                      <h5>Order time</h5>
-                      <div class="info"><span>{{formatDate(order.created_at)}}</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
-                      <h5>Contact Details</h5>
-                      <div class="info"><span class="text-bold">{{order.fullname}}</span><br><span>{{order.email}}<br> {{order.phone}}</span></div>
-                    </div>
-                    <div
-                      v-if="order.delivery_method=='pickup'"
-                      class="d-flex mb-3"
-                    >
-                      <h5>Fulfilment Store</h5>
-                      <div class="info"><span class="text-bold">{{order.name}}</span><br><span>{{order.address}}</span></div>
-                    </div>
-                    <div
-                      v-else
-                      class="d-flex mb-3"
-                    >
-                      <h5> Store</h5>
-                      <div class="info"><span class="text-bold">{{order.name}}</span><br><span>{{order.address}}</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
-                      <h5>Fulfilment Type</h5>
-                      <div class="info text-capitalize"><span>{{order.delivery_method}}</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
-                      <h5>Payment Method</h5>
-                      <div class="info"><span>{{order.payment_method}}</span></div>
-                    </div>
-                    <div class="d-flex mb-3">
-                      <h5>Total Amount</h5>
-                      <div class="info"><span>₦{{formatPrice(order.order_total)}}</span></div>
-                    </div>
-
-                  </div>
-                  <div class="orderbtn"><button
+                 <div class="orderbtn"><button
                       @click.prevent='reOrder()'
-                      class="msq-button"
-                    >Order Again</button></div>
+                      class="msq-button btn_reorder">Order Again</button></div>
+            
+                 
                 </div>
+                 
+             
+
               </div>
-              <div class="card order-status mt-3 p-4">
+              
+              <div class="card order-items mt-3 p-4">
+                <h5 class="title card-title text-left text-capitalize">Your order</h5>
+                <table class="table table-responsive card-body bg-white">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product</th>
+                      <th scope="col"></th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Unit Price</th>
+                      <th scope="col">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="row in order.itemdetails">
+
+                      <td class="">
+
+                        <img
+                          v-if="row.old_productinfo.img_url.includes('https://cdn.marketsquareng.website')"
+                          :src="row.old_productinfo.img_url"
+                          alt=""
+                          class="img-fluid"
+                        >
+                        <img
+                          v-else
+                          :src="'https://admin.sundrymarkets.com'+row.old_productinfo.img_url"
+                          alt=""
+                          class="img-fluid"
+                        >
+
+                      </td>
+                      <td class="productname">{{row.old_productinfo.name}}</td>
+                      <td>
+                        <div class="qty">{{row.old_productinfo.quantity}}</div>
+                      </td>
+                      <td><span v-if="row.old_productinfo.unit_price">₦{{formatPrice(row.old_productinfo.unit_price)}}</span>
+                        <span v-else>₦{{formatPrice(row.unit_price)}}</span>
+                      </td>
+                      <td>₦{{formatPrice(row.old_productinfo.price)}} </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+               
+                  <div class="card order-status mt-3 p-4">
                 <h5 class="card-title title text-left">Order Status</h5>
                 <div
                   id="Order_Tracker"
@@ -256,50 +262,55 @@
 
                 </div>
               </div>
-              <div class="card order-items mt-3 p-4">
-                <h5 class="title card-title text-left text-capitalize">Your order</h5>
-                <table class="table table-responsive card-body bg-white">
-                  <thead>
-                    <tr>
-                      <th scope="col">Product</th>
-                      <th scope="col"></th>
-                      <th scope="col">Quantity</th>
-                      <th scope="col">Unit Price</th>
-                      <th scope="col">Subtotal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="row in order.itemdetails">
 
-                      <td class="">
+                <div class="card order-details mt-2">
+               
+                <div class="card-body">
+                          
+                  <div v-if="Object.keys(order).length >0">
+                    <div class="d-flex mb-3">
+                      <h5>Total Item</h5>
+                      <div class="info"><span>{{order.itemdetails.length}} items</span></div>
+                    </div>
+                    <div class="d-flex mb-3">
+                      <h5>Order time</h5>
+                      <div class="info"><span>{{formatDate(order.created_at)}}</span></div>
+                    </div>
+                    <div class="d-flex mb-3">
+                      <h5>Contact Details</h5>
+                      <div class="info"><span class="text-bold">{{order.fullname}}</span><br><span>{{order.email}}<br> {{order.phone}}</span></div>
+                    </div>
+                    <div
+                      v-if="order.delivery_method=='pickup'"
+                      class="d-flex mb-3"
+                    >
+                      <h5>Fulfilment Store</h5>
+                      <div class="info"><span class="text-bold">{{order.name}}</span><br><span>{{order.address}}</span></div>
+                    </div>
+                    <div
+                      v-else
+                      class="d-flex mb-3"
+                    >
+                      <h5> Store</h5>
+                      <div class="info"><span class="text-bold">{{order.name}}</span><br><span>{{order.address}}</span></div>
+                    </div>
+                    <div class="d-flex mb-3">
+                      <h5>Fulfilment Type</h5>
+                      <div class="info text-capitalize"><span>{{order.delivery_method}}</span></div>
+                    </div>
+                    <div class="d-flex mb-3">
+                      <h5>Payment Method</h5>
+                      <div class="info"><span>{{order.payment_method}}</span></div>
+                    </div>
+                    <div class="d-flex mb-3">
+                      <h5>Total Amount</h5>
+                      <div class="info"><span>₦{{formatPrice(order.order_total)}}</span></div>
+                    </div>
 
-                        <img
-                          v-if="row.old_productinfo.img_url.includes('https://cdn.marketsquareng.website')"
-                          :src="row.old_productinfo.img_url"
-                          alt=""
-                          class="img-fluid"
-                        >
-                        <img
-                          v-else
-                          :src="'https://admin.sundrymarkets.com'+row.old_productinfo.img_url"
-                          alt=""
-                          class="img-fluid"
-                        >
-
-                      </td>
-                      <td class="productname">{{row.old_productinfo.name}}</td>
-                      <td>
-                        <div class="qty">{{row.old_productinfo.quantity}}</div>
-                      </td>
-                      <td><span v-if="row.old_productinfo.unit_price">₦{{formatPrice(row.old_productinfo.unit_price)}}</span>
-                        <span v-else>₦{{formatPrice(row.unit_price)}}</span>
-                      </td>
-                      <td>₦{{formatPrice(row.old_productinfo.price)}} </td>
-                    </tr>
-
-                  </tbody>
-                </table>
+                  </div>
+                 
               </div>
+
             </div>
           </div>
         </div>
@@ -336,6 +347,14 @@ export default {
   created () {
     this.order_id = this.$route.params.id;
     this.fetchOrders()
+  },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'View Order Page';
+        }
+    },
   },
   methods: {
     fetchOrders () {
@@ -558,6 +577,13 @@ export default {
   left: 11px;
   top: 5px;
   transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+.btn_reorder {
+    position: relative;
+    top: -2px;
+    right: 24px;
+    height:33px !important;
 }
 </style>
 

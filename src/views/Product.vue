@@ -55,10 +55,23 @@
                         ></i> &nbsp;In Stock</span>
 
                     </p>
+                    <p
+                        v-else
+                        class="availability out-stock"
+                    ><span><i
+                        class="fa fa-check-square-o"
+                        style="font-size: 13px;"
+                    ></i> &nbsp;Out of Stock</span>
+
+                    </p>
                     <p class="price">
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+                      </span>
+                      <span v-else-if="product.old_price">
+                        <span style="color:#ccc;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
+                        <span>₦{{ formatPrice(product.sellingprice) }}</span>
                       </span>
                       <span
                         v-else
@@ -71,7 +84,8 @@
                       :id="'btntp_modal'"
                       class="addtocart mt-4"
                       v-bind:class="product.hidebtn? 'hideqty':''"
-                      @click="addToCart(pro, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
+                      v-if="$store.getters.isStoreSet!=false"
+                      @click="addToCart(product, 'addtp_modal' ,'btntp_modal' ,'tp_modal')"
                     >
                       <img
                         src="../assets/img/cart.png"
@@ -85,6 +99,25 @@
                       >
 
                       <span>Add to cart</span>
+                    </button>
+                    <button
+                        class="addtocart mt-4"
+                        v-else
+                        data-toggle="modal"
+                        data-target="#store"
+                    >
+                      <img
+                          src="../assets/img/cart.png"
+                          class="img1"
+                          alt=""
+                      >
+                      <img
+                          class="d-none img2"
+                          src="../assets/img/cart-white.png"
+                          alt=""
+                      >
+
+                      <span>Select Store</span>
                     </button>
                     <button
                       :id="'addtp_modal'"
@@ -138,7 +171,7 @@
             </div>
 
           </div>
-          <div class="card mb-5">
+          <div v-if='!isEmpty' class="card mb-5">
             <div class="card-body">
               <div class="description">
                 <h5><u>Product Description</u> </h5>
@@ -150,6 +183,8 @@
       </div>
 
     </div>
+    <Cart v-if='$store.getters.isStoreSet!=false' :products="[product]" />
+    <storeSelector></storeSelector>
     <Footer></Footer>
   </div>
 </template>
@@ -158,25 +193,55 @@
 <script>
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import StoreSelector from '@/components/StoreSelector.vue'
+import Cart from '@/components/CartComponent.vue'
+import * as $ from "jquery";
 export default {
   name: 'Product',
   components: {
-    TopNav, Footer
+    TopNav, Footer, StoreSelector, Cart
   },
   data () {
     return {
-      product: {}
+      product: {
+        name: this.$route.params.name,
+        description:'',
+        cart_qty: 0,
+        category: this.$route.params.category,
+        hidebtn: true,
+        hideqty: true,
+        quantity: 0,
+        sellingprice: 0,
+        newprice: 0,
+        img_url: '',
+        active: 0,
+      }
     }
   },
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true);
     this.loader = this.$loading.show();
   },
-  created () {
-    this.getProduct()
+  computed : {
+    isEmpty() {
+      return Object.values(this.product).length == 0
+    }
   },
-  computed: {
-
+  mounted() {
+    this.loader.hide()
+    if(this.$store.getters.isStoreSet == false) {
+      $("#store").modal('show');
+    } else {
+        this.getProduct()
+    }
+  },
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = this.$route.params.name + " | Online Shopping | Market Square";
+        }
+    },
   },
   methods: {
     getProduct () {
@@ -185,7 +250,7 @@ export default {
         showLoader: false,
         params: {
           category: this.$route.params.category,
-          storeid: this.$route.params.store,
+          storeid: this.$store.getters.store.id,
           name: this.$route.params.name
         }
       }
@@ -196,26 +261,31 @@ export default {
             console.log(res.data.data)
             let pro = res.data.data;
 
-            let cart = this.$store.getters.cart;
+            if(pro != null) {
 
-            pro.hidebtn = false;
-            pro.hideqty = true;
-            pro.cart_qty = pro.description.includes('/KG') || pro.description.includes('/ KG') ? 1.0 : 1;
-            cart.forEach(j => {
-              if (pro.id == j.product.id) {
-                pro.hidebtn = true;
-                pro.hideqty = false;
-                pro.cart_qty = j.quantity;
-              }
+                let cart = this.$store.getters.cart;
 
-            })
-            this.product = pro;
+                pro.hidebtn = false;
+                pro.hideqty = true;
+                pro.cart_qty = pro.description.includes('/KG') || pro.description.includes('/ KG') ? 1.0 : 1;
+                cart.forEach(j => {
+                  if (pro.id == j.product.id) {
+                    pro.hidebtn = true;
+                    pro.hideqty = false;
+                    pro.cart_qty = j.quantity;
+                  }
+
+                })
+                this.product = pro;
+            } else {
+              this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
+            }
             this.loader.hide()
           }
 
         })
         .catch(error => {
-          this.$swal.fire("Error", error, "error");
+          this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
           console.log(error)
         });
     },
@@ -242,7 +312,7 @@ export default {
       cart.product.img_url = product.img_url;
       let cart_array = this.$store.getters.cart;
       let check = [];
-      // cart_array.push(cart)
+      // cart_array.push(cart
       if (cart_array.length > 0) {
         cart_array.forEach(i => {
           if (i.product.id == cart.product.id) {
@@ -397,12 +467,28 @@ export default {
   padding: 3px 0;
   width: 100px;
 }
+.availability.out-stock {
+  padding: 3px 0;
+  width: 100px;
+}
 .availability.in-stock span {
   color: #fff;
   font-size: 11px;
   line-height: 16px;
   display: block;
   background: #6dbe14;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  font-weight: 700;
+  border-radius: 3px;
+}
+
+.availability.out-stock span {
+  color: #fff;
+  font-size: 11px;
+  line-height: 16px;
+  display: block;
+  background: #ea1414;
   text-transform: uppercase;
   padding: 6px 8px;
   font-weight: 700;

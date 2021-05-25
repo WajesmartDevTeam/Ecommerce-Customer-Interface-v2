@@ -1,0 +1,7 @@
+deployment:
+    tasks:
+          - export DEPLOYPATH=../../customer.marketsquareng.website/
+          # - npm install
+          # - npm run build
+          - /bin/cp -R dist/* $DEPLOYPATH
+

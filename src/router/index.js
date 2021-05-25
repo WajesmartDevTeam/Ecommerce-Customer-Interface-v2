@@ -22,6 +22,12 @@ import MyOrders from '../views/Orders.vue'
 import OrderView from '../views/OrderView.vue'
 import Product from '../views/Product.vue'
 import NotFound from '../components/404.vue';
+import Wallet from '../views/Wallet.vue';
+import Promotions from "@/views/Promotions";
+// import BlackFriday from '../views/BlackFriday.vue';
+import Hampers from '../views/Hampers.vue';
+import ValentineForm from '../views/ValentineForm.vue';
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -35,7 +41,32 @@ const routes = [{
         component: Home
     },
     {
+        path: '/promotions/:promotion',
+        name: 'Promotions',
+        component: Promotions
+    },
+    {
+        path: '/ramadan-combo/:cat',
+        name: 'Hampers',
+        component: Hampers
+    },
+    {
+        path: '/black-friday',
+        name: 'BlackFriday',
+        redirect: '/home'
+    },
+    {
+        path: '/valentine/story',
+        name: 'ValentineForm',
+        redirect: '/home'
+    },
+    {
         path: '/category/:cat',
+        name: 'Category',
+        component: Category
+    },
+    {
+        path: '/category/:cat/:searchQuery',
         name: 'Category',
         component: Category
     },
@@ -67,7 +98,7 @@ const routes = [{
     {
         path: '/giftcard',
         name: 'GiftCard',
-        component: GiftCard
+        redirect: '/home'
     },
     {
         path: '/contact',
@@ -84,8 +115,13 @@ const routes = [{
         name: 'Register',
         component: Register
     },
+    // {
+    //     path: '/password/reset/:key',
+    //     name: 'ResetPassword',
+    //     component: ResetPassword
+    // },
     {
-        path: '/password/reset/:key',
+        path: '/reset/:key',
         name: 'ResetPassword',
         component: ResetPassword
     },
@@ -118,6 +154,11 @@ const routes = [{
         path: '/orders',
         name: 'MyOrders',
         component: MyOrders
+    },
+    {
+        path: '/wallet',
+        name: 'Wallet',
+        component: Wallet
     },
     {
         path: '/orderview/:id',

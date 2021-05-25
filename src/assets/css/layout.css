@@ -18,12 +18,14 @@
         }
         
         input~label.anim {
-            color: #879388;
+            color: #474747;
             font-size: 12px;
             position: absolute;
             top: 16px;
             left: 20px;
             transition: ease 0.2s;
+            background: #fff;
+            padding: 1px 3px
         }
         
         input:focus~label.anim,
@@ -78,6 +80,7 @@
             text-transform: uppercase;
             font-weight: bold;
             font-size: 13px;
+            
         }
         
         .msq-button:hover {
@@ -85,6 +88,9 @@
         }
         /* modal */
         
+       
+
+
         .modal-header {
             display: block;
             border-bottom: none!important;

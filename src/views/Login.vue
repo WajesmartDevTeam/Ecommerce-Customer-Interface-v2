@@ -149,6 +149,17 @@ export default {
   mounted () {
 
   },
+
+  
+  watch: {
+    $route: {
+        immediate: true,
+        handler(to, from) {
+            document.title = 'Login Page';
+        }
+    },
+  },
+
   methods: {
     handleLogin () {
       this.user.phone = this.user.phone.replace(/\s/g, '');
@@ -213,7 +224,8 @@ export default {
         .then(response => {
           console.log(response)
           $(".modal").modal("hide");
-          this.$swal.fire("Success", response.message, "success");
+         // this.$swal.fire("Success", response.message, "success");
+          this.$swal.fire("Success", "<small>An email is on its way to you. Kindly click on the link in the email and follow the guide to reset your password.</small>", "success");
           this.forgot_email = '';
 
         })
