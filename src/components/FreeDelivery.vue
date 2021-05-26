@@ -90,12 +90,11 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@800&display=swap');
 
 .promotion_alert_header {
-    margin: 0;
-    padding: 10px 0;
-    background: #dededef7;
-    background-image: url(https://image.shutterstock.com/image-photo/asphalt-ground-urban-architectural-landscape-260nw-1905970453.jpg);
-    /*background-image: url(../assets/img/promo_bg_img.png);*/
-    color: #2a1f6d;
+ margin: 0;
+    padding: 15px 0;
+    background: #f40909;
+    background-image: url(https://cdn.marketsquareng.website/images/promo_bg_img.png);
+    color: yellow;
     font-size: 28px;
     font-weight: 900;
     font-family: 'Baloo Bhai 2', cursive;
