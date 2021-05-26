@@ -368,14 +368,20 @@ export default {
   },
   created (){
   
-      let futurestring = "Jun 3, 2021 15:59:59";
+      let startstring  = "May 28, 2021 00:00:59";
+      let futurestring = "Jun 3, 2021 23:59:59";
       let today        = new Date();
 
       let today_time      = today.getTime();
+      let start_promo     = new Date(startstring).getTime();
       let end_time        = new Date(futurestring).getTime();
 
-      if(today_time <= end_time){
+
+      if(today_time <= end_time && today_time > start_promo){
           this.isPromo = true;
+      }
+      else{
+          this.isPromo = false;
       }
   
   }
