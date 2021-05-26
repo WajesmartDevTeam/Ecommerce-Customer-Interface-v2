@@ -93,7 +93,7 @@ export default {
  margin: 0;
     padding: 15px 0;
     background: #f40909;
-    background-image: url(/img/promo_bg_img.a5d00ad8.png);
+    background-image: url(https://cdn.marketsquareng.website/images/promo_bg_img.png);
     color: yellow;
     font-size: 28px;
     font-weight: 900;
