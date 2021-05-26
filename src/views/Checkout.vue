@@ -1027,8 +1027,8 @@ export default {
     document.head.appendChild(rave);
 
     /* for free delivery promotion */
-    let startstring      = "May 20, 2021 00:00:59";
-    let futurestring     = "May 28, 2021 15:59:59";
+    let startstring      = "May 28, 2021 00:00:59";
+    let futurestring     = "Jun 3, 2021 23:59:59";
 
     let today             = new Date().getTime();
     let start_promo       = new Date(startstring).getTime();
