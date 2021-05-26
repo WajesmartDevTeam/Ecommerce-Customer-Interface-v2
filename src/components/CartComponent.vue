@@ -369,7 +369,7 @@ export default {
   },
   created (){
   
-      let futurestring = "Jun 3, 2021 15:59:59";
+      let futurestring = "May 28, 2021 15:59:59";
       let today        = new Date();
 
       let today_time      = today.getTime();

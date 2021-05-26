@@ -2,15 +2,15 @@
   <div id="FreeDelivery">
 
     <div v-if="isPromo && cart_total == 0" class="text-center promotion_alert_header">
-      Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery + Umbrella. Expires {{countdown_left}}
+      Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery + Umbrella. <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
     <div v-else-if="isPromo && cart_total < cart_amount_qualify" class="text-center promotion_alert_header">    
-      Add &#x20A6;{{qualify.toLocaleString()}} more and get FREE Delivery + Umbrella. Expires {{countdown_left}}
+      Add &#x20A6;{{qualify.toLocaleString()}} more and get FREE Delivery + Umbrella. <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
     <div v-else-if="isPromo && cart_total >= cart_amount_qualify" class="text-center promotion_alert_header">
-      You qualify for FREE Delivery + Umbrella! Expires {{countdown_left}} 
+      You qualify for FREE Delivery + Umbrella! <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
   </div>
@@ -38,7 +38,7 @@ export default {
   },
   created () {
     let startstring  = "May 20, 2021 00:00:59";          // set start date here   >>>
-    let futurestring = "Jun 3, 2021 15:59:59"; // set future date here; >>>
+    let futurestring = "May 28, 2021 15:59:59"; // set future date here; >>>
     //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     //=>>Format todays date
@@ -90,21 +90,27 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@800&display=swap');
 
 .promotion_alert_header {
-    margin: 0;
-    padding: 10px 0;
-    background: #dededef7;
-    background-image: url(https://image.shutterstock.com/image-photo/asphalt-ground-urban-architectural-landscape-260nw-1905970453.jpg);
-    /*background-image: url(../assets/img/promo_bg_img.png);*/
-    color: #2a1f6d;
+ margin: 0;
+    padding: 15px 0;
+    background: #f40909;
+    background-image: url(/img/promo_bg_img.a5d00ad8.png);
+    color: yellow;
     font-size: 28px;
     font-weight: 900;
     font-family: 'Baloo Bhai 2', cursive;
-    background-position: 50% 0%;
+    background-position: 50% 99%;
+    background-size: contain;
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
 }
-
+.text-black{
+  color:#000;
+    font-family: 'Baloo Bhai 2', cursive;
+}
 @media screen and (max-width:500px) {
   .promotion_alert_header {
-      font-size: 12px;
+      font-size: 14px;
+      padding: 15px 0;
   }
 }
 </style>
