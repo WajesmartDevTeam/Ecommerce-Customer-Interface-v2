@@ -38,8 +38,9 @@
         </div>
         <div class="product-footer" style="height: auto !important">
         <p class="price">
-            <span v-if="product.discount > 0">                
-                ₦{{product.discount.toLocaleString()}} <br>
+            <span v-if="product.discount > 0">
+                <s>₦{{product.sellingprice.toLocaleString()}}</s><br>
+                   ₦{{product.discount.toLocaleString()}} <br>
                 <span class="badge badge-info">Online Discount</span>
             </span>
 
