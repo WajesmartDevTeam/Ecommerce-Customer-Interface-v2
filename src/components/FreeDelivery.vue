@@ -65,7 +65,9 @@ export default {
     let end_time        = new Date(futurestring).getTime();
 
     
-    if(today_time <= end_time && start_time > today_time){
+    console.log(today_time +'  :  '+ start_time)
+    
+    if(today_time <= end_time && start_time <= today_time){
           this.isPromo = true;
 
           if(dday == 0){
