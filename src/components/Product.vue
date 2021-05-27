@@ -29,16 +29,12 @@
         data-toggle="modal"
         >
         <p class="description">{{product.name}}</p>
-<<<<<<< HEAD
-        <!-- <p class="description"><a @click.prevent="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p> -->
-=======
 
         <div v-if="isProductPromotion()">
             <p class="description  desc mt-2" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><b>Content: </b>{{product.description}}</p>
             <p class="description"><a @click.prevent="" style="text-decoration: underline !important; color: #000066;">View Full Content</a></p>
         </div>
 
->>>>>>> 42859ab (testing update)
         </div>
         
         <div class="product-footer" style="height: auto !important">
@@ -309,7 +305,7 @@ export default {
 
         isProductPromotion (){
             if(this.product.promotion){
-                if(this.product.promotion.toLowerCase().includes('ramadan packs'))
+                if(this.product.promotion.toLowerCase().includes('combo'))
                     return true;
             }
             else{

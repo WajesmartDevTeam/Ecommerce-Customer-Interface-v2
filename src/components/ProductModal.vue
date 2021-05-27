@@ -382,7 +382,7 @@ export default {
         },
         isProductPromotion (){
             if(this.pro.promotion){
-                if(this.pro.promotion.toLowerCase().includes('ramadan packs'))
+                if(this.pro.promotion.toLowerCase().includes('combo'))
                     return true;
             }
             else{

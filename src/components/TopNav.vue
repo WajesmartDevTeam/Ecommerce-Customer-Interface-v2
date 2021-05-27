@@ -220,9 +220,8 @@
             id="search"
             class="d-none d-md-block"
           >
-            <Search/>
-
-            <!-- </Search> -->
+            
+            </Search>
             <!-- <input
               @keyup.enter="search()"
               type="text"
@@ -305,15 +304,15 @@
                 href=""
                 class="dropdown-toggle"
                 data-toggle="dropdown"
-              >Ramadan</a>
+              >Specials</a>
               <ul class="dropdown-menu">
-                <li class="divider"><a href="/promotions/ramadan"> All </a></li>
+                <li class="divider"><a href="/promotions/specials"> All </a></li>
                 <li v-for="(promo, index) in promotions" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
                 <li class="divider"></li>
               </ul>
             </li>
 
-            <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/ramadan packs"> Ramadan Packs</a></li>
+            <li v-if="showPromotions('combos')" class="menu-link"><a href="/category/combos"> Combos</a></li>
 
             <li v-if="showCategory('bakery')" class="menu-link"><a href="/category/bakery"> Bakery</a></li>
 
@@ -444,20 +443,22 @@
         <a
           @click.prevent='toggleDropdown'
           class="dropdown-btn sidemenu">
-          Ramadan
+          Specials
         </a>
           <div class="dropdown-container">
-            <a href="/promotions/ramadan" class="sidemenu"> All </a>
+            <a href="/promotions/specials" class="sidemenu"> All </a>
             <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
           </div>
 
 
         <a
-          href="/category/ramadan packs"
+          v-if="showPromotions('combos')"
+          href="/category/combos"
           class="sidemenu"
-        >Ramadan Packs </a>
+        >Combos</a>
         
         <a
+          v-if="showCategory('bakery')"
           href="/category/bakery"
           class="sidemenu"
         >Bakery </a>
@@ -565,8 +566,9 @@
           id="search"
           class=""
         >
-          <Search/>
-          <!-- </Search> -->
+
+
+          </Search>
           <!-- <input
             @keyup.enter="search()"
             type="text"
@@ -677,6 +679,7 @@ export default {
     window.scrollTo(0, 0)
     if (this.$route.name == 'Search') {
       this.searchQuery = this.$route.params.search
+
     }
     this.user = this.$store.getters.user;
     if (this.$store.getters.storesCart.length > 0) {
@@ -796,6 +799,9 @@ export default {
     },
     showCategory(name){
       return this.categories.includes(name);
+    },
+    showPromotions(name){
+      return this.promotions.includes(name);
     },
     getSubCategories(name) {
       return this.$store.getters.categories.filter( (val) => this.cats[name].includes(val))
