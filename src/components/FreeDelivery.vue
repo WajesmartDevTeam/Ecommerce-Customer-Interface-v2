@@ -2,15 +2,15 @@
   <div id="FreeDelivery">
 
     <div v-if="isPromo && cart_total == 0" class="text-center promotion_alert_header">
-      Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery + Umbrella. Expires {{countdown_left}}
+      Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery + Umbrella. <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
     <div v-else-if="isPromo && cart_total < cart_amount_qualify" class="text-center promotion_alert_header">    
-      Add &#x20A6;{{qualify.toLocaleString()}} more and get FREE Delivery + Umbrella. Expires {{countdown_left}}
+      Add &#x20A6;{{qualify.toLocaleString()}} more and get FREE Delivery + Umbrella. <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
     <div v-else-if="isPromo && cart_total >= cart_amount_qualify" class="text-center promotion_alert_header">
-      You qualify for FREE Delivery + Umbrella! Expires {{countdown_left}} 
+      You qualify for FREE Delivery + Umbrella! <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
   </div>
@@ -65,8 +65,6 @@ export default {
     let end_time        = new Date(futurestring).getTime();
 
     
-    console.log(today_time +'  :  '+ start_time)
-    
     if(today_time <= end_time && start_time <= today_time){
           this.isPromo = true;
 
@@ -100,12 +98,19 @@ export default {
     font-size: 28px;
     font-weight: 900;
     font-family: 'Baloo Bhai 2', cursive;
-    background-position: 50% 0%;
+    background-position: 50% 99%;
+    background-size: contain;
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
 }
-
+.text-black{
+  color:#000;
+    font-family: 'Baloo Bhai 2', cursive;
+}
 @media screen and (max-width:500px) {
   .promotion_alert_header {
-      font-size: 12px;
+      font-size: 14px;
+      padding: 15px 0;
   }
 }
 </style>
