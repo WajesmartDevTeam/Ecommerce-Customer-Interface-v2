@@ -176,13 +176,21 @@ export default {
             document.getElementById(addid).classList.remove('hideqty');
             document.getElementById(addbtn).classList.add('hideqty')
             // this.loading = true;
-            if (product.promo) {
-                product["newprice"] = Math.round(
-                (product.promo.value_percent / 100) * product.sellingprice
-                );
-            } else {
-                product["newprice"] = product.sellingprice;
+
+            if(product.discount > 0){
+                product["newprice"] = product.discount;
             }
+            else{
+                if (product.promo) {
+                    product["newprice"] = Math.round(
+                    (product.promo.value_percent / 100) * product.sellingprice
+                    );
+                } else {
+                    product["newprice"] = product.sellingprice;
+                }
+            }
+
+
             let cart = {
                 product: {}
             }
