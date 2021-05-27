@@ -399,8 +399,10 @@ export default {
               price: i.unit_price
             }
           }
+        
           cart.push(cartitem)
         }
+          console.log(this.order.itemdetails)
       });
       this.$store.dispatch('addToCart', cart)
         .then((r) => {

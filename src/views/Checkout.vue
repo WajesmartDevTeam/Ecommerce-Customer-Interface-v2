@@ -327,7 +327,10 @@
                         <h5 class="title">Fulfillment Window</h5>
 
                       </div>
-                      <h6 class="card-subtitle subtitle mb-2 ml-5">Click on preferred day to view available windows</h6>
+                      <h6 class="card-subtitle subtitle mb-2 ml-5">Click on preferred day to view available windows
+                      <br>
+                      <span class="fulfillment_err" style="color:red; font-size:10px;font-weight:400"></span>
+                      </h6>
                       <div class="card-text my-3 ml-5">
                         <div class="date-box">
                           <p
@@ -442,7 +445,7 @@
                                 rules="required"
                                 v-slot="{ errors }"
                               >
-                                <vue-tel-input v-model="order.order_enquiry_contactnumber"></vue-tel-input>
+                                <vue-tel-input v-model="order.order_enquiry_contactnumber" class="contact_method_err"></vue-tel-input>
                                 <span class="err_msg">{{ errors[0] }}</span>
                               </validation-provider>
                             </div>
@@ -508,7 +511,11 @@
                         </fieldset>
 
                         <div class="contact mt-5">
-                          <h5 class="title m-0">How should your contacts be reached</h5>
+                          <h5 class="title m-0">How should your contacts be reached
+                          <br>
+                      <span class="contact_err" style="color:red; font-size:10px;font-weight:400"></span>
+                      
+                          </h5>
                           <div class="row mt-3">
                             <div
                               @click="order.delivery.contact_method ='call'"
@@ -1421,8 +1428,8 @@ export default {
 		    $('html, body').animate({ scrollTop: $(".form_section").offset().top }, 1200);
         $(".delivery_address_err").html("Kindly enter your delivery address.");
         return;
+    
       }
-
 
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
       this.order.contact_upon_delivery_number = this.order.contact_upon_delivery_number.replace(/\s/g, '');
@@ -1579,8 +1586,25 @@ export default {
           this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
         }
       }
-      else {
-        this.$swal.fire("Error", `Kindly select your preferred ${field.toString()}`, "error");
+      else {   
+          let nonfields_err = `${field.toString()}`;
+          console.log(nonfields_err)
+
+          if(nonfields_err == "contact method,delivery hour"){
+            $('html, body').animate({ scrollTop: $(".mode").offset().top }, 1300);
+            $(".fulfillment_err").html(`Kindly select your preferred ${field.toString()}`, "error");
+          } 
+          else if(nonfields_err == "contact method") {
+            $('html, body').animate({ scrollTop: $(".contact_method_err").offset().top }, 1300);
+            $(".contact_err").html(`Kindly select your preferred ${field.toString()}`, "error"); 
+          }
+          else if(nonfields_err == "delivery hour"){
+            $('html, body').animate({ scrollTop: $(".mode").offset().top }, 1300);
+            $(".fulfillment_err").html(`Kindly select your preferred ${field.toString()}`, "error");
+          }
+          else{
+            this.$swal.fire("Error", `Kindly select your preferred ${field.toString()}`, "error"); 
+          }
       }
     },
     
