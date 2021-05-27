@@ -635,7 +635,7 @@
                           <tfoot>
                             <tr>
                               <th>Total</th>
-                              <th class="float-right total">₦{{ formatPrice(ordertotal)}}</th>
+                              <th class="float-right total">₦{{formatPrice(ordertotal)}}</th>
                             </tr>
                           </tfoot>
                         </table>
@@ -1034,8 +1034,8 @@ export default {
     document.head.appendChild(rave);
 
     /* for free delivery promotion */
-    let startstring      = "May 20, 2021 00:00:59";
-    let futurestring     = "Jun 3, 2021 15:59:59";
+    let startstring      = "May 28, 2021 00:00:59";
+    let futurestring     = "Jun 3, 2021 23:59:59";
 
     let today             = new Date().getTime();
     let start_promo       = new Date(startstring).getTime();
@@ -1113,25 +1113,30 @@ export default {
         return !((this.balance == this.order.order_total || this.balance >0) && this.payment.card==false);
       }
     },
+
     deliveryFee () {
-      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
-      return isNaN(result) || result == undefined ? 0 : result;
+      //let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      //return isNaN(result) || result == undefined ? 0 : result;
       return this.order.delivery.charge;
     },
+
     ordertotal () {
       let total = (Number(this.order.cart_subtotal) + Number(this.deliveryFee));
       this.order.order_total = total;
       if(this.isLoggedIn) {
-        let available_balance =  Number(this.user.available_balance);
+        let available_balance =  Number(isNaN(this.user.available_balance) ? 0 : this.user.available_balance);
         let top_up = Number(this.top_up_transaction.amount);
         let balance = available_balance - total;
+
+        console.log(available_balance);
         
         if(balance < 0) {
           balance = balance * -1;
           this.available_balance = 0;
           this.transaction.amount =  -1 * available_balance;
           this.order.amount_paid = (total - balance);
-        } else {
+        } 
+        else {
           this.order.amount_paid = (available_balance - balance);
           this.transaction.amount = -1 * this.order.amount_paid;
           this.available_balance = balance;
@@ -1142,7 +1147,8 @@ export default {
            this.balance = top_up + this.balance;
         }
         return this.balance;
-      } else {
+      }
+      else {
         this.balance = total;
         return total;
       }
@@ -1167,6 +1173,7 @@ export default {
           console.log(error)
         });
     },
+
     fetchWindow () {
       let req = {
         what: "windows",
@@ -1224,10 +1231,9 @@ export default {
           console.log(error)
         });
     },
-    formatPrice (price) {
-    console.log(price);
 
-      if(price == undefined)
+    formatPrice (price) {
+      if(price == undefined || price == null)
         price = 0;
 
       var str = price.toString().split(".");
@@ -1239,6 +1245,7 @@ export default {
       }
       return str.join(".");
     },
+
     formatDate (date) {
       // let d = new Date(date)
       // return d.toDateString();
@@ -1253,6 +1260,7 @@ export default {
       return monthShortNames[t.getMonth()] + ' ' + t.getDate();
 
     },
+
     verifyMethod (method) {
       let req = {
         what: "verifycard",
@@ -1286,15 +1294,17 @@ export default {
           // }
         });
     },
+
     formatUnique (n) {
       return Number(n) > 9 ? "" + n : "0" + n;
     },
+
     setWindow (row, index) {
       this.order.delivery.hour = row.starttime + ' - ' + row.endtime;
       this.selected_window = row.id + '' + index;
       if (row.deliveryfee !== null) {
        
-          if(this.isPromo && this.order.order_total >= 10000){
+          if(this.isPromo && this.order.cart_subtotal >= 10000){
             this.order.delivery.charge = 0;
           }
           else{
@@ -1303,6 +1313,7 @@ export default {
         
       }
     },
+
     paymethod ($event, meth) {
       if ($event.target.checked) {
 
@@ -1334,6 +1345,7 @@ export default {
         }
       }
     },
+
     check ($event, action) {
       if ($event.target.checked) {
 
@@ -1359,6 +1371,7 @@ export default {
 
       }
     },
+
     listWindows (row, index) {
       this.order.delivery.deliverydate = row.window_date;
       this.selected_date = new Date(row.window_date).getTime();
@@ -1388,6 +1401,7 @@ export default {
 
 
     },
+
     makeTransaction (type, data) {
       data.unique_code = this.order.unique_code;
       let req = {
@@ -1405,6 +1419,7 @@ export default {
         this.$swal.fire("Error", error.message, "error");
       });
     },
+
     placeOrder () {
       console.log('about to order');
       console.log(this.order.delivery.method);
@@ -1684,6 +1699,7 @@ export default {
         }
       });
     },
+
     verifyPayment (vm, req, order) {
        vm.$request
               .makePostRequest(req)
@@ -1719,6 +1735,7 @@ export default {
                 vm.$swal.fire("Error", error, "error");
               });
     },
+
     payGift (order) {
       let vm = this;
       let req = {
@@ -1757,6 +1774,7 @@ export default {
           this.$swal.fire("Error", error, "error");
         });
     },
+
     fetchAddress () {
       let req = {
         what: "listaddress",
@@ -1789,6 +1807,7 @@ export default {
           console.log(error)
         });
     },
+
     createAddress () {
       this.address.user_id = this.$store.getters.user.id
       if (!this.address.hasOwnProperty("address_default")) {
@@ -1859,6 +1878,7 @@ export default {
 
 
     },
+
     handleDelete (id) {
       let req = {
         what: "deleteaddress",

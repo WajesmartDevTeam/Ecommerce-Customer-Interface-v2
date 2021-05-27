@@ -65,7 +65,6 @@ export default {
             searchQuery: '',
             searchResult: [],
             image_url: this.$request.url,
-            search_query:'',
             search_val : "",
         }
     },
