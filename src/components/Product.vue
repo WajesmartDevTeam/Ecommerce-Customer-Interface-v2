@@ -38,18 +38,31 @@
         </div>
         <div class="product-footer" style="height: auto !important">
         <p class="price">
-            <span v-if="product.promo">
-            <span style="color:#808080;font-size:12px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
-            <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+            <span v-if="product.discount > 0">                
+                ₦{{product.discount.toLocaleString()}}
+                <span class="label label-info">Online Discount</span>
             </span>
-            <span v-else-if="product.old_price != null && product.old_price != 'NULL' && product.old_price != '' && Number(product.old_price) > 0">
-            <span style="color:#808080;font-size:12px;"><s>₦{{ formatPrice(product.old_price) }}</s></span> <br>
-            <span>₦{{ formatPrice(product.sellingprice) }}</span><span style="background-color: #ffcccb; font-size:12px;" class="float-right pr-1 pl-1">{{Math.round((( Number(product.sellingprice) - Number(product.old_price))/Number(product.old_price)) * 100)}}%</span>
+
+            <span v-else>
+                <span v-if="product.promo">
+                    <span style="color:#808080;font-size:12px;">
+                        <s>₦{{ formatPrice(product.sellingprice) }}</s>
+                    </span> <br>
+                    <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+                </span>
+
+                <span v-else-if="product.old_price != null && product.old_price != 'NULL' && product.old_price != '' && Number(product.old_price) > 0">
+                    <span style="color:#808080;font-size:12px;">
+                        <s>₦{{ formatPrice(product.old_price) }}</s>
+                    </span> <br>
+                    <span>₦{{ formatPrice(product.sellingprice) }}</span><span style="background-color: #ffcccb; font-size:12px;" class="float-right pr-1 pl-1">{{Math.round((( Number(product.sellingprice) - Number(product.old_price))/Number(product.old_price)) * 100)}}%</span>
+                </span>
+
+                <span  v-else class="price">
+                    <br> ₦{{ formatPrice(product.sellingprice) }}
+                </span>
             </span>
-            <span
-            v-else
-            class="price"
-            ><br> ₦{{ formatPrice(product.sellingprice) }}</span>
+
         </p>
         <button
             :id="'btntp'+index"
