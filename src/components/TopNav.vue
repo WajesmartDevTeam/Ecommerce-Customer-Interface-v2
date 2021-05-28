@@ -309,7 +309,7 @@
               >Specials</a>
               <ul class="dropdown-menu">
                 <li class="divider"><a href="/promotions/specials"> All </a></li>
-                <li class="divider" v-if="promotions.includes('hennessy promo')"><a href="/promotions/hennessy promo">Hennessy Promo</a></li>
+                <li class="divider" v-if="promotions.includes('hennessy promo')"><a href="/category/hennessy promo">Hennessy Promo</a></li>
                 <li v-for="(promo, index) in promotions" :key="index" v-if="promo != 'hennessy promo'" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
                 <li class="divider"></li>
               </ul>
@@ -450,7 +450,7 @@
         </a>
           <div class="dropdown-container">
             <a href="/promotions/specials" class="sidemenu"> All </a>
-            <a v-if="promotions.includes('hennessy promo')" class="sidemenu" href="/promotions/hennessy promo">Hennessy Promo</a>
+            <a v-if="promotions.includes('hennessy promo')" class="sidemenu" href="/category/hennessy promo">Hennessy Promo</a>
             <a v-for="(promo, index) in promotions" :key="index"  :href="'/category/'+promo"  v-if="promo != 'hennessy promo'" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
           </div>
 
