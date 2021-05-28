@@ -223,7 +223,7 @@
             class="d-none d-md-block"
           >
             
-            </Search>
+            <Search/>
             <!-- <input
               @keyup.enter="search()"
               type="text"
@@ -572,7 +572,7 @@
         >
 
 
-          </Search>
+          <Search/>
           <!-- <input
             @keyup.enter="search()"
             type="text"
