@@ -33,19 +33,22 @@
           </div>
           <div class="modal-body">
             <div id="store-tab">
-              <button
-                id="Delivery"
-                @click.prevent="toggleMode('Delivery')"
-                class="mode  active"
-              >Home Delivery</button>
+            
+
               <button
                 id="Pickup"
                 @click.prevent="toggleMode('Pickup')"
                 class="mode"
               >Free Pickup</button>
+
+              <button
+                id="Delivery"
+                @click.prevent="toggleMode('Delivery')"
+                class="mode"
+              >Home Delivery</button>
             </div>
 
-            <form autocomplete="off" method="POST">
+            <form autocomplete="off" method="POST" v-show="fulfilment_set">
               <div id="store-content">
                 <div class="row">
                   <div class="col-sm-6 drop_down_wrap">
@@ -126,6 +129,7 @@
                 </div>
               </div>
             </form>
+
           </div>
 
         </div>
@@ -143,6 +147,7 @@ export default {
   },
   data () {
     return {
+      fulfilment_set:"",
       method: "",
       city: "",
       area: "",
@@ -449,6 +454,7 @@ export default {
       return str;
     },
     toggleMode (method) {
+      this.fulfilment_set = true;
       this.method = method;
       let mode = document.querySelectorAll('.mode');
       let meth = document.getElementById(method);

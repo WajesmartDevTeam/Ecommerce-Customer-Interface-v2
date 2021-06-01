@@ -206,7 +206,8 @@ export default {
     },
     banners () {
       return this.bannerList.filter(b => b.url.includes(this.category));
-    }
+    },
+
   },
   created() {
     this.bannerList = this.$store.getters.banners;

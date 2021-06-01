@@ -1,6 +1,7 @@
 <template>
  <!-- <div :class="isProductPromotion() ? 'col-6 col-md-3 col-lg-3 p-1' : 'col-6 col-md-3 col-lg-2 p-1'"> -->
     <div class="product p-md-2 p-sm-1" style="height: auto !important">
+
         <div
         @click="viewProduct(product)"
         class="product-image"
