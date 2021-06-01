@@ -732,6 +732,14 @@
                           <span class="err_msg">{{ errors[0] }}</span>
                         </validation-provider>
                       </div>
+
+
+                      <div class="">
+                        <label>Wallet Pin</label>
+                        <input  type="password" class="form-control" placeholder="Enter your wallet pin">
+                      </div>
+
+
                       <button
                         v-bind:disabled="!canPay"
                         v-bind:class="!canPay ? 'disabled': ''"
