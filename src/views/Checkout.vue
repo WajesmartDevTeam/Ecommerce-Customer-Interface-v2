@@ -1515,9 +1515,25 @@ export default {
 
             //check if pin is correct
             if(this.user.available_balance){
-              if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined){
-                console.log(this.wallet_pin_verify);
-                return;  
+              if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined){                
+                var w_req = {
+                  what: "verify_walletpin",
+                  showLoader: false,
+                  data: {'verify_pin' : this.wallet_pin_verify},
+                };
+                this.$request
+                .makePostRequest(w_req)
+                .then(response => {
+                  if(response.data != 'ok'){
+                    this.$swal.fire("Error", 'wallet pin is incorrect!', "error"); 
+                    return;
+                  }
+                })
+                .catch(error => {
+                  console.log(error)
+                  this.$swal.fire("Error", error, "error");
+                  return;
+                });
               }
               else{
                 this.$swal.fire("Error", 'Kindly enter your wallet pin to continue', "error"); 
