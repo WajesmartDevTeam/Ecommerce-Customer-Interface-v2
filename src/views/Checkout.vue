@@ -735,8 +735,7 @@
 
 
                       <div class="">
-                        <label>Wallet Pin</label>
-                        <input  type="password" class="form-control" placeholder="Enter your wallet pin">
+                        <input  type="password" class="form-control" placeholder="Enter your wallet pin" style="width: 90%; margin: 0 auto;">
                       </div>
 
 
