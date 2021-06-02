@@ -1514,10 +1514,8 @@ export default {
         if (this.clearance) {
           if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
             if(this.user.available_balance > 0){
-              console.log(this.wallet_pin_verify);
 
               if(this.wallet_pin_verify != undefined){
-                console.log("i see again");
 
                 var w_req = {
                   what: "verify_walletpin",
