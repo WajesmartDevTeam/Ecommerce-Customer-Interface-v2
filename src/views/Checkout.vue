@@ -1526,55 +1526,8 @@ export default {
                 .then(response => {
                   if(response.data === 'ok'){
 
-                    if(Number(this.top_up_transaction.amount) > 0) {
-                      this.makeTransaction('creditWallet', this.top_up_transaction);
-                    }
-                    if(Number(this.user.available_balance) >  0 ) {
-                      this.makeTransaction('debitWallet', this.transaction);
-                    }
-                    
-                    let req = {
-                      what: "placeorder",
-                      showLoader: false,
-                      data: this.order
-                    }
-                    this.$request
-                    .makePostRequest(req)
-                    .then(res => {
-                      
-                      // console.log(res.data.data.order);
-                      if(this.balance > 0 || this.top_up_transaction.amount > 0) {
-                        if (this.order.payment.method.includes("gift")) {
-                          this.payGift(res.data.data.order)
-                        }
-                        else {
-                          this.payCard(res.data.data.order)
-                        }
-                      } 
-                      else {
-                        let order = res.data.data.order;
-                        let req = {
-                          what: "verifypayment",
-                          showLoader: true,
-                          data: {
-                            txref: null,
-                            pref: null,
-                            order_id: order.id,
-                            user_id: order.user_id,
-                            cart_id: "",
-                            customer_id: "",
-                            status: "successful",
-                            amount: Number(this.balance)
-                          }
-                        }
+                    this.finaliseOrder();
 
-                        this.verifyPayment(this, req, order);
-                      }
-                    })
-                    .catch(error => {
-                      console.log(error);
-                      this.$swal.fire("Error", error.message, "error");
-                    }); 
                   }
                   else{
                     this.$swal.fire("Error", 'wallet pin is incorrect!', "error");
@@ -1588,6 +1541,11 @@ export default {
               else{
                 this.$swal.fire("Error", 'Kindly enter your wallet pin to continue', "error");
               }
+            }
+            else{
+
+              this.finaliseOrder();
+
             }   
           } 
           else {
@@ -1641,6 +1599,60 @@ export default {
             this.$swal.fire("Error", `Kindly select your preferred ${field.toString()}`, "error"); 
           }
       }
+    },
+
+    finaliseOrder () {
+    
+        if(Number(this.top_up_transaction.amount) > 0) {
+          this.makeTransaction('creditWallet', this.top_up_transaction);
+        }
+        if(Number(this.user.available_balance) >  0 ) {
+          this.makeTransaction('debitWallet', this.transaction);
+        }
+        
+        let req = {
+          what: "placeorder",
+          showLoader: false,
+          data: this.order
+        }
+        this.$request
+        .makePostRequest(req)
+        .then(res => {
+          
+          // console.log(res.data.data.order);
+          if(this.balance > 0 || this.top_up_transaction.amount > 0) {
+            if (this.order.payment.method.includes("gift")) {
+              this.payGift(res.data.data.order)
+            }
+            else {
+              this.payCard(res.data.data.order)
+            }
+          } 
+          else {
+            let order = res.data.data.order;
+            let req = {
+              what: "verifypayment",
+              showLoader: true,
+              data: {
+                txref: null,
+                pref: null,
+                order_id: order.id,
+                user_id: order.user_id,
+                cart_id: "",
+                customer_id: "",
+                status: "successful",
+                amount: Number(this.balance)
+              }
+            }
+
+            this.verifyPayment(this, req, order);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.$swal.fire("Error", error.message, "error");
+        }); 
+    
     },
     
     payCard (order, giftref) {
