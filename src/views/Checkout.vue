@@ -1516,8 +1516,8 @@ export default {
             if(this.user.available_balance > 0){
               console.log(this.wallet_pin_verify);
 
-              if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined || this.wallet_pin_verify != null){
-                console.log("i see");
+              if(this.wallet_pin_verify != undefined){
+                console.log("i see again");
 
                 var w_req = {
                   what: "verify_walletpin",
@@ -1544,6 +1544,8 @@ export default {
                 });
               }
               else{
+              
+              console.log("is else");
                 this.$swal.fire("Error", 'Kindly enter your wallet pin to continue', "error");
               }
 
