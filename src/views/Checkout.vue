@@ -1517,10 +1517,11 @@ export default {
             if(this.user.available_balance){
               if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined){
                 console.log(this.wallet_pin_verify);
+                return;  
               }
               else{
-                this.$swal.fire("Error", "Kindly enter your wallet pin to continue", "error"); 
-                console.log(this.wallet_pin_verify);              
+                this.$swal.fire("Error", 'Kindly enter your wallet pin to continue', "error"); 
+                return;              
               }
             }
 
