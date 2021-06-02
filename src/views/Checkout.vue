@@ -1525,7 +1525,7 @@ export default {
                 this.$request
                 .makePostRequest(w_req)
                 .then(response => {
-                  if(response.data === 'ok'){
+                  if(response.data.data == 'ok'){
 
                     this.finaliseOrder();
 
