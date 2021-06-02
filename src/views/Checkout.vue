@@ -1428,14 +1428,10 @@ export default {
     },
 
     placeOrder () {
-      console.log('about to order');
-      console.log(this.order.delivery.method);
       if(this.default_address.address == undefined && this.order.delivery.method == 'delivery'){
-      
-		    $('html, body').animate({ scrollTop: $(".form_section").offset().top }, 1200);
-        $(".delivery_address_err").html("Kindly enter your delivery address.");
-        return;
-    
+          $('html, body').animate({ scrollTop: $(".form_section").offset().top }, 1200);
+          $(".delivery_address_err").html("Kindly enter your delivery address.");
+          return;
       }
 
       this.order.unique_code = this.formatUnique(this.order.store) + this.formatUnique(this.store.branch_code) + Math.floor(10000 + Math.random() * 90000);
@@ -1452,13 +1448,12 @@ export default {
       }
       else {
         if (this.order.payment.method.toLowerCase().includes("wallet")) {
-
           this.order.payment.method = this.order.payment.method.replace(' wallet', '')
         }
       }
+
       if (this.payment.loyalty) {
         if (this.order.payment.method.toLowerCase().includes("loyalty") == false) {
-
           this.order.payment.method += " loyalty"
         }
       }
@@ -1467,6 +1462,7 @@ export default {
           this.order.payment.method = this.order.payment.method.replace(' loyalty', '')
         }
       }
+
       if (this.payment.voucher) {
         if (this.order.payment.method.toLowerCase().includes("gift") == false) {
           this.order.payment.method += " gift"
@@ -1477,6 +1473,7 @@ export default {
           this.order.payment.method = this.order.payment.method.replace(' gift', '')
         }
       }
+
       if (this.payment.card) {
         if (this.order.payment.method.toLowerCase().includes("card") == false) {
           this.order.payment.method += " card"
@@ -1490,30 +1487,46 @@ export default {
 
       if (this.order.delivery.contact_method !== '' && this.order.delivery.hour !== '' && this.order.delivery.deliverydate !== '') {
         isValidate.push(true)
-
       }
+
       if (this.order.delivery.contact_method == '') {
         isValidate.push(false)
         field.push('contact method')
       }
+
       if (this.order.delivery.hour == '') {
         isValidate.push(false)
         field.push('delivery hour')
       }
+
       if (this.order.delivery.deliverydate == '') {
         isValidate.push(false)
         field.push('delivery date')
       }
+
       if (this.order.payment.method == '') {
         isValidate.push(false)
         field.push('payment method')
       }
-      if (!isValidate.includes(false)) {
 
-        console.log(this.order);
+      if (!isValidate.includes(false)) {
         if (this.clearance) {
           if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
-            
+
+            //check if pin is correct
+            if(this.user.available_balance){
+              if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined){
+                console.log(this.wallet_pin_verify);
+              }
+              else{
+                this.$swal.fire("Error", "Kindly enter your wallet pin to continue", "error"); 
+                console.log(this.wallet_pin_verify);              
+              }
+            }
+
+
+
+
             if(Number(this.top_up_transaction.amount) > 0) {
               this.makeTransaction('creditWallet', this.top_up_transaction);
             }
@@ -1538,7 +1551,8 @@ export default {
                 else {
                   this.payCard(res.data.data.order)
                 }
-              } else {
+              } 
+              else {
                 let order = res.data.data.order;
                 let req = {
                   what: "verifypayment",
@@ -1562,7 +1576,8 @@ export default {
               console.log(error);
               this.$swal.fire("Error", error.message, "error");
             });     
-          } else {
+          } 
+          else {
             let req = {
                 what: "placeorder",
                 showLoader: true,
@@ -1593,7 +1608,7 @@ export default {
           this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
         }
       }
-      else {   
+      else {
           let nonfields_err = `${field.toString()}`;
           console.log(nonfields_err)
 
