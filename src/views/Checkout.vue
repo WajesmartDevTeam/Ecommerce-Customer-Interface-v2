@@ -1510,12 +1510,15 @@ export default {
       }
 
       if (!isValidate.includes(false)) {
+
         if (this.clearance) {
           if(this.isLoggedIn && (Number(this.user.available_balance) >  0 || Number(this.top_up_transaction.amount) > 0)) {
-
-            //check if pin is correct
             if(this.user.available_balance > 0){
-              if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined){                
+              console.log(this.wallet_pin_verify);
+
+              if(this.wallet_pin_verify != "" || this.wallet_pin_verify != undefined || this.wallet_pin_verify != null){
+                console.log("i see");
+
                 var w_req = {
                   what: "verify_walletpin",
                   showLoader: false,
@@ -1530,7 +1533,9 @@ export default {
 
                   }
                   else{
+
                     this.$swal.fire("Error", 'wallet pin is incorrect!', "error");
+
                   }
                 })
                 .catch(error => {
@@ -1541,6 +1546,7 @@ export default {
               else{
                 this.$swal.fire("Error", 'Kindly enter your wallet pin to continue', "error");
               }
+
             }
             else{
 
@@ -1578,6 +1584,7 @@ export default {
         else {
           this.$swal.fire("Notice", 'You have not accepted our Terms & Conditions', "warning");
         }
+
       }
       else {
           let nonfields_err = `${field.toString()}`;
