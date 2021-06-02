@@ -148,6 +148,7 @@ export default {
             submitQuestionnaire: 'submitQuestionnaire',
             valentineQuestionnaire: 'submitValentineQuestionnaire',
             newwalletpin: 'newwalletpin',
+            verify_walletpin: 'verify_walletpin',
 
         };
         console.log(
