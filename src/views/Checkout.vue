@@ -734,7 +734,7 @@
                       </div>
 
 
-                      <div class="" v-if="user.available_balance > 70000">
+                      <div class="" v-if="user.available_balance > 0">
                         <input v-model="wallet_pin_verify" autocomplete="off" type="password" class="form-control" placeholder="Enter your wallet pin" style="width: 90%; margin: 0 auto;">
                       </div>
 
