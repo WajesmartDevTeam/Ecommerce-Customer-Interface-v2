@@ -1520,7 +1520,9 @@ export default {
                 var w_req = {
                   what: "verify_walletpin",
                   showLoader: false,
-                  data: {'verify_pin' : this.wallet_pin_verify},
+                  data: {'verify_pin' : this.wallet_pin_verify,
+                          'phone' : this.$store.getters.user.phone
+                        },
                 };
                 this.$request
                 .makePostRequest(w_req)
