@@ -186,7 +186,9 @@
                         <label>Enter new pin</label>
                         <input class="form-control" placeholder="Enter New Pin" v-model="set_pin.pin1" type="password" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
  minlength="4" maxlength="6" onfocus="this.placeholder = 'Enter 4 to 6 digits number'" onblur="this.placeholder = 'Enter New Pin'" v-on:keyup="set_pin.pin1 != set_pin.pin2 ? err_match = 'Enter the same Pin in confirm pin' : err_match = ''">
-                        <span class="err_msg">{{ errors[0] }}</span>
+                        <span class="err_msg">{{ errors[0] }}
+                          
+                        </span>
                       </validation-provider>
                     </div>
 
@@ -274,6 +276,7 @@ export default {
       return this.$store.getters.user
     }
   },
+
   created () {
     this.fetchWalletTransactions();
     let rave = document.createElement("script");
@@ -647,8 +650,12 @@ export default {
         .makePostRequest(req)
         .then(response => {
           console.log(response)
-          this.$swal.fire("Success", response.data , "success");
+          this.$swal.fire("Success", response.data , "success")
+            $('#modal_aside_right_password').modal('hide');
+
+          
           this.set_pin = {};
+         
         })
         .catch(error => {
           console.log(error)
