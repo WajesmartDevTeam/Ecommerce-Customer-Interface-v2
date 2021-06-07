@@ -149,6 +149,7 @@ export default {
             valentineQuestionnaire: 'submitValentineQuestionnaire',
             newwalletpin: 'newwalletpin',
             verify_walletpin: 'verify_walletpin',
+            check_cart_instore: 'check_cart_instore',
 
         };
         console.log(

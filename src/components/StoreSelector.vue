@@ -17,10 +17,11 @@
           <div class="modal-header d-flex">
             <div
               class=""
-              style=""
+              style="margin: 0 auto;;'text-align:center"
             >
               <h5 class=" title">Select Your Location</h5>
-              <p class="subtitle">Please note that your cart will be cleared when you change store.</p>
+              <p class="subtitle" style="font-size:13px">Please note that  product availability and the pickup or delivery time may be different when you change store.</p>
+              
             </div>
             <button
               type="button"
@@ -33,8 +34,6 @@
           </div>
           <div class="modal-body">
             <div id="store-tab">
-            
-
               <button
                 id="Pickup"
                 @click.prevent="toggleMode('Pickup')"
@@ -468,20 +467,80 @@ export default {
 
     },
     saveStore (store) {
+
       let oldstore = this.$store.getters.store.name;
       store.mode = this.method;
 
       this.$store.dispatch("setStoreStatus", true);
       // this.$store.dispatch("setBlackFriday", false);
+
       this.$store.dispatch("setStore", store).then(res => {
         if(window.location.pathname != "/home" || window.location.pathname != "/") {
           this.fetchCategories();
           this.fetchPromotions();
         }
+
         if (oldstore !== store.name) {
-          this.$store.dispatch('addToCart', []);
-          location.reload()
+          //this.$store.dispatch('addToCart', []);
+          
+          let old_cart_tray = this.$store.getters.cart;
+
+          if(old_cart_tray.length > 0){
+              let store__id     = this.$store.getters.store.id;
+              let cart__arr     = [];
+
+              let i;
+              for (i = 0; i < old_cart_tray.length; i++){
+                cart__arr.push(old_cart_tray[i].product.id);          
+              }
+
+              let cart__info = {"cart": cart__arr, "store_id":store__id};
+              var req = {
+                what: "check_cart_instore",
+                showLoader: false,
+                data: cart__info,
+              };
+
+              this.$request.makePostRequest(req).then(response => {
+                let product = response.data.data;
+                
+                this.$store.dispatch('addToCart', []);
+
+                let cart = {
+                    product: {}
+                }
+
+                let cart_array = [];
+
+                let i;
+                for(i = 0; i < product.length; i++){
+                  cart.quantity = 1;
+                  cart.unit_price = product[i].sellingprice;
+                  cart.price = product[i].sellingprice * cart.quantity;
+                  cart.product.id = product[i].id;
+                  cart.product.name = product[i].name;
+                  cart.product.price = product[i].sellingprice;
+                  cart.product.img_url = product[i].img_url;
+
+                  cart_array.push(cart);
+                }
+                
+
+                this.$store.dispatch('addToCart', cart_array);
+                location.reload();
+
+
+              })
+              .catch(error => {
+                this.$store.dispatch('addToCart', []);
+              });
+                      
+          }
+          else{
+              //location.reload();
+          }
         }
+
         if (window.location.pathname == "/storeslist") {
           $(".modal").modal("hide")
           this.$router.push('home')
