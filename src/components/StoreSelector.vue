@@ -523,8 +523,13 @@ export default {
                   cart.product.img_url = product[i].img_url;
 
                   cart_array.push(cart);
+
+                  cart = {
+                      product: {}
+                  }
                 }
                 
+
 
                 this.$store.dispatch('addToCart', cart_array);
                 location.reload();
