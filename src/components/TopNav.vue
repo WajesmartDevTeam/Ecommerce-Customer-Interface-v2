@@ -1015,6 +1015,11 @@ li#user .dropdown-menu li a .material-icons {
     top: 35px !important;
 }
 
+.sidepanel {
+    bottom: 0 !important;
+    border-bottom: 5px solid #006;
+}
+
 
 
 
