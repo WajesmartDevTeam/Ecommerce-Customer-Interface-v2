@@ -61,8 +61,9 @@
         <div class="content container">
 
           <div class="product-group container bg-white my-5 ">
-            <div class="row">
-              <h5 class="col-sm-12 title text-left mt-3">Top Product</h5>
+            <div class="row header" >
+              <h5 class="col-6 title text-left mt-3"><a href="promotions/Specials" style="color: white; " >Top Product</a></h5>
+              <h5 class="col-6 title view-more text-right mt-3"><a href="promotions/Specials" style="color: #ff0000;">View More ></a></h5>
             </div>
 
             <carousel
@@ -88,8 +89,9 @@
           </div>
 
           <div class="product-group container bg-white my-5 ">
-            <div class="row">
-              <h5 class="col-sm-12 title text-left mt-3">Beverages</h5>
+            <div class="row header" >
+              <h5 class="col-6 title text-left mt-3"><a href="/category/Beverages" style="color: white; " >Beverages</a></h5>
+              <h5 class="col-6 title view-more text-right mt-3"><a href="/category/Beverages" style="color: #ff0000;">View More ></a></h5>
             </div>
 
             <carousel
@@ -114,6 +116,7 @@
             </carousel>
 
           </div>
+
           <!-- sub banner -->
           <div class="sub-banner container my-3">
             <div class="banner-text">
@@ -124,8 +127,9 @@
 
           <!-- sub banner end-->
           <div class="product-group container bg-white my-5">
-            <div class="row">
-              <h5 class="col-sm-12 title text-left mt-3">Water</h5>
+            <div class="row header" >
+              <h5 class="col-6 title text-left mt-3"><a href="/category/water" style="color: white; " >Water</a></h5>
+              <h5 class="col-6 title view-more text-right mt-3"><a href="/category/water" style="color: #ff0000;">View More ></a></h5>
             </div>
 
             <carousel
@@ -150,9 +154,12 @@
             </carousel>
 
           </div>
+
+
           <div class="product-group container bg-white my-5">
-            <div class="row">
-              <h5 class="col-sm-12 title text-left mt-3">Commodities</h5>
+            <div class="row header" >
+              <h5 class="col-6 title text-left mt-3"><a href="/category/Commodities" style="color: white; " >Commodities</a></h5>
+              <h5 class="col-6 title view-more text-right mt-3"><a href="/category/Commodities" style="color: #ff0000;">View More ></a></h5>
             </div>
             <carousel
               class="row  mt-4 pb-2  px-md-2 pb-sm-2"
@@ -186,6 +193,7 @@
     </div>
     <Cart :home_products="products"></Cart>
 
+    <pageDescription />
     <Footer></Footer>
   </div>
 </template>
@@ -193,6 +201,11 @@
 .router:hover {
   cursor: pointer;
   width: 100% !important;
+}
+.header{
+  background-color: #000066;
+  /* border-radius: 25% 25% 0 0; */
+  border-radius: 8px 8px 0 0;
 }
 </style>
 
@@ -205,10 +218,11 @@ import Disclaimer from '@/components/Disclaimer.vue'
 import Questionnaire from "@/components/Questionnaire";
 import Product from '@/components/Product.vue'
 import ProductModal from '@/components/ProductModal.vue'
+import pageDescription from '@/components/pageDescription.vue'
 export default {
   name: 'Home',
   components: {
-    StoreSelector, Cart, TopNav, Footer, Disclaimer, Questionnaire, Product, ProductModal
+    StoreSelector, Cart, TopNav, Footer, Disclaimer, Questionnaire, Product, ProductModal, pageDescription
   },
   data () {
     return {
