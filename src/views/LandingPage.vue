@@ -307,6 +307,7 @@
         <div
           id="sub-banner2"
           class="mt-5 d-none d-md-block"
+          style="margin-bottom: 30px;"
         >
           <div class="row container-fluid">
             <div class="col-4 ">
@@ -341,6 +342,9 @@
       </div>
       <storeSelector ref="store"></storeSelector>
     </div>
+
+    
+    <pageDescription />
     <Footer></Footer>
   </div>
 
@@ -350,12 +354,13 @@
 import StoreSelector from '@/components/StoreSelector.vue'
 import TopNav from '@/components/TopNav.vue'
 import Footer from '@/components/Footer.vue'
+import pageDescription from '@/components/pageDescription.vue'
 import * as $ from "jquery";
 
 export default {
   name: 'LandingPage',
   components: {
-    StoreSelector, TopNav, Footer
+    StoreSelector, TopNav, Footer, pageDescription
   },
   data () {
     return {

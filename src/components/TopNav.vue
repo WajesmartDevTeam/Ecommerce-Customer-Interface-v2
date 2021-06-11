@@ -296,10 +296,16 @@
         class="d-none  d-md-block"
       >
         <div class="container">
-          <ul
-            id="menu"
-            class="d-flex justify-content-between"
-          >
+          <ul  id="menu" class="d-flex justify-content-between">
+            <li class="menu-link dropdown">
+              <a  v-if="category.length > 0" href="" data-toggle="dropdown">
+                <i class="fa fa-bars"></i> View Categories
+              </a>
+              <ul class="dropdown-menu" id="category-nav">
+                <li v-for="(promo, index) in category" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
+              </ul>
+            </li>
+
           <!-- <li class="menu-link"><a href="/valentine/story">Valentine Story</a></li> -->
             <li class="menu-link dropdown">
               <a
@@ -443,6 +449,16 @@
   <!--        class="sidemenu"-->
   <!--      >Hampers </a>-->
         <!-- <a href="/valentine/story" class="sidemenu">Valentine Story</a> -->
+
+       <a
+          @click.prevent='toggleDropdown'
+          class="dropdown-btn sidemenu">
+          View Categories
+        </a>
+          <div class="dropdown-container">
+            <a v-for="(promo, index) in category" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
+          </div>
+
         <a
           @click.prevent='toggleDropdown'
           class="dropdown-btn sidemenu">
@@ -739,8 +755,9 @@ export default {
     },
     categories () {
       if(this.$store.getters.categories != [] ) {
+        this.category = this.$store.getters.categories;
         return this.$store.getters.categories;
-      } else if(this.category != []) {
+      } else if(this.category != []) {    
         return this.category;
       } else {
         this.fetchCategories();
@@ -771,6 +788,7 @@ export default {
             if (response.type == 'getCategories') {
               this.category = response.data.data
               this.$store.dispatch('categories', response.data.data)
+
 
             }
           })
@@ -977,5 +995,47 @@ li#user .dropdown-menu li a .material-icons {
   background: #f7f7f7;
   padding: 10px 0;
 }
+
+#menu-bar #menu li.dropdown .dropdown-menu a{
+  display:block;
+  border-bottom:1px solid #f2f2f2;
+}
+
+#menu-bar #menu li.dropdown .dropdown-menu {
+    border-radius: 2px;
+    border-top:none !important;
+    border-bottom: 4px solid #006;
+    padding: 10px;
+    width: 219px;
+    font-size: 14px;
+    max-height: 58vh;
+    overflow: hidden;
+    overflow-y: scroll;
+    transform: none !important;
+    top: 35px !important;
+}
+
+.sidepanel {
+    bottom: 0 !important;
+    border-bottom: 5px solid #006;
+}
+
+
+
+
+#category-nav::-webkit-scrollbar, .navbar-collapse::-webkit-scrollbar {
+    width: 5px;
+    display: none;
+    transition: 1s all;  -webkit-transition: 1s all; -moz-transition: 1s all;  -o-transition: 1s all; -ms-transition: 1s all;
+}
+.menu-link:hover #category-nav::-webkit-scrollbar, nav#side_nav:hover  .navbar-collapse::-webkit-scrollbar {
+    display: block;
+    transition: 1s all;  -webkit-transition: 1s all; -moz-transition: 1s all;  -o-transition: 1s all; -ms-transition: 1s all;
+}
+
+#category-nav::-webkit-scrollbar-thumb, .navbar-collapse::-webkit-scrollbar-thumb {-webkit-border-radius:2px;-o-border-radius:2px;border-radius:12px; background-color:#000066;transition: 1s all;  -webkit-transition: 1s all; -moz-transition: 1s all;  -o-transition: 1s all; -ms-transition: 1s all;} 
+
+#category-nav::-webkit-scrollbar-thumb:hover, .navbar-collapse::-webkit-scrollbar-thumb:hover {-webkit-border-radius:2px;-o-border-radius:2px;border-radius:12px; background-color:#000066;background-image:-webkit-linear-gradient(90deg, transparent, #000066 50%, transparent, transparent);transition: 1s all;  -webkit-transition: 1s all; -moz-transition: 1s all;  -o-transition: 1s all; -ms-transition: 1s all;}
+
 
 </style>
