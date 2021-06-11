@@ -299,7 +299,7 @@
           <ul  id="menu" class="d-flex justify-content-between">
             <li class="menu-link dropdown">
               <a  v-if="category.length > 0" href="" data-toggle="dropdown">
-                <i class="fa fa-bars"></i> Categories
+                <i class="fa fa-bars"></i> View Categories
               </a>
               <ul class="dropdown-menu" id="category-nav">
                 <li v-for="(promo, index) in category" :key="index" ><a :href="'/category/'+promo">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a></li>
@@ -453,7 +453,7 @@
        <a
           @click.prevent='toggleDropdown'
           class="dropdown-btn sidemenu">
-          Categories
+          View Categories
         </a>
           <div class="dropdown-container">
             <a v-for="(promo, index) in category" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
