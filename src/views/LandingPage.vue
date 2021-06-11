@@ -307,6 +307,7 @@
         <div
           id="sub-banner2"
           class="mt-5 d-none d-md-block"
+          style="margin-bottom: 30px;"
         >
           <div class="row container-fluid">
             <div class="col-4 ">
