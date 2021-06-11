@@ -1122,9 +1122,9 @@ export default {
     },
 
     deliveryFee () {
-      //let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
-      //return isNaN(result) || result == undefined ? 0 : result;
-      return this.order.delivery.charge;
+      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      return isNaN(result) || result == undefined ? 0 : result;
+      // return this.order.delivery.charge;
     },
 
     ordertotal () {
