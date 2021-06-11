@@ -306,14 +306,6 @@
               </ul>
             </li>
 
-
-
-
-
-
-
-
-
           <!-- <li class="menu-link"><a href="/valentine/story">Valentine Story</a></li> -->
             <li class="menu-link dropdown">
               <a
@@ -457,6 +449,16 @@
   <!--        class="sidemenu"-->
   <!--      >Hampers </a>-->
         <!-- <a href="/valentine/story" class="sidemenu">Valentine Story</a> -->
+
+       <a
+          @click.prevent='toggleDropdown'
+          class="dropdown-btn sidemenu">
+          Categories
+        </a>
+          <div class="dropdown-container">
+            <a v-for="(promo, index) in category" :key="index"  :href="'/category/'+promo" class="sidemenu">{{promo.charAt(0).toUpperCase() + promo.slice(1) }}</a>
+          </div>
+
         <a
           @click.prevent='toggleDropdown'
           class="dropdown-btn sidemenu">
