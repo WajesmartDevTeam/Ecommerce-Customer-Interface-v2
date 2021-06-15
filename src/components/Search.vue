@@ -47,7 +47,7 @@
         >search</i>
 
 
-        <select style="border: none; width: 17px;  position: absolute; top: 7px;right: 32px; background: transparent;">
+        <select style="border: none; width: 17px;  position: absolute; top: 7px;right: 32px; background: transparent;font-size: 10px;">
             <option v-for="(promo, index) in category" :key="index" >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</option>
         </select>
          <!-- :get-result-value="getResultValue" -->
