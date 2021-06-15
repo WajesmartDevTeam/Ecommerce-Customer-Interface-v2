@@ -45,6 +45,11 @@
           style="cursor:pointer"
           class="material-icons"
         >search</i>
+
+
+        <select style="border: none; width: 17px;  position: absolute; top: 7px;right: 32px; background: transparent;">
+            <option v-for="(promo, index) in category" :key="index" >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</option>
+        </select>
          <!-- :get-result-value="getResultValue" -->
     </div>
 </template>
@@ -65,7 +70,8 @@ export default {
             searchQuery: '',
             searchResult: [],
             image_url: this.$request.url,
-            search_val : "",
+            search_val : "",            
+            category: this.$store.getters.categories,
         }
     },
 
@@ -167,6 +173,9 @@ export default {
  
 
 }
+
+
+
 </script>
 
 <style scoped>
