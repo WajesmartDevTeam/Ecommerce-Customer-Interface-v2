@@ -48,6 +48,7 @@
 
 
         <select style="border: none; width: 17px;  position: absolute; top: 10px;right: 32px; background: transparent;font-size: 10px;">
+            <option value="">All Categories</option>
             <option v-for="(promo, index) in category" :key="index" >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</option>
         </select>
          <!-- :get-result-value="getResultValue" -->
@@ -71,7 +72,7 @@ export default {
             searchResult: [],
             image_url: this.$request.url,
             search_val : "",            
-            category: this.$store.getters.categories,
+            category: [],
         }
     },
 
@@ -151,6 +152,10 @@ export default {
             }
         }
     },
+
+    watch: {
+        this.category = this.$store.getters.categories;    
+    }
 
 
     props :['search_query'],
