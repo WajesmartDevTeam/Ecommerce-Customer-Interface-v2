@@ -47,7 +47,7 @@
         >search</i>
 
 
-        <select style="border: none; width: 17px;  position: absolute; top: 10px;right: 32px; background: transparent;font-size: 10px;">
+        <select style="border: none; width: 17px;  position: absolute; top: 10px;right: 32px; background: transparent;font-size: 10px;" v-model="category_name">
             <option value="">All Categories</option>
             <option v-for="(promo, index) in category" :key="index" >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</option>
         </select>
@@ -110,7 +110,8 @@ export default {
                 showLoader: false,
                 params: {
                 storeid: this.$store.getters.store.id,
-                search_query: encodeURI(input.toLowerCase())
+                search_query: encodeURI(input.toLowerCase()),
+                category_name: this.category_name
                 }
             }
 
@@ -166,13 +167,6 @@ export default {
             $("#search_page").attr('value', "");
         }
     }
-
-
-
-
-
- 
-
 }
 
 
