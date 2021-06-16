@@ -31,7 +31,7 @@
                     </div>
                     <div v-else>
                         <span v-if="isNotFound(result)" class="description">
-                            {{ result + ' for ' }} <b class="searchQuery"> {{ searchQuery }} </b>
+                            {{ result + ' for ' }} <b class="searchQuery"> {{ searchQuery }} in {{category_name}} </b>
                         </span>
                         <span v-else class="description">
                             <b class="searchQuery"> {{ searchQuery }} </b> {{ ' in ' + result }}
