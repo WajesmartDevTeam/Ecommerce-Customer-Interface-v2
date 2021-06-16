@@ -48,7 +48,7 @@
 
 
         <select style="border: none; width: 17px;  position: absolute; top: 10px;right: 32px; background: transparent;font-size: 10px;" v-model="category_name">
-            <option value="">All Categories</option>
+            <option value="" selected="">All Categories</option>
             <option v-for="(promo, index) in category" :key="index" >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</option>
         </select>
          <!-- :get-result-value="getResultValue" -->
