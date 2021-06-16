@@ -73,6 +73,7 @@ export default {
             image_url: this.$request.url,
             search_val : "",            
             category: [],
+            category_name:"",
         }
     },
 
