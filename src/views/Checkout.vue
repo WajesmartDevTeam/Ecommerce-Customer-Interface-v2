@@ -617,6 +617,42 @@
                               <td class="float-right">
                                 <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
                                 <span v-else>
+                                  <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{order.delivery.charge}}</span>
+                                  <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
+                                  <span v-else>Pickup(Free)</span>
+                                </span>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>Basket Size %</td>
+                              <td class="float-right">
+                                <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
+                                <span v-else>
+                                  <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">{{delivery_fee_variation.basket_size}}</span>
+                                  <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
+                                  <span v-else>Pickup(Free)</span> 
+                                </span>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>Delivery Area %</td>
+                              <td class="float-right">
+                                <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
+                                <span v-else>
+                                  <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">{{delivery_fee_variation.delivery_area}}</span>
+                                  <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">0.00</span>
+                                  <span v-else>Pickup(Free)</span>
+                                </span>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>Total Delivery Fee</td>
+                              <td class="float-right">
+                                <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
+                                <span v-else>
                                   <span v-if="order.delivery.method=='delivery' && order.delivery.charge !==null">₦{{deliveryFee}}</span>
                                   <span v-else-if="order.delivery.method=='delivery' && order.delivery.charge ==null">₦0.00</span>
                                   <span v-else>Pickup(Free)</span>
@@ -939,6 +975,10 @@ export default {
   },
   data () {
     return {
+      delivery_fee_variation: {
+        basket_size: 0,
+        delivery_area: 0
+      },
       isPromo: false,
       selected_date: '',
       window_end_promo:'',
