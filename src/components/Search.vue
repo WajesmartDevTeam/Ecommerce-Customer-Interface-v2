@@ -153,14 +153,10 @@ export default {
         }
     },
 
-    watch: {
-        this.category = this.$store.getters.categories;    
-    }
-
-
     props :['search_query'],
 
-    mounted() {
+    mounted() {    
+        this.category = this.$store.getters.categories;  
         let search_text = decodeURIComponent(window.location.href);
         this.search_val = search_text.split("search/").pop();
         if(search_text.match("search/")){
