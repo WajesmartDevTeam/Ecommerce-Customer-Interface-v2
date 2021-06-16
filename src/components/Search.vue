@@ -31,7 +31,7 @@
                     </div>
                     <div v-else>
                         <span v-if="isNotFound(result)" class="description">
-                            {{ result + ' for ' }} <b class="searchQuery"> {{ searchQuery }} </b>
+                            {{ result + ' for ' }} <b class="searchQuery"> {{ searchQuery }} in {{category_name}} </b>
                         </span>
                         <span v-else class="description">
                             <b class="searchQuery"> {{ searchQuery }} </b> {{ ' in ' + result }}
@@ -45,6 +45,12 @@
           style="cursor:pointer"
           class="material-icons"
         >search</i>
+
+
+        <select style="border: none; width: 17px;  position: absolute; top: 10px;right: 32px; background: transparent;font-size: 10px;" v-model="category_name">
+            <option value="" selected="">All Categories</option>
+            <option v-for="(promo, index) in category" :key="index" >{{promo.charAt(0).toUpperCase() + promo.slice(1)}}</option>
+        </select>
          <!-- :get-result-value="getResultValue" -->
     </div>
 </template>
@@ -65,7 +71,8 @@ export default {
             searchQuery: '',
             searchResult: [],
             image_url: this.$request.url,
-            search_val : "",
+            search_val : "",            
+            category: [],
         }
     },
 
@@ -103,7 +110,8 @@ export default {
                 showLoader: false,
                 params: {
                 storeid: this.$store.getters.store.id,
-                search_query: encodeURI(input.toLowerCase())
+                search_query: encodeURI(input.toLowerCase()),
+                category_name: this.category_name
                 }
             }
 
@@ -146,10 +154,10 @@ export default {
         }
     },
 
-
     props :['search_query'],
 
-    mounted() {
+    mounted() {    
+        this.category = this.$store.getters.categories;  
         let search_text = decodeURIComponent(window.location.href);
         this.search_val = search_text.split("search/").pop();
         if(search_text.match("search/")){
@@ -159,14 +167,10 @@ export default {
             $("#search_page").attr('value', "");
         }
     }
-
-
-
-
-
- 
-
 }
+
+
+
 </script>
 
 <style scoped>
