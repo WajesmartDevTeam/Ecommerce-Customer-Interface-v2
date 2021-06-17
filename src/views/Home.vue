@@ -69,7 +69,7 @@
 
           <div class="product-group container bg-white my-5 ">
             <div class="row header" >
-              <h5 class="col-6 title text-left mt-3"><a href="promotions/Specials" style="color: white; " >Top Product</a></h5>
+              <h5 class="col-6 title text-left mt-3"><a href="promotions/Specials" style="color: white; " >Top Products</a></h5>
               <h5 class="col-6 title view-more text-right mt-3"><a href="promotions/Specials" style="color: #ff0000;">View More ></a></h5>
             </div>
 
