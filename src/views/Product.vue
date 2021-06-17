@@ -231,9 +231,7 @@ export default {
     this.loader.hide()
     if(this.$store.getters.isStoreSet == false) {
       $("#store").modal('show');
-      
-      $('#store').data('modal').options.keyboard = false;
-        
+      $(".close.float-right").hide();        
     } else {
         this.getProduct()
     }
