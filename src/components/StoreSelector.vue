@@ -542,7 +542,7 @@ export default {
                       
           }
           else{
-              //location.reload();
+              location.reload();
           }
         }
 

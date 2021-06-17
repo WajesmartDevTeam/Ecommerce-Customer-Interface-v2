@@ -231,6 +231,10 @@ export default {
     this.loader.hide()
     if(this.$store.getters.isStoreSet == false) {
       $("#store").modal('show');
+      $('#store').modal({
+        backdrop: 'static',
+        keyboard: false
+      });
     } else {
         this.getProduct()
     }
