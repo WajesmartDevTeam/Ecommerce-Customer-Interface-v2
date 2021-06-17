@@ -8,6 +8,8 @@
       role="dialog"
       aria-labelledby="exampleModalCenterTitle"
       aria-hidden="true"
+
+       data-backdrop="static" data-keyboard="false"
     >
       <div
         class="modal-dialog modal-dialog-centered modal-lg"
