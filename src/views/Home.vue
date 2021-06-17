@@ -4,14 +4,15 @@
     <TopNav></TopNav>
     <div class="home page">
       <div class="">
+        
         <div class="banner home-banner" style="text-align: center !important; ">
-          <!-- <div class="container">
+            <div class="container">
             <div class="banner-text">
               <h3 class="title">Let’s take the burden off you. <br> Shop & get it delivered to your doorstep</h3>
               <p class="subtitle">Food, drinks, groceries, and more available for delivery and pickup.</p>
 
             </div>
-          </div> -->
+          </div> 
           <slider
             class="d-none d-md-block"
             height="400px"
@@ -58,11 +59,17 @@
             </slider-item>
           </slider>
         </div>
+            
+
+
+
+
+
         <div class="content container">
 
           <div class="product-group container bg-white my-5 ">
             <div class="row header" >
-              <h5 class="col-6 title text-left mt-3"><a href="promotions/Specials" style="color: white; " >Top Product</a></h5>
+              <h5 class="col-6 title text-left mt-3"><a href="promotions/Specials" style="color: white; " >Top Products</a></h5>
               <h5 class="col-6 title view-more text-right mt-3"><a href="promotions/Specials" style="color: #ff0000;">View More ></a></h5>
             </div>
 
@@ -219,11 +226,13 @@ import Questionnaire from "@/components/Questionnaire";
 import Product from '@/components/Product.vue'
 import ProductModal from '@/components/ProductModal.vue'
 import pageDescription from '@/components/pageDescription.vue'
+
 export default {
   name: 'Home',
   components: {
-    StoreSelector, Cart, TopNav, Footer, Disclaimer, Questionnaire, Product, ProductModal, pageDescription
+    StoreSelector,Cart,TopNav, Footer, Disclaimer, Questionnaire, Product, ProductModal, pageDescription
   },
+ 
   data () {
     return {
       image_url: this.$request.url,
@@ -237,6 +246,7 @@ export default {
       banners: [],
     }
   },
+  
   beforeMount () {
     this.$store.dispatch('ToggleShowSearch', true);
     this.loader = this.$loading.show();
