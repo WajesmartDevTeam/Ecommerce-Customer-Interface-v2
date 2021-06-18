@@ -43,7 +43,7 @@
                 <s>₦{{product.sellingprice.toLocaleString()}}</s><br>
                    ₦{{product.discount.toLocaleString()}}
                     <span v-if="product.avg_weight > 0">
-                        <small style="color:grey; font-size:10px;">(₦ {{((product.sellingprice/product.avg_weight).toLocaleString()).toFixed(2)}}/Kg)</small>
+                        <small style="color:grey; font-size:10px;">(₦ {{Number((product.sellingprice/product.avg_weight).toFixed(2)).toLocaleString()}}/Kg)</small>
                     </span>
                    
                     <br>
