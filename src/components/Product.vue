@@ -173,7 +173,7 @@ export default {
     },
 
     created () {
-       avgWeight = (a,b) => { return Number((a/b).toFixed(2)).toLocaleString(); };
+       avgPrice = (a,b) => { return Number((a/b).toFixed(2)).toLocaleString(); };
 
      
 
