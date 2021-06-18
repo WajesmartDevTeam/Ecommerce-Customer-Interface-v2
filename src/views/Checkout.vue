@@ -612,7 +612,7 @@
                               <td class="float-right ">₦{{formatPrice(order.cart_subtotal)}}</td>
                             </tr>
 
-                            <tr>
+                          <!--  <tr>
                               <td>Delivery Fee</td>
                               <td class="float-right">
                                 <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
@@ -646,10 +646,10 @@
                                   <span v-else>Pickup(Free)</span>
                                 </span>
                               </td>
-                            </tr>
+                            </tr>-->
 
                             <tr>
-                              <td>Total Delivery Fee</td>
+                              <td> Delivery Fee</td>
                               <td class="float-right">
                                 <span v-if="isPromo && order.cart_subtotal >= 10000">Free</span>
                                 <span v-else>
@@ -659,6 +659,7 @@
                                 </span>
                               </td>
                             </tr>
+
                             <tr v-if="isLoggedIn">
                               <td>Wallet</td>
                               <td class="float-right ">₦{{formatPrice(user.available_balance)}}</td>
