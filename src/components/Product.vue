@@ -43,7 +43,7 @@
                 <s>₦{{product.sellingprice.toLocaleString()}}</s><br>
                    ₦{{product.discount.toLocaleString()}}
                     <span v-if="product.avg_weight > 0">
-                        <small style="color:grey; font-size:10px;">(₦ {{Number((product.sellingprice/product.avg_weight).toFixed(2)).toLocaleString()}}/Kg)</small>
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
                     </span>
                    
                     <br>
@@ -58,7 +58,7 @@
                     <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
 
                     <span v-if="product.avg_weight > 0">
-                        <small style="color:grey; font-size:10px;">(₦ {{((product.sellingprice/product.avg_weight).toFixed(2)).toLocaleString()}}/Kg)</small>
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
                     </span>
                 </span>
 
@@ -69,7 +69,7 @@
                     <span>₦{{ formatPrice(product.sellingprice) }}</span><span style="background-color: #ffcccb; font-size:12px;" class="float-right pr-1 pl-1">{{Math.round((( Number(product.sellingprice) - Number(product.old_price))/Number(product.old_price)) * 100)}}%</span>
 
                     <span v-if="product.avg_weight > 0">
-                        <small style="color:grey; font-size:10px;">(₦ {{((product.sellingprice/product.avg_weight).toFixed(2)).toLocaleString()}}/Kg)</small>
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
                     </span>
                 </span>
 
@@ -77,7 +77,7 @@
                     <br> ₦{{ formatPrice(product.sellingprice) }}
 
                     <span v-if="product.avg_weight > 0">
-                        <small style="color:grey; font-size:10px;">(₦ {{((product.sellingprice/product.avg_weight).toFixed(2)).toLocaleString()}}/Kg)</small>
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
                     </span>
                 </span>
             </span>
@@ -170,6 +170,13 @@ export default {
             }
         },
         }
+    },
+
+    created () {
+       avgWeight = (a,b) => { return Number((a/b).toFixed(2)).toLocaleString(); };
+
+     
+
     },
 
     methods: {
