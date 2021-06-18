@@ -173,14 +173,16 @@ export default {
     },
 
     created () {
-       avgPrice = (a,b) => { return Number((a/b).toFixed(2)).toLocaleString(); };
+       //function avgPrice(a,b){ return Number((a/b).toFixed(2)).toLocaleString(); };
 
      
 
     },
 
     methods: {
-        
+        avgPrice (a,b){ 
+            return Number((a/b).toFixed(2)).toLocaleString(); 
+        },
         viewProduct (product) {
             history.pushState({}, null, `/product/${product.store_id}/${product.category}/${product.name}`);
             let cart = this.$store.getters.cart;
