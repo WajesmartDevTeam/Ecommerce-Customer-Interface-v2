@@ -134,6 +134,9 @@
                 alt=""
               >
               <h5 class="title">Your cart is empty</h5>
+              <p  v-if="$store.getters.cart_total == 0 && isPromo" class="small-red-focus blinking">
+                <b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}}  for free delivery</b>
+              </p>
               <button
                 class="btn empty_btn"
                 data-dismiss='modal'
@@ -142,8 +145,17 @@
           </div>
 
           <div v-if="getCart.length > 0" class="modal-footer">
-            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} more and get FREE Delivery + Umbrella</b></p>
-            <p  v-if="$store.getters.cart_total >= 10000 && isPromo" class="text-center"><b>You qualify for FREE Delivery + Umbrella!</b></p>
+            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking">
+              <b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}}  for free delivery</b>
+            </p>
+
+            <p  v-if="$store.getters.cart_total >= 10000 && $store.getters.cart_total < 15000 && isPromo" class="text-center">
+              <b>Free Delivery won! Add &#x20A6;{{(15000 - $store.getters.cart_total).toLocaleString()}} for free Gift Card.</b>
+            </p>
+            
+            <p  v-if="$store.getters.cart_total >= 15000 && isPromo" class="text-center">
+              <b>Free Delivery + Gift Card won!</b>
+            </p>
 
             <p v-if="$store.getters.cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
 
@@ -368,14 +380,13 @@ export default {
     },
   },
   created (){
-  
-      let startstring  = "May 28, 2021 00:00:59";
-      let futurestring = "Jun 3, 2021 23:59:59";
-      let today        = new Date();
+      let startstring  = this.$store.getters.startstring;         
+      let futurestring = this.$store.getters.futurestring;
 
-      let today_time      = today.getTime();
-      let start_promo     = new Date(startstring).getTime();
-      let end_time        = new Date(futurestring).getTime();
+      let today        = new Date();
+      let today_time   = today.getTime();
+      let start_promo  = new Date(startstring).getTime();
+      let end_time     = new Date(futurestring).getTime();
 
 
       if(today_time <= end_time && today_time > start_promo){
