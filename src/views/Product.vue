@@ -8,7 +8,7 @@
             <h3 class="title">Product View</h3>
           </div>
         </div>
-        <div class="content container">
+        <div class="content container" id="show_container" style="display:none">
           <div
             v-if="Object.keys(product).length !== 0"
             id="product"
@@ -279,6 +279,8 @@ export default {
 
                 })
                 this.product = pro;
+                
+                $("#show_container").show();
             } else {
               this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
               setTimeout(function(){ location.href = "./"; }, 3000);
