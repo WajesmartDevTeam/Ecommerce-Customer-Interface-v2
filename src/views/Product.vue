@@ -281,6 +281,7 @@ export default {
                 this.product = pro;
             } else {
               this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
+              setTimeout(function(){ location.href = "./"; }, 3000);
             }
             this.loader.hide()
           }
@@ -288,7 +289,7 @@ export default {
         })
         .catch(error => {
           this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
-          console.log(error)
+          setTimeout(function(){ location.href = "./"; }, 3000);
         });
     },
     addToCart (product, addid, addbtn, id) {
