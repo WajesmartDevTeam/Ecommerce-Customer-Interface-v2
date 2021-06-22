@@ -49,6 +49,7 @@
                     <p
                       v-if="product.active=='1'"
                       class="availability in-stock"
+                      v-if="$store.getters.isStoreSet!=false"
                     ><span><i
                           class="fa fa-check-square-o"
                           style="font-size: 13px;"
@@ -64,7 +65,7 @@
                     ></i> &nbsp;Out of Stock</span>
 
                     </p>
-                    <p class="price">
+                    <p class="price" v-if="$store.getters.isStoreSet!=false">
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
