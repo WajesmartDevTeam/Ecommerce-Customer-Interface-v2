@@ -8,6 +8,8 @@
             <h3 class="title">Product View</h3>
           </div>
         </div>
+        <div id="hide_container" style="padding:40px 0"></div>
+        
         <div class="content container" id="show_container" style="display:none">
           <div
             v-if="Object.keys(product).length !== 0"
@@ -280,6 +282,7 @@ export default {
                 })
                 this.product = pro;
                 
+                $("#hide_container").hide();
                 $("#show_container").show();
             } else {
               this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
