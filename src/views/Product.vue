@@ -49,7 +49,6 @@
                     <p
                       v-if="product.active=='1'"
                       class="availability in-stock"
-                      v-if="$store.getters.isStoreSet!=false"
                     ><span><i
                           class="fa fa-check-square-o"
                           style="font-size: 13px;"
@@ -59,7 +58,8 @@
                     <p
                         v-else
                         class="availability out-stock"
-                    ><span><i
+                    ><span 
+                      v-if="$store.getters.isStoreSet!=false"><i
                         class="fa fa-check-square-o"
                         style="font-size: 13px;"
                     ></i> &nbsp;Out of Stock</span>
