@@ -8,8 +8,8 @@
             <h3 class="title">Product View</h3>
           </div>
         </div>
-        <div id="hide_container" style="padding:40px 0"></div>
-        
+        <div id="hide_container" style="padding:40vh 0"></div>
+
         <div class="content container" id="show_container" style="display:none">
           <div
             v-if="Object.keys(product).length !== 0"
