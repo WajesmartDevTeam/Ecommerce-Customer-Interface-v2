@@ -2,11 +2,13 @@
   <div id="FreeDelivery">
 
     <div v-if="isPromo && cart_total == 0" class="text-center promotion_alert_header">
-      Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery + Umbrella. <span class="text-black">Expires {{countdown_left}}</span>
+      Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery <span class="text-black">Expires {{countdown_left}} </span><br>
+      <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>
     </div>
 
-    <div v-else-if="isPromo && cart_total < cart_amount_qualify" class="text-center promotion_alert_header">    
-      Add &#x20A6;{{qualify.toLocaleString()}} more and get FREE Delivery + Umbrella. <span class="text-black">Expires {{countdown_left}}</span>
+    <div v-else-if="isPromo && cart_total < cart_amount_qualify" class="text-center promotion_alert_header">
+      Add &#x20A6;{{qualify.toLocaleString()}} and get FREE Delivery <span class="text-black">Expires {{countdown_left}}</span> <br>
+      <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>
     </div>
 
     <div v-else-if="isPromo && cart_total >= cart_amount_qualify" class="text-center promotion_alert_header">
@@ -69,13 +71,13 @@ export default {
           this.isPromo = true;
 
           if(dday == 0){
-                this.countdown_left = "Today.";
+                this.countdown_left = "Today";
           }
           else if(dday == 1){
-                this.countdown_left = "Tomorrow.";
+                this.countdown_left = "Tomorrow";
           }
           else{
-                this.countdown_left = " in " + dday + " Days.";
+                this.countdown_left = " in " + dday + " Days";
           }
     }
     else{
@@ -102,15 +104,27 @@ export default {
     background-size: contain;
     background-blend-mode: darken;
     background-repeat: no-repeat;
+    line-height: 20px;
 }
 .text-black{
-  color:#000;
+  color:#fff;
     font-family: 'Baloo Bhai 2', cursive;
 }
+.promotion_alert_header > small {
+    position: relative;
+    top: 6px;
+    font-size: 50%;
+}
+
 @media screen and (max-width:500px) {
   .promotion_alert_header {
       font-size: 14px;
       padding: 15px 0;
+  }
+  .promotion_alert_header > small {
+      position: relative;
+      top: 6px;
+      font-size: 80%;
   }
 }
 </style>
