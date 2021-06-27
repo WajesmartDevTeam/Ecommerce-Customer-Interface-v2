@@ -25,7 +25,7 @@ export default new Vuex.Store({
         categories: false,
         promotions: 0,
         futurestring: "Jul 3, 2021 23:59:59",
-        startstring: "Jul 3, 2021 23:59:59",
+        startstring: "Jun 27, 2021 00:00:59",
     },
     mutations: {
         updateBlackFriday(state, status) {
