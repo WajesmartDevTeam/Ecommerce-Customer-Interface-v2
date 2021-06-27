@@ -134,6 +134,9 @@
                 alt=""
               >
               <h5 class="title">Your cart is empty</h5>
+              <p  v-if="$store.getters.cart_total == 0 && isPromo" class="small-red-focus blinking">
+                <b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}}  for free delivery</b>
+              </p>
               <button
                 class="btn empty_btn"
                 data-dismiss='modal'
