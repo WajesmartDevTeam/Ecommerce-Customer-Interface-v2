@@ -24,6 +24,8 @@ export default new Vuex.Store({
         categoryRoute: '/home',
         categories: false,
         promotions: 0,
+        futurestring: "Jul 3, 2021 23:59:59",
+        startstring: "Jul 3, 2021 23:59:59",
     },
     mutations: {
         updateBlackFriday(state, status) {
@@ -156,6 +158,8 @@ export default new Vuex.Store({
         blackFriday: state => state.blackFriday,
         promotions: state => state.promotions,
         categories: state => state.categories,
+        futurestring: state => state.futurestring,
+        startstring: state => state.startstring,
         categoryRoute: state => state.categoryRoute,
         cart_total: state=> state.cart.map(x => Number(x.quantity) * Number(x.unit_price)).reduce((acc, curr) => {
             acc += Number(curr)
