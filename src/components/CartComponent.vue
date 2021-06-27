@@ -145,9 +145,17 @@
           </div>
 
           <div v-if="getCart.length > 0" class="modal-footer">
-            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking"><b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}} more and get FREE Delivery + Umbrella</b></p>
-            <p  v-if="$store.getters.cart_total >= 10000 && isPromo" class="text-center"><b>You qualify for FREE Delivery + Umbrella!</b></p>
+            <p  v-if="$store.getters.cart_total < 10000 && isPromo" class="small-red-focus blinking">
+              <b>Add &#x20A6;{{(10000 - $store.getters.cart_total).toLocaleString()}}  for free delivery</b>
+            </p>
 
+            <p  v-if="$store.getters.cart_total >= 10000 && $store.getters.cart_total < 15000 && isPromo" class="text-center">
+              <b>Free Delivery won! Add &#x20A6;{{(15000 - $store.getters.cart_total).toLocaleString()}} for free Gift Card.</b>
+            </p>
+            
+            <p  v-if="$store.getters.cart_total >= 15000 && isPromo" class="text-center">
+              <b>Free Delivery + Gift Card won!</b>
+            </p>
             <p v-if="$store.getters.cart_total < 1500" class="minimum text-bold" style="font-size:17px">₦1,500 Minimum</p>
 
             <div class="checkout">
