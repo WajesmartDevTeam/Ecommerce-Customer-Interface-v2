@@ -11,8 +11,12 @@
       <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>
     </div>
 
-    <div v-else-if="isPromo && cart_total >= cart_amount_qualify" class="text-center promotion_alert_header">
-      You qualify for FREE Delivery + Umbrella! <span class="text-black">Expires {{countdown_left}}</span>
+    <div v-else-if="isPromo && cart_total >= cart_amount_qualify && cart_amt < 15000" class="text-center promotion_alert_header">
+      FREE delivery won! Add &#x20A6;{{(15000 - cart_amt).toLocaleString()}} more to get FREE &#x20A6;1,000 Gift Card. <span class="text-black">Expires {{countdown_left}}</span>
+    </div>
+
+    <div v-else-if="isPromo && cart_total >= cart_amount_qualify && cart_amt >= 15000" class="text-center promotion_alert_header">
+        FREE delivery + &#x20A6;1,000 Gift Card won! <span class="text-black">Expires {{countdown_left}}</span>
     </div>
 
   </div>
@@ -26,7 +30,7 @@ export default {
       url: window.location.origin,
       isPromo: false,
       countdown_left: '',
-      cart_amount_qualify:10000
+      cart_amount_qualify:10000,
     }
   },
   computed : {
@@ -36,12 +40,18 @@ export default {
 
     qualify () {
       return (this.cart_amount_qualify - Number(this.cart_total))
+    },
+
+    cart_amt () {
+      return Number(this.cart_total);
     }
   },
   created () {
-    let startstring  = "Jun 28, 2021 00:00:59";          // set start date here   >>>
-    let futurestring = "Jul 3, 2021 23:59:59"; // set future date here; >>>
-    //=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    this.$store.getters.startstring   = "Jun 20, 2021 00:00:59";// set start date here   >>>
+    this.$store.getters.futurestring  = "Jul 3, 2021 23:59:59"; // set future date here; >>>
+
+    let startstring  = this.$store.getters.startstring;         
+    let futurestring = this.$store.getters.futurestring;
 
     //=>>Format todays date
     let montharray      = new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
