@@ -47,7 +47,7 @@ export default {
     }
   },
   created () {
-    this.$store.getters.startstring   = "Jun 20, 2021 00:00:59";// set start date here   >>>
+    this.$store.getters.startstring   = "Jun 27, 2021 00:00:59";// set start date here   >>>
     this.$store.getters.futurestring  = "Jul 3, 2021 23:59:59"; // set future date here; >>>
 
     let startstring  = this.$store.getters.startstring;         
