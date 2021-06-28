@@ -3,12 +3,12 @@
 
     <div v-if="isPromo && cart_total == 0" class="text-center promotion_alert_header">
       Shop for &#x20A6;{{cart_amount_qualify.toLocaleString()}} and get FREE Delivery <span class="text-black">Expires {{countdown_left}}.</span><br>
-      <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>
+      <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>.
     </div>
 
     <div v-else-if="isPromo && cart_total < cart_amount_qualify" class="text-center promotion_alert_header">
-      Add &#x20A6;{{qualify.toLocaleString()}} and get FREE Delivery <span class="text-black">Expires {{countdown_left}}.</span> <br>
-      <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>
+      Add &#x20A6;{{qualify.toLocaleString()}} more and get FREE Delivery <span class="text-black">Expires {{countdown_left}}.</span> <br>
+      <small><b>Get FREE &#x20A6;1,000 Gift Card on orders from &#x20A6;15,000</b></small>.
     </div>
 
     <div v-else-if="isPromo && cart_total >= cart_amount_qualify && cart_amt < 15000" class="text-center promotion_alert_header">
