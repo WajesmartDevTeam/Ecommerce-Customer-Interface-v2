@@ -1162,11 +1162,17 @@ export default {
       }
     },
 
-    deliveryFee () {
-      let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+  deliveryFee () {
+      let result = Number(this.order.delivery.charge) * (1 + (Number(this.delivery_fee_variation.delivery_area)/100) *(1 + (Number(this.delivery_fee_variation.basket_size)/100)));
       return isNaN(result) || result == undefined ? 0 : result;
-      // return this.order.delivery.charge;
+       return this.order.delivery.charge;
     },
+
+   // deliveryFee () {
+     // let result = Number(this.order.delivery.charge) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.delivery_area)/100)) + (Number(this.order.delivery.charge) * (Number(this.delivery_fee_variation.basket_size)/100));
+      //return isNaN(result) || result == undefined ? 0 : result;
+       //return this.order.delivery.charge;
+   // },
 
     ordertotal () {
       let total = (Number(this.order.cart_subtotal) + Number(this.deliveryFee));

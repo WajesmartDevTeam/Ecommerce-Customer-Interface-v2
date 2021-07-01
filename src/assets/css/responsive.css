@@ -122,13 +122,6 @@
     }
     
     @media screen and (max-width:425px) {
-        .vs__dropdown-menu{
-            max-height: 140px !important;
-            top: -124px;
-            height: 140px !important;
-            border: 1px solid #bfbdbd;
-        }
-
         #continue {
             position: absolute;
             top: 30%!important;
@@ -213,17 +206,6 @@
     /* large phone */
     
     @media screen and (max-width:425px) and (min-width:375px) {
-        
-        .vs__dropdown-menu{
-            max-height: 120px !important;
-            top: -124px;
-            height: 120px !important;
-            border: 1px solid #bfbdbd;
-            padding: 2px;
-            left: 10%;
-            width: 90% !important;
-        }
-
         .contact #contact-banner .banner-image {
             position: absolute;
             right: 0;
@@ -270,15 +252,6 @@
     /* android */
     
     @media screen and (max-width:375px) and (min-width:321px) {
-        .vs__dropdown-menu{
-            max-height: 118px !important;
-            top: -124px;
-            height: 118px !important;
-            border: 1px solid #bfbdbd;
-            padding: 2px;
-            left: 10%;
-            width: 90% !important;
-        }
         li.navlink a {
             font-size: 9px;
         }
@@ -314,14 +287,6 @@
         .product-group .product .product-image {
             width: auto;
             height: 95px;
-            margin: auto;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .product-group .product .hamper {
-            width: auto;
-            height: 180px;
             margin: auto;
             text-align: center;
             padding: 10px;
@@ -362,16 +327,6 @@
     /* iphone */
     
     @media screen and (max-width:320px) {
-        .vs__dropdown-menu{
-            max-height: 100px !important;
-            top: -124px;
-            height: 100px !important;
-            border: 1px solid #bfbdbd;
-            padding: 2px;
-            left: 10%;
-            width: 90% !important;
-        }
-
         li.navlink {
             margin: 0;
         }
@@ -422,13 +377,6 @@
         .product-group .product .product-image {
             width: auto;
             height: 95px;
-            margin: auto;
-            text-align: center;
-            padding: 10px;
-        }
-        .product-group .product .hamper {
-            width: auto;
-            height: 180px;
             margin: auto;
             text-align: center;
             padding: 10px;
