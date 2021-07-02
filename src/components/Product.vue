@@ -29,7 +29,7 @@
         data-target="#product"
         data-toggle="modal"
         >
-        <p class="description">{{product.name}}</p>
+        <p class="description">{{product.name}}<span v-if="product.avg_weight > 0"> ~ {{(product.avg_weight * 1).toString()}}Kg</span> </p>
 
         <div v-if="isProductPromotion()">
             <p class="description  desc mt-2" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><b>Content: </b>{{product.description}}</p>
@@ -41,7 +41,12 @@
         <p class="price">
             <span v-if="product.discount > 0">
                 <s>₦{{product.sellingprice.toLocaleString()}}</s><br>
-                   ₦{{product.discount.toLocaleString()}} <br>
+                   ₦{{product.discount.toLocaleString()}}
+                    <span v-if="product.avg_weight > 0">
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
+                    </span>
+                   
+                    <br>
                 <span class="badge badge-info">Online Discount</span>
             </span>
 
@@ -51,17 +56,29 @@
                         <s>₦{{ formatPrice(product.sellingprice) }}</s>
                     </span> <br>
                     <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
+
+                    <span v-if="product.avg_weight > 0">
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
+                    </span>
                 </span>
 
                 <span v-else-if="product.old_price != null && product.old_price != 'NULL' && product.old_price != '' && Number(product.old_price) > 0">
                     <span style="color:#808080;font-size:12px;">
-                        <s>₦{{ formatPrice(product.old_price) }}</s>
+                    <s>₦{{ formatPrice(product.old_price) }}</s>
                     </span> <br>
                     <span>₦{{ formatPrice(product.sellingprice) }}</span><span style="background-color: #ffcccb; font-size:12px;" class="float-right pr-1 pl-1">{{Math.round((( Number(product.sellingprice) - Number(product.old_price))/Number(product.old_price)) * 100)}}%</span>
+
+                    <span v-if="product.avg_weight > 0">
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
+                    </span>
                 </span>
 
                 <span  v-else class="price">
                     <br> ₦{{ formatPrice(product.sellingprice) }}
+
+                    <span v-if="product.avg_weight > 0">
+                        <small style="color:grey; font-size:10px;">(₦ {{avgPrice(product.sellingprice, product.avg_weight)}}/Kg)</small>
+                    </span>
                 </span>
             </span>
 
@@ -155,8 +172,17 @@ export default {
         }
     },
 
+    created () {
+       //function avgPrice(a,b){ return Number((a/b).toFixed(2)).toLocaleString(); };
+
+     
+
+    },
+
     methods: {
-        
+        avgPrice (a,b){ 
+            return Number((a/b).toFixed(2)).toLocaleString(); 
+        },
         viewProduct (product) {
             history.pushState({}, null, `/product/${product.store_id}/${product.category}/${product.name}`);
             let cart = this.$store.getters.cart;

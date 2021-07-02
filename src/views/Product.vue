@@ -8,7 +8,9 @@
             <h3 class="title">Product View</h3>
           </div>
         </div>
-        <div class="content container">
+        <div id="hide_container" style="padding:40vh 0"></div>
+
+        <div class="content container" id="show_container" style="display:none">
           <div
             v-if="Object.keys(product).length !== 0"
             id="product"
@@ -58,13 +60,14 @@
                     <p
                         v-else
                         class="availability out-stock"
-                    ><span><i
+                    ><span 
+                      v-if="$store.getters.isStoreSet!=false"><i
                         class="fa fa-check-square-o"
                         style="font-size: 13px;"
                     ></i> &nbsp;Out of Stock</span>
 
                     </p>
-                    <p class="price">
+                    <p class="price" v-if="$store.getters.isStoreSet!=false">
                       <span v-if="product.promo">
                         <span style="color:#ccc;font-size:13px;"><s>₦{{ formatPrice(product.sellingprice) }}</s></span> <br>
                         <span>₦{{ formatPrice(Math.round((product.promo.value_percent/100)*product.sellingprice)) }}</span>
@@ -278,8 +281,12 @@ export default {
 
                 })
                 this.product = pro;
+                
+                $("#hide_container").hide();
+                $("#show_container").show();
             } else {
               this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
+              setTimeout(function(){ location.href = "./"; }, 3000);
             }
             this.loader.hide()
           }
@@ -287,7 +294,7 @@ export default {
         })
         .catch(error => {
           this.$swal.fire('', `Product ${decodeURI(this.$route.params.name)} Was NoT Found under Category: ${this.$route.params.category} in ${this.$store.getters.store.name} Store`, "error" );
-          console.log(error)
+          setTimeout(function(){ location.href = "./"; }, 3000);
         });
     },
     addToCart (product, addid, addbtn, id) {
